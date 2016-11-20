@@ -1,0 +1,29 @@
+id,category_id/id,name
+projectsubcategory_1,sparkit.animal_rearing,Goats
+projectsubcategory_2,sparkit.animal_rearing,Cows
+projectsubcategory_3,sparkit.animal_rearing,Sheep
+projectsubcategory_4,sparkit.animal_rearing,Pigs
+projectsubcategory_5,sparkit.animal_rearing,Chickens
+projectsubcategory_6,sparkit.education,Vocational
+projectsubcategory_7,sparkit.education,Building school (nursery)
+projectsubcategory_8,sparkit.education,Building school (primary)
+projectsubcategory_9,sparkit.education,Building school (secondary)
+projectsubcategory_10,sparkit.education,Expanding existing school
+projectsubcategory_11,sparkit.infrastructure,Road
+projectsubcategory_12,sparkit.infrastructure,Bridge
+projectsubcategory_13,sparkit.infrastructure,Water
+projectsubcategory_14,sparkit.power,Power line (electricity)
+projectsubcategory_15,sparkit.social_business,Milling Machine
+projectsubcategory_16,sparkit.social_business,Beekeeping
+projectsubcategory_17,sparkit.social_business,Transport
+projectsubcategory_18,sparkit.social_business,Fish farm
+projectsubcategory_19,sparkit.agriculture,Crop: Maize
+projectsubcategory_20,sparkit.agriculture,Crop: Beans
+projectsubcategory_21,sparkit.agriculture,Crop: Potatoes
+projectsubcategory_22,sparkit.agriculture,Ox plough
+projectsubcategory_23,sparkit.health,Expanding existing clinic
+projectsubcategory_24,sparkit.health,Building health clinic
+projectsubcategory_25,sparkit.health,Pit Latrine
+projectsubcategory_26,sparkit.health,Education/sanitation
+projectsubcategory_26,sparkit.health,Access to treatment (transport)
+projectsubcategory_27,sparkit.social_business,Agriculture business

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+  		<!--Categories Form View -->
+  		<record model="ir.ui.view" id="project_categories_view">
+  			<field name="name">projectcategories.form</field>
+  			<field name="model">sparkit.projectcategory</field>
+  			<field name="arch" type="xml">
+  				<form string="Project Categories">
+  					<sheet>
+  						<group>
+  							<field name="name"/>
+  						</group>
+  						<seperator/>
+  						<field name="subcategory_ids"/>
+						</sheet>
+  				</form>
+  			</field>
+  		</record>
+
+  		<!-- Sub Categories Form View -->
+  		<record model="ir.ui.view" id="project_sub_categories_view">
+  			<field name="name">projectsubcategories.form</field>
+  			<field name="model">sparkit.projectsubcategory</field>
+  			<field name="arch" type="xml">
+  				<form string="Categories">
+  					<sheet>
+  						<group>
+  							<field name="name"/>
+  							<field name="category_id"/>
+  						</group>
+  					</sheet>
+  				</form>
+  			</field>
+  		</record>
+
+  		<!--Categories List View -->
+  		<record model="ir.ui.view" id="project_categories_tree">
+  			<field name="name">projectcategories.tree</field>
+  			<field name="model">sparkit.projectcategory</field>
+  			<field name="arch" type="xml">
+  				<tree string="Project Categories">
+  					<field name="name"/>
+  				</tree>
+  			</field>
+  		</record>
+
+  		<!--Sub Categories List View-->
+  		<record model="ir.ui.view" id="project_sub_category_tree">
+  			<field name="name">projectsubcategory.tree</field>
+  			<field name="model">sparkit.projectsubcategory</field>
+  			<field name="arch" type="xml">
+  				<tree string="Sub Categories" editable="bottom">
+  					<field name="name"/>
+  					<field name="category_id"/>
+  				</tree>
+  			</field>
+  		</record>
+
+  		<!--Categories Form Actions-->
+  		<record model="ir.actions.act_window" id="project_categories_list_action">
+  			<field name="name">Project Categories</field>
+  			<field name="res_model">sparkit.projectcategory</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  			<field name="help" type="html">
+  				<p class="oe_view_nocontent_create">Create the first Project Category!</p>
+  			</field>
+  		</record>
+
+  		<!--SubCategories Form Actions-->
+  		<record model="ir.actions.act_window" id="subproject_categories_list_action">
+  			<field name="name">ProjectSubCategories</field>
+  			<field name="res_model">sparkit.projectsubcategory</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  			<field name="help" type="html">
+  				<p class="oe_view_nocontent_create">Create the first Project Category!</p>
+  			</field>
+  		</record>
+
+    </data>
+</openerp>

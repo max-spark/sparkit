@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+    <!--Partnerships Form View -->
+    <record model="ir.ui.view" id="partnerships_view">
+      <field name="name">partnerships.form</field>
+      <field name="model">sparkit.partnership</field>
+      <field name="arch" type="xml">
+        <form string="Partnership">
+          <sheet>
+            <group colspan="4" col="4" class="no_style">
+              <group colspan="2" col="2">
+                <field name="name"/>
+                <field name="community_id" options="{'no_create': True}"/>
+                <field name="partner_id"/>
+                <field name="date"/>
+              </group>
+              <group colspan="2" col="2">
+                <field name="description"/>
+              </group>
+            </group>
+            <field name="partnership_update_ids"
+              context="{'default_partnership_id': active_id, 'default_community_id': community_id}"/>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!--Partnerships List View -->
+    <record model="ir.ui.view" id="partnerships_tree">
+      <field name="name">partnerships.tree</field>
+      <field name="model">sparkit.partnership</field>
+      <field name="arch" type="xml">
+        <tree string="Partnership">
+          <field name="name"/>
+          <field name="date"/>
+          <field name="community_id"/>
+          <field name="partner_id"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!--Partnerships Form Actions-->
+    <record model="ir.actions.act_window" id="partnerships_list_action">
+      <field name="name">Partnerships</field>
+      <field name="res_model">sparkit.partnership</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">Create the first Partnership!</p>
+      </field>
+    </record>
+
+    <!--Partnerships Updates Form View -->
+    <record model="ir.ui.view" id="partnership_updates_view">
+      <field name="name">partnershipupdates.form</field>
+      <field name="model">sparkit.partnershipupdate</field>
+      <field name="arch" type="xml">
+        <form string="Partnership Updates">
+          <sheet>
+            <group colspan="4" col="4" class="no_style">
+              <group colspan="2" col="2">
+                <field name="name"/>
+                <field name="partnership_id"/>
+                <field name="community_id"/>
+                <field name="date"/>
+              </group>
+              <group colspan="2" col="2">
+                <field name="description"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!--Partnership Updates List View -->
+    <record model="ir.ui.view" id="partnership_updates_tree">
+      <field name="name">partnershipupdates.tree</field>
+      <field name="model">sparkit.partnershipupdate</field>
+      <field name="arch" type="xml">
+        <tree string="Partnership" editable="bottom">
+          <field name="name" invisible="1"/>
+          <field name="community_id" options="{'no_create': True}" invisible="1"/>
+          <field name="partnership_id"
+             domain="[('community_id', '=', community_id)]"/>
+          <field name="date"/>
+          <field name="description"/>
+        </tree>
+      </field>
+    </record>
+
+
+  </data>
+</openerp>

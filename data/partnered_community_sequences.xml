@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        
+        <record id="seq_partnerd_community_def" model="ir.sequence">
+            <field name="name">Partnered Community - Default</field>
+            <field name="code">partnered.community.def</field>
+            <field name="number_next">100001</field>
+            <field name="padding">6</field> 
+        </record>
+        
+        <record id="seq_partnered_community_ug" model="ir.sequence">
+            <field name="name">Partnered Community - Uganda</field>
+            <field name="code">partnered.community.ug</field>
+            <field name="number_next">20001</field>
+            <field name="padding">5</field> 
+        </record>
+        
+        <record id="seq_partnered_community_rw" model="ir.sequence">
+            <field name="name">Partnered Community - Rwanda</field>
+            <field name="code">partnered.community.rw</field>
+            <field name="number_next">10001</field>
+            <field name="padding">5</field> 
+        </record>
+        
+        <record id="seq_partnered_community_bdi" model="ir.sequence">
+            <field name="name">Partnered Community - Burundi</field>
+            <field name="code">partnered.community.bdi</field>
+            <field name="number_next">30001</field>
+            <field name="padding">5</field> 
+        </record>
+        
+    </data>
+</openerp>

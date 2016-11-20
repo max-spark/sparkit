@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        
+        <record id="facilitation" model="sparkit.training">
+            <field name="name">Facilitation</field>
+        </record>
+        
+        <record id="advocacy" model="sparkit.training">
+            <field name="name">Advocacy</field>
+        </record>
+        
+        <record id="mobilization" model="sparkit.training">
+            <field name="name">Mobilization</field>
+        </record>
+        
+        <record id="gender_empowerment" model="sparkit.training">
+            <field name="name">Gender Empowerment</field>
+        </record>
+                
+        <record id="leadership" model="sparkit.training">
+            <field name="name">Leadership</field>
+        </record> 
+               
+        <record id="community_building" model="sparkit.training">
+            <field name="name">Community Building</field>
+        </record>
+                
+        <record id="conflict_resolution" model="sparkit.training">
+            <field name="name">Conflict Resolution</field>
+        </record>                             
+    </data>
+</openerp>

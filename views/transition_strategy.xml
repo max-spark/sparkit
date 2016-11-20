@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+  		<!-- Transition Strategy Form View -->
+  		<record model="ir.ui.view" id="transition_strategy_view">
+  			<field name="name">transitionstrategy.form</field>
+  			<field name="model">sparkit.transitionstrategy</field>
+  			<field name="arch" type="xml">
+  				<form string="Transition Strategy" create="false">
+  					<sheet>
+  						<group colspan="4" col="4" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="name"/>
+  								<field name="community_id" options="{'no_create': True}"/>
+  								<field name="project_id"
+  									domain="[('community_id', '=', community_id)]"
+  									options="{'no_create': True}"/>
+									<field name="facilitator_id"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="post_implementation_start_date"/>
+  								<field name="project_category_id"/>
+  								<field name="project_subcategory_id"/>
+  							</group>
+  						</group>
+  						<group colspan="4" col="4" string="Project Management Training" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="mt_training1"/>
+  								<field name="mt_responsibility1"/>
+  								<field name="mt_month1"/>
+  								<field name="mt_training2"/>
+  								<field name="mt_responsibility2"/>
+  								<field name="mt_month2"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="mt_training3"/>
+  								<field name="mt_responsibility3"/>
+  								<field name="mt_month3"/>
+  								<field name="mt_training4"/>
+  								<field name="mt_responsibility4"/>
+  								<field name="mt_month4"/>
+  							</group>
+  						</group>
+  						<group colspan="4" col="4" string="Management Evaluation" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="me_target1"/>
+  								<field name="me_month1"/>
+  								<field name="me_target2"/>
+  								<field name="me_month2"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="me_target3"/>
+  								<field name="me_month3"/>
+  								<field name="me_target4"/>
+  								<field name="me_month4"/>
+  							</group>
+  						</group>
+  						<group colspan="4" col="4" string="Partnership" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="partner1_id"/>
+  								<field name="partnership_responsibiliy1"/>
+  								<field name="partnership_month1"/>
+  								<field name="partner2_id"/>
+  								<field name="partnership_responsibiliy2"/>
+  								<field name="partnership_month2"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="partner3_id"/>
+  								<field name="partnership_responsibiliy3"/>
+  								<field name="partnership_month3"/>
+  								<field name="partner4_id"/>
+  								<field name="partnership_responsibiliy4"/>
+  								<field name="partnership_month4"/>
+  							</group>
+  						</group>
+  						<group colspan="4" col="4" string="Pillar Training" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="pillar_training1_id" widget="selection"/>
+  								<field name="pillar_training1_desc"/>
+  								<field name="pillar_training_month1"/>
+  								<field name="pillar_training2_id" widget="selection"/>
+  								<field name="pillar_training2_desc"/>
+  								<field name="pillar_training_month2"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="pillar_training3_id" widget="selection"/>
+  								<field name="pillar_training3_desc"/>
+  								<field name="pillar_training_month3"/>
+  								<field name="pillar_training4_id" widget="selection"/>
+  								<field name="pillar_training4_desc"/>
+  								<field name="pillar_training_month4"/>
+  							</group>
+  						</group>
+  						<group colspan="4" col="4" string="PME Collection and Discussion" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="pme_month1"/>
+  								<field name="pme_month2"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="pme_month3"/>
+  								<field name="pme_month4"/>
+  							</group>
+  						</group>
+  						<group colspan="4" col="4" string="By-law Review" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="bylaw_review_month1"/>
+  								<field name="bylaw_review_month2"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="bylaw_review_month3"/>
+  								<field name="bylaw_review_month4"/>
+  							</group>
+  						</group>
+  						<group colspan="4" col="4" string="Leadership Review" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="leadership_review_month1"/>
+  								<field name="leadership_review_month2"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="leadership_review_month3"/>
+  								<field name="leadership_review_month4"/>
+  							</group>
+  						</group>
+  						<group colspan="4" col="4" string="Leadership Re-election" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="leadership_reelection_month1"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="leadership_reelection_month2"/>
+  							</group>
+  						</group>
+  						<group colspan="4" col="4" string="Meeting Dates" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="meeting1"/>
+  								<field name="meeting2"/>
+  								<field name="meeting3"/>
+  								<field name="meeting4"/>
+  								<field name="meeting5"/>
+  								<field name="meeting6"/>
+  								<field name="meeting7"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="meeting8"/>
+  								<field name="meeting9"/>
+  								<field name="meeting10"/>
+  								<field name="meeting11"/>
+  								<field name="meeting12"/>
+  								<field name="meeting13"/>
+  							</group>
+  						</group>
+  						<group colspan="4" col="4" string="Static Activities" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="static_activities_month1"/>
+  								<field name="static_activities_month2"/>
+  								<field name="static_activities_month6"/>
+  								<field name="static_activities_month8"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="static_activities_month10"/>
+  								<field name="static_activities_month12"/>
+  								<field name="static_activities_month18"/>
+  								<field name="static_activities_month24"/>
+  							</group>
+  						</group>
+  					</sheet>
+  				</form>
+  			</field>
+  		</record>
+
+  		<!--Transition Strategy List View -->
+  		<record model="ir.ui.view" id="transition_strategy_tree">
+  			<field name="name">transitionstrategy.tree</field>
+  			<field name="model">sparkit.transitionstrategy</field>
+  			<field name="arch" type="xml">
+  				<tree string="Transition Strategies">
+  					<field name="community_id"/>
+  				</tree>
+  			</field>
+  		</record>
+
+
+  		<!--Transition Strategy Form Actions-->
+  		<record model="ir.actions.act_window" id="transition_strategy_list_action">
+  			<field name="name">Transition Strategy</field>
+  			<field name="res_model">sparkit.transitionstrategy</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  			<field name="help" type="html">
+  				<p class="oe_view_nocontent_create">Create the first Transition Strategy!</p>
+  			</field>
+  		</record>
+
+    </data>
+</openerp>

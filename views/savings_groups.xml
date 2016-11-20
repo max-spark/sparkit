@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+  		<!--Savings Group Form View -->
+  		<record model="ir.ui.view" id="savings_groups_form_view">
+  			<field name="name">savingsgroups.form</field>
+  			<field name="model">sparkit.savingsgroup</field>
+  			<field name="arch" type="xml">
+  				<form string="Savings Groups" create="false">
+  					<sheet>
+  						<group colspan="4" col="4" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="community_id"
+  									options="{'no_create': True}"/>
+  								<field name="is_existing"/>
+  								<field name="start_date"/>
+  								<field name="end_date"/>
+  								<field name="is_sustaining"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="number_hh_at_start"/>
+  								<field name="start_capital"/>
+  								<field name="contribution_amount"/>
+  								<field name="contribution_frequency"/>
+  								<field name="latest_id" invisible="1"/>
+  								<field name="amount_in_bank"/>
+  								<field name="amount_in_circulation"/>
+  								<field name="total_saved"/>
+  							</group>
+  						</group>
+  						<field name="savings_group_update_ids"
+  							context="{'default_savings_group_id': active_id,
+  							'default_community_id': community_id}"/>
+  					</sheet>
+  				</form>
+  			</field>
+  		</record>
+
+  		<!--Savings Groups List View -->
+  		<record model="ir.ui.view" id="savings_groups_tree">
+  			<field name="name">savingsgroups.tree</field>
+  			<field name="model">sparkit.savingsgroup</field>
+  			<field name="arch" type="xml">
+  				<tree string="Savings Groups">
+  					<field name="name"/>
+  					<field name="community_id"/>
+  					<field name="start_date"/>
+  				</tree>
+  			</field>
+  		</record>
+
+  		<!-- Savings Group Form Actions-->
+  		<record model="ir.actions.act_window" id="savings_groups_list_action">
+  			<field name="name">Savings Groups</field>
+  			<field name="res_model">sparkit.savingsgroup</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  			<field name="help" type="html">
+  				<p class="oe_view_nocontent_create">
+  				Create the first Savings Group!</p>
+  			</field>
+  		</record>
+
+  		<!-- Savings Group Updates-->
+  		<record model="ir.ui.view" id="savings_group_updates_form_view">
+  			<field name="name">savingsgroupupdates.form</field>
+  			<field name="model">sparkit.savingsgroupupdate</field>
+  			<field name="arch" type="xml">
+  				<form string="Savings Group Updates" create="false">
+  					<sheet>
+  						<group colspan="4" col="4" class="no_style">
+  							<group colspan="2" col="2">
+									<field name="community_id" options="{'no_create': True}"/>
+  								<field name="savings_group_id"
+										domain="[('community_id', '=', community_id)]"
+  									options="{'no_create': True}"/>
+  								<field name="date"/>
+									<field name="number_hh"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="amount_in_bank"/>
+  								<field name="amount_in_circulation"/>
+									<field name="interest_earned"/>
+  							</group>
+  						</group>
+							<group colspan="4" col="4" class="no_style" string="Repayment">
+								<group colspan="2" col="2" string="Current">
+									<field name="total_loans_in_repayment_current"/>
+									<field name="total_loans_in_repayment_all_time"/>
+								</group>
+								<group colspan="2" col="2" string="All Time">
+									<field name="total_loans_in_repayment_ontime"/>
+									<field name="total_loans_in_repayment_ontime_all_time"/>
+								</group>
+							</group>
+  					</sheet>
+  				</form>
+  			</field>
+  		</record>
+
+  		<!-- Savings Group Updates List View -->
+  		<record model="ir.ui.view" id="independent_project_updates_tree">
+  			<field name="name">savingsgroupupdates.tree</field>
+  			<field name="model">sparkit.savingsgroupupdate</field>
+  			<field name="arch" type="xml">
+  				<tree string="Savings Group Updates">
+  					<field name="date"/>
+  					<field name="name" invisible="1"/>
+  					<field name="community_id" 
+  						options="{'no_create': True}"/>
+  					<field name="savings_group_id"
+  						 domain="[('community_id', '=', community_id)]"/>
+  					<field name="amount_in_bank"/>
+  					<field name="amount_in_circulation"/>
+						<field name="interest_earned"/>
+  				</tree>
+  			</field>
+  		</record>
+
+    </data>
+</openerp>

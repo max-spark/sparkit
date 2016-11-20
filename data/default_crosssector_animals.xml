@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="crosssector_goat" model="sparkit.crosssectoranimal">
+            <field name="name">Goat</field>
+            <field name="code">1</field>
+            <field name="filter">0</field>
+        </record>
+        
+        <record id="crosssector_sheep" model="sparkit.crosssectoranimal">
+            <field name="name">Sheep</field>
+            <field name="code">2</field>
+            <field name="filter">0</field>
+        </record>
+        
+        <record id="crosssector_cow" model="sparkit.crosssectoranimal">
+            <field name="name">Cow</field>
+            <field name="code">3</field>
+            <field name="filter">0</field>
+        </record>
+
+		<record id="crosssector_pig" model="sparkit.crosssectoranimal">
+            <field name="name">Pig</field>
+            <field name="code">4</field>
+            <field name="filter">0</field>
+        </record>
+
+        <record id="crosssector_otheranimal" model="sparkit.crosssectoranimal">
+            <field name="name">Other Animal</field>
+            <field name="code">5</field>
+            <field name="filter">0</field>
+        </record>
+        
+        <record id="crosssector_doesnotownanimals" model="sparkit.crosssectoranimal">
+            <field name="name">Does Not Own Animals</field>
+            <field name="code">99</field>
+            <field name="filter">0</field>
+        </record>
+
+		<record id="crosssector_morethanonetype" model="sparkit.crosssectoranimal">
+            <field name="name">More Than One Type of Animal</field>
+            <field name="code">999</field>
+            <field name="filter">0</field>
+        </record>
+
+		<record id="crosssector_unabletopurchaseanimals" model="sparkit.crosssectoranimal">
+			<field name="name">Not Able to Purchase Animals as a Result of Working with Spark</field>
+            <field name="code">99</field>
+            <field name="filter">1</field>
+		</record>
+		
+		<record id="crosssector_animalsnewcommunity" model="sparkit.crosssectoranimal">
+			<field name="name">New Community</field>
+            <field name="code">9999</field>
+            <field name="filter">1</field>
+		</record>
+		
+    </data>
+</openerp>

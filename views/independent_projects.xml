@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+  		<!-- Independent Projects Form View -->
+  		<record model="ir.ui.view" id="independent_projects_form_view">
+  			<field name="name">independentprojects.form</field>
+  			<field name="model">sparkit.independentproject</field>
+  			<field name="arch" type="xml">
+  				<form string="Independent Project" create="false">
+  					<sheet>
+  						<group colspan="4" col="4" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="community_id"
+  									options="{'no_create': True}"/>
+  								<field name="project_category_id" widget="selection"
+  									options="{'no_create': True, 'no_open': True}"/>
+  								<field name="project_subcategory_id" widget="selection"
+  									domain="[('category_id', '=', project_category_id)]"
+  									options="{'no_create': True, 'no_open': True}"/>
+  								<field name="number_project_updates"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="is_sustaining"/>
+  								<field name="start_date"/>
+  								<field name="end_date"/>
+  							</group>
+  						</group>
+  						<field name="project_update_ids"
+  							context="{'default_independent_project_id': active_id,
+  							'default_community_id': community_id}"/>
+  					</sheet>
+  				</form>
+  			</field>
+  		</record>
+
+  		<!--Independent Projects List View -->
+  		<record model="ir.ui.view" id="independent_projects_tree">
+  			<field name="name">independentprojects.tree</field>
+  			<field name="model">sparkit.independentproject</field>
+  			<field name="arch" type="xml">
+  				<tree string="Independent Projects">
+  					<field name="name"/>
+  					<field name="community_id"/>
+  					<field name="project_category_id"/>
+  				</tree>
+  			</field>
+  		</record>
+
+			<record model="ir.ui.view" id="independent_project_default_search">
+				<field name="name">independentprojects.search</field>
+				<field name="model">sparkit.independentproject</field>
+				<field name="arch" type="xml">
+					<search string="Independent Project(s)">
+						<field name="community_name"/>
+						<field name="community_number"/>
+						<field name="project_category_id"/>
+						<group expand="0" string="Group By">
+							<filter name="by_community" string="Community" context="{'group_by': 'community_id'}" help="Community"/>
+							<filter name="by_project" string="Project Category" context="{'group_by':'project_category_id'}" help="Project Category"/>
+						</group>
+					</search>
+				</field>
+			</record>
+
+  		<!-- Independent Project Form Actions-->
+  		<record model="ir.actions.act_window" id="independent_projects_list_action">
+  			<field name="name">Independent Projects</field>
+  			<field name="res_model">sparkit.independentproject</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  			<field name="help" type="html">
+  				<p class="oe_view_nocontent_create">
+  				Create the first Independent Project!</p>
+  			</field>
+  		</record>
+
+  		<!-- Independent Project Updates-->
+  		<record model="ir.ui.view" id="independent_project_updates_form_view">
+  			<field name="name">independentprojectupdates.form</field>
+  			<field name="model">sparkit.independentprojectupdate</field>
+  			<field name="arch" type="xml">
+  				<form string="Independent Project Update" create="false">
+  					<sheet>
+  						<group colspan="4" col="4" class="no_style">
+  							<group colspan="2" col="2">
+									<field name="community_id" options="{'no_create': True}"/>
+  								<field name="independent_project_id"
+  									options="{'no_create': True}"/>
+  								<field name="date"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="update"/>
+  							</group>
+  						</group>
+  					</sheet>
+  				</form>
+  			</field>
+  		</record>
+
+  		<!-- Independent Project Updates List View -->
+			<record model="ir.ui.view" id="independent_project_updates_list_view">
+				<field name="name">independentprojectupdates.form</field>
+				<field name="model">sparkit.independentprojectupdate</field>
+  			<field name="arch" type="xml">
+  				<tree string="Independent Project Updates" editable="bottom">
+  					<field name="date"/>
+  					<field name="name" invisible="1"/>
+  					<field name="community_id" invisible="1"/>
+  					<field name="independent_project_id"  options="{'no_create': True}"
+							domain="[('community_id', '=', community_id)]"/>
+  					<field name="update"/>
+  				</tree>
+  			</field>
+  		</record>
+
+			<!-- Independent Project Updates Actions-->
+  		<record model="ir.actions.act_window" id="independent_projects_updates_list_action">
+  			<field name="name">Independent Project Updates</field>
+  			<field name="res_model">sparkit.independentprojectupdate</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  		</record>
+
+    </data>
+</openerp>

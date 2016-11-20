@@ -1,0 +1,68 @@
+id,category_id/id,phase_id/id,name
+fcapactivities_1,fcapcategories_1,sparkit.community_identification,Spark Introduction
+fcapactivities_2,fcapcategories_1,sparkit.community_identification,Community Introduction
+fcapactivities_3,fcapcategories_2,sparkit.community_identification,Community Building (Before Partnership)
+fcapactivities_4,fcapcategories_3,sparkit.planning,Setting Expectations
+fcapactivities_5,fcapcategories_3,sparkit.planning,Mission Statement
+fcapactivities_6,fcapcategories_3,sparkit.planning,Partnership Agreement Signing
+fcapactivities_7,fcapcategories_3,sparkit.planning,Qualities of Good Leaders
+fcapactivities_8,fcapcategories_3,sparkit.planning,Leadership Positions and Responsibilities
+fcapactivities_9,fcapcategories_3,sparkit.planning,Electing Leadership
+fcapactivities_10,fcapcategories_3,sparkit.planning,Setting Ground Rules
+fcapactivities_11,fcapcategories_3,sparkit.planning,Gender Empowerment Activity
+fcapactivities_12,fcapcategories_3,sparkit.planning,Mobilization Action Plan
+fcapactivities_13,fcapcategories_3,sparkit.planning,Appreciative Inquiry
+fcapactivities_14,fcapcategories_3,sparkit.planning,Community Mapping - General
+fcapactivities_15,fcapcategories_4,sparkit.planning,Brainstorming Goals
+fcapactivities_16,fcapcategories_4,sparkit.planning,Prioritizing Goals
+fcapactivities_17,fcapcategories_4,sparkit.planning,Selecting a Goal
+fcapactivities_18,fcapcategories_4,sparkit.planning,Community Mapping - Track
+fcapactivities_19,fcapcategories_5,sparkit.planning,Introducing Objectives
+fcapactivities_20,fcapcategories_5,sparkit.planning,Focus Groups on Key Topics - Track
+fcapactivities_21,fcapcategories_5,sparkit.planning,Brainstorming Objectives
+fcapactivities_22,fcapcategories_5,sparkit.planning,Gathering Evidence
+fcapactivities_23,fcapcategories_5,sparkit.planning,Prioritizing Objectives
+fcapactivities_24,fcapcategories_5,sparkit.planning,Selecting First Objective
+fcapactivities_25,fcapcategories_6,sparkit.planning,Pathway Brainstorm Chart
+fcapactivities_26,fcapcategories_6,sparkit.planning,Feasibility Track - Study
+fcapactivities_27,fcapcategories_6,sparkit.planning,Selecting Top Pathway
+fcapactivities_28,fcapcategories_7,sparkit.planning,Why we Measure Success
+fcapactivities_29,fcapcategories_7,sparkit.planning,Brainstorming Measuring Success Targets
+fcapactivities_30,fcapcategories_7,sparkit.planning,Developing Measuring Success Indicators
+fcapactivities_31,fcapcategories_8,sparkit.planning,Introducing Action Plans
+fcapactivities_32,fcapcategories_8,sparkit.planning,Developing an Implementation Action Plan
+fcapactivities_33,fcapcategories_8,sparkit.planning,Developing a Structural Plan
+fcapactivities_34,fcapcategories_9,sparkit.planning,Introducing Budgeting
+fcapactivities_35,fcapcategories_9,sparkit.planning,Developing an Implementation Budget
+fcapactivities_36,fcapcategories_10,sparkit.planning,Introducing Operational Action Plans
+fcapactivities_37,fcapcategories_10,sparkit.planning,Developing an Operational Action Plan
+fcapactivities_38,fcapcategories_11,sparkit.planning,Introducing an Operational Budget
+fcapactivities_39,fcapcategories_11,sparkit.planning,Developing an Operational Budget
+fcapactivities_40,fcapcategories_12,sparkit.planning,Risk Assessment and Mitigation
+fcapactivities_41,fcapcategories_12,sparkit.planning,Community Engagement Plan
+fcapactivities_42,fcapcategories_12,sparkit.planning,Defining and Documenting Roles for Community Leaders
+fcapactivities_43,fcapcategories_12,sparkit.planning,Accountability and Transparency
+fcapactivities_44,fcapcategories_12,sparkit.planning,Record Keeping and Financial Management
+fcapactivities_45,fcapcategories_12,sparkit.planning,Writing by-laws
+fcapactivities_46,fcapcategories_13,sparkit.planning,Identifying Post-Implementation Support Needed
+fcapactivities_47,fcapcategories_13,sparkit.planning,Brainstorming Partners and Communities to Get Support From
+fcapactivities_48,fcapcategories_14,sparkit.planning,Proposal Review
+fcapactivities_49,fcapcategories_14,sparkit.planning,TA Review
+fcapactivities_50,fcapcategories_14,sparkit.planning,Other - fill in
+fcapactivities_51,fcapcategories_15,sparkit.planning,Training
+fcapactivities_52,fcapcategories_16,sparkit.implementation,Review/Adapt Implementation Action Plan
+fcapactivities_53,fcapcategories_16,sparkit.implementation,Review/Adapt Implementation Budget
+fcapactivities_54,fcapcategories_16,sparkit.implementation,Review Risk Mitigation Plan
+fcapactivities_55,fcapcategories_16,sparkit.implementation,Review Operational Budget
+fcapactivities_56,fcapcategories_16,sparkit.implementation,Review By-Laws
+fcapactivities_57,fcapcategories_16,sparkit.implementation,Training
+fcapactivities_58,fcapcategories_17,sparkit.post_implementation,Introducing Transition Strategy
+fcapactivities_59,fcapcategories_17,sparkit.post_implementation,Finalizing Transition Strategy Timeline
+fcapactivities_60,fcapcategories_17,sparkit.post_implementation,Reviewing Progress on Transition Strategy Goals
+fcapactivities_61,fcapcategories_17,sparkit.post_implementation,Reviewing Progress Toward's Community Goals and Objectives
+fcapactivities_62,fcapcategories_17,sparkit.post_implementation,Brainstorming Additional Ways to Work Toward's Community Objectives
+fcapactivities_63,fcapcategories_17,sparkit.post_implementation,Reviewing Measuring Success Data
+fcapactivities_64,fcapcategories_17,sparkit.post_implementation,Review of Leadership
+fcapactivities_65,fcapcategories_17,sparkit.post_implementation,Re-election of Leaders
+fcapactivities_66,fcapcategories_17,sparkit.post_implementation,Review of By-Laws
+fcapactivities_67,fcapcategories_17,sparkit.post_implementation,Training

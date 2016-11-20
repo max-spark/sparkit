@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+  		<record model="ir.ui.view" id="ivrf_report_form_view">
+  			<field name="name">ivrf.form</field>
+  			<field name="model">sparkit.ivrf</field>
+  			<field name="arch" type="xml">
+  				<form string="Implementation Visit Report Form">
+  					<sheet>
+  						<group colspan="4" col="4" string="Information"  class="no_style">
+  							<group colspan="2">
+  								<field name="community_id"
+  									options="{'no_create': True}"/>
+  								<field name="facilitator_id" options="{'no_create': True}"/>
+  								<field name="program_manager_id" options="{'no_create': True}"/>
+  							</group>
+  							<group colspan="2">
+  								<field name="visit_date"/>
+  								<field name="phase"/>
+  								<field name="step_id" widget="selection"/>
+  							</group>
+  						</group>
+  						<notebook>
+  							<page string="IVRF Form">
+								<group colspan="4" col="4" string="Attendance and Speaker Information"  class="no_style">
+									<group colspan="2" col="2">
+										<field name="attendance_females" />
+										<field name="attendance_males" />
+										<field name="attendance_total" />
+										<field name="attendance_female_leaders"/>
+										<field name="attendance_male_leaders"/>
+										<field name="attendance_first_time"/>
+									</group>
+									<group colspan="2" col="2">
+										<field name="speakers_female" />
+										<field name="speakers_male" />
+										<field name="speakers_total" />
+										<field name="speakers_first_time" />
+									</group>
+								</group>
+									<!--        MARGINAL GROUP TRACKING START  -->
+								<group colspan="4" col="4"  class="no_style">
+									<group colspan="2">
+										<field name="attendance_type1_id" widget="selection"/>
+										<field name="attendance1_total"/>
+										<field name="attendance_type2_id" widget="selection"/>
+										<field name="attendance2_total"/>
+										<field name="attendance_type3_id" widget="selection"/>
+										<field name="attendance3_total"/>
+										<field name="attendance_type4_id" widget="selection"/>
+										<field name="attendance4_total"/>
+									</group>
+									<group colspan="2">
+										<field name="speakers_type1_id" widget="selection"/>
+										<field name="speakers1_total"/>
+										<field name="speakers_type2_id" widget="selection"/>
+										<field name="speakers2_total"/>
+										<field name="speakers_type3_id" widget="selection"/>
+										<field name="speakers3_total"/>
+										<field name="speakers_type4_id" widget="selection"/>
+										<field name="speakers4_total"/>
+									</group>
+								</group>
+								<!-- MARGINAL GROUP TRACKING END  -->
+								<group colspan="4" col="4" string="Meeting Report"  class="no_style">
+									<group colspan="2">
+										<field name="activity_category1_id" widget="selection"
+											invisible="1"/>
+										<field name="activity1_id" widget="selection"
+											domain="[('phase', '=', phase)]"/>
+										<field name="activity1_accomplished"/>
+										<field name="activity1_desc"/>
+										<field name="activity_category2_id" widget="selection"
+											invisible="1"/>
+										<field name="activity2_id" widget="selection"
+											domain="[('phase', '=', phase)]"/>
+										<field name="activity2_accomplished"/>
+										<field name="activity2_desc"/>
+										<field name="activity_category3_id" widget="selection"
+											invisible="1"/>
+										<field name="activity3_id" widget="selection"
+											domain="[('phase', '=', phase)]"/>
+										<field name="activity3_accomplished"/>
+										<field name="activity3_desc"/>
+										<field name="facilitation_goal"/>
+										<field name="facilitation_goal_accomplished"/>
+										<field name="facilitation_goal_desc"/>
+										<field name="visit_duration"/>
+										<field name="visit_duration_minutes"/>
+										<field name="travel_duration"/>
+										<field name="travel_duration_minutes"/>
+									</group>
+									<group colspan="2">
+										<field name="meeting_started_on_time"/>
+										<field name="meeting_started_on_time_desc"/>
+										<field name="cmty_set_agenda"/>
+										<field name="cmty_set_agenda_desc"/>
+										<field name="conflicts_in_meeting"/>
+										<field name="conflicts_in_meeting_resolved"/>
+										<field name="conflicts_in_meeting_desc"/>
+										<field name="number_members_showing_leadership"/>
+										<field name="training_delivered1_id" widget="selection"/>
+										<field name="training_delivered_desc1" />
+										<field name="training_delivered2_id" widget="selection"/>
+										<field name="training_delivered_desc2" />
+										<field name="training_delivered3_id" widget="selection"/>
+										<field name="training_delivered_desc3" />
+										<field name="training_delivered_other"/>
+									</group>
+								</group>
+								<group colspan="4" col="4" string="Accountability and Transparency"  class="no_style">
+									<group colspan="2">
+										<field name="project_on_budget"/>
+										<field name="cmty_meeting_deadines"/>
+										<field name="leadership_presented_cashbook"/>
+										<field name="leadership_presented_cashbook_desc"/>
+										<field name="leadership_reported_finances"/>
+										<field name="leadership_reported_finances_desc"/>
+										<field name="leadership_presented_bankslips"/>
+										<field name="leadership_presented_bankslips_desc"/>
+										<field name="bank_deposits"/>
+										<field name="all_receipts_present"/>
+										<field name="all_receipts_present_desc"/>
+									</group>
+									<group colspan="2">
+										<field name="cmty_discussed_budget"/>
+										<field name="cmty_discussed_budget_desc"/>
+										<field name="knowledge_of_community_funds"/>
+										<field name="knowledge_of_community_funds_desc"/>
+										<field name="cashbook_updated"/>
+										<field name="cashbook_updated_desc"/>
+										<field name="noncommittee_cashbook_review"/>
+										<field name="noncommittee_cashbook_review_desc"/>
+									</group>
+								</group>
+								<group string="Community Report" colspan="4" col="4" class="no_style">
+									<group colspan="2" col="2">
+										<field name="training_needed"/>
+										<field name="training_needed1_id" widget="selection"/>
+										<field name="training_needed_desc1"/>
+										<field name="training_needed2_id" widget="selection"/>
+										<field name="training_needed_desc2"/>
+										<field name="training_needed3_id" widget="selection"/>
+										<field name="training_needed_desc3"/>
+										<field name="training_needed_other"/>
+									</group>
+									<group colspan="2" col="2">
+										<field name="cmty_reported_conflicts"/>
+										<field name="cmty_reported_conflicts_resolved"/>
+										<field name="cmty_reported_conflicts_desc"/>
+									</group>
+								</group>
+								<group string="Communications" colspan="4" col="2">
+									<field name="quotes_from_communtiy_members" />
+									<field name="ideas_for_social_media" />
+									<field name="story_collection" />
+								</group>
+								<group colspan="4" col="4" string="Next Meeting"  class="no_style">
+									<group colspan="2">
+										<field name="next_visit_date" />
+										<field name="next_meeting_category1_id" widget="selection"
+											invisible="1"/>
+										<field name="next_meeting_activity1_id" widget="selection"
+											domain="[('phase', '=', phase)]"/>
+										<field name="next_meeting_category2_id" widget="selection"
+											invisible="1"/>
+										<field name="next_meeting_activity2_id" widget="selection"
+											domain="[('phase', '=', phase)]"/>
+									</group>
+									<group colspan="2">
+										<field name="next_meeting_category3_id" widget="selection"
+											invisible="1"/>
+										<field name="next_meeting_activity3_id" widget="selection"
+											domain="[('phase', '=', phase)]"/>
+									</group>
+  								</group>
+  							</page>
+								<page string="Ind. Meetings">
+									<field name="independent_meeting_ids" nolabel="1"
+										context="{'default_community_id': community_id, 'default_date': visit_date}"/>
+								</page>
+  							<page string="Ind. Project Updates">
+  							  	<group colspan="4" col="4"  class="no_style">
+  									<field name="independent_project_update_ids" nolabel="1"
+  										context="{'default_community_id': community_id, 'default_date': visit_date}"/>
+  								</group>
+  							</page>
+								<page string="Savings Group Updates">
+									<field name="savings_group_update_ids"
+										context="{'default_community_id': community_id, 'default_date': visit_date}"/>
+								</page>
+								<page string="Project Support Initiatives">
+									<field name="project_support_initiative_ids"
+										context="{'default_community_id': community_id, 'default_date': visit_date}"
+										domain="[('community_id', '=', community_id)]"/>
+								</page>
+								<page string="Advocacy Updates">
+									<field name="partnership_update_ids"
+										context="{'default_community_id': community_id, 'default_date': visit_date}"
+										domain="[('community_id', '=', community_id)]"/>
+								</page>
+								<page string="Pilot Updates">
+									<field name="pilot_update_ids"
+										context="{'default_community_id': community_id, 'default_date': visit_date}"
+										domain="[('community_id', '=', community_id)]"/>
+								</page>
+  						</notebook>
+  					</sheet>
+  				</form>
+  			</field>
+  		</record>
+
+  		<!--IVRF List View -->
+  		<record model="ir.ui.view" id="ivrf_tree">
+  			<field name="name">ivrf.tree</field>
+  			<field name="model">sparkit.ivrf</field>
+  			<field name="arch" type="xml">
+  				<tree string="Visit Report Forms">
+  					<field name="community_id"/>
+  					<field name="facilitator_id"/>
+						<field name="visit_date"/>
+  				</tree>
+  			</field>
+  		</record>
+
+			<!-- IVRF Calendar View -->
+			<record model="ir.ui.view" id="ivrf_calendar_view">
+				<field name="name">ivrf.calendar</field>
+				<field name="model">sparkit.ivrf</field>
+				<field name="arch" type="xml">
+					<calendar string="Community Visits Calendar" date_start="visit_date" mode="month">
+								<field name="community_name"/>
+					</calendar>
+				</field>
+			</record>
+
+			<record model="ir.ui.view" id="ivrf_default_search">
+				<field name="name">ivrf.search</field>
+				<field name="model">sparkit.ivrf</field>
+				<field name="arch" type="xml">
+					<search string="Implementation Visit Report Forms">
+						<field name="community_name"/>
+						<field name="community_number"/>
+						<field name="facilitator_id"/>
+						<field name="program_manager_id"/>
+						<group expand="0" string="Group By">
+							<filter name="by_community" string="Community" context="{'group_by': 'community_id'}" help="Community"/>
+							<filter name="by_facilitator" string="Facilitator" context="{'group_by':'facilitator_id'}" help="Facilitator"/>
+							<filter name="by_pm" string="Program Manager" context="{'group_by':'program_manager_id'}" help="Program Manager"/>
+							<filter name="by_active" string="Active" context="{'group_by': 'is_active'}" help="Active"/>
+						</group>
+					</search>
+				</field>
+			</record>
+
+
+
+  		<!--IVRF Report Form Actions-->
+  		<record model="ir.actions.act_window" id="ivrf_list_action">
+  			<field name="name">IVRF</field>
+  			<field name="res_model">sparkit.ivrf</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form,calendar</field>
+  			<field name="help" type="html">
+  				<p class="oe_view_nocontent_create">Create the first IVRF!</p>
+  			</field>
+  		</record>
+    </data>
+</openerp>

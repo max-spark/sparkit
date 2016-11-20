@@ -1,0 +1,729 @@
+//Colors
+
+@spark-yellow:      #FAB833;
+@spark-dark-blue:   #2362A1;
+@spark-light-blue:  #76ACDC;
+@spark-red:         #ED675F;
+
+@sf-gray-blue:      #F7F9FB;
+
+@dark-blue:         #556990;
+@darker-blue:       #16325C;
+
+@gray-light:        #999;
+@gray:              #777;
+@gray-dark:         #333;
+
+
+//Font Families
+@font-face {
+  font-family: 'Avenir';
+  src: url('/sparkit/static/src/fonts/Avenir/AvenirBook.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('/sparkit/static/src/fontawesome/fonts/fontawesome-webfont.eot?v=4.6.3');
+  src: url('/sparkit/static/src/fontawesome/fonts/fontawesome-webfont.eot?#iefix&v=4.6.3') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.6.3') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.6.3') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.6.3') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+//Body Text
+body {
+  color:  @darker-blue;
+}
+
+//Hover Text
+
+a {
+    color: @spark-yellow;
+}
+
+a:hover {
+    color: darken(@spark-yellow, 13%);
+    text-decoration: underline;
+}
+
+
+// ----------------------
+// Navbar (top bar)
+// ----------------------
+
+@navbar-default-color:                  @spark-yellow;
+@navbar-default-bg:                     #fff;
+@navbar-default-border:                 darken(@navbar-default-bg, 6.5%);
+
+@navbar-default-link-color:             @spark-yellow;
+@navbar-default-link-hover-color:       @spark-yellow;
+@navbar-default-link-hover-bg:          darken(@spark-yellow, 15%);
+@navbar-default-link-active-color:      @spark-yellow;
+@navbar-default-link-active-bg:         darken(@spark-yellow, 10%);
+
+@navbar-inverse-color:                  @spark-yellow;
+@navbar-inverse-bg:                     #fff;
+@navbar-inverse-border:                 darken(@navbar-inverse-bg, 10%);
+
+@navbar-inverse-link-color:             @gray-dark;
+@navbar-inverse-link-hover-color:       @gray-dark;
+@navbar-inverse-link-active-color:      @gray-dark;
+@navbar-inverse-link-hover-bg:          darken(@navbar-inverse-bg, 5%);
+@navbar-inverse-link-active-bg:         @darken(@navbar-inverse-bg, 2.5%);
+
+.ul_spark_logo {
+    margin: 5px !important;
+    margin-left: -30px !important;
+    list-style: outside none none;
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+}
+
+#oe_main_menu_navbar {
+    .box-shadow(0px 0px 5px #999);
+    border: none;
+}
+
+.navbar-nav {
+    li {
+        a, button {
+            font-size: 14px !important;
+            padding: 5px 8px !important;
+            margin-top: 0 !important;
+            margin-bottom: -2px !important;
+            line-height: 30px !important;
+            font-weight: 200 !important;
+        }
+    }
+    .dropdown-menu {
+        li {
+            a, button {
+                padding: 4px 10px !important;
+                font-size: 14px !important;
+			}
+        }
+    }
+}
+
+//-----------------------
+//     Buttons
+//-----------------------
+
+@btn-default-color:              @spark-dark-blue;
+@btn-default-bg:                 #fff;
+@btn-default-border:             @gray-light;
+@btn-default-bg-hover:           @sf-gray-blue;
+
+@btn-primary-color:              @btn-default-color;
+@btn-primary-bg:                 #fff;
+@btn-primary-border:             @spark-dark-blue;
+
+@btn-success-color:              @btn-default-color;
+@btn-success-bg:                 @spark-light-blue;
+@btn-success-border:             @btn-success-bg;
+
+@btn-info-color:                 @btn-default-color;
+@btn-info-bg:                    @spark-dark-blue;
+@btn-info-border:                @btn-info-bg;
+
+/*@btn-warning-color:              @btn-default-color;
+@btn-warning-bg:                 @brand-warning;
+@btn-warning-border:             @btn-warning-bg;
+
+@btn-danger-color:               @btn-default-color;
+@btn-danger-bg:                  @brand-danger;
+@btn-danger-border:              @btn-danger-bg;*/
+
+
+
+//-----------------------
+//     Control Panel
+//-----------------------
+.openerp .oe-control-panel {
+    border-bottom: 1px solid @gray-light;
+    margin-bottom: 0px;
+    background-color: @sf-gray-blue;
+}
+
+.openerp .oe-control-panel .oe-view-title {
+    background-color: @sf-gray-blue;
+    font-size: 20px;
+    color: #1F497D !important;
+    font-family: 'Avenir';
+}
+
+//-----------------------
+//     Footer
+//-----------------------
+.openerp .oe-view-manager-content {
+    background-color: #fff;
+}
+
+//-----------------------
+//     Left Bar
+//-----------------------
+.openerp .oe_leftbar {
+    background:     #fff none repeat scroll 0 0 !important;
+    width:          175px;
+    color:          @gray-light;
+}
+
+.openerp .oe_logo {
+    display: none;
+}
+
+.openerp .oe_secondary_menu_section {
+    margin-top:     10px;
+    color:          @darker-blue;
+    font-size:      14px;
+    font-weight:    200;
+}
+
+.openerp .oe_secondary_submenu {
+    line-height:    1.3em;
+    padding:        0px !important;
+}
+
+.oe_menu_leaf {
+    font-size:      13px;
+    color:          @dark-blue;
+}
+
+.openerp .nav-pills > li {
+    margin: 0px !important;
+}
+
+.openerp .nav-pills > li.active > a {
+    background-color:   darken(@sf-gray-blue, 7.5%) !important;
+    color:              @darker-blue;
+    font-weight:        bold;
+    border-radius:      0;
+}
+
+.openerp .nav-pills > li > a:hover {
+    background-color:   darken(@sf-gray-blue, 10%) !important;
+    color:              @darker-blue;
+    border-radius:      0;
+}
+
+.openerp .oe_leftbar .oe_footer { //Removes Odoo Branding
+    width: 0px;
+    height: 0px;
+}
+
+
+//-----------------------
+//     Tooltips
+//-----------------------
+@tooltip-color:               lighten(@gray-light, 40%);
+@tooltip-bg:                  @darker-blue;
+@tooltip-opacity:             1;
+
+
+.openerp .oe_form_label_help:before{
+  font-family: 'FontAwesome';
+  content: "\f059";
+  color: @gray-light;
+  position: relative;
+}
+
+.openerp .oe_form_label_help:hover:before{
+  color: darken(@dark-blue, 15%);
+}
+
+
+//-----------------------
+//     Form Viewing
+//-----------------------
+
+.openerp .oe_form_sheet_width {
+    max-width: 100%;
+}
+
+.openerp .oe_form_sheetbg {
+    padding: 0px 0px;
+}
+
+.openerp .oe_application .oe_form_sheet {
+    border: 0px;
+}
+
+.openerp .oe_horizontal_separator {
+    color: #54698D;
+    border: 0px;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.openerp .oe_form td.oe_form_group_cell_label {
+    border: 0px;
+}
+
+.openerp .oe_form_group_row {
+    border-bottom: 1px solid @gray-lighter;
+}
+
+.openerp .oe_form_group_row:hover {
+    border-bottom-color: darken(@gray-lighter, 7.5%);
+}
+
+.openerp .oe_form td.oe_form_group_cell_label label {
+    display:        block;
+    text-align:     right;
+    white-space:    normal !important;
+    padding-left:   10px;
+    width:          200px;
+    color:          #556990;
+    font-size:      12px;
+    padding:        2px;
+    font-weight:    100 !important;
+}
+
+.openerp .oe_form_field {
+  color: @darker-blue !important;
+}
+
+.openerp .no_style {
+    border-bottom: 2px solid white;
+}
+
+.openerp .checklist {
+  border: 2px dotted darken(@sf-gray-blue, 10%) !important;
+}
+
+.openerp .checklist_header {
+  padding-left: 20px;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  margin: 5px !important;
+  color: @spark-dark-blue;
+  width: 250px;
+}
+
+.openerp .checklist_header:before {
+  font-family: 'FontAwesome';
+  content: "\f046";
+  padding-right: 2px;
+  color: @gray-light;
+  position: relative;
+}
+
+
+
+//-----------------------
+//  Form Inputs/Editing
+// ----------------------
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: @spark-light-blue;
+  box-shadow: 0 0 4px @spark-light-blue;
+  outline: 1px @spark-light-blue;
+  color: @darker-blue;
+}
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  border-color: 1px solid @spark-light-blue !important;
+  outline: 1px @spark-light-blue !important;
+  color: @darker-blue;
+}
+
+.openerp .oe_form .oe_form_required input:not([disabled]):not([readonly]), .openerp .oe_form .oe_form_required select:not([disabled]):not([readonly]), .openerp .oe_form .oe_form_required textarea:not([disabled]):not([readonly]) {
+    background-color: #fff !important;
+    border: 1px solid #ED675F;
+}
+
+.openerp .oe_form_editable .oe_list_editable .oe_list_content td.oe_readonly {
+    background-color: @sf-gray-blue;
+}
+
+.openerp .oe_form_field_many2one .oe_m2o_cm_button {
+    color: @spark-yellow;
+}
+
+.ui-menu .ui-state-focus, .ui-menu .ui-state-active {
+  background: @spark-yellow !important;
+  border: 1px @spark-yellow !important;
+}
+
+.openerp .oe_list.oe_list_editable.oe_editing .oe_form_field input, .openerp .oe_list.oe_list_editable.oe_editing .oe_form_field textarea {
+    border: 1px solid @spark-light-blue;
+    font-size: 12px;
+}
+
+.openerp .oe_form_editable .oe_list_editable .oe_list_content td.oe_required {
+  background-color: lighten(@spark-red, 20%) !important;
+}
+
+//-----------------------
+//  Tables
+// ----------------------
+
+.openerp .oe_list_content > tbody > tr:nth-child(odd) {
+    background-color: #fff !important;
+    background-image: none;
+}
+
+.openerp .oe_list_content > tbody > tr {
+    color: @darker-blue;
+    font-size: 13px;
+    height: 35px;
+}
+
+.openerp .oe_list_content > tbody > tr:hover {
+    background-color: #F1F4F8 !important;
+    color: @darker-blue;
+    background-image: none;
+}
+
+.openerp .oe_list_content > tbody > tr > td.oe_list_field_cell  {
+    padding: 12px !important;
+}
+
+.openerp .oe_list_content > thead {
+    border: 0px !important;
+    background: #fff;
+    color: @spark-dark-blue;
+}
+
+.openerp .oe_list_content th.oe_sortable:hover, .openerp .oe_list_content th.oe_sortable:hover div {
+    background-color: #F1F4F8;
+}
+
+.openerp .oe_list_content th.oe_sortable div {
+    min-height: 25px;
+    padding: 5px 0px;
+}
+
+.openerp .oe_list_content > tfoot {
+    border-top: 1px solid darken(#cacaca, 2%);
+    border-bottom: 0px;
+    background: #fff;
+    padding: 0px !important;
+}
+
+.openerp thead th {
+  border-left: 0px !important;
+  font-weight: 300 !important;
+  font-size: .9em;
+}
+
+//group header
+.openerp .oe_list .oe_list_content .oe_group_header {
+  background-color: #fff;
+  background-image: none;
+}
+
+// --------------------------
+//Search views - facet (filter)
+// ---------------------------
+// facet
+.openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_values {
+  background: #fff;
+  color: @darker-blue;
+  margin-left: 0px !important;
+  padding-left: 0px !important;
+}
+
+.openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_remove {
+  background: #fff;
+  color: @spark-yellow;
+}
+
+.openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_remove:hover {
+  font-weight: 600;
+  color: darken(@spark-yellow, 13%);
+  background: #fff;
+}
+
+.openerp .oe_tag {
+  border: 0px;
+  border-bottom: 1px dashed @spark-dark-blue;
+  background: #fff;
+  color: @darker-blue;
+}
+
+
+.openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .label {
+  color: @darker-blue !important;
+  background-color: #fff !important;
+  margin-right: 0px !important;
+  padding-right: 0px !important;
+}
+
+//Autocomplete
+.openerp .oe_searchview .oe-autocomplete ul li.oe-selection-focus {
+  background: @sf-gray-blue;
+  color: @darker-blue;
+}
+
+.openerp .oe_searchview .oe-autocomplete  {
+  background-color: #fff;
+  color: @darker-blue;
+}
+
+//------------------------
+// Odoo Nav Tabs
+//------------------------
+.nav-tabs {
+    background-color: darken(@sf-gray-blue, 2%);
+    border-bottom: 1px solid @spark-dark-blue;
+    border-top: 0px solid @spark-dark-blue;
+}
+
+.tab-content {
+    background-color: #fff;
+    padding-top:  10px;
+    border: 0px;
+}
+
+.nav-tabs > li > a {
+    border:     medium none;
+    color:      @darker-blue;
+    padding-top:  12px;
+    padding-bottom: 12px;
+    margin: 0px;
+}
+
+.nav-tabs > li.active > a:focus{
+    border: medium none;
+    border-bottom: 3px solid @spark-dark-blue!important;
+    border-radius: 0;
+    background-color: #fff;
+    padding-bottom: 9px;
+}
+
+.nav-tabs > li.active > a {
+    border: medium none;
+    border-bottom: 3px solid @spark-dark-blue !important;
+    border-radius: 0;
+    background-color: #fff;
+    padding-bottom: 9px;
+}
+
+.nav-tabs > li.active > a:hover {
+    border: medium none;
+    border-bottom: 3px solid @spark-dark-blue !important;
+    border-radius: 0;
+    background-color: #fff;
+    padding-bottom: 9px;
+}
+
+.nav-tabs > li > a:hover {
+    background-color: #fff;
+    border: medium none;
+    border-bottom: 3px solid @spark-dark-blue !important;
+    border-radius: 0;
+    color: @spark-dark-blue;
+    padding-bottom: 9px;
+}
+
+//------------------------
+//   Breadcrumbs
+//------------------------
+.breadcrumb a {
+    color: @spark-yellow;
+}
+
+.breadcrumb a:hover {
+    color: darken(@spark-yellow, 10%)
+}
+
+.breadcrumb > active {
+    color:  @spark-dark-blue !important;
+}
+
+.breadcrumb > li+li:before {
+    content: "\276F\00a0";
+}
+
+//------------------------
+// Odoo Loading Bar
+//------------------------
+.o_web_client .openerp .oe_loading {
+    background-color:   @darker-blue !important;
+    border-color:       darken(@darker-blue, 10%);
+    width:              100px;
+    opacity:            .9;
+}
+
+//-----------------------
+// Calendar
+//------------------------
+.ui-datepicker-title {
+  color: @darker-blue;
+  font-family: Arial;
+}
+
+.ui-datepicker-prev, .ui-datepicker-next {
+  color: #fff !important;
+}
+
+.ui-datepicker-calendar {
+  color: @darker-blue;
+  font-family: Arial;
+}
+
+.ui-datepicker-calendar > thead > tr > th {
+  color: @darker-blue;
+  text-align: center !important;
+}
+
+
+//-----------------------
+// Dashboard
+//------------------------
+.o_kanban_view.o_kanban_dashboard.o_salesteam_kanban {
+    @sale-table-spacing: 10px;
+
+    .o_kanban_record {
+        min-height: 250px;
+        @media (min-width: @screen-sm-min) {
+            min-width: 420px;
+        }
+    }
+
+    .o_sales_dashboard {
+        margin: (0 - @o-kanban-record-margin) (@o-kanban-record-margin - @odoo-horizontal-padding) @o-kanban-record-margin;
+        .o-flex(1, 0, 100%);
+        padding: 10px (@odoo-horizontal-padding - @sale-table-spacing);
+
+        background-color: @odoo-view-background-color;
+        position: relative;
+
+        .o_welcome_message {
+            width: 100%;
+            .o-position-absolute(@left: 0, @top: 0);
+            .o-flex-display();
+            .o-justify-content(center);
+
+            .o_welcome_image {
+                padding: 20px;
+            }
+            .o_welcome_content > a {
+                color: white;
+                display: inline-block;
+            }
+        }
+
+        > .o_demo {
+            opacity: 0.07;
+        }
+
+        > div {
+            display: inline-block;
+            vertical-align: top;
+            @media (min-width: @screen-sm-min) {
+                width: 50%;
+            }
+
+            > table {
+                margin-bottom: 0;
+                table-layout: fixed;
+                border-spacing: @sale-table-spacing 0px;
+                border-collapse: separate;
+
+                > tbody > tr > td {
+                    vertical-align: middle;
+                    text-align: center;
+                    border-top: 1px solid @odoo-view-background-color;
+                    width: 25%;
+
+                    height: 33px;
+
+                    span {
+                        display: inline;
+                    }
+
+                    a:hover {
+                        text-decoration: none;
+                    }
+
+                    &.o_main {
+                        background-color: @odoo-brand-optional;
+                        &:hover {
+                            background-color: darken(@odoo-brand-optional, 10%);
+                        }
+                        a {
+                            color: white;
+                        }
+                    }
+                    &.o_warning {
+                        background-color: orange;
+                        &:hover {
+                            background-color: darken(orange, 10%);
+                        }
+                        a {
+                            color: white;
+                        }
+                    }
+                    &.o_secondary {
+                        background-color: @odoo-brand-lightsecondary;
+                        &:hover {
+                            background-color: darken(@odoo-brand-lightsecondary, 10%);
+                        }
+                        a {
+                            color: black;
+                        }
+                    }
+                    &.o_highlight, .o_highlight {
+                        font-size: 50px;
+                    }
+                    &.o_text {
+                        text-align: left;
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+.openerp .oe_kanban_view .oe_kanban_crm_salesteams {
+  /* Customize width and height of kanban according bootstrap3 */
+  width: 357px;
+  min-height: 80px !important;
+}
+.openerp .oe_kanban_view .oe_kanban_crm_salesteams .oe_kanban_content div:first-child {
+  margin-right: 0px;
+}
+.openerp .oe_kanban_view .oe_deadline {
+  padding-left: 0.5em;
+}
+.openerp .oe_salesteam_kanban_view {
+  margin-left: 0px;
+  margin-right: -2px;
+}
+.openerp .oe_margin_top_16 {
+  margin-top: 16px;
+}

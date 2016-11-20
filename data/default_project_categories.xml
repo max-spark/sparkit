@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        
+        <record id="animal_rearing" model="sparkit.projectcategory">
+            <field name="name">Animal Rearing</field>
+        </record>
+        
+        <record id="education" model="sparkit.projectcategory">
+            <field name="name">Education</field>
+        </record>
+        
+        <record id="agriculture" model="sparkit.projectcategory">
+            <field name="name">Agriculture</field>
+        </record>
+        
+    	<record id="social_business" model="sparkit.projectcategory">
+            <field name="name">Social Business</field>
+        </record>
+        
+    	<record id="health" model="sparkit.projectcategory">
+            <field name="name">Health</field>
+        </record>
+        
+        <record id="power" model="sparkit.projectcategory">
+            <field name="name">Power</field>
+        </record>
+        
+        <record id="infrastructure" model="sparkit.projectcategory">
+            <field name="name">Infrastructure</field>
+        </record>
+    </data>
+</openerp>

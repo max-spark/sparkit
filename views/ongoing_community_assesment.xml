@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+  		<!-- Ongoing Community Assessemnts -->
+  		<record model="ir.ui.view" id="oca_form_view">
+  			<field name="name">oca.form</field>
+  			<field name="model">sparkit.oca</field>
+  			<field name="arch" type="xml">
+  				<form string="Ongoing Community Assessments" create="false">
+  					<sheet>
+						<group colspan="4" col="4" class="no_style" string="OCA Information">
+							<group colspan="2" col="2">
+								<field name="country_id"/>
+								<field name="community_id" options="{'no_create': True}"/>
+								<field name="date"/>
+								<field name="collected_by" options="{'no_create': True}"/>
+								<field name="oca_number"/>
+							</group>
+							<group colspan="2" col="2">
+								<field name="project_category_id"/>
+								<field name="project_category_name" invisible="1"/>
+								<field name="project_subcategory_id"/>
+								<field name="project_subcategory_name" invisible="1"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Section One: Background" class="no_style">
+							<group colspan="4" col="2">
+								<field name="community_member_id"/>
+								<field name="age"/>
+								<field name="sex"/>
+								<field name="household_size"/>
+								<field name="marital_status"/>
+								<field name="group_memberships"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" class="no_style">
+							<group colspan="2" col="2">
+								<field name="biggestconcern_family"/>
+								<field name="biggestconcern_family_category_id" widget="selection"/>
+								<field name="biggestconcern_family_subcategory_id" widget="selection"
+									domain="[('category_id', '=', biggestconcern_family_category_id)]"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Section Two: Capactiy" class="no_style">
+							<group colspan="2" col="2">
+								<field name="capacity14" widget="radio" options="{'horizontal': true}"/>
+								<field name="capacity15" widget="radio" options="{'horizontal': true}"/>
+								<field name="capacity16" widget="radio" options="{'horizontal': true}"/>
+								<field name="capacity17" widget="radio" options="{'horizontal': true}"/>
+								<field name="capacity18" widget="radio" options="{'horizontal': true}"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Section Three: Cohesion" class="no_style">
+							<group colspan="2" col="2">
+								<field name="cohesion19" widget="radio" options="{'horizontal': true}"/>
+								<field name="cohesion20" widget="radio" options="{'horizontal': true}"/>
+								<field name="cohesion21" widget="radio" options="{'horizontal': true}"/>
+								<field name="cohesion22" widget="radio" options="{'horizontal': true}"/>
+								<field name="cohesion23" widget="radio" options="{'horizontal': true}"/>
+								<field name="cohesion24" widget="radio" options="{'horizontal': true}"/>
+								<field name="cohesion25" widget="radio" options="{'horizontal': true}"/>
+								<field name="cohesion26" widget="radio" options="{'horizontal': true}"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Who Can You Rely On?" class="no_style">
+							<group colspan="2" col="2">
+								<field name="cohesion27" widget="radio" options="{'horizontal': true}"/>
+								<field name="cohesion28" widget="radio" options="{'horizontal': true}"/>
+								<field name="cohesion29" widget="radio" options="{'horizontal': true}"/>
+								<field name="cohesion30" widget="radio" options="{'horizontal': true}"/>
+								<field name="cohesion31" widget="radio" options="{'horizontal': true}"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Section Four: Leadership" class="no_style">
+							<group colspan="2" col="2">
+								<field name="leadership33" widget="radio" options="{'horizontal': true}"/>
+								<field name="leadership34" widget="radio" options="{'horizontal': true}"/>
+								<field name="leadership35" widget="radio" options="{'horizontal': true}"/>
+								<field name="leadership36" widget="radio" options="{'horizontal': true}"/>
+								<field name="leadership37" widget="radio" options="{'horizontal': true}"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Section Five: Civic Engagement" class="no_style">
+							<group colspan="2" col="2">
+								<field name="civic_engagement38" widget="radio" options="{'horizontal': true}"/>
+								<field name="civic_engagement39" widget="radio" options="{'horizontal': true}"/>
+								<field name="civic_engagement40" widget="radio" options="{'horizontal': true}"/>
+								<field name="civic_engagement41" widget="radio" options="{'horizontal': true}"/>
+								<field name="civic_engagement42" widget="radio" options="{'horizontal': true}"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Section Six: Cross Sector" class="no_style">
+							<group colspan="4" col="2">
+								<field name="baseline_item_ids" widget="many2many_checkboxes"
+									options="{'horizontal': true}"
+									domain="[('filter', '!=', 1)]"/>
+								<field name="total_baseline_items"/>
+								<field name="total_items_purchased"/>
+								<field name="items_purchased_ids" widget="many2many_checkboxes"
+									options="{'horizontal': true}"/>
+								<field name="baseline_animals_ids" widget="many2many_checkboxes"
+									options="{'horizontal': true}"
+									domain="[('filter', '!=', 1)]"/>
+								<field name="total_baseline_animals"/>
+								<field name="animals_purchased_ids" widget="many2many_checkboxes"
+									options="{'horizontal': true}"/>
+								<field name="total_purchased_animals"/>
+								<field name="education_access"/>
+								<field name="illnesses_last_month_ids" widget="many2many_checkboxes"/>
+								<field name="health_access"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Agriculture Projects" class="no_style" attrs="{'invisible': [('project_category_name', '!=', 'Agriculture')]}">
+							<group colspan="2" col="2">
+								<field name="agriculture_individual_benefit" widget="radio"/>
+								<field name="agriculture_individual_benefits_examples"/>
+								<field name="agriculture_community_benefit" widget="radio"/>
+								<field name="agriculture_community_benefits_examples"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Animal Rearing" class="no_style" attrs="{'invisible': [('project_category_name', '!=', 'Animal Rearing')]}">
+							<group colspan="2" col="2">
+								<field name="animalrearing_individual_benefit" widget="radio"/>
+								<field name="animalrearing_individual_benefits_examples"/>
+								<field name="animalrearing_community_benefit" widget="radio"/>
+								<field name="animalrearing_community_benefits_examples"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Vocational" class="no_style" attrs="{'invisible': [('project_subcategory_name', '!=', 'Vocational')]}">
+							<group colspan="2" col="2">
+								<field name="vocational_individual_benefit" widget="radio"/>
+								<field name="vocational_individual_benefits_examples"/>
+								<field name="vocational_community_benefit" widget="radio"/>
+								<field name="vocational_community_benefits_examples"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Infrastructure" attrs="{'invisible': [('project_category_name', '!=', 'Power'), ('project_category_name', '!=', 'Infrastructure')]}">
+							<field name="infrastructure_primary_energy_source" widget="radio"/>
+							<field name="infrastructure_other_sources" widget="radio"/>
+							<field name="infrastructure_spark" widget="radio"/>
+							<field name="water_primary_source" widget="radio"/>
+							<field name="clean_water_access_home" widget="radio"/>
+							<field name="clean_water_access_community" widget="radio"/>
+							<field name="clean_water_spark" widget="radio"/>
+						</group>
+						<group colspan="4" col="4" string="Nursery" attrs="{'invisible': [('project_subcategory_name', '!=', 'Building school (nursery)')]}">
+							<field name="nursery40"/>
+							<field name="nursery41"/>
+							<field name="nursery42" widget="radio"/>
+						</group>
+						<group colspan="4" col="4" string="Health" attrs="{'invisible': ['|', ('project_category_name', '!=', 'Health'), ('project_subcategory_name', '=', 'Pit Latrine')]}">
+							<field name="health20" widget="radio"/>
+							<field name="health21" widget="radio"/>
+							<field name="health22" widget="radio"/>
+						</group>
+						<group colspan="4" col="4" string="Sanitation" attrs="{'invisible': [('project_subcategory_name', '!=', 'Pit Latrine')]}">
+							<field name="sanitation10" widget="radio"/>
+							<field name="sanitation11" widget="radio"/>
+							<field name="sanitation12" widget="radio"/>
+							<field name="sanitation13" widget="radio"/>
+							<field name="sanitation14" widget="radio"/>
+							<field name="sanitation15" widget="radio"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+  		<!--OCAs List View -->
+  		<record model="ir.ui.view" id="oca_tree">
+  			<field name="name">oca.tree</field>
+  			<field name="model">sparkit.oca</field>
+  			<field name="arch" type="xml">
+  				<tree string="Ongoing Community Assessments">
+  					<field name="country_id"/>
+  					<field name="community_id"/>
+  					<field name="oca_number"/>
+  				</tree>
+  			</field>
+  		</record>
+
+  		<!-- OCA Form Actions-->
+  		<record model="ir.actions.act_window" id="oca_list_action">
+  			<field name="name">Ongoing Community Assessments</field>
+  			<field name="res_model">sparkit.oca</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  			<field name="help" type="html">
+  				<p class="oe_view_nocontent_create">
+  				Create the first OCA!</p>
+  			</field>
+  		</record>
+
+  		<!-- Biggest Concerns -->
+  		<record model="ir.ui.view" id="biggestconcern_form_view">
+  			<field name="name">biggestconcerncategory.form</field>
+  			<field name="model">sparkit.biggestconcerncategory</field>
+  			<field name="arch" type="xml">
+  				<form string="Biggest Concern" create="false">
+  					<sheet>
+						<group colspan="4" col="4">
+							<group colspan="2" col="2">
+								<field name="name"/>
+								<field name="category_code"/>
+							</group>
+						</group>
+						<field name="subcategory_ids"/>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+  		<!--Biggest Concern List View -->
+  		<record model="ir.ui.view" id="biggestconcern_tree">
+  			<field name="name">biggestconcerncategory.tree</field>
+  			<field name="model">sparkit.biggestconcerncategory</field>
+  			<field name="arch" type="xml">
+  				<tree string="Biggest Concern Categories">
+  					<field name="name"/>
+  				</tree>
+  			</field>
+  		</record>
+
+  		<!-- Biggest Concern Form Actions-->
+  		<record model="ir.actions.act_window" id="biggestconcerncategory_list_action">
+  			<field name="name">Biggest Concern Category</field>
+  			<field name="res_model">sparkit.biggestconcerncategory</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  		</record>
+
+  		<!-- Biggest Concerns (subcategory) -->
+  		<record model="ir.ui.view" id="biggestconcernsubcategory_form_view">
+  			<field name="name">biggestconcernsubcategory.form</field>
+  			<field name="model">sparkit.biggestconcernsubcategory</field>
+  			<field name="arch" type="xml">
+  				<form string="Biggest Concern SubCategory" create="false">
+  					<sheet>
+						<group colspan="4" col="4">
+							<group colspan="2" col="2">
+								<field name="name"/>
+								<field name="subcategory_code"/>
+								<field name="category_id"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+  		<!--Biggest Concern (subcateogyr) List View -->
+  		<record model="ir.ui.view" id="biggestconcernsubcategory_tree">
+  			<field name="name">biggestconcernsubcategory.tree</field>
+  			<field name="model">sparkit.biggestconcernsubcategory</field>
+  			<field name="arch" type="xml">
+  				<tree string="Biggest Concern SubCategories" editable="bottom">
+  					<field name="name"/>
+  					<field name="subcategory_code"/>
+  				</tree>
+  			</field>
+  		</record>
+
+  		<!-- Cross Sector Items Form -->
+  		<record model="ir.ui.view" id="cross_sector_items_form_view">
+  			<field name="name">crosssectoritems.form</field>
+  			<field name="model">sparkit.crosssectoritem</field>
+  			<field name="arch" type="xml">
+  				<form string="Cross Sector: Items" create="false">
+  					<sheet>
+						<group colspan="4" col="4">
+							<field name="name"/>
+							<field name="code"/>
+							<field name="filter"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+  		<!--Cross Sector Items List View -->
+  		<record model="ir.ui.view" id="cross_sector_items_tree">
+  			<field name="name">crosssectoritems.tree</field>
+  			<field name="model">sparkit.crosssectoritem</field>
+  			<field name="arch" type="xml">
+  				<tree string="Cross Sector: Items" editable="bottom">
+  					<field name="name"/>
+					<field name="code"/>
+					<field name="filter"/>
+  				</tree>
+  			</field>
+  		</record>
+
+  		<!-- Cross Sector Items-->
+  		<record model="ir.actions.act_window" id="crosssectoritems_list_action">
+  			<field name="name">Cross Sector: Items</field>
+  			<field name="res_model">sparkit.crosssectoritem</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  		</record>
+
+  		<!-- Cross Sector Animals -->
+  		<record model="ir.ui.view" id="cross_sector_animals_form_view">
+  			<field name="name">crosssectoranimals.form</field>
+  			<field name="model">sparkit.crosssectoranimal</field>
+  			<field name="arch" type="xml">
+  				<form string="Cross Sector: Animals" create="false">
+  					<sheet>
+						<group colspan="4" col="4">
+							<field name="name"/>
+							<field name="code"/>
+							<field name="filter"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+  		<!--Cross Sector Animals List View -->
+  		<record model="ir.ui.view" id="cross_sector_animals_tree">
+  			<field name="name">crosssectoranimals.tree</field>
+  			<field name="model">sparkit.crosssectoranimal</field>
+  			<field name="arch" type="xml">
+  				<tree string="Cross Sector: Animals" editable="bottom">
+  					<field name="name"/>
+					<field name="code"/>
+					<field name="filter"/>
+  				</tree>
+  			</field>
+  		</record>
+
+  		<!-- Cross Sector Animals-->
+  		<record model="ir.actions.act_window" id="crosssectoranimals_list_action">
+  			<field name="name">Cross Sector: Animals</field>
+  			<field name="res_model">sparkit.crosssectoranimal</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  		</record>
+
+
+  		<!-- Cross Sector Illnesses -->
+  		<record model="ir.ui.view" id="cross_sector_illnesses_form_view">
+  			<field name="name">crosssectorillnesses.form</field>
+  			<field name="model">sparkit.crosssectorillness</field>
+  			<field name="arch" type="xml">
+  				<form string="Cross Sector: Illnesses" create="false">
+  					<sheet>
+						<group colspan="4" col="4">
+							<field name="name"/>
+							<field name="code"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+  		<!--Cross Sector Illnesses -->
+  		<record model="ir.ui.view" id="cross_sector_illnesses_tree">
+  			<field name="name">crosssectorillnesses.tree</field>
+  			<field name="model">sparkit.crosssectorillness</field>
+  			<field name="arch" type="xml">
+  				<tree string="Cross Sector: Illnesses" editable="bottom">
+  					<field name="name"/>
+					<field name="code"/>
+  				</tree>
+  			</field>
+  		</record>
+
+  		<!-- Cross Sector Illnesses -->
+  		<record model="ir.actions.act_window" id="crosssectorillnesses_list_action">
+  			<field name="name">Cross Sector: Items</field>
+  			<field name="res_model">sparkit.crosssectorillness</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  		</record>
+
+    </data>
+</openerp>

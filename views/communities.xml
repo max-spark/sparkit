@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!--All Communities View-->
+
+		<!-- All Community Form View-->
+  		<record model="ir.ui.view" id="community_form_view">
+  			<field name="name">community.form</field>
+  			<field name="model">sparkit.community</field>
+  			<field name="arch" type="xml">
+  				<form string="Community" create="false">
+						<header>
+							<field name="phase" widget="statusbar"/>
+						</header>
+						<sheet>
+							<!--Phase Workflow-->
+							<button name="community_identification" type="workflow"
+								string="Reset to Community Identification"
+								states="partnership"/>
+							<button name="planning" type="workflow"
+								string="Community Ready to Begin Planning"
+								states="community_identification"
+								class="oe_highlight"/>
+							<button name="pm_planning" type="workflow"
+								string="Override Workflow: Planning"
+								states="community_identification"
+								class="oe_highlight"/>
+
+							<button name="partnership" type="workflow"
+								states="community_building"
+								string="Reset to Partnership"/>
+
+							<button name="community_building" type="workflow"
+								string="Community Ready to Begin Community Building"
+								states="partnership"
+								class="oe_highlight"/>
+							<button name="community_building_reset" type="workflow"
+								string="Reset to Community Building"
+								states="goal_setting_goals"
+								class="oe_highlight"/>
+
+							<button name="goal_setting_goals" type="workflow"
+								string="Move to Goal Setting: Goals"
+								states="community_building"
+								class="oe_highlight"/>
+							<button name="goal_setting_goals_reset" type="workflow"
+								string="Reset to Goal Setting: Goals"
+								states="goal_setting_objectives"
+								class="oe_highlight"/>
+
+							<button name="goal_setting_objectives" type="workflow"
+								string="Move to Goal Setting: Objectives"
+								states="goal_setting_goals"
+								class="oe_highlight"/>
+							<button name="goal_setting_objectives_reset" type="workflow"
+								string="Reset to Goal Setting: Objectives"
+								states="goal_setting_pathways"
+								class="oe_highlight"/>
+
+							<button name="goal_setting_pathways" type="workflow"
+								string="Move to Goal Setting: Pathways"
+								states="goal_setting_objectives"
+								class="oe_highlight"/>
+							<button name="goal_setting_pathways_reset" type="workflow"
+								string="Reset to Goal Setting: Pathways"
+								states="measuring_success"
+								class="oe_highlight"/>
+
+							<button name="measuring_success" type="workflow"
+								string="Move to Proposal Development: Measuring Success"
+								states="goal_setting_pathways"
+								class="oe_highlight"/>
+							<button name="measuring_success_reset" type="workflow"
+								string="Reset to Proposal Development: Measuring Success"
+								states="implementation_action_plan"
+								class="oe_highlight"/>
+
+
+							<button name="implementation_action_plan" type="workflow"
+								string="Move to Proposal Development: Implementation Action Plan"
+								states="measuring_success"
+								class="oe_highlight"/>
+							<button name="implementation_action_plan_reset" type="workflow"
+								string="Reset to Proposal Development: Implementation Action Plan"
+								states="implementation_budget"
+								class="oe_highlight"/>
+
+							<button name="implementation_budget" type="workflow"
+								string="Move to Proposal Development: Implementation Budget"
+								states="implementation_action_plan"
+								class="oe_highlight"/>
+							<button name="implementation_budget_reset" type="workflow"
+								string="Reset to Proposal Development: Implementation Budget"
+								states="operational_action_plan"
+								class="oe_highlight"/>
+
+							<button name="operational_action_plan" type="workflow"
+								string="Move to Proposal Development: Operational Action Plan"
+								states="implementation_budget"
+								class="oe_highlight"/>
+							<button name="operational_action_plan_reset" type="workflow"
+								string="Reset to Proposal Development: Operational Action Plan"
+								states="operational_budget"
+								class="oe_highlight"/>
+
+							<button name="operational_budget" type="workflow"
+								string="Move to Proposal Development: Operational Budget"
+								states="operational_action_plan"
+								class="oe_highlight"/>
+							<button name="operational_budget_reset" type="workflow"
+								string="Reset to Proposal Development: Operational Budget"
+								states="sustainability_plan"
+								class="oe_highlight"/>
+
+							<button name="sustainability_plan" type="workflow"
+								string="Move to Proposal Development: Sustainability Plan"
+								states="operational_budget"
+								class="oe_highlight"/>
+							<button name="sustainability_plan_reset" type="workflow"
+								string="Reset to Proposal Development: Sustainability Plan"
+								states="transition_strategy"
+								class="oe_highlight"/>
+
+							<button name="transition_strategy" type="workflow"
+								string="Move to Proposal Development: Transition Strategy"
+								states="sustainability_plan"
+								class="oe_highlight"/>
+							<button name="transition_strategy_reset" type="workflow"
+								string="Reset to Proposal Development: Transition Strategy"
+								states="proposal_review"
+								class="oe_highlight"/>
+
+							<button name="proposal_review" type="workflow"
+								string="Move to Proposal Development: Proposal Review"
+								states="transition_strategy"
+								class="oe_highlight"/>
+							<button name="proposal_review_reset" type="workflow"
+								string="Reset to Proposal Development: Proposal Review"
+								states="grant_agreement"
+								class="oe_highlight"/>
+
+							<button name="grant_agreement" type="workflow"
+								string="Move to Implementation: Grant Agreement"
+								states="proposal_review"
+								class="oe_highlight"/>
+							<button name="grant_agreement_reset" type="workflow"
+								string="Reset to Implementation: Grant Agreement"
+								states="first_disbursement"
+								class="oe_highlight"/>
+
+							<button name="first_disbursement" type="workflow"
+								string="Move to Implementation: First Disbursement"
+								states="grant_agreement"
+								class="oe_highlight"/>
+							<button name="first_disbursement_reset" type="workflow"
+								string="Reset to Implementation: First Disbursement"
+								states="project_management"
+								class="oe_highlight"/>
+
+							<button name="project_management" type="workflow"
+								string="Move to Implementation: Project Management"
+								states="first_disbursement"
+								class="oe_highlight"/>
+							<button name="project_management_reset" type="workflow"
+								string="Reset to Implementation: Project Management"
+								states="leadership"
+								class="oe_highlight"/>
+
+							<button name="leadership" type="workflow"
+								string="Move to Implementation: Leadership"
+								states="project_management"
+								class="oe_highlight"/>
+							<button name="leadership_reset" type="workflow"
+								string="Reset to Implementation: Leadership"
+								states="imp_transition_strategy"
+								class="oe_highlight"/>
+
+							<button name="imp_transition_strategy" type="workflow"
+								string="Move to Implementation: Transition Strategy"
+								states="leadership"
+								class="oe_highlight"/>
+							<button name="imp_transition_strategy_reset" type="workflow"
+								string="Reset to Implementation: Transition Strategy"
+								states="post_implementation"
+								class="oe_highlight"/>
+
+							<button name="post_implementation" type="workflow"
+								string="Move to Post Implementation"
+								states="imp_transition_strategy"
+								class="oe_highlight"/>
+							<button name="post_implementation_reset" type="workflow"
+								string="Reset to Post Implementation"
+								states="graduated"
+								class="oe_highlight"/>
+
+							<button name="graduated" type="workflow"
+								string="Community Graduated"
+								states="post_implementation"
+								class="oe_highlight"/>
+
+
+							<group colspan="6" col="6" class="checklist"
+							  attrs="{'invisible': [('state', '!=', 'community_identification')]}">
+								<group colspan="4" col="4" class="no_style">
+									<field name="is_community_description"/>
+									<field name="is_oca0_completed"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+							  attrs="{'invisible': [('state', '!=', 'partnership')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_partnership_agreement_signed"/>
+									<field name="is_partnership_hh_requirement_met"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+							  attrs="{'invisible': [('state', '!=', 'community_building')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_oca1_completed"/>
+									<field name="is_cmty_leaders_entered"/>
+									<field name="is_office_file_created"/>
+									<field name="is_partnerhip_agreement_stored"/>
+									<field name="is_partnership_agreement_uploaded"/>
+									<field name="is_spark_leaders_requirement"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+								attrs="{'invisible': [('state', '!=', 'goal_setting_goals')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_pm_approved_goals"/>
+									<field name="is_min_goals_brainstormed"/>
+									<field name="is_goals_ideas_not_null"/>
+									<field name="is_goals_selected_not_null"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+								attrs="{'invisible': [('state', '!=', 'goal_setting_objectives')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_objectives_ideas_not_null"/>
+									<field name="is_objectives_selected_not_null"/>
+									<field name="is_pm_approved_objectives"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+								attrs="{'invisible': [('state', '!=', 'goal_setting_pathways')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_project_description_not_null"/>
+									<field name="is_pm_approved_pathways"/>
+									<field name="is_oca2_completed"/>
+									<field name="is_min_pathways_brainstormed"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+								attrs="{'invisible': [('state', '!=', 'measuring_success')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_pm_approved_goals_complete"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+								attrs="{'invisible': [('state', '!=', 'implementation_action_plan')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_microgrant_amount_approved"/>
+									<field name="is_ta_workplan_approved"/>
+									<field name="is_ta_recruited"/>
+									<field name="is_measuring_success_approved"/>
+									<field name="is_bank_detail_added"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+								attrs="{'invisible': [('state', '!=', 'implementation_budget')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_implementation_action_plan_approved"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+								attrs="{'invisible': [('state', '!=', 'operational_action_plan')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_implementation_budget_approved"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+								attrs="{'invisible': [('state', '!=', 'operational_budget')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_operational_action_plan_approved"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+								attrs="{'invisible': [('state', '!=', 'sustainability_plan')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_operational_budget_approved"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+								attrs="{'invisible': [('state', '!=', 'transition_strategy')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="are_bylaws_acknowledged"/>
+									<field name="is_sustainability_plan_approved"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+								attrs="{'invisible': [('state', '!=', 'proposal_review')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_bank_account_open"/>
+									<field name="is_proposal_approved_by_ta"/>
+									<field name="is_proposal_approved_by_team"/>
+									<field name="is_oca3_completed"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+								attrs="{'invisible': [('state', '!=', 'grant_agreement')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_receipt_book_received"/>
+									<field name="is_disbursement_book_received"/>
+									<field name="is_grant_agreement_translated"/>
+									<field name="pg_signed_agreement"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+								attrs="{'invisible': [('state', '!=', 'first_disbursement')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_microgrant_disbursed"/>
+									<field name="is_microgrant_confirmed"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+								attrs="{'invisible': [('state', '!=', 'imp_transition_strategy')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_launch_approved_ta"/>
+									<field name="is_capacity_verified"/>
+									<field name="is_imp_action_plan_completed"/>
+									<field name="is_ta_visits_verified"/>
+									<field name="is_transition_strategy_completed"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+								attrs="{'invisible': [('state', '!=', 'post_implementation')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_all_mg_disbursed"/>
+									<field name="are_all_receipts_collected"/>
+									<field name="all_ta_trainings_occurred"/>
+									<field name="all_pillar_trainings_occured"/>
+									<field name="did_community_meet_pillars"/>
+									<field name="is_exit_agreement_signed"/>
+									<field name="did_community_report_progress"/>
+									<field name="are_next_steps_established"/>
+									<field name="are_transition_strategy_activities_completed"/>
+								</group>
+							</group>
+
+
+							<group colspan="4" col="4" class="no_style">
+								<group colspan="2" col="2">
+									<field name="name" attrs="{'readonly': [('state', '=', 'planning')]}"/>
+									<field name="community_number"/>
+									<field name="country_id" options="{'no_create': True}"/>
+									<field name="facilitator_id" options="{'no_create': True}"/>
+									<field name="program_manager_id" options="{'no_create': True}"/>
+									<field name="description"/>
+									<field name="workflow_config_id"/>
+								</group>
+								<group colspan="2" col="2">
+									<field name="is_partnered"/>
+									<field name="is_active" />
+									<field name="phase_id"/>
+									<field name="state"/>
+									<field name="last_visit_date"/>
+									<field name="next_visit_date"/>
+								</group>
+							</group>
+							<field name="country_onchange" invisible="1"/>
+  						<notebook>
+								<page string="Community Detail">
+									<group colspan="4" col="4" class="no_style">
+										<group colspan="2" col="2">
+											<field name="facilitation_language"/>
+											<field name="is_using_translator"/>
+											<field name="translator_id"/>
+											<field name="meeting_day" attrs="{'invisible': [('state', '=', 'community_identification')]}"/>
+										</group>
+		  							<group colspan="2" col="2">
+		  								<field name="date_scouted"/>
+		  								<field name="partnershp_date"
+												attrs="{'invisible': [('state', '=', 'community_identification')]}"/>
+		  								<field name="implementation_start_date"
+												attrs="{'invisible': ['|', ('state', '=', 'community_identification'),
+													('phase', '=', 'planning')]}"/>
+		  								<field name="post_implementation_start_date"
+												attrs="{'invisible': [('phase', '!=', 'post_implementation'),
+													('phase', '!=', 'graduated')]}"/>
+		  								<field name="graduation_date" attrs="{'invisible': [('phase', '!=', 'graduated')]}"/>
+		  							</group>
+									</group>
+									<notebook>
+										<page string="Community Demographics">
+											<group colspan="4" col="4" class="no_style">
+												<group string="Community Demographics" colspan="2" col="2">
+													<field name="num_hh_community" col="2"/>
+													<field name="num_ppl_community" col="2"/>
+												</group>
+											</group>
+										</page>
+		  							<page string="Location Detail">
+		  								<group colspans="4" col="4">
+		  									<field name="province"/>
+		  									<field name="district"/>
+		  									<field name="sector"/>
+		  									<field name="sub_county"/>
+		  									<field name="cell"/>
+		  									<field name="village"/>
+		  									<field name="community_gps_coordinates"
+		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the community meeting point." />
+		  									<field name="directions_to_community"
+		  										placeholder="Please provide directions for traveling to the community, including meeting location." />
+		  								</group>
+		  								<group colspan="4" string="Boda/Moto Contact Information" class="no_style">
+		  									<field name="bodamoto_drivers" nolabel="1"/>
+		  								</group>
+		  								<seperator/>
+		  								<group col="4" string="Location Mapping">
+		  									<field name="clean_water_gps_coordinates"
+		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the nearest clean water access point to this community."/>
+		  									<field name="health_center_gps_coordinates"
+		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the nearest health center to the community." />
+		  									<field name="nearest_clean_water_details"
+		  										placeholder="Name of village with nearest clean water access, Water supply, Type of source (boar hole, or spring, or well or other" />
+		  									<field name="nearest_health_center_details"
+		  										placeholder="Name of village, Health center Name, Level of health center" />
+		  									<field name="nearest_town_gps_coordinates"
+		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the nearest town to this community." />
+		  									<field name="school_gps_coordinates"
+		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the nearest school (at start of partnership)" />
+		  									<field name="nearest_town_details"
+		  										placeholder="What is the name of the nearest town?" />
+		  									<field name="nearest_school_details"
+		  										placeholder="Name of village, School, Type (nursery, primary, secondary, university), and Private or Public" />
+		  								</group>
+		  							</page>
+		  							<page string="Community Leaders">
+		  								<group colspan="4" string="Spark Leaders" class="no_style">
+		  									<field name="spark_leader_ids" nolabel="1"/>
+		  								</group>
+		  								<group colspan="4" string="Community Leaders" class="no_style">
+		  									<field name="community_leader_ids" nolabel="1"/>
+		  								</group>
+		  							</page>
+										<page string="Planning Group"
+												attrs="{'invisible': [('state', '=', 'community_identification')]}">
+											<group colspan="4" col="4" class="no_style">
+												<group string="Planning Group" colspan="2" col="2">
+													<field name="num_hh_in_planning_group"/>
+													<field name="num_ppl_in_planning_group"/>
+												</group>
+												<group string="Partnership Information" colspan="2" col="2">
+													<field name="num_households_at_partnership"/>
+													<field name="num_ppl_at_partnership"/>
+												</group>
+											</group>
+										</page>
+									</notebook>
+								</page>
+
+								<page string="Visit Forms">
+									<notebook>
+										<page string="Scouting">
+											<field name="scouting_form_ids"
+												context="{'default_community_id': active_id}"/>
+										</page>
+										<page string="Planning"
+											attrs="{'invisible': [('state', '=', 'community_identification')]}">
+		  								<field name="cvrf_ids"
+												context="{'default_community_id': active_id}"/>
+		  							</page>
+		  							<page string="Implementation"
+											attrs="{'invisible': ['|', ('state', '=', 'community_identification'),
+												('phase', '=', 'planning')]}">
+		  								<field name="ivrf_ids"
+												context="{'default_community_id': active_id}"/>
+		  							</page>
+		  							<page string="Post Implementation"
+											attrs="{'invisible': ['|', ('phase', '!=', 'post_implementation'),
+												('phase', '!=', 'graduated')]}">
+		  								<field name="pivrf_ids"
+												context="{'default_community_id': active_id}"/>
+		  							</page>
+										<page string="Independent Meetings"
+											attrs="{'invisible': [('state', '=', 'community_identification')]}">
+											<field name="independent_meeting_ids"
+												context="{'default_community_id': active_id}"/>
+										</page>
+									</notebook>
+								</page>
+								<page string="Projects" attrs="{'invisible': [('state', '=', 'community_identification')]}">
+									<notebook>
+										<page string="Project Detail">
+											<group colspan="4" col="4" class="no_style">
+												<group colspan="2" col="2">
+													<field name="goals_ideas"/>
+													<field name="goals_selected"/>
+													<field name="objectives_ideas"/>
+													<field name="objectives_selected"/>
+													<field name="pathways_ideas"/>
+												</group>
+												<group colspan="2" col="2">
+													<field name="project_description"/>
+													<field name="technical_advisor_id"/>
+												</group>
+											</group>
+										</page>
+		  							<page string="Grant Project(s) Budget(s)">
+		  								<field name="spark_project_ids"
+												context="{'default_community_id': active_id}"/>
+		  							</page>
+		  							<page string="Independent Projects">
+		  								<field name="independent_project_ids"
+												context="{'default_community_id': active_id}"/>
+		  							</page>
+		  							<page string="Savings Group(s)">
+		  								<field name="savings_group_ids"
+												context="{'default_community_id': active_id}"/>
+		  							</page>
+									</notebook>
+								</page>
+								<page string="M&#38;E Forms">
+									<notebook>
+										<page string="OCAs">
+											<field name="oca_ids"
+												context="{'default_community_id': active_id}"/>
+										</page>
+										<page string="Pillar Assessments">
+											<field name="pillar_assessment_ids"
+												context="{'default_community_id': active_id}"/>
+										</page>
+										<page string="Transition Strategy" attrs="{'invisible': [('state', '=', 'community_identification')]}">
+											<field name="transition_strategy_ids"/>
+										</page>
+									</notebook>
+								</page>
+								<page string="Partnerships" attrs="{'invisible': [('state', '=', 'community_identification')]}">
+									<field name="partnership_ids"/>
+								</page>
+								<page string="Pilots" attrs="{'invisible': [('state', '=', 'community_identification')]}">
+									<field name="pilot_ids"/>
+								</page>
+  						</notebook>
+  					</sheet>
+						<div class="oe_chatter">
+							<field name="message_follower_ids" widget="mail_followers"/>
+							<field name="message_ids" widget="mail_thread"/>
+						</div>
+  				</form>
+  			</field>
+  		</record>
+
+			<record id="facilitator_community_dashboard" model="ir.ui.view" >
+			  <field name="name">sparkit.facilitator.community.dashboard</field>
+			  <field name="model">sparkit.community</field>
+			  <field name="arch" type="xml">
+			    <sales_team_dashboard class="oe_background_grey o_kanban_dashboard o_salesteam_kanban" create="0">
+			      <field name="name"/>
+						<field name="next_visit_date"/>
+			      <templates>
+							<t t-name="kanban-box">
+								<table class="table table-condensed">
+									<tr>
+										<td>Test</td>
+									</tr>
+								</table>
+							</t>
+			      </templates>
+			    </sales_team_dashboard>
+			  </field>
+			</record>
+
+  		<!--All Community List View -->
+  		<record model="ir.ui.view" id="community_tree">
+  			<field name="name">community.tree</field>
+  			<field name="model">sparkit.community</field>
+  			<field name="arch" type="xml">
+  				<tree string="Community Tree">
+  					<field name="name"/>
+  					<field name="community_number"/>
+  					<field name="country_id"/>
+  				</tree>
+  			</field>
+  		</record>
+
+			<!-- Community Calendar View -->
+			<record model="ir.ui.view" id="community_calendar_view">
+				<field name="name">community.calendar</field>
+				<field name="model">sparkit.community</field>
+				<field name="arch" type="xml">
+					<calendar string="Community Visits Calendar" date_start="next_visit_date" color="phase_id" mode="month">
+								<field name="name"/>
+					</calendar>
+				</field>
+			</record>
+
+			<record model="ir.ui.view" id="community_default_search">
+				<field name="name">community.search</field>
+				<field name="model">sparkit.community</field>
+				<field name="arch" type="xml">
+					<search string="Communities">
+						<field name="name"/>
+						<field name="community_number"/>
+						<field name="country_id"/>
+						<field name="facilitator_id"/>
+						<field name="program_manager_id"/>
+          	<group expand="0" string="Group By">
+							<filter name="by_facilitator" string="Facilitator" context="{'group_by':'facilitator_id'}" help="Facilitator"/>
+							<filter name="by_country" string="Country" context="{'group_by':'country_id'}" help="Country"/>
+							<filter name="by_pm" string="Program Manager" context="{'group_by':'program_manager_id'}" help="Program Manager"/>
+							<filter name="by_partnered" string="Partnered" context="{'group_by': 'is_partnered'}" help="Partnered"/>
+							<filter name="by_active" string="Active" context="{'group_by': 'is_active'}" help="Active"/>
+						</group>
+					</search>
+				</field>
+			</record>
+
+
+  		<!--All Community Action-->
+  		<record model="ir.actions.act_window" id="community_list_action">
+  			<field name="name">Communities</field>
+  			<field name="res_model">sparkit.community</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form,calendar,sales_team_dashboard</field>
+  			<field name="help" type="html">
+  				<p class="oe_view_nocontent_create">Create the first community!</p>
+  			</field>
+  		</record>
+
+
+			<record model="ir.actions.act_window" id="burundi_partnered_list_action">
+  			<field name="name">Burundi Communities</field>
+  			<field name="res_model">sparkit.community</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form,calendar</field>
+  			<field name="domain">[('is_partnered', '=', 'True'),
+  				('country_id', '=', 25)]</field>
+  			<field name="help" type="html">
+  				<p class="oe_view_nocontent_create">Create the first community!</p>
+  			</field>
+  		</record>
+
+			<record model="ir.actions.act_window" id="rwanda_partnered_list_action">
+  			<field name="name">Rwanda Communities</field>
+  			<field name="res_model">sparkit.community</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form,calendar</field>
+  			<field name="domain">[('is_partnered', '=', 'True'), ('country_id', '=', 193)]</field>
+  			<field name="help" type="html">
+  				<p class="oe_view_nocontent_create">Create the first community!</p>
+  			</field>
+  		</record>
+
+			<record model="ir.actions.act_window" id="uganda_partnered_list_action">
+  			<field name="name">Uganda Communities</field>
+  			<field name="res_model">sparkit.community</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form,calendar</field>
+  			<field name="domain">[('is_partnered', '=', 'True'), ('country_id', '=', 232)]</field>
+  			<field name="help" type="html">
+  				<p class="oe_view_nocontent_create">Create the first community!</p>
+  			</field>
+  		</record>
+
+			<!-- Workflow Configuration-->
+			<!--Workflow Parameters Configuration Form View -->
+			<record model="ir.ui.view" id="workflow_config_form_view">
+				<field name="name">communityworkflowparameters.form</field>
+				<field name="model">sparkit.communityworkflowparameters</field>
+				<field name="arch" type="xml">
+					<form string="Workflow Configuration" create="false">
+						<sheet>
+							<field name="name"/>
+							<group colspan="4" col="4" class="no_style" string="Partnership to Community Building">
+								<group colspan="2" col="2">
+									<field name="partnership_hh_breakpoint"/>
+								</group>
+								<group colspan="2" col="2">
+									<field name="partnership_hh_upper"/>
+									<field name="partnership_hh_lower"/>
+								</group>
+							</group>
+							<group colspan="4" col="4" class="no_style" string="Community Building to Goal Setting: Goals">
+								<group colspan="2" col="2">
+									<field name="communitybldg_min_elected_leaders"/>
+									<field name="communitybldg_max_elected_leaders"/>
+								</group>
+							</group>
+							<group colspan="4" col="4" string="Goal Setting (Goals/Objectives/Pathways)">
+								<field name="min_goals_brainstormed"/>
+								<field name="min_pathways_brainstormed"/>
+							</group>
+						</sheet>
+					</form>
+				</field>
+			</record>
+
+			<!--Workflow Parameters Configuration List View  -->
+			<record model="ir.ui.view" id="workflow_config_tree">
+				<field name="name">communityworkflowparameters.tree</field>
+				<field name="model">sparkit.communityworkflowparameters</field>
+				<field name="arch" type="xml">
+					<tree string="Workflow Configuration">
+						<field name="name"/>
+					</tree>
+				</field>
+			</record>
+
+			<!-- Workflow Parameters Configuration Action -->
+			<record model="ir.actions.act_window" id="workflow_configuration_list_action">
+				<field name="name">Workflow Configuration</field>
+				<field name="res_model">sparkit.communityworkflowparameters</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
+			</record>
+
+
+    </data>
+</openerp>

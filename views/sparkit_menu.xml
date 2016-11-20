@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+  			<!--Communities Menu-->
+  			<menuitem id="main_all_communities_menu" name="Communities"/>
+  			<!-- All Communities-->
+	 			<menuitem id="all_communities_menu" name="Communities" sequence="1"
+          parent="main_all_communities_menu"/>
+        <menuitem id="all_communities_list_menu" name="All Communities"
+        	parent="all_communities_menu" action="community_list_action"/>
+				<menuitem id="partnered_communities" name="Partnered" sequence="2"
+					parent="main_all_communities_menu"/>
+
+				<menuitem id="all_partnered_list_action" name="All" sequence="1"
+					parent="partnered_communities"/>
+				<menuitem id="burundi_list_menu" name="Burundi" sequence="2"
+					parent="partnered_communities" action="burundi_partnered_list_action"/>
+				<menuitem id="rwanda_list_menu" name="Rwanda" sequence="3"
+					parent="partnered_communities" action="rwanda_partnered_list_action"/>
+				<menuitem id="uganda_list_menu" name="Uganda" sequence="4"
+					parent="partnered_communities" action="uganda_partnered_list_action"/>
+				<!--Community Workflow Configuration Menu-->
+				<menuitem id="community_configuration" name="Community Configuration" sequence="3"
+					parent="main_all_communities_menu"/>
+				<menuitem id="workflow_config_list_menu" name="Workflow" sequence="1"
+					parent="community_configuration" action="workflow_configuration_list_action"/>
+
+				<!-- Partnerships Menu-->
+				<menuitem id="project_partnerships" name="Partnerships"
+					sequence="3" action="partnerships_list_action"/>
+
+        <!-- Monitoring Forms Menu-->
+    		<menuitem id="top_visit_reports_menu" name="Monitoring Forms"/>
+  			<!-- Visit Reports -->
+        <menuitem id="main_visit_reports_menu" name="Visit Reports"
+          parent="top_visit_reports_menu" sequence="1"/>
+        <menuitem id="cvrf_menu" name="Planning" sequence="1"
+          parent="main_visit_reports_menu" action="cvrf_list_action"/>
+        <menuitem id="ivrf_menu" name="Implementation" sequence="2"
+          parent="main_visit_reports_menu" action="ivrf_list_action"/>
+        <menuitem id="pivrf_menu" name="Post Implementation" sequence="3"
+          parent="main_visit_reports_menu" action="pivrf_list_action"/>
+    		<!-- M&E Forms-->
+        <menuitem id="me_forms" name="M&#38;E Forms" parent="top_visit_reports_menu"
+        	sequence="2"/>
+        <menuitem id="oca_form" name="OCAs" parent="me_forms"
+        	action="oca_list_action"/>
+        <menuitem id="pillar_assessments" name="Pillar Assessments" parent="me_forms"
+        	action="pillar_assessment_list_action"/>
+        <!-- Other Forms-->
+        <menuitem id="other_forms" name="Other Forms" parent="top_visit_reports_menu"
+        	sequence="3"/>
+    		<menuitem id="transition_strategy_menu" name="Transition Strategies"
+          parent="other_forms" action="transition_strategy_list_action"/>
+        <menuitem id="scouting_form_menu" name="Scouting Forms"
+          parent="other_forms" action="scouting_form_list_action"/>
+				<menuitem id="pilots_menu" name="Pilots"
+					parent="other_forms" action="pilots_list_action"/>
+				<!--Configuration View-->
+        <menuitem id="main_vrfs_configuration_menu" name="Configuration"
+          parent="top_visit_reports_menu" sequence="4"/>
+	 			<menuitem id="grouptracking_menu" name="Group Tracking"
+          parent="main_vrfs_configuration_menu" action="grouptracking_list_action"
+          sequence="1"/>
+	 			<menuitem id="fcap_map_menu" name="FCAP Map"
+          parent="main_vrfs_configuration_menu" action="fcap_map_list_action"
+          sequence="2"/>
+        <menuitem id="trainings_menu" name="Trainings"
+          parent="main_vrfs_configuration_menu" action="trainings_list_action"
+          sequence="3"/>
+        <menuitem id="biggestconcern_menu" name="Biggest Concern (OCA)"
+        	parent="main_vrfs_configuration_menu"
+        	action="biggestconcerncategory_list_action"/>
+    		<menuitem id="crossectoritems_menu" name="Cross Sector - Items (OCA)"
+        	parent="main_vrfs_configuration_menu"
+        	action="crosssectoritems_list_action"/>
+        <menuitem id="crossectoranimals_menu" name="Cross Sector - Animals (OCA)"
+        	parent="main_vrfs_configuration_menu"
+        	action="crosssectoranimals_list_action"/>
+  			<menuitem id="crossectorillnesses_menu" name="Cross Sector - Illnesses (OCA)"
+        	parent="main_vrfs_configuration_menu"
+        	action="crosssectorillnesses_list_action"/>
+
+				<!--PROJECTS MENU-->
+  			<menuitem id="top_community_projects" name="Projects"
+  				action="spark_project_list_action"/>
+
+  			<!-- Spark Projects-->
+        <menuitem id="main_spark_projects_menu" name="Projects"
+        	parent="top_community_projects" sequence="1"/>
+        <menuitem id="spark_projects_menu" name="Spark Projects"
+        	parent="main_spark_projects_menu" action="spark_project_list_action"/>
+  			<menuitem id="independent_projects_menu" name="Independent Projects"
+        	parent="main_spark_projects_menu" action="independent_projects_list_action"/>
+        <menuitem id="savings_groups_menu" name="Savings Groups"
+        	parent="main_spark_projects_menu" action="savings_groups_list_action"/>
+
+				<!-- Hiding Proposal For Now
+				<menuitem id="proposals_menu" name="Proposals"
+					parent="top_community_projects" sequence="2"/>
+				<menuitem id="proposals_action_menu" name="Proposals"
+					parent="proposals_menu" action="community_proposal_list_action"/>-->
+
+
+
+				<!--Projects Configuration View-->
+        <menuitem id="main_projects_configuration_menu" name="Configuration"
+            parent="top_community_projects" sequence="4"/>
+	 			<menuitem id="project_categories_config_menu" name="Project Categories"
+            parent="main_projects_configuration_menu"
+            action="project_categories_list_action" sequence="2"/>
+        <menuitem id="budget_items_config_menu" name="Budget Items"
+        	parent="main_projects_configuration_menu" action="budget_items_list_action"
+        	sequence="1"/>
+
+    </data>
+</openerp>

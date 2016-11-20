@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+			<!-- Community Proposal Form View-->
+  		<record model="ir.ui.view" id="community_proposal_view">
+  			<field name="name">communityproposal.form</field>
+  			<field name="model">sparkit.communityproposal</field>
+  			<field name="arch" type="xml">
+  				<form string="Community Proposal" create="false">
+  					<sheet>
+              <group colspan="4" col="4" class="no_style">
+                <group colspan="2" col="2">
+                  <field name="community_id"/>
+                  <field name="facilitator_id"/>
+                  <field name="project_id"/>
+                </group>
+              </group>
+              <notebook>
+                <page string="1. Background">
+                  <group colspan="4" col="2">
+                    <field name="community_background"/>
+                    <field name="goals"/>
+                    <field name="objectives_identified"/>
+                    <field name="objectives_chosen"/>
+                  </group>
+                </page>
+                <page string="2. Pathway">
+                  <group colspan="4" col="2">
+                    <field name="pathways_identified"/>
+                    <field name="pathways_chosen"/>
+                    <field name="pathway_desc"/>
+                  </group>
+                </page>
+                <page string="3.PM&#38;E">
+                  <field name="pme_ids"/>
+                </page>
+								<page string="4. Implementation Action Plan">
+									<field name="implementation_activities_ids"/>
+								</page>
+								<page string="5. Implementation Budget">
+									<field name="implementation_budget_ids"/>
+								</page>
+								<page string="6. Operational Action Plan">
+									<field name="operational_activities_ids"/>
+								</page>
+								<page string="7. Operational Budget">
+									<group colspan="4" string="Profits" class="no_style">
+										<field name="operational_budget_profits_ids" nolabel="1"/>
+									</group>
+									<group colspan="4" string="Expenditure" class="no_style">
+										<field name="operational_budget_expenditure_ids" nolabel="1"/>
+									</group>
+								</page>
+								<page string="8. Sustainibility">
+									<p>What are the risks that the project may face and how will you avoid or address them?</p><br />
+									<group colspan="4" class="no_style">
+										<field name="risk_mitigation_strategy_ids" nolabel="1"/>
+									</group>
+									<group colspan="4" class="no_style">
+										<field name="engagement_strategy"/>
+										<p>How often will the community meet, and what will be discussed?</p><br />
+										<field name="planned_meeting_ids" nolabel="1"/>
+									</group>
+									<group colspan="4" class="no_style">
+										<p>What are the positions and responsibilities for the community's leadership committee(s)?</p><br />
+										<field name="community_leaders" nolabel="1"/>
+									</group>
+								</page>
+								<page string="9. Transition Strategy">
+									<group colspan="4" col="2">
+										<field name="resources_needed"/>
+										<field name="access_plan"/>
+										<field name="potential_partners"/>
+										<field name="learn"/>
+									</group>
+								</page>
+								<page string="Bylaws">
+									<field name="bylaw_ids"/>
+								</page>
+              </notebook>
+            </sheet>
+          </form>
+        </field>
+      </record>
+
+			<!--Community Proposal List View -->
+			<record model="ir.ui.view" id="community_proposal_tree">
+				<field name="name">communityproposal.tree</field>
+				<field name="model">sparkit.communityproposal</field>
+				<field name="arch" type="xml">
+					<tree string="Community Proposal">
+						<field name="name"/>
+					</tree>
+				</field>
+			</record>
+
+			<!--Community Proposal Action-->_
+			<record model="ir.actions.act_window" id="community_proposal_list_action">
+				<field name="name">Community Proposal</field>
+				<field name="res_model">sparkit.communityproposal</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
+				<field name="help" type="html">
+					<p class="oe_view_nocontent_create">Create the first community proposal!</p>
+				</field>
+			</record>
+
+			<!-- PM & E Form View-->
+			<record model="ir.ui.view" id="proposal_pme_view">
+				<field name="name">proposalpme.form</field>
+				<field name="model">sparkit.proposalpme</field>
+				<field name="arch" type="xml">
+					<form string="PM&#38;E Goal" create="false">
+						<sheet>
+			        <group colspan="4" col="4" class="no_style">
+			          <group colspan="2" col="2">
+			            <field name="goal"/>
+			            <field name="current_number"/>
+			            <field name="target_month12"/>
+			            <field name="target_month24"/>
+			          </group>
+			          <group colspan="2" col="2">
+			            <field name="metric"/>
+			            <field name="target_month6"/>
+			            <field name="target_month18"/>
+			          </group>
+			        </group>
+			        <group colspan="4" col="2">
+			          <field name="collection_plan"/>
+			          <field name="collection_frequency"/>
+			          <field name="collection_resources"/>
+			          <field name="responsible"/>
+			        </group>
+			      </sheet>
+			    </form>
+			  </field>
+			</record>
+
+			<!--PM&E Proposal List View -->
+			<record model="ir.ui.view" id="proposal_pme_tree">
+				<field name="name">proposalpme.tree</field>
+				<field name="model">sparkit.proposalpme</field>
+				<field name="arch" type="xml">
+					<tree string="PM&#38;E Goals">
+			      <field name="goal"/>
+			      <field name="metric"/>
+			      <field name="current_number"/>
+			      <field name="target_month6"/>
+			      <field name="target_month12"/>
+			      <field name="target_month18"/>
+			      <field name="target_month24"/>
+					</tree>
+				</field>
+			</record>
+
+			<!-- Proposal Activities Form View-->
+			<record model="ir.ui.view" id="proposal_activities_pme_view">
+			  <field name="name">proposalactivities.form</field>
+			  <field name="model">sparkit.proposalactivities</field>
+			  <field name="arch" type="xml">
+			    <form string="Proposal Activities" create="false">
+			      <sheet>
+			        <group colspan="4" col="4" class="no_style">
+			          <group colspan="4" col="4">
+			            <field name="activity"/>
+			            <field name="inputs"/>
+			            <field name="responsible"/>
+			            <field name="time_frame"/>
+			          </group>
+			        </group>
+			      </sheet>
+			    </form>
+			  </field>
+			</record>
+
+			<!-- Proposal Activities List View -->
+			<record model="ir.ui.view" id="proposal_activities_pme_tree">
+			  <field name="name">proposalactivities.tree</field>
+			  <field name="model">sparkit.proposalactivities</field>
+			  <field name="arch" type="xml">
+			    <tree string="Proposal Activities">
+			      <field name="activity"/>
+			      <field name="inputs"/>
+			      <field name="responsible"/>
+			      <field name="time_frame"/>
+			    </tree>
+			  </field>
+			</record>
+
+
+			<!-- Proposal Budget Form View-->
+			<record model="ir.ui.view" id="proposal_budget_view">
+			  <field name="name">proposalbudget.form</field>
+			  <field name="model">sparkit.proposalbudget</field>
+			  <field name="arch" type="xml">
+			    <form string="Proposal Budget" create="false">
+			      <sheet>
+			        <group colspan="4" col="4" class="no_style">
+			          <group colspan="4" col="2">
+									<field name="budget_item_id" options="{'no_create': True}"/>
+									<field name="unit"/>
+									<field name="unit_cost"/>
+									<field name="number_of_units"/>
+									<field name="budgeted"/>
+									<field name="source"/>
+			          </group>
+			        </group>
+			      </sheet>
+			    </form>
+			  </field>
+			</record>
+
+			<!--Proposal Budget List View-->
+			<record model="ir.ui.view" id="proposal_budget_tree">
+				<field name="name">proposalbudget.tree</field>
+				<field name="model">sparkit.proposalbudget</field>
+				<field name="arch" type="xml">
+					<tree string="Proposal Budget" editable="bottom">
+						<field name="budget_item_id" options="{'no_create': True}"/>
+						<field name="unit"/>
+						<field name="unit_cost"/>
+						<field name="number_of_units"/>
+						<field name="budgeted"/>
+						<field name="source"/>
+					</tree>
+				</field>
+			</record>
+
+			<!-- Operational Activities Form View-->
+			<record model="ir.ui.view" id="operational_activities_view">
+				<field name="name">operationalactivities.form</field>
+				<field name="model">sparkit.operationalactivities</field>
+				<field name="arch" type="xml">
+					<form string="Operational Activities" create="false">
+						<sheet>
+							<group colspan="4" col="4" class="no_style">
+								<group colspan="4" col="4">
+									<field name="activity"/>
+									<field name="inputs"/>
+									<field name="responsible"/>
+									<field name="time_frame"/>
+								</group>
+							</group>
+						</sheet>
+					</form>
+				</field>
+			</record>
+
+			<!-- Operational Activities List View -->
+			<record model="ir.ui.view" id="operational_activities_tree">
+				<field name="name">operationalactivities.tree</field>
+				<field name="model">sparkit.operationalactivities</field>
+				<field name="arch" type="xml">
+					<tree string="Operational Activities">
+						<field name="activity"/>
+						<field name="inputs"/>
+						<field name="responsible"/>
+						<field name="time_frame"/>
+					</tree>
+				</field>
+			</record>
+
+			<!-- Operational Budget - Profit -  Form View-->
+			<record model="ir.ui.view" id="operational_budget_profit_view">
+				<field name="name">operationalprofit.form</field>
+				<field name="model">sparkit.operationalprofit</field>
+				<field name="arch" type="xml">
+					<form string="Operational Budget - Profit" create="false">
+						<sheet>
+							<group colspan="4" col="4">
+								<field name="budget_item_id"/>
+								<field name="unit"/>
+								<field name="unit_number"/>
+								<field name="unit_income"/>
+								<field name="total_income"/>
+								<field name="responsible"/>
+								<field name="cash_storage"/>
+							</group>
+						</sheet>
+					</form>
+				</field>
+			</record>
+
+			<!-- Operational Budget - Profit -  List View -->
+			<record model="ir.ui.view" id="operational_budget_profit_tree">
+				<field name="name">operationalprofit.tree</field>
+				<field name="model">sparkit.operationalprofit</field>
+				<field name="arch" type="xml">
+					<tree string="Operational Budget - Profit" editable="bottom">
+						<field name="budget_item_id"/>
+						<field name="unit"/>
+						<field name="unit_number"/>
+						<field name="unit_income"/>
+						<field name="total_income"/>
+						<field name="responsible"/>
+						<field name="cash_storage"/>
+					</tree>
+				</field>
+			</record>
+
+			<!-- Operational Budget - Expenditure -  Form View-->
+			<record model="ir.ui.view" id="operational_budget_expenditure_view">
+				<field name="name">operationalexpenditure.form</field>
+				<field name="model">sparkit.operationalexpenditure</field>
+				<field name="arch" type="xml">
+					<form string="Operational Budget - Expenditure" create="false">
+						<sheet>
+							<group colspan="4" col="4">
+								<field name="budget_item_id"/>
+								<field name="unit"/>
+								<field name="unit_number"/>
+								<field name="unit_cost"/>
+								<field name="total_cost"/>
+								<field name="responsible"/>
+							</group>
+						</sheet>
+					</form>
+				</field>
+			</record>
+
+			<!-- Operational Budget - Expenditure -  List View -->
+			<record model="ir.ui.view" id="operational_budget_expenditure_tree">
+				<field name="name">operationalexpenditure.tree</field>
+				<field name="model">sparkit.operationalexpenditure</field>
+				<field name="arch" type="xml">
+					<tree string="Operational Budget - Expenditure" editable="bottom">
+						<field name="budget_item_id"/>
+						<field name="unit"/>
+						<field name="unit_number"/>
+						<field name="unit_cost"/>
+						<field name="total_cost"/>
+						<field name="responsible"/>
+					</tree>
+				</field>
+			</record>
+
+			<!-- Risk Mitigation Strategy-->
+			<record model="ir.ui.view" id="risk_mitigation_view">
+				<field name="name">riskmitigationstrategy.form</field>
+				<field name="model">sparkit.riskmitigationstrategy</field>
+				<field name="arch" type="xml">
+					<form string="Risk Mitigation" create="false">
+						<sheet>
+							<group colspan="4" col="4">
+								<field name="risk"/>
+								<field name="mitigation_strategy"/>
+							</group>
+						</sheet>
+					</form>
+				</field>
+			</record>
+
+			<!-- Risk Mitigation List View -->
+			<record model="ir.ui.view" id="risk_mitigation_tree">
+				<field name="name">riskmitigationstrategy.tree</field>
+				<field name="model">sparkit.riskmitigationstrategy</field>
+				<field name="arch" type="xml">
+					<tree string="Risk Mitigation" editable="bottom">
+						<field name="risk"/>
+						<field name="mitigation_strategy"/>
+					</tree>
+				</field>
+			</record>
+
+			<!-- Community Meetings -->
+			<record model="ir.ui.view" id="proposal_planned_meetings_view">
+				<field name="name">proposalplannedmeetings.form</field>
+				<field name="model">sparkit.proposalplannedmeetings</field>
+				<field name="arch" type="xml">
+					<form string="Risk Mitigation" create="false">
+						<sheet>
+							<group colspan="4" col="4">
+								<field name="meeting_type"/>
+								<field name="meeting_frequency"/>
+								<field name="discussion_topics"/>
+								<field name="activities"/>
+							</group>
+						</sheet>
+					</form>
+				</field>
+			</record>
+
+			<!-- Community Meetings -->
+			<record model="ir.ui.view" id="proposal_planned_meetings_tree">
+				<field name="name">proposalplannedmeetings.tree</field>
+				<field name="model">sparkit.proposalplannedmeetings</field>
+				<field name="arch" type="xml">
+					<tree string="Risk Mitigation" editable="bottom">
+						<field name="community_id"/>
+						<field name="proposal_id"/>
+						<field name="meeting_type"/>
+						<field name="meeting_frequency"/>
+						<field name="discussion_topics"/>
+						<field name="activities"/>
+					</tree>
+				</field>
+			</record>
+
+			<!-- Community Leadership -->
+			<record model="ir.ui.view" id="proposal_community_leaders_view">
+				<field name="name">proposalcommunityleaders.form</field>
+				<field name="model">sparkit.proposalcommunityleaders</field>
+				<field name="arch" type="xml">
+					<form string="Community Leaders" create="false">
+						<sheet>
+							<group colspan="4" col="4">
+								<field name="name"/>
+								<field name="responsibilities"/>
+								<field name="leader_ids"/>
+							</group>
+						</sheet>
+					</form>
+				</field>
+			</record>
+
+			<!-- Community Leadership -->
+			<record model="ir.ui.view" id="proposal_community_leaders_tree">
+				<field name="name">proposalcommunityleaders.tree</field>
+				<field name="model">sparkit.proposalcommunityleaders</field>
+				<field name="arch" type="xml">
+					<tree string="Risk Mitigation" editable="bottom">
+						<field name="name"/>
+						<field name="responsibilities"/>
+						<field name="leader_ids"/>
+					</tree>
+				</field>
+			</record>
+
+
+			<!-- Bylaws -->
+			<record model="ir.ui.view" id="bylaws_view">
+				<field name="name">communitybylaws.form</field>
+				<field name="model">sparkit.communitybylaws</field>
+				<field name="arch" type="xml">
+					<form string="Bylaws" create="false">
+						<sheet>
+							<group colspan="4" col="4">
+								<field name="number"/>
+								<field name="name"/>
+							</group>
+						</sheet>
+					</form>
+				</field>
+			</record>
+
+			<!-- Bylaws -->
+			<record model="ir.ui.view" id="bylaws_tree">
+				<field name="name">communitybylaws.tree</field>
+				<field name="model">sparkit.communitybylaws</field>
+				<field name="arch" type="xml">
+					<tree string="Bylaws" editable="bottom">
+						<field name="number"/>
+						<field name="name"/>
+					</tree>
+				</field>
+			</record>
+
+  </data>
+</openerp>

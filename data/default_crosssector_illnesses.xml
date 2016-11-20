@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+		<record id="crosssector_diarrhea" model="sparkit.crosssectorillness">
+            <field name="name">Diarrhea</field>
+            <field name="code">1</field>
+        </record>
+
+		<record id="crosssector_fever" model="sparkit.crosssectorillness">
+			<field name="name">Fever</field>
+            <field name="code">1</field>
+		</record>
+		
+		<record id="crosssector_headache" model="sparkit.crosssectorillness">
+			<field name="name">Headache</field>
+            <field name="code">1</field>
+		</record>
+
+		<record id="crosssector_diarrhea" model="sparkit.crosssectorillness">
+            <field name="name">Diarrhea</field>
+            <field name="code">1</field>
+        </record>
+
+		<record id="crosssector_malaria" model="sparkit.crosssectorillness">
+			<field name="name">Malaria</field>
+            <field name="code">1</field>
+		</record>
+		
+		<record id="crosssector_tb" model="sparkit.crosssectorillness">
+			<field name="name">Tuberculosis</field>
+            <field name="code">1</field>
+		</record>
+		
+		<record id="crosssector_hiv" model="sparkit.crosssectorillness">
+			<field name="name">HIV</field>
+            <field name="code">1</field>
+		</record>
+
+		<record id="crosssector_accident" model="sparkit.crosssectorillness">
+			<field name="name">Accident</field>
+            <field name="code">1</field>
+		</record>
+
+		<record id="crosssector_skin" model="sparkit.crosssectorillness">
+			<field name="name">Skin</field>
+            <field name="code">1</field>
+		</record>
+
+		<record id="crosssector_eye" model="sparkit.crosssectorillness">
+			<field name="name">Eye</field>
+            <field name="code">1</field>
+		</record>
+		
+		<record id="crosssector_ear" model="sparkit.crosssectorillness">
+			<field name="name">Ear</field>
+            <field name="code">1</field>
+		</record>
+		
+		<record id="crosssector_nose" model="sparkit.crosssectorillness">
+			<field name="name">Nose</field>
+            <field name="code">1</field>
+		</record>
+		
+		<record id="crosssector_throat" model="sparkit.crosssectorillness">
+			<field name="name">Throat</field>
+            <field name="code">1</field>
+		</record>
+		
+		<record id="crosssector_mentaldisorder" model="sparkit.crosssectorillness">
+			<field name="name">Mental Disorder</field>
+            <field name="code">1</field>
+		</record>
+		
+		<record id="crosssector_noillnesses" model="sparkit.crosssectorillness">
+			<field name="name">No Illnesses</field>
+            <field name="code">99</field>
+		</record>
+		
+		<record id="crosssector_otherillnesses" model="sparkit.crosssectorillness">
+			<field name="name">Other Illnesses</field>
+            <field name="code">999</field>
+		</record>
+		
+    </data>
+</openerp>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+  <!--Pilots Form View -->
+  <record model="ir.ui.view" id="pilots_form_view">
+    <field name="name">pilots.form</field>
+    <field name="model">sparkit.pilot</field>
+    <field name="arch" type="xml">
+      <form string="Pilots" create="false">
+        <sheet>
+          <group colspan="4" col="4" class="no_style">
+            <group colspan="2" col="2">
+							<field name="name"/>
+							<field name="date_started"/>
+							<field name="date_ended"/>
+							<field name="description"/>
+            </group>
+						<group colspan="2" col="2">
+							<field name="is_approved"/>
+							<field name="proposal_submission_date"/>
+							<field name="proposed_start_date"/>
+						</group>
+					</group>
+					<field name="community_ids"/>
+					<notebook>
+						<page string="Updates">
+							<field name="pilot_update_ids"
+								context="{'default_pilot_id': active_id,
+									'default_indicator1_name': indicator1,
+									'default_indicator2_name': indicator2,
+									'default_indicator3_name': indicator3,
+									'default_indicator4_name': indicator4,
+									'default_indicator5_name': indicator5,
+									'default_indicator6_name': indicator6,
+									'default_indicator7_name': indicator7,
+									'default_indicator8_name': indicator8,
+									'default_indicator9_name': indicator9,
+									'default_indicator10_name': indicator10}"/>
+						</page>
+						<page string="Indicators">
+							<group colspan="4" col="4" class="no_style">
+								<group colspan="2" col="2">
+									<field name="indicator1"/>
+									<field name="indicator2"/>
+									<field name="indicator3"/>
+									<field name="indicator4"/>
+									<field name="indicator5"/>
+								</group>
+								<group colspan="2" col="2">
+									<field name="indicator6"/>
+									<field name="indicator7"/>
+									<field name="indicator8"/>
+									<field name="indicator9"/>
+									<field name="indicator10"/>
+								</group>
+							</group>
+						</page>
+						<page string="Proposal" invisible="1">
+							<group colspan="4" col="2">
+								<field name="leading_activity"/>
+								<field name="supporting_activity"/>
+								<field name="learning_contribution"/>
+								<field name="key_questions"/>
+								<field name="key_outputs"/>
+								<field name="activities"
+									context="{'default_pilot_id': active_id}"/>
+								<field name="sharing"
+									context="{'default_pilot_id': active_id}"/>
+								<field name="success"/>
+								<field name="risks"
+									context="{'default_pilot_id': active_id}"/>
+								<field name="spark_support"/>
+								<field name="lc_support"/>
+							</group>
+						</page>
+					</notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Pilots List View -->
+  <record model="ir.ui.view" id="pilots_tree">
+    <field name="name">pilots.tree</field>
+    <field name="model">sparkit.pilot</field>
+    <field name="arch" type="xml">
+      <tree string="Pilots">
+      	<field name="name"/>
+				<field name="date_started"/>
+				<field name="date_ended"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Pilots Form Actions-->
+  <record model="ir.actions.act_window" id="pilots_list_action">
+    <field name="name">Pilots</field>
+    <field name="res_model">sparkit.pilot</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
+      Create the first Pilot!</p>
+    </field>
+  </record>
+
+	<!--Pilot Updates Form View -->
+	<record model="ir.ui.view" id="pilot_updates_form_view">
+		<field name="name">pilotupdates.form</field>
+		<field name="model">sparkit.pilotupdate</field>
+		<field name="arch" type="xml">
+			<form string="Pilot Updates" create="false">
+				<sheet>
+					<group colspan="4" col="4" class="no_style">
+						<group colspan="2" col="2">
+							<field name="date"/>
+							<field name="community_id" options="{'no_create': True}"
+								domain="[('pilot_ids', '=', pilot_id)]"/>
+							<field name="pilot_id" options="{'no_create': True}"
+								domain="[('community_ids', '=', community_id)]"/>
+							<field name="facilitator_id"/>
+						</group>
+						<group colspan="2" col="2">
+							<field name="current_phase_id" options="{'no_open': True}"/>
+							<field name="current_step_id" options="{'no_open': True}"/>
+						</group>
+					</group>
+					<group colspan="4" col="2">
+						<field name="indicator1_name" nolabel="1" col="1"/>
+						<field name="indicator1" nolabel="1" col="2"/>
+						<field name="indicator2_name" nolabel="1" col="1"/>
+						<field name="indicator2" nolabel="1" col="2"/>
+						<field name="indicator3_name" nolabel="1" col="1"/>
+						<field name="indicator3" nolabel="1" col="2"/>
+						<field name="indicator4_name" nolabel="1" col="1"/>
+						<field name="indicator4" nolabel="1" col="2"/>
+						<field name="indicator5_name" nolabel="1" col="1"/>
+						<field name="indicator5" nolabel="1" col="2"/>
+						<field name="indicator6_name" nolabel="1" col="1"/>
+						<field name="indicator6" nolabel="1" col="2"/>
+						<field name="indicator7_name" nolabel="1" col="1"/>
+						<field name="indicator7" nolabel="1" col="2"/>
+						<field name="indicator8_name" nolabel="1" col="1"/>
+						<field name="indicator8" nolabel="1" col="2"/>
+						<field name="indicator9_name" nolabel="1" col="1"/>
+						<field name="indicator9" nolabel="1" col="2"/>
+						<field name="indicator10_name" nolabel="1" col="1"/>
+						<field name="indicator10" nolabel="1" col="2"/>
+					</group>
+					<group colspan="4" col="2">
+						<field name="challenges"/>
+						<field name="successes"/>
+						<field name="comments"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<!-- Pilots Updates List View -->
+	<record model="ir.ui.view" id="pilot_updates_tree">
+		<field name="name">pilotupdates.tree</field>
+		<field name="model">sparkit.pilotupdate</field>
+		<field name="arch" type="xml">
+			<tree string="Pilot Updates">
+				<field name="name"/>
+				<field name="community_id"/>
+				<field name="pilot_id"/>
+				<field name="date"/>
+			</tree>
+		</field>
+	</record>
+
+
+	<!-- Pilot Activities List View -->
+	<record model="ir.ui.view" id="pilot_activities_tree">
+		<field name="name">pilotactivities.tree</field>
+		<field name="model">sparkit.pilotactivities</field>
+		<field name="arch" type="xml">
+			<tree string="Pilot Activities" editable="bottom">
+				<field name="pilot_id"/>
+				<field name="name"/>
+				<field name="responsible"/>
+				<field name="start_date"/>
+				<field name="end_date"/>
+				<field name="location"/>
+				<field name="resources"/>
+			</tree>
+		</field>
+	</record>
+
+
+		<!-- Pilot Sharing List View -->
+		<record model="ir.ui.view" id="pilot_sharing_tree">
+			<field name="name">pilotsharing.tree</field>
+			<field name="model">sparkit.pilotsharing</field>
+			<field name="arch" type="xml">
+				<tree string="Pilot Activities" editable="bottom">
+					<field name="pilot_id"/>
+					<field name="name"/>
+					<field name="responsible"/>
+					<field name="sharing_format"/>
+					<field name="sharing_deadline"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- Pilot Risks List View -->
+		<record model="ir.ui.view" id="pilot_risks_tree">
+			<field name="name">pilotrisks.tree</field>
+			<field name="model">sparkit.pilotrisks</field>
+			<field name="arch" type="xml">
+				<tree string="Pilot Risks" editable="bottom">
+					<field name="pilot_id"/>
+					<field name="name"/>
+					<field name="plan"/>
+				</tree>
+			</field>
+		</record>
+
+
+</data>
+</openerp>

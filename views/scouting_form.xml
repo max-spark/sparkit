@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+  		<!-- Scouting Form View -->
+  		<record model="ir.ui.view" id="scouting_form_view">
+  			<field name="name">scoutingform.form</field>
+  			<field name="model">sparkit.scoutingform</field>
+  			<field name="arch" type="xml">
+  				<form string="Scouting Form" create="false">
+  					<sheet>
+  						<group colspan="4" col="4" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="community_id" options="{'no_create': True}"/>
+  								<field name="group_type"/>
+  								<field name="facilitator_id" options="{'no_create': True}"/>
+  								<field name="scouting_date"/>
+  								<field name="attendance"/>
+  								<field name="num_of_households"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="country_id" options="{'no_create': True}"/>
+  								<field name="gps_coordinates"/>
+  								<field name="how_cmty_was_identified"/>
+  							</group>
+  						</group>
+  						<group colspan="4" col="4" string="Location" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="district"/>
+  								<field name="sector"/>
+  								<field name="village"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="cell"/>
+  								<field name="province"/>
+  								<field name="sub_county"/>
+  								<field name="city"/>
+  							</group>
+  						</group>
+  						<group string="Primary Contacts">
+  							<field name="primary_contact_ids" nolabel="1"/>
+  						</group>
+  						<group colspan="4" col="4" string="Pillar Rankings" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="civicengagement_ranking"/>
+  								<field name="civicengagement_desc"/>
+  								<field name="cohesion_ranking"/>
+  								<field name="cohesion_desc"/>
+  								<field name="leadership_ranking"/>
+  								<field name="leadership_desc"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="capacity_ranking"/>
+  								<field name="capacity_desc"/>
+  								<field name="sustainable_project_ranking"/>
+  								<field name="sustainable_project_desc"/>
+  								<field name="vulnerability_project_ranking"/>
+  								<field name="vulnerability_project_desc"/>
+  							</group>
+  						</group>
+  						<group colspan="4" col="4" string="Recommendation" class="no_style">
+  							<group colspan="2" col="2">
+  								<field name="overall_ranking"/>
+  								<field name="overall_ranking_desc"/>
+  							</group>
+  							<group colspan="2" col="2">
+  								<field name="recommendation"/>
+  								<field name="recommendation_desc"/>
+  							</group>
+  						</group>
+  					</sheet>
+  				</form>
+  			</field>
+  		</record>
+
+  		<!--Scouting Form List View -->
+  		<record model="ir.ui.view" id="scouting_form_tree">
+  			<field name="name">scoutingform.tree</field>
+  			<field name="model">sparkit.scoutingform</field>
+  			<field name="arch" type="xml">
+  				<tree string="Scouting Form">
+  					<field name="name"/>
+  					<field name="community_id"/>
+  				</tree>
+  			</field>
+  		</record>
+
+  		<!--Scouting Form Actions-->
+  		<record model="ir.actions.act_window" id="scouting_form_list_action">
+  			<field name="name">Scouting Form</field>
+  			<field name="res_model">sparkit.scoutingform</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  			<field name="help" type="html">
+  				<p class="oe_view_nocontent_create">Create the first Scouting Form!</p>
+  			</field>
+  		</record>
+    </data>
+</openerp>

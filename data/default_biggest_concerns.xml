@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        
+        <record id="biggestconcern_noidea" model="sparkit.biggestconcerncategory">
+            <field name="name">No Idea</field>
+            <field name="category_code">0</field>
+        </record>
+        
+        <record id="biggestconcern_agriculture" model="sparkit.biggestconcerncategory">
+            <field name="name">Agriculture</field>
+            <field name="category_code">10</field>
+        </record>
+        
+        <record id="biggestconcern_foodsecurity" model="sparkit.biggestconcerncategory">
+            <field name="name">Food Security/Nutrition</field>
+            <field name="category_code">20</field>
+        </record>
+             
+        <record id="biggestconcern_health" model="sparkit.biggestconcerncategory">
+            <field name="name">Health</field>
+            <field name="category_code">30</field>
+        </record>
+        
+                
+        <record id="biggestconcern_infrastructure" model="sparkit.biggestconcerncategory">
+            <field name="name">Infrastructure</field>
+            <field name="category_code">40</field>
+        </record>
+        
+                
+        <record id="biggestconcern_housing" model="sparkit.biggestconcerncategory">
+            <field name="name">Housing</field>
+            <field name="category_code">50</field>
+        </record>
+        
+                
+        <record id="biggestconcern_education" model="sparkit.biggestconcerncategory">
+            <field name="name">Education</field>
+            <field name="category_code">60</field>
+        </record>
+        
+    	<record id="biggestconcern_employment" model="sparkit.biggestconcerncategory">
+            <field name="name">Employment</field>
+            <field name="category_code">70</field>
+        </record>
+        
+        <record id="biggestconcern_incomefinance" model="sparkit.biggestconcerncategory">
+            <field name="name">Income and Finance</field>
+            <field name="category_code">80</field>
+        </record>
+        
+        <record id="biggestconcern_environment" model="sparkit.biggestconcerncategory">
+            <field name="name">Environment</field>
+            <field name="category_code">90</field>
+        </record>
+        
+        <record id="biggestconcern_animals" model="sparkit.biggestconcerncategory">
+            <field name="name">Animals</field>
+            <field name="category_code">100</field>
+        </record>
+        
+        
+        <record id="biggestconcern_socialbehavioural" model="sparkit.biggestconcerncategory">
+            <field name="name">Social/Behavioural</field>
+            <field name="category_code">110</field>
+        </record>
+        
+        <record id="biggestconcern_sanitation" model="sparkit.biggestconcerncategory">
+            <field name="name">Sanitation</field>
+            <field name="category_code">120</field>
+        </record>
+        
+        <record id="biggestconcern_householdessentials" model="sparkit.biggestconcerncategory">
+            <field name="name">Household Essentials</field>
+            <field name="category_code">130</field>
+        </record>
+        
+        <record id="biggestconcern_none" model="sparkit.biggestconcerncategory">
+            <field name="name">No biggestconcern/need</field>
+            <field name="category_code">99</field>
+        </record>
+        
+        <record id="biggestconcern_blank" model="sparkit.biggestconcerncategory">
+        	<field name="name">Blank</field>
+        	<field name="category_code">999</field>
+        </record>
+
+    </data>
+</openerp>

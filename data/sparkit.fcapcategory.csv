@@ -1,0 +1,18 @@
+id,phase_id/id,name
+fcapcategories_1,sparkit.community_identification,Scouting
+fcapcategories_2,sparkit.community_identification,Community Building
+fcapcategories_3,sparkit.planning,Partnership & Community Building
+fcapcategories_4,sparkit.planning,Goals
+fcapcategories_5,sparkit.planning,Objectives
+fcapcategories_6,sparkit.planning,Pathways
+fcapcategories_7,sparkit.planning,Measuring Success
+fcapcategories_8,sparkit.planning,Implementation Action Plan
+fcapcategories_9,sparkit.planning,Implementation Budget
+fcapcategories_10,sparkit.planning,Operational Action Plan
+fcapcategories_11,sparkit.planning,Operational Budget
+fcapcategories_12,sparkit.planning,Sustainability
+fcapcategories_13,sparkit.planning,Transition Strategy
+fcapcategories_14,sparkit.planning,Proposal Review
+fcapcategories_15,sparkit.planning,Training
+fcapcategories_16,sparkit.implementation,Implementation
+fcapcategories_17,sparkit.post_implementation,Post Implementation

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+  		<!-- Pillar Assessment Form View -->
+  		<record model="ir.ui.view" id="pillar_assessment_form_view">
+  			<field name="name">pillarassessment.form</field>
+  			<field name="model">sparkit.pillarassessment</field>
+  			<field name="arch" type="xml">
+  				<form string="Pillar Assessment" create="false">
+  					<sheet>
+  						<group colspan="4" col="4" class="no_style">
+  							<group colspan="2" col="2" string="Information">
+  								<field name="country_id"/>
+  								<field name="community_id" options="{'no_create': True}"/>
+  								<field name="date"/>
+  								<field name="phase_id"/>
+  								<field name="step_id"/>
+  								<field name="collected_by_id" options="{'no_create': True}"/>
+  								<field name="entered_by_id" options="{'no_create': True}"/>
+  							</group>
+						</group>
+						<group colspan="4" col="4" class="no_style">
+							<group colspan="2" col="2" string="Capacity">
+								<field name="socialskills" widget="radio" options="{'horizontal': true}"/>
+								<field name="technicalskills" widget="radio" options="{'horizontal': true}"/>
+								<field name="confidence" widget="radio" options="{'horizontal': true}"/>
+								<field name="agency" widget="radio" options="{'horizontal': true}"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" class="no_style">
+							<group colspan="2" col="2" string="Cohesion">
+								<field name="belonging" widget="radio" options="{'horizontal': true}"/>
+								<field name="communal_approach" widget="radio" options="{'horizontal': true}"/>
+								<field name="social_trust" widget="radio" options="{'horizontal': true}"/>
+								<field name="conflict_resolution" widget="radio" options="{'horizontal': true}"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" class="no_style">
+							<group colspan="2" col="2" string="Leadership">
+								<field name="extent" widget="radio" options="{'horizontal': true}"/>
+								<field name="quality" widget="radio" options="{'horizontal': true}"/>
+								<field name="equity_diversity" widget="radio" options="{'horizontal': true}"/>
+								<field name="accountability_transparency" widget="radio" options="{'horizontal': true}"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" class="no_style">
+							<group colspan="2" col="2" string="Civic Engagement">
+								<field name="commitment" widget="radio" options="{'horizontal': true}"/>
+								<field name="participation_quality" widget="radio" options="{'horizontal': true}"/>
+								<field name="participation_equity_diversity" widget="radio" options="{'horizontal': true}"/>
+								<field name="ownership" widget="radio" options="{'horizontal': true}"/>
+							</group>
+						</group>
+  					</sheet>
+  				</form>
+  			</field>
+  		</record>
+
+  		<!-- Pillar Assessment List View -->
+  		<record model="ir.ui.view" id="pillar_assessment_tree">
+  			<field name="name">pillarassessment.tree</field>
+  			<field name="model">sparkit.pillarassessment</field>
+  			<field name="arch" type="xml">
+  				<tree string="Pillar Assessments">
+					<field name="name"/>
+					<field name="phase_id"/>
+					<field name="step_id"/>
+  				</tree>
+  			</field>
+  		</record>
+
+  		<!-- Pillar Assessment Form Actions-->
+  		<record model="ir.actions.act_window" id="pillar_assessment_list_action">
+  			<field name="name">Pillar Assessments</field>
+  			<field name="res_model">sparkit.pillarassessment</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  			<field name="help" type="html">
+  				<p class="oe_view_nocontent_create">
+  				Create the first Pillar Assessment!</p>
+  			</field>
+  		</record>
+
+    </data>
+</openerp>

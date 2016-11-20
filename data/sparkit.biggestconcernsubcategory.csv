@@ -1,0 +1,47 @@
+id,category_id/id,name,subcategory_code
+1,sparkit.biggestconcern_agriculture,Lack of Land,11
+2,sparkit.biggestconcern_agriculture,Poor Harvest,12
+3,sparkit.biggestconcern_agriculture,Crop Disease,13
+4,sparkit.biggestconcern_agriculture,"Lack of Inputs (seed, fertilizer)",14
+5,sparkit.biggestconcern_agriculture,Small Land,15
+6,sparkit.biggestconcern_agriculture,Lack of Fertile Soil,16
+7,sparkit.biggestconcern_agriculture,Poor Farming Method,17
+8,sparkit.biggestconcern_foodsecurity,Food Insecurity,21
+9,sparkit.biggestconcern_foodsecurity,Malnutrition,22
+10,sparkit.biggestconcern_health,General Poor Health,31
+11,sparkit.biggestconcern_health,Lack of Access to Healthcare,32
+12,sparkit.biggestconcern_health,Illness - Self,33
+13,sparkit.biggestconcern_health,Illness - Child(ren),34
+14,sparkit.biggestconcern_health,Illness - Spouse,35
+15,sparkit.biggestconcern_health,Illness - Other,36
+16,sparkit.biggestconcern_health,Disability,37
+17,sparkit.biggestconcern_health,Lack of Insurance,38
+18,sparkit.biggestconcern_infrastructure,Lack of Water,41
+19,sparkit.biggestconcern_infrastructure,Lack of Road(s),42
+20,sparkit.biggestconcern_infrastructure,Lack of Electricity,43
+21,sparkit.biggestconcern_infrastructure,Lack of Market,44
+22,sparkit.biggestconcern_housing,Lack of Housing,51
+23,sparkit.biggestconcern_housing,"Poor Quality Housing (roofing, flooring, etc)",52
+24,sparkit.biggestconcern_housing,Moving,53
+25,sparkit.biggestconcern_education,Lack of School,61
+26,sparkit.biggestconcern_education,"Inability to Affor School Costs (Fees, Uniforms, Books, etc)",62
+27,sparkit.biggestconcern_incomefinance,No/Low income,81
+28,sparkit.biggestconcern_incomefinance,Lack of Access to Capital/Credit,82
+29,sparkit.biggestconcern_incomefinance,No Market Access,83
+30,sparkit.biggestconcern_environment,Climate Change,91
+31,sparkit.biggestconcern_environment,Erosion,92
+32,sparkit.biggestconcern_animals,Lack of Animals,101
+33,sparkit.biggestconcern_animals,Poor Health of Animals,102
+34,sparkit.biggestconcern_socialbehavioural,Poor Mindset,111
+35,sparkit.biggestconcern_socialbehavioural,Stigma,112
+36,sparkit.biggestconcern_socialbehavioural,Poor/No Leadership,113
+37,sparkit.biggestconcern_socialbehavioural,Conflicts,114
+38,sparkit.biggestconcern_socialbehavioural,Lack of Togetherness,115
+39,sparkit.biggestconcern_socialbehavioural,Living Alone,116
+40,sparkit.biggestconcern_sanitation,Lack of Latrines,121
+41,sparkit.biggestconcern_sanitation,Lack of Bathrooms,122
+42,sparkit.biggestconcern_householdessentials,Lack of kitchen utensils,131
+43,sparkit.biggestconcern_householdessentials,"Lack of bedroom furnitures(bed,mattress,bedding,..)",132
+44,sparkit.biggestconcern_householdessentials,Lack of clothing,133
+45,sparkit.biggestconcern_employment,Lack of Jobs,71
+46,sparkit.biggestconcern_employment,Inability to Work,72
