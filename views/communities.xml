@@ -363,7 +363,9 @@
 
 							<group colspan="4" col="4" class="no_style">
 								<group colspan="2" col="2">
-									<field name="name" attrs="{'readonly': [('state', '!=', 'community_identification')]}"/>
+									<field name="name" attrs="{'readonly': ['|', ('phase', '=', 'planning'), '|',
+										('phase', '=', 'implementation'), '|', ('phase', '=', 'post_implementation'),
+										('phase', '=', 'graduated')]}"/>
 									<field name="community_number"/>
 									<field name="country_id" options="{'no_create': True}"/>
 									<field name="facilitator_id" options="{'no_create': True}"/>
