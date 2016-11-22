@@ -23,13 +23,6 @@
             <field name="action">action_partnership()</field>
         </record>
 
-        <record model="workflow.activity" id="pm_action_partnership">
-            <field name="name">PM Partnership Override</field>
-            <field name="wkf_id" ref="wkf_fcap"/>
-            <field name="kind">function</field>
-            <field name="action">pm_action_partnership()</field>
-        </record>
-
         <record model="workflow.activity" id="action_community_building">
             <field name="name">Community Building</field>
             <field name="wkf_id" ref="wkf_fcap"/>
@@ -164,11 +157,7 @@
         </record>
 
         <!-- Phase Transitions-->
-        <record model="workflow.transition" id="override_community_identification_to_planning">
-            <field name="act_from" ref="sparkit.action_community_identification"/>
-            <field name="act_to" ref="sparkit.pm_action_partnership"/>
-            <field name="signal">pm_planning</field>
-        </record>
+
         <record model="workflow.transition" id="community_identification_to_planning">
             <field name="act_from" ref="sparkit.action_community_identification"/>
             <field name="act_to" ref="sparkit.action_partnership"/>

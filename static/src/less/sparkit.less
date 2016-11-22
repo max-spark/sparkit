@@ -262,11 +262,11 @@ a:hover {
 }
 
 .openerp .oe_form_group_row {
-    border-bottom: 1px solid @gray-lighter;
+  border-bottom: 1px solid @gray-lighter;
 }
 
 .openerp .oe_form_group_row:hover {
-    border-bottom-color: darken(@gray-lighter, 7.5%);
+  border-bottom-color: darken(@gray-lighter, 7.5%);
 }
 
 .openerp .oe_form td.oe_form_group_cell_label label {
@@ -291,7 +291,13 @@ a:hover {
 
 .openerp .checklist {
   border: 2px dotted darken(@sf-gray-blue, 10%) !important;
+  border-bottom: 2px dotted darken(@sf-gray-blue, 10%) !important;
 }
+
+.openerp .checklist > tr > td {
+  border: none;
+}
+
 
 .openerp .checklist_header {
   padding-left: 20px;
@@ -597,6 +603,58 @@ input[type="color"],
 .ui-datepicker-calendar > thead > tr > th {
   color: @darker-blue;
   text-align: center !important;
+}
+
+//-----------------------
+// Workflow
+//------------------------
+.o_statusbar_buttons {
+  background-image: none !important;
+  background-color: lighten(@spark-light-blue, 28.5%) !important;
+  border-bottom: 1px solid @darker-blue;
+}
+
+.openerp ul.oe_form_status {
+  background-color: lighten(@spark-light-blue, 28.5%);
+}
+
+.openerp ul.oe_form_status li:first-child > .label, .openerp ul.oe_form_status_clickable li:first-child > .label {
+  border-left: 0px !important;
+}
+
+.openerp ul.oe_form_status li, .openerp ul.oe_form_status_clickable li {
+  margin: 0px !important;
+  padding: 0px !important;
+  padding-left: 0px !important;
+  display: inline !important;
+  background-image: none !important;
+  background-color: lighten(@spark-light-blue, 28.5%);
+}
+
+.oe_form_status > li+li:before {
+    content: "\276F\00a0";
+    color: @spark-dark-blue;
+}
+
+.openerp ul.oe_form_status li > .label, .openerp ul.oe_form_status_clickable li > .label {
+  padding-left: 5px !important;
+  color: @gray-dark;
+  font-size: 12px;
+  background-color: none;
+  text-shadow: none !important;
+}
+
+.openerp ul.oe_form_status li.oe_active, .openerp ul.oe_form_status_clickable li.oe_active {
+  background-color: lighten(@spark-light-blue, 28.5%) !important;
+}
+
+.openerp ul.oe_form_status li.oe_active > .label, .openerp ul.oe_form_status_clickable li.oe_active > .label {
+  color: lighten(@spark-dark-blue, 15%);
+  text-shadow: none !important;
+}
+
+.arrow {
+ display: none !important;
 }
 
 

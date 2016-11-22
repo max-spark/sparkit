@@ -21,10 +21,6 @@
 								string="Community Ready to Begin Planning"
 								states="community_identification"
 								class="oe_highlight"/>
-							<button name="pm_planning" type="workflow"
-								string="Override Workflow: Planning"
-								states="community_identification"
-								class="oe_highlight"/>
 
 							<button name="partnership" type="workflow"
 								states="community_building"
@@ -367,7 +363,7 @@
 
 							<group colspan="4" col="4" class="no_style">
 								<group colspan="2" col="2">
-									<field name="name" attrs="{'readonly': [('state', '=', 'planning')]}"/>
+									<field name="name" attrs="{'readonly': [('state', '!=', 'community_identification')]}"/>
 									<field name="community_number"/>
 									<field name="country_id" options="{'no_create': True}"/>
 									<field name="facilitator_id" options="{'no_create': True}"/>
@@ -376,10 +372,9 @@
 									<field name="workflow_config_id"/>
 								</group>
 								<group colspan="2" col="2">
+									<field name="state"/>
 									<field name="is_partnered"/>
 									<field name="is_active" />
-									<field name="phase_id"/>
-									<field name="state"/>
 									<field name="last_visit_date"/>
 									<field name="next_visit_date"/>
 								</group>
@@ -392,15 +387,19 @@
 											<field name="facilitation_language"/>
 											<field name="is_using_translator"/>
 											<field name="translator_id"/>
-											<field name="meeting_day" attrs="{'invisible': [('state', '=', 'community_identification')]}"/>
+											<field name="meeting_day" attrs="{'invisible': [('phase', '!=', 'planning'),
+												('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
+												('phase', '!=', 'graduated')]}"/>
 										</group>
 		  							<group colspan="2" col="2">
 		  								<field name="date_scouted"/>
 		  								<field name="partnershp_date"
-												attrs="{'invisible': [('state', '=', 'community_identification')]}"/>
+												attrs="{'invisible': [('phase', '!=', 'planning'),
+													('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
+													('phase', '!=', 'graduated')]}"/>
 		  								<field name="implementation_start_date"
-												attrs="{'invisible': ['|', ('state', '=', 'community_identification'),
-													('phase', '=', 'planning')]}"/>
+												attrs="{'invisible': [('phase', '!=', 'implementation'),
+													('phase', '!=', 'post_implementation'), ('phase', '!=', 'graduated')]}"/>
 		  								<field name="post_implementation_start_date"
 												attrs="{'invisible': [('phase', '!=', 'post_implementation'),
 													('phase', '!=', 'graduated')]}"/>
@@ -453,15 +452,18 @@
 		  								</group>
 		  							</page>
 		  							<page string="Community Leaders">
-		  								<group colspan="4" string="Spark Leaders" class="no_style">
+		  								<group colspan="4" string="Grant Project Leaders" class="no_style"
+													attrs="{'invisible': [('state', '=', 'community_identification')]}">
 		  									<field name="spark_leader_ids" nolabel="1"/>
 		  								</group>
-		  								<group colspan="4" string="Community Leaders" class="no_style">
+		  								<!-- This needs to be fixed <group colspan="4" string="Community Leaders" class="no_style">
 		  									<field name="community_leader_ids" nolabel="1"/>
-		  								</group>
+		  								</group>-->
 		  							</page>
 										<page string="Planning Group"
-												attrs="{'invisible': [('state', '=', 'community_identification')]}">
+												attrs="{'invisible': [('phase', '!=', 'planning'),
+												('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
+												('phase', '!=', 'graduated')]}">
 											<group colspan="4" col="4" class="no_style">
 												<group string="Planning Group" colspan="2" col="2">
 													<field name="num_hh_in_planning_group"/>
@@ -483,30 +485,29 @@
 												context="{'default_community_id': active_id}"/>
 										</page>
 										<page string="Planning"
-											attrs="{'invisible': [('state', '=', 'community_identification')]}">
+											attrs="{'invisible': [('phase', '!=', 'planning'),
+												('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
+											 	('phase', '!=', 'graduated')]}">
 		  								<field name="cvrf_ids"
 												context="{'default_community_id': active_id}"/>
 		  							</page>
 		  							<page string="Implementation"
-											attrs="{'invisible': ['|', ('state', '=', 'community_identification'),
-												('phase', '=', 'planning')]}">
+											attrs="{'invisible': [('phase', '!=', 'implementation'),
+												('phase', '!=', 'post_implementation'), ('phase', '!=', 'graduated')]}">
 		  								<field name="ivrf_ids"
 												context="{'default_community_id': active_id}"/>
 		  							</page>
 		  							<page string="Post Implementation"
-											attrs="{'invisible': ['|', ('phase', '!=', 'post_implementation'),
+											attrs="{'invisible': [('phase', '!=', 'post_implementation'),
 												('phase', '!=', 'graduated')]}">
 		  								<field name="pivrf_ids"
 												context="{'default_community_id': active_id}"/>
 		  							</page>
-										<page string="Independent Meetings"
-											attrs="{'invisible': [('state', '=', 'community_identification')]}">
-											<field name="independent_meeting_ids"
-												context="{'default_community_id': active_id}"/>
-										</page>
 									</notebook>
 								</page>
-								<page string="Projects" attrs="{'invisible': [('state', '=', 'community_identification')]}">
+								<page string="Projects" attrs="{'invisible': [('phase', '!=', 'planning'),
+									('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
+									('phase', '!=', 'graduated')]}">
 									<notebook>
 										<page string="Project Detail">
 											<group colspan="4" col="4" class="no_style">
@@ -523,7 +524,9 @@
 												</group>
 											</group>
 										</page>
-		  							<page string="Grant Project(s) Budget(s)">
+		  							<page string="Grant Project(s) Budget(s)" attrs="{'invisible':
+											[('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
+											('phase', '!=', 'graduated')]}">
 		  								<field name="spark_project_ids"
 												context="{'default_community_id': active_id}"/>
 		  							</page>
@@ -547,16 +550,29 @@
 											<field name="pillar_assessment_ids"
 												context="{'default_community_id': active_id}"/>
 										</page>
-										<page string="Transition Strategy" attrs="{'invisible': [('state', '=', 'community_identification')]}">
+										<page string="Transition Strategy" attrs="{'invisible': [('phase', '!=', 'planning'),
+											('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
+											('phase', '!=', 'graduated')]}">
 											<field name="transition_strategy_ids"/>
 										</page>
 									</notebook>
 								</page>
-								<page string="Partnerships" attrs="{'invisible': [('state', '=', 'community_identification')]}">
+								<page string="Partnerships" attrs="{'invisible': [('phase', '!=', 'planning'),
+									('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
+									('phase', '!=', 'graduated')]}">
 									<field name="partnership_ids"/>
 								</page>
-								<page string="Pilots" attrs="{'invisible': [('state', '=', 'community_identification')]}">
+								<page string="Pilots" attrs="{'invisible': [('phase', '!=', 'planning'),
+									('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
+									('phase', '!=', 'graduated')]}">
 									<field name="pilot_ids"/>
+								</page>
+								<page string="Independent Meetings"
+									attrs="{'invisible': [('phase', '!=', 'planning'),
+										('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
+										('phase', '!=', 'graduated')]}">
+									<field name="independent_meeting_ids"
+										context="{'default_community_id': active_id}"/>
 								</page>
   						</notebook>
   					</sheet>

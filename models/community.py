@@ -185,7 +185,7 @@ class Community(models.Model):
 
 	#------Workflow Fields----#
 	#workflow configuration
-	workflow_config_id = fields.Many2one('sparkit.communityworkflowparameters', string="Configuration",
+	workflow_config_id = fields.Many2one('sparkit.communityworkflowparameters', string="Workflow Configuration",
 		default=1)
 
 	# Formal Meeting (Scouting) -> Partnership
@@ -209,21 +209,24 @@ class Community(models.Model):
 
 	# Goal Setting: Goals -> Goal Setting: Objectives
 	is_pm_approved_goals = fields.Boolean(string="PM Approved Goals?")
-	is_min_goals_brainstormed = fields.Boolean(string="Minimum Goals Brainstormed?",
-		compute='check_goals_ideas')
-	is_goals_ideas_not_null = fields.Boolean(string="Goals - Ideas Complete")
-	is_goals_selected_not_null = fields.Boolean(string="Goals - Selected Complete")
+	is_min_goals_brainstormed = fields.Boolean(string="Minimum Goals Brainstormed?", compute='check_goals_ideas')
+	is_goals_ideas_not_null = fields.Boolean(string="Goals - Ideas Complete", compute='check_goals_ideas')
+	is_goals_selected_not_null = fields.Boolean(string="Goals - Selected Complete", compute='check_goals_selected')
 
 	#Goal Setting: Objectives -> Goal Setting: Pathways
-	is_objectives_ideas_not_null = fields.Boolean(string="Objectives - Ideas Commplete")
-	is_objectives_selected_not_null = fields.Boolean(string="Objectives - Selected Complete")
+	is_objectives_ideas_not_null = fields.Boolean(string="Objectives - Ideas Commplete",
+		compute='check_objectives_ideas')
+	is_objectives_selected_not_null = fields.Boolean(string="Objectives - Selected Complete",
+		compute='check_objectives_selected')
 	is_pm_approved_objectives = fields.Boolean(string="PM Approved Objectives?")
 
 	# Goal Setting: Pathways -> Proposal Development: Measuring Success
-	is_project_description_not_null = fields.Boolean(string="Project Description Completed")
+	is_project_description_not_null = fields.Boolean(string="Project Description Completed",
+		compute='check_project_description')
 	is_pm_approved_pathways = fields.Boolean(string="PM Approved Pathway?")
 	is_oca2_completed = fields.Boolean(string="OCA #2 Completed?", compute='check_ocas_completed', store=True)
-	is_min_pathways_brainstormed = fields.Boolean(string="Minimum Number of Pathways Brainstormed?")
+	is_min_pathways_brainstormed = fields.Boolean(string="Minimum Number of Pathways Brainstormed?",
+		compute='check_pathways_ideas')
 
 	# Proposal Development: Measuring Success -> Proposal Development: Implementation Action Plan
 	is_pm_approved_goals_complete = fields.Boolean(string="PM Approved Goals Section",
@@ -233,7 +236,7 @@ class Community(models.Model):
 	is_microgrant_amount_approved = fields.Boolean(string="Regional Team Approved Grant Size",
 		help="Did the CD Sign off?")
 	is_ta_workplan_approved = fields.Boolean(string="Technical Advisor Workplan Approved")
-	is_ta_recruited = fields.Boolean(string="Technical Advisor Recruited")
+	is_ta_recruited = fields.Boolean(string="Technical Advisor Recruited", compute='check_ta_recruited')
 	is_measuring_success_approved = fields.Boolean(string="PM Approved Measuring Success")
 	is_bank_detail_added = fields.Boolean(string="Bank/Payment Details Added")
 
@@ -288,12 +291,12 @@ class Community(models.Model):
 	all_ta_trainings_occurred = fields.Boolean(string="PM Verified All TA Trainings Occurred")
 	all_pillar_trainings_occured = fields.Boolean(string="PM Verified All Pillar Trainings Occurred")
 	did_community_meet_pillars = fields.Boolean(string="Community Has Met Pillar Minimums")
-	is_exit_agreement_signed = fields.Boolean(sring="Exit Agreement Signed")
+	is_exit_agreement_signed = fields.Boolean(string="Exit Agreement Signed")
 	did_community_report_progress = fields.Boolean(string="Community Reported on Progress Towards Communal Goal")
 	are_next_steps_established = fields.Boolean(string="Community Established Next Steps Towards Communal Goal")
 	are_transition_strategy_activities_completed = fields.Boolean(string="Community Completed Transition Strategy Activities")
 
-	@api.onchange('technical_advisor_id')
+	@api.depends('technical_advisor_id')
 	def check_ta_recruited(self):
 		for r in self:
 			if r.technical_advisor_id:
@@ -301,7 +304,7 @@ class Community(models.Model):
 			else:
 				is_ta_recruited = False
 
-	@api.onchange('pathways_ideas')
+	@api.depends('pathways_ideas')
 	def check_pathways_ideas(self):
 		for r in self:
 			if r.pathways_ideas:
@@ -326,26 +329,26 @@ class Community(models.Model):
 				if oca0_ids:
 					r.is_oca0_completed = True
 
-	@api.onchange('project_description')
+	@api.depends('project_description')
 	def check_project_description(self):
 		for r in self:
 			if r.project_description:
 				r.is_project_description_not_null = True
 
-	@api.onchange('objectives_ideas')
+	@api.depends('objectives_ideas')
 	def check_objectives_ideas(self):
 		for r in self:
 			if r.objectives_ideas:
 				r.is_objectives_ideas_not_null = True
 
-	@api.onchange('objectives_selected')
+	@api.depends('objectives_selected')
 	def check_objectives_selected(self):
 		for r in self:
 			if r.objectives_selected:
 				r.is_objectives_selected_not_null = True
 
 
-	@api.onchange('goals_ideas')
+	@api.depends('goals_ideas')
 	def check_goals_ideas(self):
 		for r in self:
 			if r.goals_ideas:
@@ -353,7 +356,7 @@ class Community(models.Model):
 				if r.goals_ideas >= r.workflow_config_id.min_goals_brainstormed:
 					r.is_min_goals_brainstormed = True
 
-	@api.onchange('goals_selected')
+	@api.depends('goals_selected')
 	def check_goals_selected(self):
 		for r in self:
 			if r.goals_selected:
@@ -513,24 +516,6 @@ class Community(models.Model):
 			raise ValidationError("Error: Community Missing Description")
 		elif self.is_oca0_completed is False:
 			raise ValidationError("Error: OCAs at Scouting Must Be Completd!")
-
-	@api.multi
-	def pm_action_partnership(self):
-		self.state = 'partnership'
-		self.phase = 'planning'
-		self.is_partnered = True
-		self.is_active = True
-		# Checks country id to see if it is equal to Rwanda, Burundi or Uganda
-		# If equal, the community number if updated using the country-specific sequence
-		# If partnership is not one of these three countries, then defaults to a generic sequence
-		if self.country_id.id == 193:
-			self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.rw')
-		elif self.country_id.id == 232:
-			self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.ug')
-		elif self.country_id.id == 25:
-			self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.bdi')
-		else:
-			self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.def')
 
 	# Partnership -> Community Building
 	def action_community_building(self):
