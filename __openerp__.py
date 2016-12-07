@@ -54,6 +54,7 @@
         'views/partnerships.xml',
         'views/pilots.xml',
         'views/communityproposal.xml',
+        'views/country.xml',
         #SparkIt Menu
         'views/sparkit_menu.xml',
         #Default/preloaded Data

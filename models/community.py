@@ -87,7 +87,8 @@ class Community(models.Model):
 	num_ppl_in_planning_group = fields.Integer(string="Number of People in Planning Group")
 
 	#Location Information
-	country_id = fields.Many2one('res.country', string="Country", required=True)
+	country_id = fields.Many2one('res.country', string="Country", required=True,
+		domain=[('is_active', '=', True)])
 	country_onchange = fields.Many2one('res.country',
 		compute="_country_onchange", store=True, readonly=False)
 	cell = fields.Char(string="Cell")

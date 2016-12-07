@@ -32,6 +32,8 @@
 					parent="main_all_communities_menu"/>
 				<menuitem id="workflow_config_list_menu" name="Workflow" sequence="1"
 					parent="community_configuration" action="workflow_configuration_list_action"/>
+				<menuitem id="countries_list_menu" name="Countries"
+					parent="community_configuration" action="base.action_country"/>
 
 				<!-- Partnerships Menu-->
 				<menuitem id="project_partnerships" name="Partnerships"
