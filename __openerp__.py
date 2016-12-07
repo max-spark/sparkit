@@ -42,9 +42,6 @@
         'views/templates.xml',
         'views/communities.xml',
         'views/visit_report_form_base.xml',
-        'views/cvrf.xml',
-        'views/ivrf.xml',
-        'views/pivrf.xml',
         'views/transition_strategy.xml',
         'views/scouting_form.xml',
         'views/fcap_map.xml',
@@ -83,7 +80,7 @@
     ],
 
     'qweb': [
-        'static/src/xml/facilitator_community_dashboard.xml',
+        'static/src/xml/*.xml',
     ],
 
     # only loaded in demonstration mode

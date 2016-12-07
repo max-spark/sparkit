@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from openerp import models, fields, api
+from datetime import datetime
 from openerp.exceptions import ValidationError, Warning
 
 # TODO: Automatic Important Dates
 # TODO: Think about codes for partner organizations
-# TODO: Think about groups!...
+# TODO: Think about security groups!...
 
 class Community(models.Model):
 	_name = 'sparkit.community'
@@ -20,6 +21,9 @@ class Community(models.Model):
 	facilitator_id = fields.Many2one('res.users', string="Facilitator", default=lambda self: self.env.user)
 	program_manager_id = fields.Many2one('res.users', string="Program Manager")
 	is_active = fields.Boolean(string="Active?")
+	color = fields.Char(string="Color")
+	dashboard_id = fields.Many2one('sparkit.dashboard', string="dashboard")
+	step_id = fields.Many2one('sparkit.fcapstep', compute='_get_visit_date')
 
 	#Workflow States
 	phase = fields.Selection([
@@ -32,20 +36,20 @@ class Community(models.Model):
 
 	#Planning Steps
 	state = fields.Selection([
-		('community_identification', 'Community Identification'),
+		('community_identification', 'Community Identification - Baseline'),
+		('introductions', 'Introductions'),
 		('partnership', 'Partnership'),
 		('community_building', 'Community Building'),
 		('goal_setting_goals', 'Goal Setting: Goals'),
-		('goal_setting_objectives', 'Goal Setting: Objectives'),
 		('goal_setting_pathways', 'Goal Setting: Pathways'),
-		('measuring_success', 'Proposal Development: Measuring Success'),
-		('implementation_action_plan', 'Proposal Development: Implementation Action Plan'),
-		('implementation_budget', 'Proposal Development: Implementation Budget'),
-		('operational_action_plan', 'Proposal Development: Operational Action Plan'),
-		('operational_budget', 'Proposal Development: Operational Budget'),
-		('sustainability_plan', 'Proposal Development: Sustainability Plan'),
-		('transition_strategy', 'Proposal Development: Transition Strategy'),
-		('proposal_review', 'Proposal Development: Proposal Review'),
+		('measuring_success', 'Pathway Planning: Measuring Success'),
+		('implementation_action_plan', 'Pathway Planning: Implementation Action Plan'),
+		('implementation_budget', 'Pathway Planning: Implementation Budget'),
+		('operational_action_plan', 'Pathway Planning: Operational Action Plan'),
+		('operational_budget', 'Pathway Planning: Operational Budget'),
+		('sustainability_plan', 'Pathway Planning: Sustainability Plan'),
+		('transition_strategy', 'Pathway Planning: Transition Strategy'),
+		('proposal_review', 'Pathway Planning: Proposal Finalization'),
 		('grant_agreement', 'Implementation: Grant Agreement & Financial Management'),
 		('first_disbursement', 'Implementation: First Dibursement, Accountability & Transparency'),
 		('project_management', 'Implementation: Project Management'),
@@ -115,10 +119,7 @@ class Community(models.Model):
 		help="Please enter the number of ideas the community brainstormed for their goal.")
 	goals_selected = fields.Text(string="Goals - Selected",
 		help="Please describe the community's chosen goal in their own words.")
-	objectives_ideas = fields.Integer(string="Objectives - Ideas",
-		help="Please enter the number of ideas the community brainstormed for their objective.")
-	objectives_selected = fields.Text(string="Objectives - Selected",
-		help="Please describe the community's chosen objective in their own words.")
+
 	pathways_ideas = fields.Integer(string="Pathways - Ideas",
 		help="Please enter the number of ideas the community brainstormed for their pathway.")
 	project_description = fields.Text(string="Please describe the community's chosen project in their own words.")
@@ -129,9 +130,13 @@ class Community(models.Model):
 	community_leader_ids = fields.Many2many('res.partner')
 
 	#VRF Forms
-	cvrf_ids = fields.One2many('sparkit.cvrf', 'community_id', string="CVRFs")
-	ivrf_ids = fields.One2many('sparkit.ivrf', 'community_id', string="IVRFs")
-	pivrf_ids = fields.One2many('sparkit.pivrf', 'community_id', string="PIVRFs")
+	vrf_ids = fields.One2many('sparkit.vrf', 'community_id', string="VRFs")
+	cvrf_ids = fields.One2many('sparkit.vrf', 'community_id', string="CVRFs",
+		domain=[('form_type', '=', "CVRF")])
+	ivrf_ids = fields.One2many('sparkit.vrf', 'community_id', string="IVRFs",
+		domain=[('form_type', '=', "IVRF")])
+	pivrf_ids = fields.One2many('sparkit.vrf', 'community_id', string="PIVRFs",
+		domain=[('form_type', '=', "PIVRF")])
 
 	#Community Project
 	spark_project_ids = fields.One2many('sparkit.sparkproject', 'community_id', string="Grant Project")
@@ -140,14 +145,10 @@ class Community(models.Model):
 	project_support_initiative_ids = fields.One2many('sparkit.projectsupportinitiative', 'community_id')
 
 	#Last Visit Date Calculations
-	last_visit_date = fields.Date(string="Last Visit Date", compute='_get_last_visit_date')
-	cvrf_max_id = fields.Many2one('sparkit.cvrf', compute='_get_max_cvrf_id')
-	ivrf_max_id = fields.Many2one('sparkit.ivrf', compute='_get_max_ivrf_id')
-	pivrf_max_id = fields.Many2one('sparkit.pivrf', compute='_get_max_pivrf_id')
+	last_visit_date = fields.Date(string="Last Visit Date", compute='_get_visit_date')
 	phase_id = fields.Many2one(related='step_id.phase_id', string="Phase", readonly=True)
-	step_id = fields.Many2one('sparkit.fcapstep', string="Step", compute='_get_step', readonly=True)
-	next_visit_date = fields.Date(string="Next Visit Date", compute='_get_next_visit_date')
-
+	next_visit_date = fields.Date(string="Next Visit Date", compute='_get_visit_date', store=True)
+	next_visit_date_week = fields.Char(compute='_get_visit_date', store=True)
 
 	#Ind Projects
 	independent_project_ids = fields.One2many('sparkit.independentproject',
@@ -183,15 +184,21 @@ class Community(models.Model):
 	pilot_ids = fields.Many2many('sparkit.pilot', string="Pilots")
 	pilot_update_ids = fields.One2many('sparkit.pilotupdate', 'community_id')
 
-	#------Workflow Fields----#
+	#-----------------------------
+	#-       Workflow Fields
+	#-----------------------------
 	#workflow configuration
 	workflow_config_id = fields.Many2one('sparkit.communityworkflowparameters', string="Workflow Configuration",
 		default=1)
 
+	# Baseline (Scouting)-> Introductions
+	is_oca1_completed = fields.Boolean(string="OCA #1 Completed")
+
 	# Formal Meeting (Scouting) -> Partnership
-	is_community_description = fields.Boolean(string="Community Description Filled?",
+	is_community_description_filled = fields.Boolean(string="Community Description Filled?",
 			compute="check_community_description")
-	is_oca0_completed = fields.Boolean(string="OCA - Scouting Complete", compute='check_ocas_completed', store=True)
+	at_least_two_ppl_visited = fields.Boolean(string="At least two people visited community?")
+
 
 	#Partnership -> Community Building
 	is_partnership_agreement_signed = fields.Boolean(string="Partnership Agreement Signed?")
@@ -199,7 +206,6 @@ class Community(models.Model):
 		compute='check_hh_requirement_met')
 
 	# Community Building -> Goal Setting: Goals
-	is_oca1_completed = fields.Boolean(string="OCA #1 Completed", compute='check_ocas_completed', store=True)
 	is_cmty_leaders_entered = fields.Boolean(string="Community Contact Information (Leaders) Entered?",
 		compute='check_community_leaders')
 	is_office_file_created = fields.Boolean(string="Office File Created?")
@@ -207,64 +213,57 @@ class Community(models.Model):
 	is_partnership_agreement_uploaded = fields.Boolean(string="Is Partnership Agreement Uploaded?")
 	is_spark_leaders_requirement = fields.Boolean(string="# Elected Leaders Meets Requirements", compute='check_elected_leaders')
 
-	# Goal Setting: Goals -> Goal Setting: Objectives
+	# Goal Setting: Goals -> Goal Setting: Pathways
 	is_pm_approved_goals = fields.Boolean(string="PM Approved Goals?")
 	is_min_goals_brainstormed = fields.Boolean(string="Minimum Goals Brainstormed?", compute='check_goals_ideas')
 	is_goals_ideas_not_null = fields.Boolean(string="Goals - Ideas Complete", compute='check_goals_ideas')
 	is_goals_selected_not_null = fields.Boolean(string="Goals - Selected Complete", compute='check_goals_selected')
 
-	#Goal Setting: Objectives -> Goal Setting: Pathways
-	is_objectives_ideas_not_null = fields.Boolean(string="Objectives - Ideas Commplete",
-		compute='check_objectives_ideas')
-	is_objectives_selected_not_null = fields.Boolean(string="Objectives - Selected Complete",
-		compute='check_objectives_selected')
-	is_pm_approved_objectives = fields.Boolean(string="PM Approved Objectives?")
-
-	# Goal Setting: Pathways -> Proposal Development: Measuring Success
+	# Goal Setting: Pathways -> Proposal Development: Implementation Action Plan
+	# hard stops
 	is_project_description_not_null = fields.Boolean(string="Project Description Completed",
 		compute='check_project_description')
 	is_pm_approved_pathways = fields.Boolean(string="PM Approved Pathway?")
 	is_oca2_completed = fields.Boolean(string="OCA #2 Completed?", compute='check_ocas_completed', store=True)
 	is_min_pathways_brainstormed = fields.Boolean(string="Minimum Number of Pathways Brainstormed?",
 		compute='check_pathways_ideas')
+	# red flags
+	did_ta_recruitment_begin = fields.Boolean(string="TA Recruitment Process Began?")
 
-	# Proposal Development: Measuring Success -> Proposal Development: Implementation Action Plan
-	is_pm_approved_goals_complete = fields.Boolean(string="PM Approved Goals Section",
-		help="Is there a logical link between goals/objectives/pathways section?")
-
-	# Proposal Development: Implementation Action Plan -> Proposal Development: Implementation Budget
-	is_microgrant_amount_approved = fields.Boolean(string="Regional Team Approved Grant Size",
-		help="Did the CD Sign off?")
+	# Implementation Action Plan -> Implementation Budget
+	is_ta_recruited = fields.Boolean(string="Technical Advisor Recruited/Assigned", compute='check_ta_recruited')
 	is_ta_workplan_approved = fields.Boolean(string="Technical Advisor Workplan Approved")
-	is_ta_recruited = fields.Boolean(string="Technical Advisor Recruited", compute='check_ta_recruited')
-	is_measuring_success_approved = fields.Boolean(string="PM Approved Measuring Success")
+	is_ta_profile_filled = fields.Boolean(string="Technical Advisor CV, ID and Credentials Entered")
+	is_implementation_action_plan_entered = fields.Boolean(string="Implementation Action Plan Entered Into Proposal?")
 	is_bank_detail_added = fields.Boolean(string="Bank/Payment Details Added")
 
-	# Proposal Development: Implementation Budget -> Operational Action Plan
-	is_implementation_action_plan_approved = fields.Boolean(string="PM Approved Implementation Action Plan")
 
-	# Proposal Dev: Operational Action Plan -> Operational Budget
-	is_implementation_budget_approved = fields.Boolean(string="PM Approved Implementation Budget",
-		help="Does the budget have contigency funds?")
+	# Implementation Budget -> Operational Action Plan
+	is_implementation_budget_entered = fields.Boolean(string="Implementation Budget Entered Into Proposal?")
+	is_ta_trained = fields.Boolean(string="Technical Advisor Trained")
 
-	# Proposal Dev: Operational Budget -> Sustainability Plan
-	is_operational_action_plan_approved = fields.Boolean(string="PM Approved Operational Action Plan")
 
-	# Proposal Dev: Sustainability Plan -> Transition Strategy
-	is_operational_budget_approved = fields.Boolean(string="PM Approved Operational Budget?",
-		help="Is the budget balanced with a verified source of income? Do the operational action plan/budget link?")
+	#Operational Action Plan -> Operational Budget
+	is_operational_action_plan_entered = fields.Boolean(string="Operational Action Plan Entered Into Proposal?")
 
-	# Proposal Dev: Transition Strategy -> Proposal Review
-	is_sustainability_plan_approved = fields.Boolean(string="PM Approved Sustainability Plan?",
-		help="Is the community engagement plan linked to the bylaws and sustainability plan? Are there tangible reasons for monthly meetings? Did the community have a clear response for risk factors?")
-	are_bylaws_acknowledged = fields.Boolean(string="By-Laws Acknowleged by Community",
-		help="Were the by-laws acknowledged by at least 755 of the planning group?")
+	# Proposal Dev: Operational Budget -> Measuring Success
+	is_operational_budget_entered = fields.Boolean(string="Operational Budget Entered Into Proposal?")
 
-	# Proposal Review -> Implementation: Grant Agreemnet + Financial Management
+	# Proposal Dev: Measuring Success -> Sustainability Plan
+	is_measuring_success_entered = fields.Boolean(string="Measuring Success Entered Into Proposal?")
+	are_goal_targets_entered = fields.Boolean(string="Goal Indicator Targets Entered into Proposal?")
+
+	# Proposal Dev: Sustainability Plan -> Proposal Review
+	is_sustainability_plan_entered = fields.Boolean(string="Sustainability Plan Entered Into Proposal?")
+
+	# Proposal Review -> Implementation: Grant Agreement
 	is_bank_account_open = fields.Boolean(string="Community Bank Account Open")
 	is_proposal_approved_by_ta = fields.Boolean(string="Technical Advisor Approved Project Proposal")
 	is_proposal_approved_by_team = fields.Boolean(string="PM/Team Approved Proposal")
 	is_oca3_completed = fields.Boolean(string="OCA3 Completed", compute='check_ocas_completed', store=True)
+	is_budget_created = fields.Boolean(string="Approved Community Budget Entered?", compute='_check_budget_created')
+	is_project_created = fields.Boolean(string="Project Created and Information Entered?",
+		compute='_check_project_created')
 
 	# Grant Agreement -> First Disbursement
 	is_receipt_book_received = fields.Boolean(string="Community Received Receipt Book")
@@ -296,6 +295,8 @@ class Community(models.Model):
 	are_next_steps_established = fields.Boolean(string="Community Established Next Steps Towards Communal Goal")
 	are_transition_strategy_activities_completed = fields.Boolean(string="Community Completed Transition Strategy Activities")
 
+
+
 	@api.depends('technical_advisor_id')
 	def check_ta_recruited(self):
 		for r in self:
@@ -326,8 +327,6 @@ class Community(models.Model):
 					r.is_oca2_completed = True
 				if oca1_ids:
 					r.is_oca1_completed = True
-				if oca0_ids:
-					r.is_oca0_completed = True
 
 	@api.depends('project_description')
 	def check_project_description(self):
@@ -335,18 +334,19 @@ class Community(models.Model):
 			if r.project_description:
 				r.is_project_description_not_null = True
 
-	@api.depends('objectives_ideas')
-	def check_objectives_ideas(self):
+	@api.multi
+	@api.depends('spark_project_ids')
+	def _check_project_created(self):
 		for r in self:
-			if r.objectives_ideas:
-				r.is_objectives_ideas_not_null = True
+			if r.spark_project_ids:
+				r.is_project_created = True
 
-	@api.depends('objectives_selected')
-	def check_objectives_selected(self):
+	@api.multi
+	@api.depends('spark_project_ids.budget_line_item_ids')
+	def _check_budget_created(self):
 		for r in self:
-			if r.objectives_selected:
-				r.is_objectives_selected_not_null = True
-
+			if r.spark_project_ids.budget_line_item_ids:
+				r.is_budget_created = True
 
 	@api.depends('goals_ideas')
 	def check_goals_ideas(self):
@@ -392,7 +392,7 @@ class Community(models.Model):
 	@api.depends('description')
 	def check_community_description(self):
 		if self.description:
-			self.is_community_description = True
+			self.is_community_description_filled = True
 
 	@api.multi
 	def _get_number_ind_projects(self):
@@ -400,56 +400,19 @@ class Community(models.Model):
 			r.independent_project_total = len(r.independent_project_ids)
 
 	@api.multi
-	def _get_step(self):
+	@api.depends('vrf_ids')
+	def _get_visit_date(self):
 		for r in self:
-			if r.pivrf_max_id:
-				r.step_id = r.pivrf_max_id.step_id
-			elif r.ivrf_max_id:
-				r.step_id = r.ivrf_max_id.step_id
-			elif r.cvrf_max_id:
-				r.step_id = r.cvrf_max_id.step_id
+			if r.vrf_ids:
+				vrf_max_date = max(s.visit_date for s in r.vrf_ids)
+				vrf_max_id = r.vrf_ids.search([('visit_date', '=', vrf_max_date), ('community_number', '=', r.community_number)], limit=1)
+				r.step_id = vrf_max_id.step_id
+				r.next_visit_date = vrf_max_id.next_visit_date
+				r.last_visit_date = vrf_max_id.visit_date
+				if r.next_visit_date:
+					next_visit_date = datetime.strptime((str(r.next_visit_date)), '%Y-%m-%d').date()
+					r.next_visit_date_week = next_visit_date.strftime("%W")
 
-	@api.multi
-	def _get_next_visit_date(self):
-		for r in self:
-			if r.pivrf_max_id:
-				r.next_visit_date = r.pivrf_max_id.next_visit_date
-			elif r.ivrf_max_id:
-				r.next_visit_date = r.ivrf_max_id.next_visit_date
-			elif r.cvrf_max_id:
-				r.next_visit_date = r.cvrf_max_id.next_visit_date
-
-
-	@api.multi
-	def _get_last_visit_date(self):
-		for r in self:
-			if r.pivrf_max_id:
-				r.last_visit_date = r.pivrf_max_id.visit_date
-			elif r.ivrf_max_id:
-				r.last_visit_date = r.ivrf_max_id.visit_date
-			elif r.cvrf_max_id:
-				r.last_visit_date = r.cvrf_max_id.visit_date
-
-	@api.multi
-	def _get_max_cvrf_id(self):
-		for r in self:
-			if r.cvrf_ids:
-				cvrf_max_date = max(s.visit_date for s in r.cvrf_ids)
-				r.cvrf_max_id = r.cvrf_ids.search([('visit_date', '=', cvrf_max_date), ('community_number', '=', r.community_number)], limit=1)
-
-	@api.multi
-	def _get_max_ivrf_id(self):
-		for r in self:
-			if r.ivrf_ids:
-				ivrf_max_date = max(s.visit_date for s in r.ivrf_ids)
-				r.ivrf_max_id = r.ivrf_ids.search([('visit_date', '=', ivrf_max_date), ('community_number', '=', r.community_number)], limit=1)
-
-	@api.multi
-	def _get_max_pivrf_id(self):
-		for r in self:
-			if r.pivrf_ids:
-				pivrf_max_date = max(s.visit_date for s in r.pivrf_ids)
-				r.pivrf_max_id = r.pivrf_ids.search([('visit_date', '=', pivrf_max_date), ('community_number', '=', r.community_number)], limit=1)
 
 	# Think about partners ... do we want them starting from 10,000 or having their
 	# own prefix codes?
@@ -487,16 +450,27 @@ class Community(models.Model):
 				return super(Community, self).create(vals)
 
 	##Workflow States
+
+	# Workflow Start: Community Identification - Baseline
 	@api.multi
 	def action_community_identification(self):
 		self.phase = 'community_identification'
 		self.state = 'community_identification'
 
+	# Baseline - Introductions
+	@api.multi
+	def action_introductions(self):
+		if self.is_oca1_completed is True:
+			self.state = 'introductions'
+		elif self.is_oca1_completed is False:
+			raise ValidationError("Error: Baseline Community Assessment Must Be Completed!")
+
+	# Introductions -> Community Building
 	@api.multi
 	def action_partnership(self):
 		# Sets state to planning and is_partnered to true
-		if (self.is_community_description is True and
-			self.is_oca0_completed is True):
+		if (self.is_community_description_filled is True and
+			self.at_least_two_ppl_visited is True):
 			self.state = 'partnership'
 			self.phase = 'planning'
 			self.is_partnered = True
@@ -512,10 +486,10 @@ class Community(models.Model):
 				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.bdi')
 			else:
 				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.def')
-		elif self.is_community_description is False:
+		elif self.is_community_description_filled is False:
 			raise ValidationError("Error: Community Missing Description")
-		elif self.is_oca0_completed is False:
-			raise ValidationError("Error: OCAs at Scouting Must Be Completd!")
+		elif self.did_twoplus_ppl_visit is False:
+			raise ValidationError("Error: At Least Two People Must Have Visited Community!")
 
 	# Partnership -> Community Building
 	def action_community_building(self):
@@ -526,15 +500,14 @@ class Community(models.Model):
 		elif self.is_partnership_hh_requirement_met is False:
 			raise ValidationError("Error: Minimum Number of Households Must Have Signed Partnership Agreement")
 
+	# Community Building: Goal setting: Goals
 	def action_goal_setting_goals(self):
-		if (self.is_oca1_completed is True and self.is_cmty_leaders_entered is True
+		if (self.is_cmty_leaders_entered is True
 			and self.is_office_file_created is True
 			and self.is_partnerhip_agreement_stored is True
 			and self.is_partnership_agreement_uploaded is True
 			and self.is_spark_leaders_requirement is True):
 			self.state = 'goal_setting_goals'
-		elif self.is_oca1_completed is False:
-			raise ValidationError("Error: OCA1 Must Be Completed")
 		elif self.is_cmty_leaders_entered is False:
 			raise ValidationError("Error: Community Leaders Must Be Entered")
 		elif self.is_office_file_created is False:
@@ -549,12 +522,13 @@ class Community(models.Model):
 			elif len(self.spark_leader_ids) < self.workflow_config_id.communitybldg_min_elected_leaders:
 				raise ValidationError("Error: Too Little Project Leaders")
 
-	def action_goal_setting_objectives(self):
+	# Goals -> Goal Setting: Pathways
+	def action_goal_setting_pathways(self):
 		if (self.is_pm_approved_goals is True and
 			self.is_min_goals_brainstormed is True and
 			self.is_goals_ideas_not_null is True and
 			self.is_goals_selected_not_null is True):
-			self.state = 'goal_setting_objectives'
+			self.state = 'goal_setting_pathways'
 		elif self.is_goals_ideas_not_null is False:
 			raise ValidationError("Error: Goals - Ideas Must Be Filled on Community Profile")
 		elif self.is_min_goals_brainstormed is False:
@@ -564,25 +538,13 @@ class Community(models.Model):
 		elif self.is_pm_approved_goals is False:
 			raise ValidationError("Error: Community Program Manager Must Approve Goals Section!")
 
-	def action_goal_setting_pathways(self):
-		if (self.is_objectives_ideas_not_null is True and
-			self.is_objectives_selected_not_null is True and
-			self.is_pm_approved_objectives is True):
-			self.state = 'goal_setting_pathways'
-		elif self.is_objectives_ideas_not_null is False:
-			raise ValidationError("Error: Objectives - Ideas Must Be Filled on Community Profile")
-		elif self.is_objectives_selected_not_null is False:
-			raise ValidationError("Error: Objectives - Selected Must Be Filled on Community Profile")
-		elif self.is_pm_approved_objectives is False:
-			raise ValidationError("Error: Community Program Manager Must Approve Objectives Section!")
-
-
-	def action_measuring_success(self):
+	# Goal Setting: Pathways -> Pathway Planning: Implementation Action Plan
+	def action_implementation_action_plan(self):
 		if (self.is_project_description_not_null is True and
 			self.is_pm_approved_pathways is True and
 			self.is_oca2_completed is True and
 			self.is_min_pathways_brainstormed is True):
-			self.state = 'measuring_success'
+			self.state = 'implementation_action_plan'
 		elif self.is_min_pathways_brainstormed is False:
 			raise ValidationError("Error: Not Enough Pathways - Ideas Brainstormed!")
 		elif self.is_project_description_not_null is False:
@@ -592,64 +554,67 @@ class Community(models.Model):
 		elif self.is_oca2_completed is False:
 			raise ValidationError("Error: OCA2 Must Be Completed!")
 
-	def action_implementation_action_plan(self):
-		if self.is_pm_approved_goals_complete is True:
-			self.state = 'implementation_action_plan'
-		elif self.is_pm_approved_goals_complete is False:
-			raise ValidationError("Error: Program Manager Must Approve Community Goals, Objectives and Pathways")
-
+	# Pathway Planning: Implementation Action Plan -> Implementation Budget
 	def action_implementation_budget(self):
-		if (self.is_ta_workplan_approved is True and
-			self.is_microgrant_amount_approved is True and
-			self.is_ta_recruited is True and
-			self.is_measuring_success_approved is True and
+		if (self.is_ta_recruited is True and
+			self.is_ta_workplan_approved is True and
+			self.is_ta_profile_filled is True and
+			self.is_implementation_action_plan_entered is True and
 			self.is_bank_detail_added is True):
 			self.state = 'implementation_budget'
 		elif self.is_ta_recruited is False:
-			raise ValidationError("Error: Technical Advisor Must Be Recruited")
+			raise ValidationError("Error: Technical Advisor Must Be Recruited and Assigned to Community")
 		elif self.is_ta_workplan_approved is False:
 			raise ValidationError("Error: Technical Advisor Workplan Must Be Approved")
-		elif self.is_microgrant_amount_approved is False:
-			raise ValidationError("Error: Microgrant Must Be Approved By Regional Team")
+		elif self.is_ta_profile_filled is False:
+			raise ValidationError("Error: Technical Advisor CV, ID and Credentials Must Be Loaded Onto Contact Page")
+		elif self.is_implementation_action_plan_entered is False:
+			raise ValidationError("Error: Implementation Action Plan Must Be Entered Into Proposal")
 		elif self.is_bank_detail_added is False:
 			raise ValidationError("Error: Bank Details Must Be Added to Community Profile")
-		elif self.is_measuring_success_approved is False:
-			raise ValidationError("Error: Measuring Success Must Be Approved by Program Manager")
 
+	# Implementation Budget -> Operational Action Plan
 	def action_operational_action_plan(self):
-		if self.is_implementation_action_plan_approved is True:
+		if (self.is_implementation_budget_entered is True and
+			self.is_ta_trained is True):
 			self.state = 'operational_action_plan'
-		elif self.is_implementation_action_plan_approved is False:
-			raise ValidationError("Error: PM Must Approve Implementation Action Plan")
+		elif self.is_implementation_budget_entered is False:
+			raise ValidationError("Error: Implementation Budget Must Be Entered Into Proposal")
+		elif self.is_ta_trained is False:
+			raise ValidationError("Error: Technical Advisor Must Be Trained")
 
+	# Operational Action Plan -> Operational Budget
 	def action_operational_budget(self):
-		if self.is_implementation_budget_approved is True:
+		if self.is_operational_action_plan_entered is True:
 			self.state = 'operational_budget'
-		elif self.is_implementation_budget_approved is False:
-			raise ValidationError("Error: PM Must Approve Implementation Budget")
+		elif self.is_operational_action_plan_entered is False:
+			raise ValidationError("Error: Operational Action Plan Must Be Entered Into Proposal")
 
+	# Operational Budget -> Measuring Success
+	def action_measuring_success(self):
+		if self.is_operational_budget_entered is True:
+			self.state = 'measuring_success'
+		elif self.is_operational_budget_entered is False:
+			raise ValidationError("Error: Operational Budget Must Be Entered Into Proposal")
+
+	# Measuring Success -> Sustainability Plan
 	def action_sustainability_plan(self):
-		if self.is_operational_action_plan_approved is True:
+		if (self.is_measuring_success_entered is True and
+			self.are_goal_targets_entered is True):
 			self.state = 'sustainability_plan'
-		elif self.is_operational_action_plan_approved is False:
-			raise ValidationError("Error: PM Must Approve Operational Action Plan")
+		elif self.is_measuring_success_entered is False:
+			raise ValidationError("Error: Measuring Success Must Be Entered Into Proposal")
+		elif self.are_goal_targets_entered is False:
+			raise ValidationError("Error: Measuring Success Targest Must Be Entered By Indicators")
 
-	def action_transition_strategy(self):
-		if self.is_operational_budget_approved is True:
-			self.state = 'transition_strategy'
-		elif self.is_operational_budget_approved is False:
-			raise ValidationError("Error: PM Must Approve Operational Budget")
-
+	# Sustainability Plan -> Proposal Finalization
 	def action_proposal_review(self):
-		if (self.are_bylaws_acknowledged is True
-			and self.is_sustainability_plan_approved is True):
+		if self.is_sustainability_plan_entered is True:
 			self.state = 'proposal_review'
-			self.phase = 'planning'
-		elif self.are_bylaws_acknowledged is False:
-			raise ValidationError("Error: Community Must Acknowledge Bylaws")
-		elif self.is_sustainability_plan_approved is False:
-			raise ValidationError("Error: PM Must Approve Sustainability Plan")
+		elif self.is_sustainability_plan_entered is False:
+			raise ValidationError("Error: Sustainability Plan Must Be Entered Into Proposal")
 
+	# Proposal Finalizatio -> Implementation: Grant Agreement
 	def action_grant_agreement(self):
 		if (self.is_bank_account_open is True and
 			self.is_proposal_approved_by_ta is True and
@@ -784,7 +749,7 @@ class CommunityWorkflowParameters(models.Model):
 	communitybldg_min_elected_leaders = fields.Integer(string="Minimum Number of Elected Leaders")
 	communitybldg_max_elected_leaders = fields.Integer(string="Maximum Number of Elected Leaders")
 
-	# Goals -> Objectives
+	# Goals -> Pathways
 	min_goals_brainstormed = fields.Integer(string="Minimum Number of Goals Brainstormed")
 	min_pathways_brainstormed = fields.Integer(string="Minimum Number of Pathways Brainstormed")
 

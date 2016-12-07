@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
+				<record id="act_testing_dashboard" model="ir.actions.client">
+					<field name="name">Facilitator Dashboard</field>
+					<field name="tag">sparkit.facilitatordashboard</field>
+				</record>
 
   			<!--Communities Menu-->
   			<menuitem id="main_all_communities_menu" name="Communities"/>
@@ -11,6 +15,9 @@
         	parent="all_communities_menu" action="community_list_action"/>
 				<menuitem id="partnered_communities" name="Partnered" sequence="2"
 					parent="main_all_communities_menu"/>
+
+				<menuitem id="sparkit_testing_dashboard" name="Dashboard"
+						action="act_testing_dashboard" sequence="0"/>
 
 				<menuitem id="all_partnered_list_action" name="All" sequence="1"
 					parent="partnered_communities"/>
@@ -35,12 +42,8 @@
   			<!-- Visit Reports -->
         <menuitem id="main_visit_reports_menu" name="Visit Reports"
           parent="top_visit_reports_menu" sequence="1"/>
-        <menuitem id="cvrf_menu" name="Planning" sequence="1"
-          parent="main_visit_reports_menu" action="cvrf_list_action"/>
-        <menuitem id="ivrf_menu" name="Implementation" sequence="2"
-          parent="main_visit_reports_menu" action="ivrf_list_action"/>
-        <menuitem id="pivrf_menu" name="Post Implementation" sequence="3"
-          parent="main_visit_reports_menu" action="pivrf_list_action"/>
+				<menuitem id="all_visit_reports" name="All" action="visit_report_list_action"
+					parent="main_visit_reports_menu" sequence="1"/>
     		<!-- M&E Forms-->
         <menuitem id="me_forms" name="M&#38;E Forms" parent="top_visit_reports_menu"
         	sequence="2"/>

@@ -13,17 +13,19 @@
   							<group colspan="2">
   								<field name="community_id"
   									options="{'no_create': True}"/>
-  								<field name="facilitator_id"/>
-  								<field name="program_manager_id"/>
+									<field name="facilitator_id" options="{'no_create': True}"/>
+									<field name="program_manager_id" options="{'no_create': True}"/>
   							</group>
   							<group colspan="2">
   								<field name="visit_date"/>
   								<field name="phase"/>
-  								<field name="step_id" widget="selection"/>
+  								<field name="step_id" widget="selection"
+										domain="[('phase', '=', phase)]"/>
+									<field name="form_type" invisible="1"/>
   							</group>
   						</group>
   						<notebook>
-  							<page string="VRF">
+  							<page string="Form">
 								<group colspan="4" col="4" string="Attendance and Speaker Information" class="no_style">
 									<group colspan="2">
 										<field name="attendance_females" />
@@ -67,12 +69,14 @@
 								</group>
 								<group colspan="4" col="4" string="Meeting Report" class="no_style">
 									<group colspan="2">
-										<field name="activity_category1_id" widget="selection"/>
+										<field name="activity_category1_id" widget="selection"
+											domain="[('phase', '=', phase)]"/>
 										<field name="activity1_id" widget="selection"
 											domain="[('category_id', '=', activity_category1_id)]"/>
 										<field name="activity1_accomplished"/>
 										<field name="activity1_desc"/>
-										<field name="activity_category2_id" widget="selection"/>
+										<field name="activity_category2_id" widget="selection"
+											domain="[('phase', '=', phase)]"/>
 										<field name="activity2_id" widget="selection"
 											domain="[('category_id', '=', activity_category2_id)]"/>
 										<field name="activity2_accomplished"/>
@@ -108,8 +112,41 @@
 										<field name="training_delivered_other"/>
 									</group>
 								</group>
+								<group colspan="4" col="4" string="Accountability and Transparency"  class="no_style" attrs="{'invisible': [('phase', '!=', 'post_implementation'), ('phase', '!=', 'implementation')]}">
+									<group colspan="2">
+										<field name="project_on_budget"/>
+										<field name="cmty_meeting_deadines"/>
+										<field name="leadership_presented_cashbook"/>
+										<field name="leadership_presented_cashbook_desc"/>
+										<field name="leadership_reported_finances"/>
+										<field name="leadership_reported_finances_desc"/>
+										<field name="leadership_presented_bankslips"/>
+										<field name="leadership_presented_bankslips_desc"/>
+										<field name="bank_deposits"/>
+										<field name="all_receipts_present"/>
+										<field name="all_receipts_present_desc"/>
+										<field name="any_new_risks" attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
+										<field name="any_new_risks_desc" attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
+									</group>
+									<group colspan="2">
+										<field name="cmty_discussed_budget"/>
+										<field name="cmty_discussed_budget_desc"/>
+										<field name="knowledge_of_community_funds"/>
+										<field name="knowledge_of_community_funds_desc"/>
+										<field name="cashbook_updated"/>
+										<field name="cashbook_updated_desc"/>
+										<field name="noncommittee_cashbook_review"/>
+										<field name="noncommittee_cashbook_review_desc"/>
+										<field name="records_updated" attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
+										<field name="records_updated_desc" attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
+									</group>
+								</group>
 								<group colspan="4" col="4" string="Community Report" class="no_style">
 									<group colspan="2">
+										<field name="homework_type" attrs="{'invisible': [('phase', '!=', 'planning')]}"/>
+										<field name="homework_attempted_completed" attrs="{'invisible': [('phase', '!=', 'planning')]}"/>
+										<field name="homework_desc" attrs="{'invisible': [('phase', '!=', 'planning')]}"/>
+										<field name="cmty_meeting_frequency" attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
 										<field name="cmty_reported_conflicts"/>
 										<field name="cmty_reported_conflicts_resolved"/>
 										<field name="cmty_reported_conflicts_desc"/>
@@ -133,27 +170,50 @@
 								<group colspan="4" col="4" string="Next Meeting" class="no_style">
 									<group colspan="2">
 										<field name="next_visit_date" />
-										<field name="next_meeting_category1_id" widget="selection"/>
+										<field name="next_meeting_category1_id" widget="selection"
+											domain="[('phase', '=', phase)]"/>
 										<field name="next_meeting_activity1_id" widget="selection"
 											domain="[('category_id', '=', next_meeting_category1_id)]"/>
-										<field name="next_meeting_category2_id" widget="selection"/>
+										<field name="next_meeting_category2_id" widget="selection"
+											domain="[('phase', '=', phase)]"/>
 										<field name="next_meeting_activity2_id" widget="selection"
 											domain="[('category_id', '=', next_meeting_category2_id)]"/>
 									</group>
 									<group colspan="2">
-										<field name="next_meeting_category3_id" widget="selection"/>
+										<field name="next_meeting_category3_id" widget="selection"
+											domain="[('phase', '=', phase)]"/>
 										<field name="next_meeting_activity3_id" widget="selection"
 											domain="[('category_id', '=', next_meeting_category3_id)]"/>
 									</group>
 								</group>
 							</page>
-  							<page string="Independent Project Updates"  class="no_style">
-  							  	<group colspan="4" col="4">
-  									<field name="independent_project_update_ids" nolabel="1"
-  										context="{'default_vrf_base_id': active_id,
-  										'default_community_id': community_id, 'default_date': visit_date}"/>
-  								</group>
-  							</page>
+							<page string="Ind. Meetings">
+								<field name="independent_meeting_ids" nolabel="1"
+									context="{'default_community_id': community_id, 'default_date': visit_date}"/>
+							</page>
+							<page string="Ind. Project Updates">
+								<field name="independent_project_update_ids" nolabel="1"
+									context="{'default_community_id': community_id, 'default_date': visit_date}"/>
+							</page>
+							<page string="Savings Group Updates">
+								<field name="savings_group_update_ids"
+									context="{'default_community_id': community_id, 'default_date': visit_date}"/>
+							</page>
+							<page string="Project Support Initiatives">
+								<field name="project_support_initiative_ids"
+									context="{'default_community_id': community_id, 'default_date': visit_date}"
+									domain="[('community_id', '=', community_id)]"/>
+							</page>
+							<page string="Advocacy Updates">
+								<field name="partnership_update_ids"
+									context="{'default_community_id': community_id, 'default_date': visit_date}"
+									domain="[('community_id', '=', community_id)]"/>
+							</page>
+							<page string="Pilot Updates">
+								<field name="pilot_update_ids"
+									context="{'default_community_id': community_id, 'default_date': visit_date}"
+									domain="[('community_id', '=', community_id)]"/>
+							</page>
   						</notebook>
   					</sheet>
   				</form>

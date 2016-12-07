@@ -15,21 +15,30 @@
 						<sheet>
 							<!--Phase Workflow-->
 							<button name="community_identification" type="workflow"
+								string="Reset to Community Identification - Baseline"
+								states="introductions"/>
+							<button name="introductions" type="workflow"
+								string="Community Ready to Begin Introductions"
+								states="community_identification"
+								class="oe_highlight"/>
+
+							<button name="introductions_reset" type="workflow"
 								string="Reset to Community Identification"
 								states="partnership"/>
 							<button name="planning" type="workflow"
 								string="Community Ready to Begin Planning"
-								states="community_identification"
+								states="introductions"
 								class="oe_highlight"/>
-
-							<button name="partnership" type="workflow"
-								states="community_building"
-								string="Reset to Partnership"/>
 
 							<button name="community_building" type="workflow"
 								string="Community Ready to Begin Community Building"
 								states="partnership"
 								class="oe_highlight"/>
+							<button name="partnership_reset" type="workflow"
+								string="Reset to Partnership"
+								states="community_building"
+								class="oe_highlight"/>
+
 							<button name="community_building_reset" type="workflow"
 								string="Reset to Community Building"
 								states="goal_setting_goals"
@@ -41,97 +50,81 @@
 								class="oe_highlight"/>
 							<button name="goal_setting_goals_reset" type="workflow"
 								string="Reset to Goal Setting: Goals"
-								states="goal_setting_objectives"
-								class="oe_highlight"/>
-
-							<button name="goal_setting_objectives" type="workflow"
-								string="Move to Goal Setting: Objectives"
-								states="goal_setting_goals"
-								class="oe_highlight"/>
-							<button name="goal_setting_objectives_reset" type="workflow"
-								string="Reset to Goal Setting: Objectives"
 								states="goal_setting_pathways"
 								class="oe_highlight"/>
+
 
 							<button name="goal_setting_pathways" type="workflow"
 								string="Move to Goal Setting: Pathways"
-								states="goal_setting_objectives"
+								states="goal_setting_goals"
 								class="oe_highlight"/>
 							<button name="goal_setting_pathways_reset" type="workflow"
 								string="Reset to Goal Setting: Pathways"
-								states="measuring_success"
-								class="oe_highlight"/>
-
-							<button name="measuring_success" type="workflow"
-								string="Move to Proposal Development: Measuring Success"
-								states="goal_setting_pathways"
-								class="oe_highlight"/>
-							<button name="measuring_success_reset" type="workflow"
-								string="Reset to Proposal Development: Measuring Success"
 								states="implementation_action_plan"
 								class="oe_highlight"/>
 
 
 							<button name="implementation_action_plan" type="workflow"
-								string="Move to Proposal Development: Implementation Action Plan"
-								states="measuring_success"
+								string="Move toPathway Planning: Implementation Action Plan"
+								states="goal_setting_pathways"
 								class="oe_highlight"/>
 							<button name="implementation_action_plan_reset" type="workflow"
-								string="Reset to Proposal Development: Implementation Action Plan"
+								string="Reset to Pathway Planning: Implementation Action Plan"
 								states="implementation_budget"
 								class="oe_highlight"/>
 
 							<button name="implementation_budget" type="workflow"
-								string="Move to Proposal Development: Implementation Budget"
+								string="Move to Pathway Planning: Implementation Budget"
 								states="implementation_action_plan"
 								class="oe_highlight"/>
 							<button name="implementation_budget_reset" type="workflow"
-								string="Reset to Proposal Development: Implementation Budget"
+								string="Reset to Pathway Planning: Implementation Budget"
 								states="operational_action_plan"
 								class="oe_highlight"/>
 
 							<button name="operational_action_plan" type="workflow"
-								string="Move to Proposal Development: Operational Action Plan"
+								string="Move to Pathway Planning: Operational Action Plan"
 								states="implementation_budget"
 								class="oe_highlight"/>
 							<button name="operational_action_plan_reset" type="workflow"
-								string="Reset to Proposal Development: Operational Action Plan"
+								string="Reset to Pathway Planning: Operational Action Plan"
 								states="operational_budget"
 								class="oe_highlight"/>
 
 							<button name="operational_budget" type="workflow"
-								string="Move to Proposal Development: Operational Budget"
+								string="Move to Pathway Planning: Operational Budget"
 								states="operational_action_plan"
 								class="oe_highlight"/>
 							<button name="operational_budget_reset" type="workflow"
-								string="Reset to Proposal Development: Operational Budget"
+								string="Reset to Pathway Planning: Operational Budget"
+								states="measuring_success"
+								class="oe_highlight"/>
+
+							<button name="measuring_success" type="workflow"
+								string="Move to Pathway Planning: Measuring Success"
+								states="operational_budget"
+								class="oe_highlight"/>
+							<button name="measuring_success_reset" type="workflow"
+								string="Reset to Pathway Planning: Measuring Success"
 								states="sustainability_plan"
 								class="oe_highlight"/>
 
 							<button name="sustainability_plan" type="workflow"
-								string="Move to Proposal Development: Sustainability Plan"
-								states="operational_budget"
+								string="Move to Pathway Planning: Sustainability Plan"
+								states="measuring_success"
 								class="oe_highlight"/>
 							<button name="sustainability_plan_reset" type="workflow"
-								string="Reset to Proposal Development: Sustainability Plan"
-								states="transition_strategy"
-								class="oe_highlight"/>
-
-							<button name="transition_strategy" type="workflow"
-								string="Move to Proposal Development: Transition Strategy"
-								states="sustainability_plan"
-								class="oe_highlight"/>
-							<button name="transition_strategy_reset" type="workflow"
-								string="Reset to Proposal Development: Transition Strategy"
+								string="Reset to Pathway Planning: Sustainability Plan"
 								states="proposal_review"
 								class="oe_highlight"/>
 
+
 							<button name="proposal_review" type="workflow"
-								string="Move to Proposal Development: Proposal Review"
-								states="transition_strategy"
+								string="Move to Pathway Planning: Proposal Review"
+								states="sustainability_plan"
 								class="oe_highlight"/>
 							<button name="proposal_review_reset" type="workflow"
-								string="Reset to Proposal Development: Proposal Review"
+								string="Reset to Pathway Planning: Proposal Review"
 								states="grant_agreement"
 								class="oe_highlight"/>
 
@@ -194,12 +187,18 @@
 								states="post_implementation"
 								class="oe_highlight"/>
 
-
 							<group colspan="6" col="6" class="checklist"
 							  attrs="{'invisible': [('state', '!=', 'community_identification')]}">
 								<group colspan="4" col="4" class="no_style">
-									<field name="is_community_description"/>
-									<field name="is_oca0_completed"/>
+									<field name="is_oca1_completed"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+							  attrs="{'invisible': [('state', '!=', 'introductions')]}">
+								<group colspan="4" col="4" class="no_style">
+									<field name="is_community_description_filled"/>
+									<field name="at_least_two_ppl_visited"/>
 								</group>
 							</group>
 
@@ -214,7 +213,6 @@
 							<group colspan="6" col="6" class="checklist"
 							  attrs="{'invisible': [('state', '!=', 'community_building')]}">
 								<group colspan="6" col="6" class="no_style">
-									<field name="is_oca1_completed"/>
 									<field name="is_cmty_leaders_entered"/>
 									<field name="is_office_file_created"/>
 									<field name="is_partnerhip_agreement_stored"/>
@@ -234,38 +232,23 @@
 							</group>
 
 							<group colspan="6" col="6" class="checklist"
-								attrs="{'invisible': [('state', '!=', 'goal_setting_objectives')]}">
-								<group colspan="6" col="6" class="no_style">
-									<field name="is_objectives_ideas_not_null"/>
-									<field name="is_objectives_selected_not_null"/>
-									<field name="is_pm_approved_objectives"/>
-								</group>
-							</group>
-
-							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'goal_setting_pathways')]}">
 								<group colspan="6" col="6" class="no_style">
 									<field name="is_project_description_not_null"/>
 									<field name="is_pm_approved_pathways"/>
 									<field name="is_oca2_completed"/>
 									<field name="is_min_pathways_brainstormed"/>
-								</group>
-							</group>
-
-							<group colspan="6" col="6" class="checklist"
-								attrs="{'invisible': [('state', '!=', 'measuring_success')]}">
-								<group colspan="6" col="6" class="no_style">
-									<field name="is_pm_approved_goals_complete"/>
+									<field name="did_ta_recruitment_begin"/>
 								</group>
 							</group>
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'implementation_action_plan')]}">
 								<group colspan="6" col="6" class="no_style">
-									<field name="is_microgrant_amount_approved"/>
-									<field name="is_ta_workplan_approved"/>
 									<field name="is_ta_recruited"/>
-									<field name="is_measuring_success_approved"/>
+									<field name="is_ta_workplan_approved"/>
+									<field name="is_ta_profile_filled"/>
+									<field name="is_implementation_action_plan_entered"/>
 									<field name="is_bank_detail_added"/>
 								</group>
 							</group>
@@ -273,36 +256,37 @@
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'implementation_budget')]}">
 								<group colspan="6" col="6" class="no_style">
-									<field name="is_implementation_action_plan_approved"/>
+									<field name="is_implementation_budget_entered"/>
+									<field name="is_ta_trained"/>
 								</group>
 							</group>
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'operational_action_plan')]}">
 								<group colspan="6" col="6" class="no_style">
-									<field name="is_implementation_budget_approved"/>
+									<field name="is_operational_action_plan_entered"/>
 								</group>
 							</group>
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'operational_budget')]}">
 								<group colspan="6" col="6" class="no_style">
-									<field name="is_operational_action_plan_approved"/>
+									<field name="is_operational_budget_entered"/>
+								</group>
+							</group>
+
+							<group colspan="6" col="6" class="checklist"
+								attrs="{'invisible': [('state', '!=', 'measuring_success')]}">
+								<group colspan="6" col="6" class="no_style">
+									<field name="is_measuring_success_entered"/>
+									<field name="are_goal_targets_entered"/>
 								</group>
 							</group>
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'sustainability_plan')]}">
 								<group colspan="6" col="6" class="no_style">
-									<field name="is_operational_budget_approved"/>
-								</group>
-							</group>
-
-							<group colspan="6" col="6" class="checklist"
-								attrs="{'invisible': [('state', '!=', 'transition_strategy')]}">
-								<group colspan="6" col="6" class="no_style">
-									<field name="are_bylaws_acknowledged"/>
-									<field name="is_sustainability_plan_approved"/>
+									<field name="is_sustainability_plan_entered"/>
 								</group>
 							</group>
 
@@ -313,6 +297,8 @@
 									<field name="is_proposal_approved_by_ta"/>
 									<field name="is_proposal_approved_by_team"/>
 									<field name="is_oca3_completed"/>
+									<field name="is_budget_created"/>
+									<field name="is_project_created"/>
 								</group>
 							</group>
 
@@ -379,6 +365,7 @@
 									<field name="is_active" />
 									<field name="last_visit_date"/>
 									<field name="next_visit_date"/>
+									<field name="next_visit_date_week"/>
 								</group>
 							</group>
 							<field name="country_onchange" invisible="1"/>
@@ -491,19 +478,22 @@
 												('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
 											 	('phase', '!=', 'graduated')]}">
 		  								<field name="cvrf_ids"
-												context="{'default_community_id': active_id}"/>
+												context="{'default_community_id': active_id, 'default_phase': 'planning'}"/>
 		  							</page>
 		  							<page string="Implementation"
 											attrs="{'invisible': [('phase', '!=', 'implementation'),
 												('phase', '!=', 'post_implementation'), ('phase', '!=', 'graduated')]}">
 		  								<field name="ivrf_ids"
-												context="{'default_community_id': active_id}"/>
+												context="{'default_community_id': active_id, 'default_phase': 'implementation'}"/>
 		  							</page>
 		  							<page string="Post Implementation"
 											attrs="{'invisible': [('phase', '!=', 'post_implementation'),
 												('phase', '!=', 'graduated')]}">
 		  								<field name="pivrf_ids"
-												context="{'default_community_id': active_id}"/>
+												context="{'default_community_id': active_id, 'default_phase': 'post_implementation'}"/>
+		  							</page>
+										<page string="All Visits">
+											<field name="vrf_ids"/>
 		  							</page>
 									</notebook>
 								</page>
@@ -516,8 +506,6 @@
 												<group colspan="2" col="2">
 													<field name="goals_ideas"/>
 													<field name="goals_selected"/>
-													<field name="objectives_ideas"/>
-													<field name="objectives_selected"/>
 													<field name="pathways_ideas"/>
 												</group>
 												<group colspan="2" col="2">
@@ -722,7 +710,7 @@
 									<field name="communitybldg_max_elected_leaders"/>
 								</group>
 							</group>
-							<group colspan="4" col="4" string="Goal Setting (Goals/Objectives/Pathways)">
+							<group colspan="4" col="4" string="Goal Setting (Goals/Indicators/Pathways)">
 								<field name="min_goals_brainstormed"/>
 								<field name="min_pathways_brainstormed"/>
 							</group>

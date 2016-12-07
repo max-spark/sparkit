@@ -7,13 +7,7 @@ from openerp import models, fields, api
 #TODO Automatic Calculation for Next visit Date
 
 	#---------------------------------------------------------------------
-	#                           Base Form
-	#	This is the PARENT visit report form containing fields
-	#   that need to be filled out for all community FCAP
-	#   visits to the fields.
-	#
-	#   This form is actually NOT filled but the phase forms (CVRF, etc.)
-	#   all inherit these base fields.
+	#                      Community Visit Report Form
 	#---------------------------------------------------------------------
 
 class VisitReportForm(models.Model):
@@ -24,10 +18,10 @@ class VisitReportForm(models.Model):
 	community_id = fields.Many2one('sparkit.community', string="Community",
 		required=True, domain=[('is_partnered', '=', True)])
 	community_number = fields.Char(related='community_id.community_number')
-	community_name = fields.Char(related='community_id.name'	, store=True)
+	community_name = fields.Char(related='community_id.name', store=True)
 	facilitator_id = fields.Many2one('res.users', default=lambda self: self.env.user,
 		string="Facilitator")
-	form_type = fields.Char(string="Form Type", readonly=True)
+	form_type = fields.Char(string="Form Type", compute='_get_form_type', store=True)
 	program_manager_id = fields.Many2one('res.users', string="Program Manager")
 	visit_date = fields.Date(string="Date of Visit", required=True)
 	phase = fields.Selection([('planning', 'Planning'),
@@ -169,7 +163,7 @@ class VisitReportForm(models.Model):
 	conflicts_in_meeting_resolved = fields.Selection(
 		[('yes', 'Yes'),
 		 ('no', 'No'),
-		 ('unknwon', 'Unknown')], select=True, string="Conflict(s) in meeting: resolved?",
+		 ('unknown', 'Unknown')], select=True, string="Conflict(s) in meeting: resolved?",
 		 help="During the meeting, if attendees faced any conflicts or challenges, were any of these resolved?")
 
 	#Community Trainings linking to training configuration table
@@ -235,83 +229,6 @@ class VisitReportForm(models.Model):
 	#Pilot Updates
 	pilot_update_ids = fields.One2many(related='community_id.pilot_update_ids')
 
-
-	@api.depends('visit_duration')
-	def _visit_duration_minutes(self):
-		for r in self:
-			if r.visit_duration == 'one_hour':
-				r.visit_duration_minutes = 60
-			elif r.visit_duration == 'one_hour_thirty':
-				r.visit_duration_minutes = 90
-			elif r.visit_duration == 'two_hours':
-				r.visit_duration_minutes = 120
-			elif r.visit_duration == 'two_hours_thirty':
-				r.visit_duration_minutes = 150
-			elif r.visit_duration == 'three_hours':
-				r.visit_duration_minutes = 180
-			##How should we handle this case?
-			elif r.visit_duration == 'over_three_hours':
-				r.visit_duration_minutes = 210
-			else:
-				r.visit_duration_minutes = 0
-
-
-	@api.depends('travel_duration')
-	def _travel_duration_minutes(self):
-		for r in self:
-			if r.travel_duration == 'one_hour':
-				r.travel_duration_minutes = 60
-			elif r.travel_duration == 'one_hour_thirty':
-				r.travel_duration_minutes = 90
-			elif r.travel_duration == 'two_hours':
-				r.travel_duration_minutes = 120
-			elif r.travel_duration == 'two_hours_thirty':
-				r.travel_duration_minutes = 150
-			elif r.travel_duration == 'three_hours':
-				r.travel_duration_minutes = 180
-			##How should we handle this case?
-			elif r.travel_duration == 'over_three_hours':
-				r.travel_duration_minutes = 210
-			else:
-				r.travel_duration_minutes = 0
-
-	@api.depends('speakers_male', 'speakers_female')
-	def _total_speakers(self):
-		for r in self:
-			r.speakers_total = r.speakers_female + r.speakers_male
-
-	@api.depends('attendance_males', 'attendance_females')
-	def _total_attendance(self):
-		for r in self:
-			r.attendance_total = r.attendance_males + r.attendance_females
-
-	@api.model
-	def create(self, vals):
-		vals.update({
-			'name': self.env['ir.sequence'].next_by_code('visit.report.form.seq')
-		})
-		return super(VisitReportForm, self).create(vals)
-
-	#---------------------------------------------------
-	#      Community Visit Report Form (planning)      |
-	#---------------------------------------------------
-
-class CommunityVisitReportForm(models.Model):
-	_inherit = 'sparkit.vrf'
-	_name = 'sparkit.cvrf'
-
-	form_type = fields.Char(default="CVRF")
-
-	#Defaulting Many 2 ones to planning
-	phase = fields.Selection(default='planning', readonly=True)
-	step_id = fields.Many2one(domain=[('phase', '=', "planning")])
-	next_meeting_category1_id = fields.Many2one(domain=[('phase', '=', "planning")])
-	next_meeting_category2_id = fields.Many2one(domain=[('phase', '=', "planning")])
-	next_meeting_category3_id = fields.Many2one(domain=[('phase', '=', "planning")])
-	activity_category1_id = fields.Many2one(domain=[('phase', '=', "planning")])
-	activity_category2_id = fields.Many2one(domain=[('phase', '=', "planning")])
-	activity_category3_id = fields.Many2one(domain=[('phase', '=', "planning")])
-
 	#CVRF Specific Fields - (Homework)
 	homework_type = fields.Selection([
 		('community_building_activity', 'Community Building Activity'),
@@ -323,29 +240,7 @@ class CommunityVisitReportForm(models.Model):
 		string="Homework attempted or completed?")
 	homework_desc = fields.Text(string="Homework Description")
 
-
-
-	#---------------------------------------------------
-	#         Implementation Visit Report Form         |
-	#---------------------------------------------------
-
-class ImplementationVisitReportForm(models.Model):
-	_inherit = 'sparkit.vrf'
-	_name = 'sparkit.ivrf'
-
-	form_type = fields.Char(default="IVRF")
-
-	#Defaulting Many 2 Ones (Phase, Step, Activities/Activity categories) to implementation
-	phase = fields.Selection(default="implementation", readonly=True)
-	step_id = fields.Many2one(domain=[('phase', '=', "implementation")])
-	next_meeting_category1_id = fields.Many2one(related='next_meeting_activity1_id.category_id')
-	next_meeting_category2_id = fields.Many2one(related='next_meeting_activity2_id.category_id')
-	next_meeting_category3_id = fields.Many2one(related='next_meeting_activity3_id.category_id')
-	activity_category1_id = fields.Many2one(related='activity1_id.category_id')
-	activity_category2_id = fields.Many2one(related='activity2_id.category_id')
-	activity_category3_id = fields.Many2one(related='activity3_id.category_id')
-
-	#IVRF Specific Fields
+	#IVRF/PIVRF Specific Fields
 	all_receipts_present = fields.Selection([('yes', 'Yes'),
 		 ('no', 'No'),
 		 ('not_applicable', 'Not applicable'),
@@ -408,96 +303,91 @@ class ImplementationVisitReportForm(models.Model):
 		('over', 'Over Budget'),
 		('on', 'On Budget')], select=True, string="Project on Budget")
 
-
-
-	#---------------------------------------------------
-	#      Post Implementation Visit Report Form       |
-	#---------------------------------------------------
-
-class PostImplementationVisitReportForm(models.Model):
-	_inherit = 'sparkit.vrf'
-	_name = 'sparkit.pivrf'
-
-	form_type = fields.Char(default="PIVRF")
-
-	#Defaulting Many 2 Ones (Phase, Step, Activities/Activity categories) to PI
-	phase = fields.Selection(default="post_implementation", readonly=True)
-	step_id = fields.Many2one(domain=[('phase', '=', "post_implementation")])
-	next_meeting_category1 = fields.Many2one(related='next_meeting_activity1_id.category_id')
-	next_meeting_category2 = fields.Many2one(related='next_meeting_activity2_id.category_id')
-	next_meeting_category3 = fields.Many2one(related='next_meeting_activity3_id.category_id')
-	activity_category1_id = fields.Many2one(related='activity1_id.category_id')
-	activity_category2_id = fields.Many2one(related='activity2_id.category_id')
-	activity_category3_id = fields.Many2one(related='activity3_id.category_id')
-
 	#PIVRF Specific Fields
-	all_receipts_present = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True, string="All Receipts Present?")
-	all_receipts_present_desc = fields.Text(string="All Receipts Present: Description")
-	bank_deposits = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True, string="Bank Deposits")
-	cashbook_updated = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True, string="Cashbook Updated")
-	cashbook_updated_desc = fields.Text(string="Cashbook Updated: Description")
-	cmty_discussed_budget = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True,
-		 string="Community Discussed Budget in Meeting")
-	cmty_discussed_budget_desc = fields.Text(
-		string="Community Discussed Budget in Meeting: Description")
-	knowledge_of_community_funds = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True,
-		 string="Knowledge of Community Funds?")
-	knowledge_of_community_funds_desc = fields.Text(
-		string="Knowledge of Community Funds: Description")
-	leadership_presented_bankslips = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True,
-		 string="Leadership Presented Bankslips")
-	leadership_presented_bankslips_desc = fields.Text(
-		string="Leadership Presented Bankslips: Description")
-	leadership_presented_cashbook = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True,
-		 string="Leadership Presented Cashbook")
-	leadership_presented_cashbook_desc = fields.Text(
-		string="Leadership Presented Cashbook: Description")
-	leadership_reported_finances = fields.Boolean(
-		string="Leadership Reported on Finances")
-	leadership_reported_finances_desc = fields.Text(
-		string="Leadership Reported on Finances: Description")
-	noncommittee_cashbook_review = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True,
-		 string="Non-Committee Cashbook Review")
-	noncommittee_cashbook_review_desc = fields.Text(
-		string="Non-Committee Cashbook Review: Description")
 	any_new_risks = fields.Boolean(string="Any New Risks?")
 	any_new_risks_desc = fields.Text(string="Any New Risks: Description")
-	project_on_budget = fields.Selection([('under', 'Under Budget'),
-		('over', 'Over Budget'),
-		('on', 'On Budget')], select=True, string="Project on Budget")
 	records_updated = fields.Boolean(string="Records Updated?")
 	records_updated_desc = fields.Text(string="Records Updated: Description")
 
-	#Meeting Report
 	cmty_meeting_frequency = fields.Selection([('weekly', 'Meeting Once a Week or More'),
 		('monthly', 'Once a Month'), ('bimonthly', 'Twice a Month'),
 		('irregularly', 'Meeting Irregularly but Frequently'),
 		('ocasionally', 'Meeting Ocasionally'), ('not_meeting', 'Not Meeting')],
 		select=True, string="Community Meeting Frequency")
+
+	@api.depends('phase')
+	def _get_form_type(self):
+		for r in self:
+			if r.phase:
+				if r.phase == 'planning':
+					r.form_type = "CVRF"
+				elif r.phase == 'community_identification':
+					r.form_type = "CIVRF"
+				elif r.phase == 'implementation':
+					r.form_type = "IVRF"
+				elif r.phase == 'post_implementation':
+					r.form_type = "PIVRF"
+				elif r.phase == 'graduated':
+					r.form_type = "PIVRF"
+
+	@api.depends('visit_duration')
+	def _visit_duration_minutes(self):
+		for r in self:
+			if r.visit_duration == 'one_hour':
+				r.visit_duration_minutes = 60
+			elif r.visit_duration == 'one_hour_thirty':
+				r.visit_duration_minutes = 90
+			elif r.visit_duration == 'two_hours':
+				r.visit_duration_minutes = 120
+			elif r.visit_duration == 'two_hours_thirty':
+				r.visit_duration_minutes = 150
+			elif r.visit_duration == 'three_hours':
+				r.visit_duration_minutes = 180
+			##How should we handle this case?
+			elif r.visit_duration == 'over_three_hours':
+				r.visit_duration_minutes = 210
+			else:
+				r.visit_duration_minutes = 0
+
+
+	@api.depends('travel_duration')
+	def _travel_duration_minutes(self):
+		for r in self:
+			if r.travel_duration == 'one_hour':
+				r.travel_duration_minutes = 60
+			elif r.travel_duration == 'one_hour_thirty':
+				r.travel_duration_minutes = 90
+			elif r.travel_duration == 'two_hours':
+				r.travel_duration_minutes = 120
+			elif r.travel_duration == 'two_hours_thirty':
+				r.travel_duration_minutes = 150
+			elif r.travel_duration == 'three_hours':
+				r.travel_duration_minutes = 180
+			##How should we handle this case?
+			elif r.travel_duration == 'over_three_hours':
+				r.travel_duration_minutes = 210
+			else:
+				r.travel_duration_minutes = 0
+
+	@api.depends('speakers_male', 'speakers_female')
+	def _total_speakers(self):
+		for r in self:
+			r.speakers_total = r.speakers_female + r.speakers_male
+
+	@api.depends('attendance_males', 'attendance_females')
+	def _total_attendance(self):
+		for r in self:
+			r.attendance_total = r.attendance_males + r.attendance_females
+
+	@api.model
+	def create(self, vals):
+		vals.update({
+			'name': self.env['ir.sequence'].next_by_code('visit.report.form.seq')
+		})
+		return super(VisitReportForm, self).create(vals)
+
+
+
 
 	#---------------------------------------------------
 	#                    Trainings 	                   |

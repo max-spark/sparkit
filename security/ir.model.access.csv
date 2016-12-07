@@ -1,9 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_sparkit_community,sparkit.community,model_sparkit_community,,1,1,1,1
 access_sparkit_vrf,sparkit.vrf,model_sparkit_vrf,,1,1,1,1
-access_sparkit_cvrf,sparkit.cvrf,model_sparkit_cvrf,,1,1,1,1
-access_sparkit_ivrf,sparkit.ivrf,model_sparkit_ivrf,,1,1,1,1
-access_sparkit_pivrf,sparkit.pivrf,model_sparkit_pivrf,,1,1,1,1
 access_sparkit_sparkproject,sparkit.sparkproject,model_sparkit_sparkproject,,1,1,1,1
 access_sparkit_budgetitems,sparkit.budgetitems,model_sparkit_budgetitems,,1,1,1,1
 access_sparkit_projectbudgetitem,sparkit.projectbudgetitem,model_sparkit_projectbudgetitem,,1,1,1,1
