@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+  <t t-name="FacilitatorDashboard">
+    <div class="fac_dashboard">
+
+            <!--Top Row/Header-->
+            <p>Build still in progress</p>
+            <div>
+              <div class="hello_user"></div>
+              <div class="fac_dashboard_date"></div>
+            </div>
+            <div class="submit_new_form_container">
+              <div class="submit_new_form_div">
+                <button class="submit_new_form_button">Submit a New Form</button>
+                <div class="submit_new_form_dropdown">
+                  <p class="new_vrf">Visit Report Form</p>
+                  <p class="new_indprojectupdate">Independent Project Update</p>
+                  <p class="new_independentproject">New Independent Project</p>
+                  <p class="new_savingsgroup_update">Savings Group Update</p>
+                  <p class="new_partnership_update">Partnership Update</p>
+                </div>
+              </div>
+            </div>
+
+            <!--Highlights-->
+            <div class="highlights">
+
+              <div class="visits_today">
+                <div class="highlight_visits_today_number"></div>
+                <div class="highlight_visits_today_text">Today</div>
+              </div>
+
+              <div class="visits_this_week">
+                <div class="highlight_visits_this_week_number"></div>
+                <div class="highlight_visits_this_week_text">This Week</div>
+              </div>
+
+              <div class="vrfs_submitted_this_week">
+                <div class="highlight_vrfs_submitted_this_week_number">2</div>
+                <div class="highlight_vrfs_submitted_this_week_text">Visit Report Forms Submitted</div>
+              </div>
+
+            </div>
+
+
+
+            <!--Visits This Week List!-->
+            <div class="community_lists">
+              <div class="this_week_communities_div">
+                <p class="this_week_communities">Community Visits This Week</p>
+                <div class="list_visits_this_week"></div>
+              </div>
+
+              <!--VRFs Submitted This Week List-->
+              <div class="this_week_vrfs_div">
+                <p class="this_week_vrfs">Visit Report Forms Submitted This Week</p>
+                <div class="list_vrfs_this_week">
+                  <table class="community_list_table">
+                  <thead>
+                    <td style="padding: 10px">Community</td>
+                    <td style="padding: 10px">Visit Date</td>
+                    <td style="padding: 10px">Phase</td>
+                    <td style="padding: 10px">Step</td>
+                    <td style="padding: 10px">Form Type</td>
+                    <td style="padding: 10px">Next Visit Date</td>
+                  </thead>
+                </table></div>
+              </div>
+
+              <!--Facilitator ALL Communtiy list-->
+              <div class="all_communities_div">
+                <p class="all_communities">All Communities</p>
+                <div class="fac_dashboard_community_bucket" width="100%">
+                </div>
+              </div>
+            </div>
+
+      </div>
+  </t>
+
+  <t t-name="WelcomeCurrentUser">
+    <div></div>
+  </t>
+
+  <t t-name="PrintDate">
+    <div class="fac_dashboard_date_calendar"></div>
+  </t>
+
+  <t t-name="ListVisitsThisWeek">
+    <table class="community_list_table">
+      <thead>
+        <td style="padding: 10px">Name</td>
+        <td style="padding: 10px">Number</td>
+        <td style="padding: 10px">Phase</td>
+        <td style="padding: 10px">Step</td>
+        <td style="padding: 10px">Visit Date</td>
+      </thead>
+    </table>
+  </t>
+
+  <t t-name="CommunityVisitThisWeek">
+    <tr class="community_list_row" t-att-data-id="item.id">
+      <td style="padding: 10px">
+        <t t-esc="item.name"/>
+      </td>
+      <td style="padding: 10px">
+        <t t-esc="item.community_number"/>
+      </td>
+      <td style="padding: 10px">
+        <t t-esc="item.phase"/>
+      </td>
+      <td style="padding: 10px">
+        <t t-esc="item.state"/>
+      </td>
+      <td style="padding: 10px">
+        <t t-esc="item.next_visit_date"/>
+      </td>
+    </tr>
+  </t>
+
+  <t t-name="FacilitatorCommunityList">
+    <table class="community_list_table">
+      <thead>
+        <td style="padding: 10px">Name</td>
+        <td style="padding: 10px">Number</td>
+        <td style="padding: 10px">Phase</td>
+        <td style="padding: 10px">Step</td>
+        <td style="padding: 10px">Next Visit Date</td>
+      </thead>
+    </table>
+  </t>
+
+  <t t-name="FacilitatorCommunity">
+    <tr class="community_list_row" t-att-data-id="item.id">
+      <td style="padding: 10px">
+        <t t-esc="item.name"/>
+      </td>
+      <td style="padding: 10px">
+        <t t-esc="item.community_number"/>
+      </td>
+      <td style="padding: 10px">
+        <t t-esc="item.phase"/>
+      </td>
+      <td style="padding: 10px">
+        <t t-esc="item.state"/>
+      </td>
+      <td style="padding: 10px">
+        <t t-esc="item.next_visit_date"/>
+      </td>
+    </tr>
+  </t>
+
+  <t t-name="ListVRFsThisWeek">
+    <div></div>
+  </t>
+
+  <t t-name="VRFSubmitted">
+    <tr class="community_list_row" t-att-data-id="item.id">
+      <td style="padding: 10px">
+        <t t-esc="item.community_name"/>
+      </td>
+      <td style="padding: 10px">
+        <t t-esc="item.visit_date"/>
+      </td>
+      <td style="padding: 10px">
+        <t t-esc="item.phase"/>
+      </td>
+      <td style="padding: 10px">
+        <t t-esc="item.step_id"/>
+      </td>
+      <td style="padding: 10px">
+        <t t-esc="item.form_type"/>
+      </td>
+      <td style="padding: 10px">
+        <t t-esc="item.next_visit_date"/>
+      </td>
+    </tr>
+  </t>
+
+  <t t-name="GetVisitsToday">
+    <div></div>
+  </t>
+
+  <t t-name="CountVisitsThisWeek">
+    <div></div>
+  </t>
+
+</templates>

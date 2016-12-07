@@ -1,0 +1,385 @@
+@font-face {
+  font-family: 'Avenir';
+  src: url('/sparkit/static/src/fonts/Avenir/AvenirBook.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('/sparkit/static/src/fontawesome/fonts/fontawesome-webfont.eot?v=4.6.3');
+  src: url('/sparkit/static/src/fontawesome/fonts/fontawesome-webfont.eot?#iefix&v=4.6.3') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.6.3') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.6.3') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.6.3') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Spark Color Scheme (from .less)
+@spark-yellow:      #FAB833;
+@spark-dark-blue:   #2362A1;
+@spark-light-blue:  #76ACDC;
+@spark-red:         #ED675F;
+
+@sf-gray-blue:      #F7F9FB;
+
+@dark-blue:         #556990;
+@darker-blue:       #16325C;
+
+@gray-light:        #999;
+@gray:              #777;
+@gray-dark:         #333; */
+
+/* Main Dashboard Container */
+.fac_dashboard {
+  color: #16325C;
+  margin: 20px;
+  height: 100%;
+}
+
+/*
+/*
+/*    TOPBAR OF DASHBOARD
+/*
+/* Hello, ____ */
+.hello_user {
+  padding: 20px;
+  padding-left: 0px;
+  padding-top: 0px;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Avenir';
+  color: #2362A1;
+  display: inline-table;
+}
+
+/* Current Date + Calendar */
+.fac_dashboard_date {
+  font-size: 30px;
+  font-family: 'Avenir';
+  color: #2362A1;
+  padding: 20px;
+  padding-top: 0px;
+  float:right;
+  display: inline-table;
+}
+
+.fac_dashboard_date:hover {
+  color: #fab833;
+  cursor: pointer;
+}
+
+.fac_dashboard_date_calendar:after {
+  font-family: 'FontAwesome';
+  content: "\f073";
+  padding-left: 10px;
+}
+
+/* New Form Submission Dropdown Menu */
+.submit_new_form_container {
+  width: 100%;
+  position: relative;
+  display: inline-block;
+}
+.submit_new_form_div {
+  float: left;
+  position: relative;
+  margin-top: -20px;
+}
+
+.submit_new_form_div:hover .submit_new_form_dropdown,
+.submit_new_form_div:focus .submit_new_form_dropdown,
+.submit_new_form_div:active .submit_new_form_dropdown {
+    display: block;
+}
+
+.submit_new_form_dropdown {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.submit_new_form_button {
+  padding: 8px;
+  font-size: 14px;
+  border: 2px solid #2362A1;
+  color: #2362A1;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.submit_new_form_button:before {
+  font-family: 'FontAwesome';
+  content: "\f03a";
+  padding-right: 5px;
+}
+
+.new_vrf, .new_indprojectupdate,.new_savingsgroup_update,
+.new_partnership_update, .new_independentproject {
+  padding: 10px;
+  margin: 0 !important;
+}
+
+.new_vrf:hover, .new_indprojectupdate:hover,
+.new_savingsgroup_update:hover, .new_partnership_update:hover,
+.new_independentproject:hover {
+  background-color: #E6E6E6;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+HIGHLIGHTS AREA
+
+
+*/
+.highlights {
+  width: 100%;
+  display: inline;
+  position: relative;
+  left: 50%;
+  margin: 0px 0 0 -300px;
+}
+
+.visits_today {
+  width: 200px;
+  display: inline-table;
+}
+
+.visits_today:hover .highlight_visits_today_number,
+.visits_today:hover .highlight_visits_today_text {
+  background-color: #E19F1A;
+  cursor: pointer;
+}
+
+.highlight_visits_today_number {
+  font-family: 'Avenir';
+  font-size: 50px;
+  font-weight: bold;
+  background-color: #FAB833;
+  color: #fff;
+  padding: 20px;
+  margin: 10px;
+  margin-bottom: 0px;
+  text-align: center;
+  max-width: 150px;
+  max-height: 150px;
+}
+.highlight_visits_today_text {
+  font-family: 'Avenir';
+  font-size: 16px;
+  background-color: #FAB833;
+  color: #fff;
+  padding: 20px;
+  padding-top: 0px;
+  margin: 10px;
+  margin-top: -1px;
+  text-align: center;
+  max-width: 150px;
+  max-height: 100px;
+}
+
+.visits_this_week {
+  display: inline-table;
+  width: 200px;
+}
+
+.visits_this_week:hover .highlight_visits_this_week_number,
+.visits_this_week:hover .highlight_visits_this_week_text {
+  background-color: #0A4988;;
+  cursor: pointer;
+}
+
+.highlight_visits_this_week_number {
+  font-family: 'Avenir';
+  font-size: 50px;
+  font-weight: bold;
+  background-color: #2362A1;
+  color: #fff;
+  padding: 20px;
+  margin: 10px;
+  margin-bottom: 0px;
+  text-align: center;
+  max-width: 150px;
+  max-height: 150px;
+}
+.highlight_visits_this_week_text {
+  font-family: 'Avenir';
+  font-size: 16px;
+  background-color: #2362A1;
+  color: #fff;
+  padding: 20px;
+  padding-top: 0px;
+  margin: 10px;
+  margin-top: -1px;
+  text-align: center;
+  max-width: 150px;
+  max-height: 100px;
+}
+.vrfs_submitted_this_week {
+  width: 200px;
+  display: inline-table;
+}
+
+.vrfs_submitted_this_week:hover .highlight_vrfs_submitted_this_week_number,
+.vrfs_submitted_this_week:hover .highlight_vrfs_submitted_this_week_text {
+  background-color: #5D93C3;
+  cursor: pointer;
+}
+
+.highlight_vrfs_submitted_this_week_number {
+  font-family: 'Avenir';
+  font-size: 50px;
+  font-weight: bold;
+  background-color: #76ACDC;
+  color: #fff;
+  padding: 20px;
+  padding-bottom: 12px;
+  margin: 10px;
+  margin-bottom: 0px;
+  text-align: center;
+  max-width: 150px;
+  max-height: 150px;
+}
+.highlight_vrfs_submitted_this_week_text {
+  font-family: 'Avenir';
+  font-size: 14px;
+  background-color: #76ACDC;
+  color: #fff;
+  padding: 10px;
+  padding-bottom: 10px;
+  padding-top: 0px;
+  margin: 10px;
+  margin-top: -1px;
+  text-align: center;
+  max-width: 150px;
+  max-height: 100px;
+}
+
+
+
+
+
+
+
+
+
+
+/*
+
+TABLES/LIsTS
+
+
+*/
+/* Setting to not be shown by default */
+.list_vrfs_this_week, .fac_dashboard_community_bucket, .list_visits_this_week {
+  display: none;
+}
+
+.community_lists {
+  clear: both;
+}
+
+.link {
+  border: 1px solid red;
+}
+
+.fac_dashboard_table_text {
+  font-size: 14px;
+  font-family: 'Avenir';
+  color: #16325C;
+  padding: 5px;
+}
+
+.fac_dashboard_table {
+  border: 1px solid #000;
+}
+
+.community_list_table {
+  width: 100% !important;
+  border-collapse: collapse;;
+}
+
+.community_list_table thead {
+  background-color: #16325C;
+  color: #fff;
+  font-size: 20px;
+  font-family: 'Avenir';
+  font-weight: 100;
+}
+
+.community_list_row {
+  background-color: #fff;
+  color: #556990;
+  border-bottom: 2px solid #556990;
+  font-size: 14px;
+  font-weight: 100;
+}
+
+.community_list_row:hover {
+  background-color: #E6E6E6;
+  cursor: pointer;
+}
+
+.all_communities_div, .this_week_vrfs_div {
+  background-color: #F7F9FB;
+}
+.all_communities {
+  font-size: 20px;
+  font-family: 'Avenir';
+  padding: 5px;
+  padding-top: 10px;
+  padding-left: 20px;
+  color: #76ACDC;
+  background-color: #F7F9FB;
+}
+
+.all_communities:hover {
+  font-size: 20px;
+  font-family: 'Avenir';
+  color: #16325C;
+  cursor: pointer;
+}
+
+.all_communities:after {
+  font-family: 'FontAwesome';
+  content: "\f054";
+  padding-left: 5px;
+}
+
+.this_week_communities_div {
+  background-color: #F7F9FB;
+}
+
+.this_week_communities, .this_week_vrfs {
+  font-size: 20px;
+  font-family: 'Avenir';
+  padding: 5px;
+  padding-top: 10px;
+  padding-left: 20px;
+  color: #76ACDC;
+  background-color: #F7F9FB;
+}
+
+.this_week_communities:hover, .this_week_vrfs:hover {
+  font-size: 20px;
+  font-family: 'Avenir';
+  color: #16325C;
+  cursor: pointer;
+}
+
+.this_week_communities:after, .this_week_vrfs:after {
+  font-family: 'FontAwesome';
+  content: "\f054";
+  padding-left: 5px;
+}
