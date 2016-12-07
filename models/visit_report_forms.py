@@ -31,6 +31,8 @@ class VisitReportForm(models.Model):
 		('community_identification', 'Community Identification'),
 		('partnership_ended', 'Partnership Ended')], select=True, string="Phase")
 	step_id = fields.Many2one('sparkit.fcapstep', string="FCAP Step")
+	gps_latitude = fields.Char(string="Latitude")
+	gps_longitude = fields.Char(string="Longitude")
 
 	#Attendance Information
 	attendance_type1_id = fields.Many2one('sparkit.grouptracking',
