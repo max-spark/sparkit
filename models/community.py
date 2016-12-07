@@ -488,7 +488,7 @@ class Community(models.Model):
 				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.def')
 		elif self.is_community_description_filled is False:
 			raise ValidationError("Error: Community Missing Description")
-		elif self.did_twoplus_ppl_visit is False:
+		elif self.at_least_two_ppl_visited is False:
 			raise ValidationError("Error: At Least Two People Must Have Visited Community!")
 
 	# Partnership -> Community Building
