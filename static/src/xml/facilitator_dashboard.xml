@@ -108,10 +108,10 @@
         <t t-esc="item.community_number"/>
       </td>
       <td style="padding: 10px">
-        <t t-esc="item.phase"/>
+        <t t-esc="item.phase_name"/>
       </td>
       <td style="padding: 10px">
-        <t t-esc="item.state"/>
+        <t t-esc="item.state_name"/>
       </td>
       <td style="padding: 10px">
         <t t-esc="item.next_visit_date"/>
@@ -140,10 +140,10 @@
         <t t-esc="item.community_number"/>
       </td>
       <td style="padding: 10px">
-        <t t-esc="item.phase"/>
+        <t t-esc="item.phase_name"/>
       </td>
       <td style="padding: 10px">
-        <t t-esc="item.state"/>
+        <t t-esc="item.state_name"/>
       </td>
       <td style="padding: 10px">
         <t t-esc="item.next_visit_date"/>
@@ -164,10 +164,10 @@
         <t t-esc="item.visit_date"/>
       </td>
       <td style="padding: 10px">
-        <t t-esc="item.phase"/>
+        <t t-esc="item.phase_name"/>
       </td>
       <td style="padding: 10px">
-        <t t-esc="item.step_id"/>
+        <t t-esc="item.state_name"/>
       </td>
       <td style="padding: 10px">
         <t t-esc="item.form_type"/>

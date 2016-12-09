@@ -281,9 +281,18 @@ TABLES/LIsTS
 
 
 */
+
 /* Setting to not be shown by default */
 .list_vrfs_this_week, .fac_dashboard_community_bucket, .list_visits_this_week {
   display: none;
+}
+
+
+/* Container */
+.this_week_communities_div, .all_communities_div, .this_week_vrfs_div  {
+  background-color: #F7F9FB;
+  padding: 10px;
+  margin: 10px;
 }
 
 .community_lists {
@@ -331,9 +340,6 @@ TABLES/LIsTS
   cursor: pointer;
 }
 
-.all_communities_div, .this_week_vrfs_div {
-  background-color: #F7F9FB;
-}
 .all_communities {
   font-size: 20px;
   font-family: 'Avenir';
@@ -357,9 +363,7 @@ TABLES/LIsTS
   padding-left: 5px;
 }
 
-.this_week_communities_div {
-  background-color: #F7F9FB;
-}
+
 
 .this_week_communities, .this_week_vrfs {
   font-size: 20px;

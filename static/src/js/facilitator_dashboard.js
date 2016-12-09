@@ -172,7 +172,7 @@ openerp.sparkit = function(instance, local) {
         start: function () {
             var self = this;
             return new instance.web.Model('sparkit.community')
-                .query(['name', 'id', 'community_number', 'phase.value', 'state', 'next_visit_date'])
+                .query(['name', 'id', 'community_number', 'phase_name', 'state_name', 'next_visit_date'])
                 .filter([['facilitator_id', '=', self.session.uid],['is_partnered', '=', 'True']])
                 .all()
                 .then(function (results) {
@@ -214,7 +214,7 @@ openerp.sparkit = function(instance, local) {
             var week = this.iso8601Week(today)
 
             return new instance.web.Model('sparkit.community')
-                .query(['name', 'id', 'community_number', 'phase', 'state', 'next_visit_date'])
+                .query(['name', 'id', 'community_number', 'phase_name', 'state_name', 'next_visit_date'])
                 .filter([['facilitator_id', '=', self.session.uid], ['next_visit_date_week', '=', week]])
                 .all()
                 .then(function (results) {
@@ -253,7 +253,7 @@ openerp.sparkit = function(instance, local) {
             var week = this.iso8601Week(today)
 
             return new instance.web.Model('sparkit.vrf')
-                .query(['community_name', 'id', 'visit_date', 'phase', 'step_id', 'next_visit_date', 'form_type'])
+                .query(['community_name', 'id', 'visit_date', 'phase_name', 'step_name', 'next_visit_date', 'form_type'])
                 .filter([['facilitator_id', '=', self.session.uid]])
                 .all()
                 .then(function (results) {
