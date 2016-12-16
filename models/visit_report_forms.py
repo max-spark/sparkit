@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from openerp import models, fields, api
+from datetime import datetime
+
 
 #TODO How to handle cases where it's over 3 hours? For mtg duration..
 #TODO How to automatically fill in program manager?
@@ -57,8 +59,11 @@ class VisitReportForm(models.Model):
 		], select=True, string="Step")
 	gps_latitude = fields.Char(string="Latitude")
 	gps_longitude = fields.Char(string="Longitude")
+	# Dashboard Info
 	phase_name = fields.Char(compute='_get_phase_name', string="Phase Name", store=True)
 	state_name = fields.Char(compute='_get_state_name', string="State Name", store=True)
+	visit_date_week = fields.Char(compute='get_visit_date_week', store=True)
+
 
 	#Attendance Information
 	attendance_type1_id = fields.Many2one('sparkit.grouptracking',
@@ -330,6 +335,13 @@ class VisitReportForm(models.Model):
 		('irregularly', 'Meeting Irregularly but Frequently'),
 		('ocasionally', 'Meeting Ocasionally'), ('not_meeting', 'Not Meeting')],
 		select=True, string="Community Meeting Frequency")
+
+	@api.depends('visit_date')
+	def get_visit_date_week(self):
+		for r in self:
+			if r.visit_date:
+				next_visit_date = datetime.strptime((str(r.visit_date)), '%Y-%m-%d').date()
+				r.visit_date_week = next_visit_date.strftime("%W")
 
 	@api.one
 	@api.depends('phase')

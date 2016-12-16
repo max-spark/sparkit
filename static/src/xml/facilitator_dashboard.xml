@@ -5,7 +5,6 @@
     <div class="fac_dashboard">
 
             <!--Top Row/Header-->
-            <p>Build still in progress</p>
             <div>
               <div class="hello_user"></div>
               <div class="fac_dashboard_date"></div>
@@ -37,8 +36,8 @@
               </div>
 
               <div class="vrfs_submitted_this_week">
-                <div class="highlight_vrfs_submitted_this_week_number">2</div>
-                <div class="highlight_vrfs_submitted_this_week_text">Visit Report Forms Submitted</div>
+                <div class="highlight_vrfs_submitted_this_week_number"></div>
+                <div class="highlight_vrfs_submitted_this_week_text">Visit Report Forms Submitted For Visits</div>
               </div>
 
             </div>
@@ -55,17 +54,7 @@
               <!--VRFs Submitted This Week List-->
               <div class="this_week_vrfs_div">
                 <p class="this_week_vrfs">Visit Report Forms Submitted This Week</p>
-                <div class="list_vrfs_this_week">
-                  <table class="community_list_table">
-                  <thead>
-                    <td style="padding: 10px">Community</td>
-                    <td style="padding: 10px">Visit Date</td>
-                    <td style="padding: 10px">Phase</td>
-                    <td style="padding: 10px">Step</td>
-                    <td style="padding: 10px">Form Type</td>
-                    <td style="padding: 10px">Next Visit Date</td>
-                  </thead>
-                </table></div>
+                <div class="list_vrfs_this_week"></div>
               </div>
 
               <!--Facilitator ALL Communtiy list-->
@@ -152,7 +141,16 @@
   </t>
 
   <t t-name="ListVRFsThisWeek">
-    <div></div>
+    <table class="community_list_table">
+      <thead>
+        <td style="padding: 10px">Community</td>
+        <td style="padding: 10px">Visit Date</td>
+        <td style="padding: 10px">Phase</td>
+        <td style="padding: 10px">Step</td>
+        <td style="padding: 10px">Form Type</td>
+        <td style="padding: 10px">Next Visit Date</td>
+      </thead>
+    </table>
   </t>
 
   <t t-name="VRFSubmitted">
@@ -183,6 +181,10 @@
   </t>
 
   <t t-name="CountVisitsThisWeek">
+    <div></div>
+  </t>
+
+  <t t-name="CountVRFsThisWeek">
     <div></div>
   </t>
 

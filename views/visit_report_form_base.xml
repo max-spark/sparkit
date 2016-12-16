@@ -23,6 +23,7 @@
 									<field name="state"/>
 									<field name="state_name" invisible="1"/>
 									<field name="form_type" invisible="1"/>
+									<field name="visit_date_week"/>
   							</group>
   						</group>
   						<notebook>
