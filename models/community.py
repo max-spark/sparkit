@@ -42,12 +42,12 @@ class Community(models.Model):
 		('community_building', 'Community Building'),
 		('goal_setting_goals', 'Goal Setting: Goals'),
 		('goal_setting_pathways', 'Goal Setting: Pathways'),
-		('measuring_success', 'Pathway Planning: Measuring Success'),
-		('implementation_plan', 'Pathway Planning: Implementation Plan'),
-		('operational_plan', 'Pathway Planning: Operational Plan'),
-		('sustainability_plan', 'Pathway Planning: Sustainability Plan'),
-		('transition_strategy', 'Pathway Planning: Transition Strategy'),
-		('proposal_review', 'Pathway Planning: Proposal Finalization'),
+		('measuring_success', 'Proposal Development: Measuring Success'),
+		('implementation_plan', 'Proposal Development: Implementation Plan'),
+		('operational_plan', 'Proposal Development: Operational Plan'),
+		('sustainability_plan', 'Proposal Development: Sustainability Plan'),
+		('transition_strategy', 'Proposal Development: Transition Strategy'),
+		('proposal_review', 'Proposal Development: Proposal Finalization'),
 		('grant_agreement', 'Implementation: Grant Agreement & Financial Management'),
 		('first_disbursement', 'Implementation: Accountability & Transparency (Disbursements Begin)'),
 		('leadership', 'Implementation: Leadership'),
@@ -326,7 +326,7 @@ class Community(models.Model):
 	# hard stops
 	is_project_description_not_null = fields.Boolean(string="Project Description Completed",
 		compute='check_project_description')
-	is_pm_approved_pathways = fields.Boolean(string="PM Approved Pathway?")
+	pm_approved_goal_setting = fields.Boolean(string="Manager Approved Goal Setting (Pathways, Indicators, Goals)")
 	is_oca2_completed = fields.Boolean(string="OCA #2 Completed?", compute='check_ocas_completed', store=True)
 	is_min_pathways_brainstormed = fields.Boolean(string="Minimum Number of Pathways Brainstormed?",
 		compute='check_pathways_ideas')
@@ -866,7 +866,7 @@ class Community(models.Model):
 				r.cmty_registered_with_govt = True
 
 	@api.depends('partnership_agreement')
-	def _get_grant_agreement_name(self):
+	def _get_partnership_agreement_name(self):
 		for r in self:
 			if r.partnership_agreement:
 				r.partnership_agreement_name =  r.name + "_" + "Partnership" + "_" + "Agreement" + ".pdf"
@@ -1379,6 +1379,10 @@ class Community(models.Model):
 				r.is_project_created = True
 
 	@api.multi
+	def check_pm_approved_goal_setting(self):
+		self.pm_approved_goal_setting = True
+
+	@api.multi
 	def check_pm_approved_partnership(self):
 		self.has_pm_approved_partnership = True
 
@@ -1594,7 +1598,8 @@ class Community(models.Model):
 			and self.is_partnerhip_agreement_stored is True
 			and self.is_partnership_agreement_uploaded is True
 			and self.num_leaders_requirement is True
-			and self.leaders_gender_requirement is True):
+			and self.leaders_gender_requirement is True
+			and self.sms_registration_completed):
 			self.state = 'goal_setting_goals'
 		elif self.is_cmty_leaders_entered is False:
 			raise ValidationError("Error: Community Leaders Must Be Entered")
@@ -1611,6 +1616,8 @@ class Community(models.Model):
 				raise ValidationError("Error: Too Little Project Leaders")
 		elif self.leaders_gender_requirement is False:
 			raise ValidationError("Error: At Least 20% of Leaders Must Be Female!")
+		elif self.sms_registration_completed is False:
+			raise ValidationError("Error: SMS Registration Must Be Completed")
 
 	# Goals -> Goal Setting: Pathways
 	def action_goal_setting_pathways(self):
@@ -1631,22 +1638,20 @@ class Community(models.Model):
 		elif self.goal_indicator_baselines_gathered is False:
 			raise ValidationError("Error: Goal Indicator Baselines Must Be Collected and Filled Out On Community Profile")
 
-	# Goal Setting: Pathways -> Pathway Planning: Implementation Action Plan
+	# Goal Setting: Pathways -> Proposal Development: Implementation Action Plan
 	def action_implementation_plan(self):
 		if (self.is_project_description_not_null is True and
-			self.is_pm_approved_pathways is True and
 			self.is_oca2_completed is True and
 			self.is_min_pathways_brainstormed is True and
 			self.did_ta_recruitment_begin is True and
 			self.did_bank_opening_begin is True and
-			self.did_government_registration_begin is True):
+			self.did_government_registration_begin is True and
+			self.pm_approved_goal_setting is True):
 			self.state = 'implementation_plan'
 		elif self.is_min_pathways_brainstormed is False:
 			raise ValidationError("Error: Not Enough Pathways - Ideas Brainstormed!")
 		elif self.is_project_description_not_null is False:
 			raise ValidationError("Error: Project Description Must Be Filled on Community Profile")
-		elif self.is_pm_approved_pathways is False:
-			raise ValidationError("Error: Community Program Manager Must Approve Pathways Section!")
 		elif self.is_oca2_completed is False:
 			raise ValidationError("Error: OCA2 Must Be Completed!")
 		elif self.did_ta_recruitment_begin is False:
@@ -1655,6 +1660,8 @@ class Community(models.Model):
 			raise ValidationError("Error: Bank Account Opening Process Must Have Begun")
 		elif self.did_government_registration_begin is False:
 			raise ValidationError("Error: Community Must Have Begun Government Registration Process")
+		elif self.pm_approved_goal_setting is False:
+			raise ValidationError("Error: Community Manager Must Approve Goal Setting Section Before Moving to Proposal Development!")
 
 	# Implementation Plan -> Operational Plan
 	def action_operational_plan(self):

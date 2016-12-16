@@ -21,3 +21,6 @@ class res_partner(models.Model):
         ], select=True, string="Gender")
 
     community_id = fields.Many2one('sparkit.community', string="Community")
+    new_leader = fields.Selection([('1', 'Yes'), ('0', 'No')],
+        select=True, string="New Leader",
+        help="Tick this box if the leader has never been in a leadership before.")

@@ -15,6 +15,8 @@
               </xpath>
               <xpath expr="//field[@name='phone']" position="before">
                  <field name="gender" attrs="{'required': [('company_type', '=', 'community_leader')]}"/>
+                 <field name="new_leader" attrs="{'required': [('company_type', '=', 'community_leader')],
+                    'invisible': [('company_type', '!=', 'community_leader')]}"/>
               </xpath>
               <xpath expr="//page[@name='sales_purchases']" position="replace"/>
           </field>

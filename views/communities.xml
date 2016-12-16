@@ -62,45 +62,53 @@
 								string="Back to Goal Setting: Goals"
 								states="goal_setting_pathways"/>
 							<button name="implementation_plan" type="workflow"
-								string="Move to Pathway Planning: Implementation Plan"
+								string="Move to Proposal Development: Implementation Plan"
 								states="goal_setting_pathways"
+								attrs="{'invisible': ['|', ('pm_approved_goal_setting', '=', False),
+									('state', '!=', 'goal_setting_pathways')]}"
+								class="oe_highlight"/>
+							<button name="check_pm_approved_goal_setting"
+								type="object"
+								string="Community Approved for Proposal Development"
+								attrs="{'invisible': ['|', ('pm_approved_goal_setting', '=', True),
+									('state', '!=', 'goal_setting_pathways')]}"
 								class="oe_highlight"/>
 
 							<button name="goal_setting_pathways_reset" type="workflow"
 								string="Back to Goal Setting: Pathways"
 								states="implementation_plan"/>
 							<button name="operational_plan" type="workflow"
-								string="Move to Pathway Planning: Operational Plan"
+								string="Move to Proposal Development: Operational Plan"
 								states="implementation_plan"
 								class="oe_highlight"/>
 
 							<button name="implementation_plan_reset" type="workflow"
-								string="Back to Pathway Planning: Implementation Plan"
+								string="Back to Proposal Development: Implementation Plan"
 								states="operational_plan"/>
 							<button name="measuring_success" type="workflow"
-								string="Move to Pathway Planning: Measuring Success"
+								string="Move to Proposal Development: Measuring Success"
 								states="operational_plan"
 								class="oe_highlight"/>
 
 							<button name="operational_plan_reset" type="workflow"
-								string="Back to Pathway Planning: Operational Plan"
+								string="Back to Proposal Development: Operational Plan"
 								states="measuring_success"/>
 							<button name="sustainability_plan" type="workflow"
-								string="Move to Pathway Planning: Sustainability Plan"
+								string="Move to Proposal Development: Sustainability Plan"
 								states="measuring_success"
 								class="oe_highlight"/>
 
 							<button name="measuring_success_reset" type="workflow"
-								string="Back to Pathway Planning: Measuring Success"
+								string="Back to Proposal Development: Measuring Success"
 								states="sustainability_plan"/>
 							<button name="proposal_review" type="workflow"
-								string="Move to Pathway Planning: Proposal Finalization"
+								string="Move to Proposal Development: Proposal Finalization"
 								states="sustainability_plan"
 								class="oe_highlight"/>
 
 
 							<button name="sustainability_plan_reset" type="workflow"
-								string="Back to Pathway Planning: Sustainability Plan"
+								string="Back to Proposal Development: Sustainability Plan"
 								states="proposal_review"/>
 							<button name="grant_agreement" type="workflow"
 								string="Move to Implementation: Grant Agreement"
@@ -116,7 +124,7 @@
 								class="oe_highlight"/>
 
 							<button name="proposal_review_reset" type="workflow"
-								string="Back To Pathway Planning: Proposal Finalization"
+								string="Back To Proposal Development: Proposal Finalization"
 								states="grant_agreement"/>
 							<button name="first_disbursement" type="workflow"
 								string="Move to Implementation: Accountability &amp; Transparency (Disbursements Begin)"
@@ -255,7 +263,7 @@
 								attrs="{'invisible': [('state', '!=', 'goal_setting_pathways')]}">
 								<group colspan="6" col="6" class="no_style" string="Planning: Goal Setting - Pathways">
 									<field name="is_project_description_not_null"/>
-									<field name="is_pm_approved_pathways"/>
+									<field name="pm_approved_goal_setting"/>
 									<field name="is_oca2_completed"/>
 									<field name="is_min_pathways_brainstormed"/>
 									<field name="did_ta_recruitment_begin"/>

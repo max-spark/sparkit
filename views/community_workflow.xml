@@ -52,35 +52,35 @@
         </record>
 
         <record model="workflow.activity" id="action_implementation_plan">
-            <field name="name">Pathway Planning: Implementation Plan</field>
+            <field name="name">Proposal Development: Implementation Plan</field>
             <field name="wkf_id" ref="wkf_fcap"/>
             <field name="kind">function</field>
             <field name="action">action_implementation_plan()</field>
         </record>
 
         <record model="workflow.activity" id="action_operational_plan">
-            <field name="name">Pathway Planning: Operational Plan</field>
+            <field name="name">Proposal Development: Operational Plan</field>
             <field name="wkf_id" ref="wkf_fcap"/>
             <field name="kind">function</field>
             <field name="action">action_operational_plan()</field>
         </record>
 
         <record model="workflow.activity" id="action_measuring_success">
-            <field name="name">Pathway Planning: Measuring Success</field>
+            <field name="name">Proposal Development: Measuring Success</field>
             <field name="wkf_id" ref="wkf_fcap"/>
             <field name="kind">function</field>
             <field name="action">action_measuring_success()</field>
         </record>
 
         <record model="workflow.activity" id="action_sustainability_plan">
-            <field name="name">Pathway Planning: Sustainability Plan</field>
+            <field name="name">Proposal Development: Sustainability Plan</field>
             <field name="wkf_id" ref="wkf_fcap"/>
             <field name="kind">function</field>
             <field name="action">action_sustainability_plan()</field>
         </record>
 
         <record model="workflow.activity" id="action_proposal_review">
-            <field name="name">Pathway Planning: Proposal Review</field>
+            <field name="name">Proposal Development: Proposal Review</field>
             <field name="wkf_id" ref="wkf_fcap"/>
             <field name="kind">function</field>
             <field name="action">action_proposal_review()</field>
