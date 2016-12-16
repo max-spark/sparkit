@@ -14,7 +14,6 @@ access_sparkit_projectcategory,sparkit.projectcategory,model_sparkit_projectcate
 access_sparkit_projectsubcategory,sparkit.projectsubcategory,model_sparkit_projectsubcategory,,1,1,1,1
 access_sparkit_fcapmap,sparkit.fcapmap,model_sparkit_fcapmap,,1,1,1,1
 access_sparkit_fcapstep,sparkit.fcapsetp,model_sparkit_fcapstep,,1,1,1,1
-access_sparkit_fcapcategory,sparkit.fcapcategory,model_sparkit_fcapcategory,,1,1,1,1
 access_sparkit_fcapactivity,sparkit.fcapactivity,model_sparkit_fcapactivity,,1,1,1,1
 access_sparkit_scoutingform,sparkit.scoutingform,model_sparkit_scoutingform,,1,1,1,1
 access_sparkit_transitionstrategy,sparkit.transitionstrategy,model_sparkit_transitionstrategy,,1,1,1,1

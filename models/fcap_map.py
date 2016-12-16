@@ -7,38 +7,57 @@ from openerp import models, fields, api
 class FCAPMap(models.Model):
 	_name = 'sparkit.fcapmap'
 
-	name = fields.Char(string="Name")
+	# Default FCAP Phases. These phases are the broader bucket categories that
+	# each state (in Spark terms, step) fall into. Then, each state(step)
+	# has certain activities that facilitators use in meetings.
+	name = fields.Char(string="Phase")
 	phase = fields.Selection([('planning', 'Planning'),
 		('implementation', 'Implementation'),
 		('post_implementation', 'Post Implementation'),
 		('graduated', 'Graduated'),
 		('community_identification', 'Community Identification'),
-		('partnership_ended', 'Partnership Ended')], select=True, string="Phase")
-	step_ids = fields.One2many('sparkit.fcapstep', 'phase_id', String="Steps")
-	category_ids = fields.One2many('sparkit.fcapcategory', 'phase_id', string="Categories")
-	activity_ids = fields.One2many('sparkit.fcapactivity', 'phase_id', string="Activities")
+		('partnership_ended', 'Partnership Ended')], select=True,
+		string="Phase")
+	step_ids = fields.One2many('sparkit.fcapstep', 'phase_id', string="Steps")
 
 class FCAPStep(models.Model):
 	_name = 'sparkit.fcapstep'
-	_order = 'step_number'
 
-	name = fields.Char("FCAP Step")
-	phase_id = fields.Many2one('sparkit.fcapmap', string="Phase ID")
-	phase = fields.Selection(related='phase_id.phase', string="Phase")
+	name = fields.Char(string="Name")
+	phase_id = fields.Many2one('sparkit.fcapmap', string="Phase")
+	state = fields.Selection([
+		('community_identification', 'Community Identification - Baseline'),
+		('introductions', 'Introductions'),
+		('partnership', 'Partnership'),
+		('community_building', 'Community Building'),
+		('goal_setting_goals', 'Goal Setting: Goals'),
+		('goal_setting_pathways', 'Goal Setting: Pathways'),
+		('implementation_plan', 'Pathway Planning: Implementation Plan'),
+		('operational_plan', 'Pathway Planning: Operational Plan'),
+		('measuring_success', 'Pathway Planning: Measuring Success'),
+		('sustainability_plan', 'Pathway Planning: Sustainability Plan'),
+		('proposal_review', 'Pathway Planning: Proposal Finalization'),
+		('grant_agreement', 'Implementation: Grant Agreement & Financial Management'),
+		('first_disbursement', 'Implementation: First Disbursement, Accountability & Transparency'),
+		('leadership', 'Implementation: Leadership'),
+		('transition_strategy', 'Implementation: Transition Strategy'),
+		# To be deleted / updated
+		('post_implementation', 'Post Implementation'),
+		('post_implementation1', 'Post Implementation: Management Support'),
+		('post_implementation2', 'Post Implementation: Future Envisioning'),
+		('post_implementation3', 'Post Implementation: Graduation Preparation'),
+		('graduated', 'Graduated'),
+		('partnership_canacelled', 'Partnership Cancelled')
+	], string="Step")
+	min_duration = fields.Integer(string="Minimum Duration")
 	step_number = fields.Integer(string="Step Number")
-	duration = fields.Integer(string="Duration")
-
-class FCAPCategory(models.Model):
-	_name = 'sparkit.fcapcategory'
-
-	name = fields.Char(string="Category")
-	phase_id = fields.Many2one('sparkit.fcapmap', string="Phase ID")
-	phase = fields.Selection(related='phase_id.phase', string="Phase")
+	activity_ids = fields.One2many('sparkit.fcapactivity', 'step_id', string="Activities")
 
 class FCAPActivity(models.Model):
 	_name = 'sparkit.fcapactivity'
 
-	name = fields.Char(string="Activity")
-	category_id = fields.Many2one('sparkit.fcapcategory', string="Category", required=True)
-	phase_id = fields.Many2one('sparkit.fcapmap', string="Phase ID")
-	phase = fields.Selection(related='phase_id.phase', string="Phase")
+	name = fields.Char(string="Name")
+	step_id = fields.Many2one('sparkit.fcapstep', string="Step")
+	# Number to be able to search record (other than by name) in community.py
+	# for FCAP workflow
+	number = fields.Integer(string="Number")

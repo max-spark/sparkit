@@ -16,7 +16,7 @@ class VisitReportForm(models.Model):
 	#Basic Information
 	name = fields.Char(String="Form ID", readonly=True)
 	community_id = fields.Many2one('sparkit.community', string="Community",
-		required=True, domain=[('is_partnered', '=', True)])
+		required=True)
 	community_number = fields.Char(related='community_id.community_number')
 	community_name = fields.Char(related='community_id.name', store=True)
 	facilitator_id = fields.Many2one('res.users', default=lambda self: self.env.user,
@@ -24,15 +24,41 @@ class VisitReportForm(models.Model):
 	form_type = fields.Char(string="Form Type", compute='_get_form_type', store=True)
 	program_manager_id = fields.Many2one('res.users', string="Program Manager")
 	visit_date = fields.Date(string="Date of Visit", required=True)
-	phase = fields.Selection([('planning', 'Planning'),
+	phase = fields.Selection([
+		('community_identification', 'Community Identification'),
+		('planning', 'Planning'),
 		('implementation', 'Implementation'),
 		('post_implementation', 'Post Implementation'),
+		('graduated', 'Graduated')
+		], select=True, string="Phase")
+	state = fields.Selection([
+		('community_identification', 'Community Identification - Baseline'),
+		('introductions', 'Introductions'),
+		('partnership', 'Partnership'),
+		('community_building', 'Community Building'),
+		('goal_setting_goals', 'Goal Setting: Goals'),
+		('goal_setting_pathways', 'Goal Setting: Pathways'),
+		('measuring_success', 'Pathway Planning: Measuring Success'),
+		('implementation_plan', 'Pathway Planning: Implementation Plan'),
+		('operational_plan', 'Pathway Planning: Operational Plan'),
+		('sustainability_plan', 'Pathway Planning: Sustainability Plan'),
+		('transition_strategy', 'Pathway Planning: Transition Strategy'),
+		('proposal_review', 'Pathway Planning: Proposal Finalization'),
+		('grant_agreement', 'Implementation: Grant Agreement & Financial Management'),
+		('first_disbursement', 'Implementation: Accountability & Transparency'),
+		('project_management', 'Implementation: Project Management'),
+		('leadership', 'Implementation: Leadership'),
+		('imp_transition_strategy', 'Implementation: Transition Strategy'),
+		('post_implementation1', 'Post Implementation: Management Support'),
+		('post_implementation2', 'Post Implementation: Future Envisioning'),
+		('post_implementation3', 'Post Implementation: Graduation'),
 		('graduated', 'Graduated'),
-		('community_identification', 'Community Identification'),
-		('partnership_ended', 'Partnership Ended')], select=True, string="Phase")
-	step_id = fields.Many2one('sparkit.fcapstep', string="FCAP Step")
+		('partnership_canacelled', 'Partnership Cancelled'),
+		], select=True, string="Step")
 	gps_latitude = fields.Char(string="Latitude")
 	gps_longitude = fields.Char(string="Longitude")
+	phase_name = fields.Char(compute='_get_phase_name', string="Phase Name", store=True)
+	state_name = fields.Char(compute='_get_state_name', string="State Name", store=True)
 
 	#Attendance Information
 	attendance_type1_id = fields.Many2one('sparkit.grouptracking',
@@ -75,12 +101,6 @@ class VisitReportForm(models.Model):
 	speakers_total = fields.Integer(string="Total Speakers", compute='_total_speakers')
 
 	#Next Meeting Information
-	next_meeting_category1_id = fields.Many2one('sparkit.fcapcategory',
-		string="Next Meeting Category 1")
-	next_meeting_category2_id = fields.Many2one('sparkit.fcapcategory',
-		string="Next Meeting Category 2")
-	next_meeting_category3_id = fields.Many2one('sparkit.fcapcategory',
-		string="Next Meeting Category 3")
 	next_meeting_activity1_id = fields.Many2one('sparkit.fcapactivity',
 		string="Next Meeting Activity 1")
 	next_meeting_activity2_id = fields.Many2one('sparkit.fcapactivity',
@@ -92,12 +112,6 @@ class VisitReportForm(models.Model):
 	next_visit_date = fields.Date(string="Date of Next Visit")
 
 	#Meeting Report
-	activity_category1_id = fields.Many2one('sparkit.fcapcategory',
-		string="Activity Category 1")
-	activity_category2_id = fields.Many2one('sparkit.fcapcategory',
-		string="Activity Cateogry 2")
-	activity_category3_id = fields.Many2one('sparkit.fcapcategory',
-		string="Activity Category 3")
 	activity1_id = fields.Many2one('sparkit.fcapactivity', string="Activity 1")
 	activity2_id = fields.Many2one('sparkit.fcapactivity', string="Activity 2")
 	activity3_id = fields.Many2one('sparkit.fcapactivity', string="Activity 3")
@@ -317,6 +331,20 @@ class VisitReportForm(models.Model):
 		('ocasionally', 'Meeting Ocasionally'), ('not_meeting', 'Not Meeting')],
 		select=True, string="Community Meeting Frequency")
 
+	@api.one
+	@api.depends('phase')
+	def _get_phase_name(self):
+		for r in self:
+			if r.phase:
+				r.phase_name = dict(self.fields_get(allfields=['phase'])['phase']['selection'])[self.phase]
+
+	@api.one
+	@api.depends('state')
+	def _get_state_name(self):
+		for r in self:
+			if r.state:
+				r.state_name = dict(self.fields_get(allfields=['state'])['state']['selection'])[self.state]
+
 	@api.depends('phase')
 	def _get_form_type(self):
 		for r in self:
@@ -387,6 +415,20 @@ class VisitReportForm(models.Model):
 			'name': self.env['ir.sequence'].next_by_code('visit.report.form.seq')
 		})
 		return super(VisitReportForm, self).create(vals)
+
+
+	@api.depends('community_id')
+	def _get_phase(self):
+		for r in self:
+			if r.community_id.phase:
+				r.phase = r.community_id.phase_name
+
+	@api.multi
+	@api.depends('community_id')
+	def _get_step(self):
+		for r in self:
+			if r.community_id.state:
+				r.state = r.community_id.state_name
 
 
 

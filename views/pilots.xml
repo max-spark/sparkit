@@ -122,8 +122,6 @@
 							<field name="facilitator_id"/>
 						</group>
 						<group colspan="2" col="2">
-							<field name="current_phase_id" options="{'no_open': True}"/>
-							<field name="current_step_id" options="{'no_open': True}"/>
 						</group>
 					</group>
 					<group colspan="4" col="2">

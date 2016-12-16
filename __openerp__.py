@@ -55,6 +55,7 @@
         'views/pilots.xml',
         'views/communityproposal.xml',
         'views/country.xml',
+        'views/res_partner_view.xml',
         #SparkIt Menu
         'views/sparkit_menu.xml',
         #Default/preloaded Data
@@ -70,11 +71,10 @@
         'data/sparkit.projectsubcategory.csv',
         'data/default_trainings.xml',
         'data/default_FcapMap.xml',
-        'data/sparkit.fcapstep.csv',
-        'data/sparkit.fcapcategory.csv',
-        'data/sparkit.fcapactivity.csv',
         'data/sparkit.grouptracking.csv',
     	'data/sparkit.biggestconcernsubcategory.csv',
+        'data/sparkit.fcapstep.csv',
+        'data/sparkit.fcapactivity.csv',
         'data/default_workflow_configuration.xml',
         #workflows
         'views/community_workflow.xml',

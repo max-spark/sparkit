@@ -13,8 +13,8 @@
   								<field name="country_id"/>
   								<field name="community_id" options="{'no_create': True}"/>
   								<field name="date"/>
-  								<field name="phase_id"/>
-  								<field name="step_id"/>
+  								<field name="phase"/>
+  								<field name="state"/>
   								<field name="collected_by_id" options="{'no_create': True}"/>
   								<field name="entered_by_id" options="{'no_create': True}"/>
   							</group>
@@ -63,8 +63,8 @@
   			<field name="arch" type="xml">
   				<tree string="Pillar Assessments">
 					<field name="name"/>
-					<field name="phase_id"/>
-					<field name="step_id"/>
+					<field name="phase"/>
+					<field name="state"/>
   				</tree>
   			</field>
   		</record>

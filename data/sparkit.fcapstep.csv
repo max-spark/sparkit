@@ -1,31 +1,19 @@
-id,phase_id/id,name,duration,step_number
-fcapsteps_1,sparkit.community_identification,Community Identification,1,0
-fcapsteps_2,sparkit.community_identification,Community Building (Before Partnership),1,0
-fcapsteps_3,sparkit.planning,Partnership Agreement,1,1
-fcapsteps_4,sparkit.planning,Community Building (After Partnership),2,2
-fcapsteps_5,sparkit.planning,Goal Setting: Goals,2,3
-fcapsteps_6,sparkit.planning,Goal Setting: Objectives,2,4
-fcapsteps_7,sparkit.planning,Goal Setting: Pathways,3,5
-fcapsteps_8,sparkit.planning,Proposal Development: Measuring Success,2,6
-fcapsteps_9,sparkit.planning,Proposal Development: Implementation Action Plan,1,7
-fcapsteps_10,sparkit.planning,Proposal Devleopment: Implementation Budget,2,8
-fcapsteps_11,sparkit.planning,Proposal Development: Operational Action Plan,1,9
-fcapsteps_12,sparkit.planning,Proposal Development: Operational Budget,2,10
-fcapsteps_13,sparkit.planning,Proposal Development: Sustainability Plan,3,11
-fcapsteps_14,sparkit.planning,Proposal Development: Proposal Review,2,12
-fcapsteps_15,sparkit.implementation,Grant Agreement Signing,1,1
-fcapsteps_16,sparkit.implementation,Implementation,6,2
-fcapsteps_17,sparkit.post_implementation,post implementation - month1,1,1
-fcapsteps_18,sparkit.post_implementation,post implementation - month2,1,2
-fcapsteps_19,sparkit.post_implementation,post implementation - month3,1,3
-fcapsteps_20,sparkit.post_implementation,post implementation - month4,4,4
-fcapsteps_21,sparkit.post_implementation,post implementation - month5,5,5
-fcapsteps_22,sparkit.post_implementation,post implementation - month6,2,6
-fcapsteps_23,sparkit.post_implementation,post implementation - month8,2,7
-fcapsteps_24,sparkit.post_implementation,post implementation - month10,2,8
-fcapsteps_25,sparkit.post_implementation,post implementation - month12,3,9
-fcapsteps_26,sparkit.post_implementation,post implementation - month15,3,10
-fcapsteps_27,sparkit.post_implementation,post implementation - month18,3,11
-fcapsteps_28,sparkit.post_implementation,post implementation - month21,3,12
-fcapsteps_29,sparkit.post_implementation,post implementation - month24,3,13
-fcapsteps_30,sparkit.post_implementation,post implementation - interim,1,14
+id,phase_id/id,name,min_duration,step_number
+sparkit.community_identification_state,sparkit.community_identification,Community Identification - Baseline,1,1
+sparkit.introductions,sparkit.community_identification,Introductions,1,2
+sparkit.partnership,sparkit.planning,Partnership,1,1
+sparkit.community_building,sparkit.planning,Community Building,1,2
+sparkit.goal_setting_goals,sparkit.planning,Goal Setting: Goals,1,3
+sparkit.goal_setting_pathways,sparkit.planning,Goal Setting: Pathways,1,4
+sparkit.implementation_plan,sparkit.planning,Pathway Planning: Implementation Plan,1,5
+sparkit.operational_plan,sparkit.planning,Pathway Planning: Operational Plan,1,6
+sparkit.measuring_success,sparkit.planning,Pathway Planning: Measuring Success,1,7
+sparkit.sustainability_plan,sparkit.planning,Pathway Planning: Sustainability Plan,1,8
+sparkit.proposal_review,sparkit.planning,Pathway Planning: Proposal Finalization,1,9
+sparkit.grant_agreement,sparkit.implementation,Implementation: Grant Agreement & Financial Management,1,1
+sparkit.first_disbursement,sparkit.implementation,Implementation: Accountability & Transparency,1,2
+sparkit.implementation_leadership,sparkit.implementation,Implementation: Leadership,1,3
+sparkit.transition_strategy,sparkit.implementation,Implementation: Transition Strategy,1,4
+sparkit.post_implementation1,sparkit.post_implementation,Post Implementation: Management Support,1,1
+sparkit.post_implementation2,sparkit.post_implementation,Post Implementation: Future Envisioning,1,1
+sparkit.post_implementation3,sparkit.post_implementation,Post Implementation: Graduation,1,1

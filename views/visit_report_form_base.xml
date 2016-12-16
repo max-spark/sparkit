@@ -19,8 +19,9 @@
   							<group colspan="2">
   								<field name="visit_date"/>
   								<field name="phase"/>
-  								<field name="step_id" widget="selection"
-										domain="[('phase', '=', phase)]"/>
+									<field name="phase_name" invisible="1"/>
+									<field name="state"/>
+									<field name="state_name" invisible="1"/>
 									<field name="form_type" invisible="1"/>
   							</group>
   						</group>
@@ -69,21 +70,16 @@
 								</group>
 								<group colspan="4" col="4" string="Meeting Report" class="no_style">
 									<group colspan="2">
-										<field name="activity_category1_id" widget="selection"
-											domain="[('phase', '=', phase)]"/>
 										<field name="activity1_id" widget="selection"
-											domain="[('category_id', '=', activity_category1_id)]"/>
+											domain="[('step_id.name', '=', state_name)]"/>
 										<field name="activity1_accomplished"/>
 										<field name="activity1_desc"/>
-										<field name="activity_category2_id" widget="selection"
-											domain="[('phase', '=', phase)]"/>
 										<field name="activity2_id" widget="selection"
-											domain="[('category_id', '=', activity_category2_id)]"/>
+											domain="[('step_id.name', '=', state_name)]"/>
 										<field name="activity2_accomplished"/>
 										<field name="activity2_desc"/>
-										<field name="activity_category3_id" widget="selection"/>
 										<field name="activity3_id" widget="selection"
-											domain="[('category_id', '=', activity_category3_id)]"/>
+											domain="[('step_id.name', '=', state_name)]"/>
 										<field name="activity3_accomplished"/>
 										<field name="activity3_desc"/>
 										<field name="facilitation_goal"/>
@@ -170,20 +166,14 @@
 								<group colspan="4" col="4" string="Next Meeting" class="no_style">
 									<group colspan="2">
 										<field name="next_visit_date" />
-										<field name="next_meeting_category1_id" widget="selection"
-											domain="[('phase', '=', phase)]"/>
 										<field name="next_meeting_activity1_id" widget="selection"
-											domain="[('category_id', '=', next_meeting_category1_id)]"/>
-										<field name="next_meeting_category2_id" widget="selection"
-											domain="[('phase', '=', phase)]"/>
+											domain="[('step_id.name', '=', state_name)]"/>
 										<field name="next_meeting_activity2_id" widget="selection"
-											domain="[('category_id', '=', next_meeting_category2_id)]"/>
+											domain="[('step_id.name', '=', state_name)]"/>
 									</group>
 									<group colspan="2">
-										<field name="next_meeting_category3_id" widget="selection"
-											domain="[('phase', '=', phase)]"/>
 										<field name="next_meeting_activity3_id" widget="selection"
-											domain="[('category_id', '=', next_meeting_category3_id)]"/>
+											domain="[('step_id.name', '=', state_name)]"/>
 									</group>
 								</group>
 							</page>
@@ -228,6 +218,10 @@
   				<tree string="Visit Report Forms">
   					<field name="community_id" />
   					<field name="facilitator_id" />
+						<field name="phase"/>
+						<field name="state"/>
+						<field name="visit_date"/>
+						<field name="next_visit_date"/>
   				</tree>
   			</field>
   		</record>

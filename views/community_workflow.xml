@@ -51,50 +51,36 @@
             <field name="action">action_goal_setting_pathways()</field>
         </record>
 
-        <record model="workflow.activity" id="action_implementation_action_plan">
-            <field name="name">Proposal Development: Implementation Action Plan</field>
+        <record model="workflow.activity" id="action_implementation_plan">
+            <field name="name">Pathway Planning: Implementation Plan</field>
             <field name="wkf_id" ref="wkf_fcap"/>
             <field name="kind">function</field>
-            <field name="action">action_implementation_action_plan()</field>
+            <field name="action">action_implementation_plan()</field>
         </record>
 
-        <record model="workflow.activity" id="action_implementation_budget">
-            <field name="name">Proposal Development: Implementation Budget</field>
+        <record model="workflow.activity" id="action_operational_plan">
+            <field name="name">Pathway Planning: Operational Plan</field>
             <field name="wkf_id" ref="wkf_fcap"/>
             <field name="kind">function</field>
-            <field name="action">action_implementation_budget()</field>
-        </record>
-
-        <record model="workflow.activity" id="action_operational_action_plan">
-            <field name="name">Proposal Development: Operational Action Plan</field>
-            <field name="wkf_id" ref="wkf_fcap"/>
-            <field name="kind">function</field>
-            <field name="action">action_operational_action_plan()</field>
-        </record>
-
-        <record model="workflow.activity" id="action_operational_budget">
-            <field name="name">Proposal Development: Operational Budget</field>
-            <field name="wkf_id" ref="wkf_fcap"/>
-            <field name="kind">function</field>
-            <field name="action">action_operational_budget()</field>
+            <field name="action">action_operational_plan()</field>
         </record>
 
         <record model="workflow.activity" id="action_measuring_success">
-            <field name="name">Proposal Development: Measuring Success</field>
+            <field name="name">Pathway Planning: Measuring Success</field>
             <field name="wkf_id" ref="wkf_fcap"/>
             <field name="kind">function</field>
             <field name="action">action_measuring_success()</field>
         </record>
 
         <record model="workflow.activity" id="action_sustainability_plan">
-            <field name="name">Proposal Development: Sustainability Plan</field>
+            <field name="name">Pathway Planning: Sustainability Plan</field>
             <field name="wkf_id" ref="wkf_fcap"/>
             <field name="kind">function</field>
             <field name="action">action_sustainability_plan()</field>
         </record>
 
         <record model="workflow.activity" id="action_proposal_review">
-            <field name="name">Proposal Development: Proposal Review</field>
+            <field name="name">Pathway Planning: Proposal Review</field>
             <field name="wkf_id" ref="wkf_fcap"/>
             <field name="kind">function</field>
             <field name="action">action_proposal_review()</field>
@@ -114,13 +100,6 @@
             <field name="action">action_first_disbursement()</field>
         </record>
 
-        <record model="workflow.activity" id="action_project_management">
-            <field name="name">Implementation: Project Management</field>
-            <field name="wkf_id" ref="wkf_fcap"/>
-            <field name="kind">function</field>
-            <field name="action">action_project_management()</field>
-        </record>
-
         <record model="workflow.activity" id="action_leadership">
             <field name="name">Implementation: Leadership</field>
             <field name="wkf_id" ref="wkf_fcap"/>
@@ -135,11 +114,25 @@
             <field name="action">action_imp_transition_strategy()</field>
         </record>
 
-        <record model="workflow.activity" id="action_post_implementation">
-            <field name="name">Post Implementation</field>
+        <record model="workflow.activity" id="action_post_implementation1">
+            <field name="name">Post Implementation: Management Support</field>
             <field name="wkf_id" ref="wkf_fcap"/>
             <field name="kind">function</field>
-            <field name="action">action_post_implementation()</field>
+            <field name="action">action_post_implementation1()</field>
+        </record>
+
+        <record model="workflow.activity" id="action_post_implementation2">
+            <field name="name">Post Implementation: Future Envisioning</field>
+            <field name="wkf_id" ref="wkf_fcap"/>
+            <field name="kind">function</field>
+            <field name="action">action_post_implementation2()</field>
+        </record>
+
+        <record model="workflow.activity" id="action_post_implementation3">
+            <field name="name">Post Implementation: Graduation</field>
+            <field name="wkf_id" ref="wkf_fcap"/>
+            <field name="kind">function</field>
+            <field name="action">action_post_implementation3()</field>
         </record>
 
         <record model="workflow.activity" id="action_graduation">
@@ -207,60 +200,38 @@
             <field name="signal">goal_setting_goals_reset</field>
         </record>
 
-        <record model="workflow.transition" id="goal_setting_pathways_to_implementation_action_plan">
+        <record model="workflow.transition" id="goal_setting_pathways_to_implementation_plan">
             <field name="act_from" ref="sparkit.action_goal_setting_pathways"/>
-            <field name="act_to" ref="sparkit.action_implementation_action_plan"/>
-            <field name="signal">implementation_action_plan</field>
+            <field name="act_to" ref="sparkit.action_implementation_plan"/>
+            <field name="signal">implementation_plan</field>
         </record>
-        <record model="workflow.transition" id="implementation_action_plan_to_goal_setting_pathways">
-            <field name="act_from" ref="sparkit.action_implementation_action_plan"/>
+        <record model="workflow.transition" id="implementation_plan_to_goal_setting_pathways">
+            <field name="act_from" ref="sparkit.action_implementation_plan"/>
             <field name="act_to" ref="sparkit.action_goal_setting_pathways"/>
             <field name="signal">goal_setting_pathways_reset</field>
         </record>
 
-        <record model="workflow.transition" id="implementation_action_plan_to_implementation_budget">
-            <field name="act_from" ref="sparkit.action_implementation_action_plan"/>
-            <field name="act_to" ref="sparkit.action_implementation_budget"/>
-            <field name="signal">implementation_budget</field>
+        <record model="workflow.transition" id="implementation_plan_to_operational_plan">
+            <field name="act_from" ref="sparkit.action_implementation_plan"/>
+            <field name="act_to" ref="sparkit.action_operational_plan"/>
+            <field name="signal">operational_plan</field>
         </record>
-        <record model="workflow.transition" id="implementation_budget_to_implementation_action_plan">
-            <field name="act_from" ref="sparkit.action_implementation_budget"/>
-            <field name="act_to" ref="sparkit.action_implementation_action_plan"/>
-            <field name="signal">implementation_action_plan_reset</field>
-        </record>
-
-        <record model="workflow.transition" id="implementation_budget_to_operational_action_plan">
-            <field name="act_from" ref="sparkit.action_implementation_budget"/>
-            <field name="act_to" ref="sparkit.action_operational_action_plan"/>
-            <field name="signal">operational_action_plan</field>
-        </record>
-        <record model="workflow.transition" id="operational_action_plan_to_implementation_budget">
-            <field name="act_from" ref="sparkit.action_operational_action_plan"/>
-            <field name="act_to" ref="sparkit.action_implementation_budget"/>
-            <field name="signal">implementation_budget_reset</field>
-        </record>
-
-        <record model="workflow.transition" id="operational_action_plan_to_operational_budget">
-            <field name="act_from" ref="action_operational_action_plan"/>
-            <field name="act_to" ref="sparkit.action_operational_budget"/>
-            <field name="signal">operational_budget</field>
-        </record>
-        <record model="workflow.transition" id="operational_budget_to_operational_action_plan">
-            <field name="act_from" ref="sparkit.action_operational_budget"/>
-            <field name="act_to" ref="sparkit.action_operational_action_plan"/>
-            <field name="signal">operational_action_plan_reset</field>
+        <record model="workflow.transition" id="operational_plan_to_implementation_budget">
+            <field name="act_from" ref="sparkit.action_operational_plan"/>
+            <field name="act_to" ref="sparkit.action_implementation_plan"/>
+            <field name="signal">implementation_plan_reset</field>
         </record>
 
 
-        <record model="workflow.transition" id="operational_budget_to_measuring_success">
-            <field name="act_from" ref="sparkit.action_operational_budget"/>
+        <record model="workflow.transition" id="operational_plan_to_measuring_success">
+            <field name="act_from" ref="sparkit.action_operational_plan"/>
             <field name="act_to" ref="sparkit.action_measuring_success"/>
             <field name="signal">measuring_success</field>
         </record>
-        <record model="workflow.transition" id="measuring_success_to_operational_budget">
+        <record model="workflow.transition" id="measuring_success_to_operational_plan">
             <field name="act_from" ref="sparkit.action_measuring_success"/>
-            <field name="act_to" ref="sparkit.action_operational_budget"/>
-            <field name="signal">operational_budget_reset</field>
+            <field name="act_to" ref="sparkit.action_operational_plan"/>
+            <field name="signal">operational_plan_reset</field>
         </record>
 
         <record model="workflow.transition" id="measuring_success_to_sustainability_plan">
@@ -307,26 +278,15 @@
             <field name="signal">grant_agreement_reset</field>
         </record>
 
-        <record model="workflow.transition" id="first_disbursement_to_project_management">
+        <record model="workflow.transition" id="first_disbursement_to_leadership">
             <field name="act_from" ref="sparkit.action_first_disbursement"/>
-            <field name="act_to" ref="sparkit.action_project_management"/>
-            <field name="signal">project_management</field>
-        </record>
-        <record model="workflow.transition" id="project_management_to_first_disbursement">
-            <field name="act_from" ref="sparkit.action_project_management"/>
-            <field name="act_to" ref="sparkit.action_first_disbursement"/>
-            <field name="signal">first_disbursement_reset</field>
-        </record>
-
-        <record model="workflow.transition" id="project_management_to_leadership">
-            <field name="act_from" ref="sparkit.action_project_management"/>
             <field name="act_to" ref="sparkit.action_leadership"/>
             <field name="signal">leadership</field>
         </record>
-        <record model="workflow.transition" id="leadership_to_project_management">
+        <record model="workflow.transition" id="leadership_to_first_disbursement">
             <field name="act_from" ref="sparkit.action_leadership"/>
-            <field name="act_to" ref="sparkit.action_project_management"/>
-            <field name="signal">project_management_reset</field>
+            <field name="act_to" ref="sparkit.action_first_disbursement"/>
+            <field name="signal">first_disbursement_reset</field>
         </record>
 
         <record model="workflow.transition" id="leadership_to_transition_strategy">
@@ -340,29 +300,49 @@
             <field name="signal">leadership_reset</field>
         </record>
 
-        <record model="workflow.transition" id="transition_strategy_to_post_implementation">
+        <record model="workflow.transition" id="transition_strategy_to_post_implementation1">
             <field name="act_from" ref="sparkit.action_imp_transition_strategy"/>
-            <field name="act_to" ref="sparkit.action_post_implementation"/>
-            <field name="signal">post_implementation</field>
+            <field name="act_to" ref="sparkit.action_post_implementation1"/>
+            <field name="signal">post_implementation1</field>
         </record>
-        <record model="workflow.transition" id="post_implementation_to_transition_strategy">
-            <field name="act_from" ref="sparkit.action_post_implementation"/>
+        <record model="workflow.transition" id="post_implementation1_to_transition_strategy">
+            <field name="act_from" ref="sparkit.action_post_implementation1"/>
             <field name="act_to" ref="sparkit.action_imp_transition_strategy"/>
             <field name="signal">imp_transition_strategy_reset</field>
         </record>
 
+        <record model="workflow.transition" id="post_implementation1_to_post_implementation2">
+            <field name="act_from" ref="sparkit.action_post_implementation1"/>
+            <field name="act_to" ref="sparkit.action_post_implementation2"/>
+            <field name="signal">post_implementation2</field>
+        </record>
+        <record model="workflow.transition" id="post_implementation2_to_post_implementation1">
+            <field name="act_from" ref="sparkit.action_post_implementation2"/>
+            <field name="act_to" ref="sparkit.action_post_implementation1"/>
+            <field name="signal">post_implementation1_reset</field>
+        </record>
 
-        <record model="workflow.transition" id="post_implementation_to_graduated">
-            <field name="act_from" ref="sparkit.action_post_implementation"/>
+        <record model="workflow.transition" id="post_implementation2_to_post_implementation3">
+            <field name="act_from" ref="sparkit.action_post_implementation2"/>
+            <field name="act_to" ref="sparkit.action_post_implementation3"/>
+            <field name="signal">post_implementation3</field>
+        </record>
+        <record model="workflow.transition" id="post_implementation3_to_post_implementation2">
+            <field name="act_from" ref="sparkit.action_post_implementation3"/>
+            <field name="act_to" ref="sparkit.action_post_implementation2"/>
+            <field name="signal">post_implementation2_reset</field>
+        </record>
+
+        <record model="workflow.transition" id="post_implementation3_to_graduated">
+            <field name="act_from" ref="sparkit.action_post_implementation3"/>
             <field name="act_to" ref="sparkit.action_graduation"/>
             <field name="signal">graduated</field>
         </record>
-        <record model="workflow.transition" id="graduated_to_post_implementation">
+        <record model="workflow.transition" id="graduated_to_post_implementation3">
             <field name="act_from" ref="sparkit.action_graduation"/>
-            <field name="act_to" ref="sparkit.action_post_implementation"/>
-            <field name="signal">post_implementation_reset</field>
+            <field name="act_to" ref="sparkit.action_post_implementation3"/>
+            <field name="signal">post_implementation3_reset</field>
         </record>
-
 
     </data>
 </openerp>

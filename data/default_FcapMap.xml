@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data noupdate="1">
-        
+
         <record id="community_identification" model="sparkit.fcapmap">
             <field name="name">Community Identification</field>
             <field name="phase">community_identification</field>
         </record>
-        
+
         <record id="planning" model="sparkit.fcapmap">
             <field name="name">Planning</field>
             <field name="phase">planning</field>
         </record>
-        
+
         <record id="implementation" model="sparkit.fcapmap">
             <field name="name">Implementation</field>
             <field name="phase">implementation</field>
         </record>
-        
+
     	<record id="post_implementation" model="sparkit.fcapmap">
             <field name="name">Post Implementation</field>
             <field name="phase">post_implementation</field>
         </record>
-        
+
     	<record id="graduated" model="sparkit.fcapmap">
             <field name="name">Graduated</field>
             <field name="phase">graduated</field>
         </record>
-        
+
         <record id="partnership_ended" model="sparkit.fcapmap">
             <field name="name">Partnership Ended</field>
             <field name="phase">partnership_ended</field>

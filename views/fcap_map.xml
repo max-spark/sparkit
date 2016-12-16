@@ -11,10 +11,9 @@
   						<group colspan="1" col="2">
   							<field name="name"/>
   						</group>
-  						<seperator />
-  						<field name="step_ids"/>
-  						<seperator />
-  						<field name="activity_ids"/>
+  						<seperator/>
+								<field name="step_ids"/>
+							<seperator/>
   					</sheet>
   				</form>
   			</field>
@@ -42,61 +41,51 @@
   			</field>
   		</record>
 
-  		<!-- FCAP Categories Form View -->
-  		<record model="ir.ui.view" id="fcap_categories_view">
-  			<field name="name">fcapcategories.form</field>
-  			<field name="model">sparkit.fcapcategory</field>
-  			<field name="arch" type="xml">
-  				<form string="Categories">
-  					<sheet>
-  						<group>
-  							<field name="name"/>
-  						</group>
-  					</sheet>
-  				</form>
-  			</field>
-  		</record>
+			<!-- FCAP Step Form View -->
+			<record model="ir.ui.view" id="fcap_step_view">
+				<field name="name">fcapstep.form</field>
+				<field name="model">sparkit.fcapstep</field>
+				<field name="arch" type="xml">
+					<form string="FCAP Map" create="false">
+						<sheet>
+							<group colspan="1" col="2">
+								<field name="name"/>
+								<field name="min_duration"/>
+								<field name="step_number"/>
+								<field name="activity_ids"/>
+							</group>
+						</sheet>
+					</form>
+				</field>
+			</record>
 
-  	  	<!-- FCAP Activities Form View -->
-  		<record model="ir.ui.view" id="fcap_activities_view">
-  			<field name="name">fcapactivities.form</field>
-  			<field name="model">sparkit.fcapactivity</field>
-  			<field name="arch" type="xml">
-  				<form string="Activities">
-  					<sheet>
-  						<group>
-  							<field name="name"/>
-  						</group>
-  					</sheet>
-  				</form>
-  			</field>
-  		</record>
-
-  		<!--FCAP Activities List View -->
-  		<record model="ir.ui.view" id="fcap_activities_tree">
-  			<field name="name">fcapactivities.tree</field>
-  			<field name="model">sparkit.fcapactivity</field>
-  			<field name="arch" type="xml">
-  				<tree string="FCAP Map">
-  					<field name="category_id" widget="selection"/>
-  					<field name="name"/>
-  				</tree>
-  			</field>
-  		</record>
+			<!--FCAP Step List View -->
+			<record model="ir.ui.view" id="fcap_step_tree">
+				<field name="name">fcapstep.tree</field>
+				<field name="model">sparkit.fcapstep</field>
+				<field name="arch" type="xml">
+					<tree string="Steps" create="false" editable="bottom">
+						<field name="name"/>
+						<field name="min_duration"/>
+						<field name="step_number"/>
+						<field name="activity_ids"/>
+					</tree>
+				</field>
+			</record>
 
 
-  		<!--FCAP Step List View-->
-  		<record model="ir.ui.view" id="fcap_steps_tree">
-  			<field name="name">fcapsteps.tree</field>
-  			<field name="model">sparkit.fcapstep</field>
-  			<field name="arch" type="xml">
-  				<tree string="FCAP Steps">
-  					<field name="step_number"/>
-  					<field name="phase"/>
-  					<field name="name"/>
-  					<field name="duration"/>
-  				</tree>
-  			</field>
-  		</record>
+			<!--FCAP Activity List View -->
+			<record model="ir.ui.view" id="fcap_activities_tree">
+				<field name="name">fcapactivities.tree</field>
+				<field name="model">sparkit.fcapactivity</field>
+				<field name="arch" type="xml">
+					<tree string="Steps" create="false" editable="bottom">
+						<field name="step_id"/>
+						<field name="name"/>
+					</tree>
+				</field>
+			</record>
+
+
     </data>
 </openerp>

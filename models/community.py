@@ -17,13 +17,13 @@ class Community(models.Model):
 	description = fields.Text(string="Community Description")
 	community_number = fields.Char(string="Community Number", readonly=True)
 	scouted_by_id = fields.Many2one('res.users', default=lambda self: self.env.user)
-	is_partnered = fields.Boolean(string="Partnered?", default=False)
+	is_partnered = fields.Boolean(string="Partnered?", default=False, readonly=True)
 	facilitator_id = fields.Many2one('res.users', string="Facilitator", default=lambda self: self.env.user)
 	program_manager_id = fields.Many2one('res.users', string="Program Manager")
-	is_active = fields.Boolean(string="Active?")
+	is_active = fields.Boolean(string="Active?", readonly=True)
 	color = fields.Char(string="Color")
-	dashboard_id = fields.Many2one('sparkit.dashboard', string="dashboard")
-	step_id = fields.Many2one('sparkit.fcapstep', compute='_get_visit_date')
+	phase_name = fields.Char(compute='_get_phase_name', string="Phase Name", store=True)
+	state_name = fields.Char(compute='_get_state_name', string="State Name", store=True)
 
 	#Workflow States
 	phase = fields.Selection([
@@ -43,31 +43,33 @@ class Community(models.Model):
 		('goal_setting_goals', 'Goal Setting: Goals'),
 		('goal_setting_pathways', 'Goal Setting: Pathways'),
 		('measuring_success', 'Pathway Planning: Measuring Success'),
-		('implementation_action_plan', 'Pathway Planning: Implementation Action Plan'),
-		('implementation_budget', 'Pathway Planning: Implementation Budget'),
-		('operational_action_plan', 'Pathway Planning: Operational Action Plan'),
-		('operational_budget', 'Pathway Planning: Operational Budget'),
+		('implementation_plan', 'Pathway Planning: Implementation Plan'),
+		('operational_plan', 'Pathway Planning: Operational Plan'),
 		('sustainability_plan', 'Pathway Planning: Sustainability Plan'),
 		('transition_strategy', 'Pathway Planning: Transition Strategy'),
 		('proposal_review', 'Pathway Planning: Proposal Finalization'),
 		('grant_agreement', 'Implementation: Grant Agreement & Financial Management'),
-		('first_disbursement', 'Implementation: First Dibursement, Accountability & Transparency'),
-		('project_management', 'Implementation: Project Management'),
+		('first_disbursement', 'Implementation: Accountability & Transparency (Disbursements Begin)'),
 		('leadership', 'Implementation: Leadership'),
 		('imp_transition_strategy', 'Implementation: Transition Strategy'),
-		('post_implementation', 'Post Implementation'),
+		('post_implementation1', 'Post Implementation: Management Support'),
+		('post_implementation2', 'Post Implementation: Future Envisioning'),
+		('post_implementation3', 'Post Implementation: Graduation'),
 		('graduated', 'Graduated'),
 		('partnership_canacelled', 'Partnership Cancelled')
-	], string="Step")
+	], string="Step", readonly=True)
 
 	#Community Detail
-	facilitation_language = fields.Char(string="Facilitation Language")
+	facilitation_language = fields.Char(string="Facilitation Language",
+		required=True)
 	is_using_translator = fields.Boolean(string="Using Translator?")
 	translator_id = fields.Many2one('res.partner', string="Translator")
 	meeting_day = fields.Selection([('monday', 'Monday'), ('tuesday', 'Tuesday'),
 		('wednesday', 'Wednesday'), ('thursday', 'Thursday'), ('friday', 'Friday')],
 		select=True, string="Meeting Day",
 		help="Please select the day you meet the community for facilitation meetings.")
+	bank_account = fields.Many2one('res.partner.bank', string="Community Bank Account")
+	govt_registration_number = fields.Char(string="Government (CBO) Registration Number")
 
 	#dates
 	date_scouted=fields.Date(string="Date Scouted",
@@ -115,20 +117,68 @@ class Community(models.Model):
 	#Technical Advisor
 	technical_advisor_id = fields.Many2one('res.partner', string="Technical Advisor")
 
-	#Project Detail
+	# Important Documents
+	number_signed_partnership_agreement = fields.Integer(string="Number of People Who Signed Partnership Agreement")
+	partnership_agreement_name = fields.Char(compute='_get_partnership_agreement_name')
+	partnership_agreement = fields.Binary(string="Partnership Agreement")
+	number_signed_grant_agreement = fields.Integer(string="Number of People Who Signed Grant Agreement")
+	grant_agreement_name = fields.Char(string="Grant Agreement File Name",
+		compute='_get_grant_agreement_name')
+	grant_agreement = fields.Binary(string="Grant Agreement")
+	number_signed_exit_agreement = fields.Integer(string="Number of People Who Signed Exit Agreement")
+	exit_agreement_name = fields.Char(string="Exit Agreement File Name",
+		compute='_get_exit_agreement_name')
+	exit_agreement = fields.Binary(string="Exit Agreement")
+
+	# Project Detail
 	goals_ideas = fields.Integer(string="Goals - Ideas",
 		help="Please enter the number of ideas the community brainstormed for their goal.")
 	goals_selected = fields.Text(string="Goals - Selected",
 		help="Please describe the community's chosen goal in their own words.")
+	indicator1 = fields.Char(string="Indicator 1")
+	indicator2 = fields.Char(string="Indicator 2")
+	indicator3 = fields.Char(string="Indicator 3")
+	indicator1_baseline = fields.Char(string="Baseline - 1")
+	indicator2_baseline = fields.Char(string="Baseline - 2")
+	indicator3_baseline = fields.Char(string="Baseline - 3")
+	indicator1_6months = fields.Char(string="6 months PI - 1")
+	indicator2_6months = fields.Char(string="6 months PI - 2")
+	indicator3_6months = fields.Char(string="6 months PI - 3")
+	indicator1_12months = fields.Char(string="1 year PI - 1")
+	indicator2_12months = fields.Char(string="1 year PI - 2")
+	indicator3_12months = fields.Char(string="1 year PI - 3")
+	indicator1_18months = fields.Char(string="18 months PI - 1")
+	indicator2_18months = fields.Char(string="18 months PI - 2")
+	indicator3_18months = fields.Char(string="18 months PI - 3")
+	indicator1_2years = fields.Char(String="2 years PI - 1")
+	indicator2_2years = fields.Char(String="2 years PI - 1")
+	indicator3_2years = fields.Char(String="2 years PI - 1")
+	indicator1_6month_target = fields.Char(string="6 months PI - 1 - Target")
+	indicator2_6month_target = fields.Char(string="6 months PI - 2 - Target")
+	indicator3_6month_target = fields.Char(string="6 months PI - 3 - Target")
+	indicator1_12months_target = fields.Char(string="1 year PI - 1 - Target")
+	indicator2_12months_target = fields.Char(string="1 year PI - 2 - Target")
+	indicator3_12months_target = fields.Char(string="1 year PI - 3 - Target")
+	indicator1_18months_target = fields.Char(string="18 Months PI - 1 - Target")
+	indicator2_18months_target = fields.Char(string="18 Months PI - 2 - Target")
+	indicator3_18months_target = fields.Char(string="18 Months PI - 3 - Target")
+	indicator1_2years_target = fields.Char(string="2 years PI - 1 - Target")
+	indicator2_2years_target = fields.Char(string="2 years PI - 2 - Target")
+	indicator3_2years_target = fields.Char(string="2 years PI - 3 - Target")
+
 
 	pathways_ideas = fields.Integer(string="Pathways - Ideas",
 		help="Please enter the number of ideas the community brainstormed for their pathway.")
 	project_description = fields.Text(string="Please describe the community's chosen project in their own words.")
 
 
-	#Leaders
-	spark_leader_ids = fields.Many2many('res.partner')
-	community_leader_ids = fields.Many2many('res.partner')
+	# Leaders
+	spark_leader_ids = fields.Many2many('res.partner',
+		domain=[('company_type', '=', 'community_leader')])
+
+	# Community Facilitators
+	community_facilitator_ids = fields.Many2many('res.partner',
+		domain=[('company_type', '=', 'community_facilitator')])
 
 	#VRF Forms
 	vrf_ids = fields.One2many('sparkit.vrf', 'community_id', string="VRFs")
@@ -147,7 +197,6 @@ class Community(models.Model):
 
 	#Last Visit Date Calculations
 	last_visit_date = fields.Date(string="Last Visit Date", compute='_get_visit_date')
-	phase_id = fields.Many2one(related='step_id.phase_id', string="Phase", readonly=True)
 	next_visit_date = fields.Date(string="Next Visit Date", compute='_get_visit_date', store=True)
 	next_visit_date_week = fields.Char(compute='_get_visit_date', store=True)
 
@@ -193,34 +242,87 @@ class Community(models.Model):
 		default=1)
 
 	# Baseline (Scouting)-> Introductions
-	is_oca1_completed = fields.Boolean(string="OCA #1 Completed")
+	is_oca1_completed = fields.Boolean(string="Baseline Community Assessment Completed",
+		help="Was the baseline community assessment completed at scouting? Forms are uploaded under the M&E Forms Tab -> Community Assessments.")
 
 	# Formal Meeting (Scouting) -> Partnership
-	is_community_description_filled = fields.Boolean(string="Community Description Filled?",
-			compute="check_community_description")
-	at_least_two_ppl_visited = fields.Boolean(string="At least two people visited community?")
-
+	is_community_description_filled = fields.Boolean(string="Community Description Filled",
+			compute="check_community_description",
+			help="Has a community description on the community's profile page been entered?")
+	has_pm_approved_partnership = fields.Boolean(string="Manager Approved Community For Partnership")
+		# Activities
+	introducing_spark_completed = fields.Boolean(string="Facilitation Activity: Introducing Spark Completed",
+		compute='_check_introducing_spark_completed',
+		help="Automatically marked as completed when Spark Introduction Activity is reported on the visit report form.")
+	community_mapping_completed = fields.Boolean(string="Facilitation Activity: Community Mapping Completed",
+		compute='_check_community_mapping_completed',
+		help="Automatically marked as completed when Community Mapping Activity is reported on the visit report form.")
 
 	#Partnership -> Community Building
-	is_partnership_agreement_signed = fields.Boolean(string="Partnership Agreement Signed?")
-	is_partnership_hh_requirement_met = fields.Boolean(string="Minimum number of Households Signed Partnership Agreement?",
-		compute='check_hh_requirement_met')
+	partnership_agreement_signed = fields.Boolean(string="Facilitation Activity: Partnership Agreement",
+		compute='_check_partnership_agreement_signed')
+	is_partnership_hh_requirement_met = fields.Boolean(string="At Least 50% of Community Signed Partnership Agreement",
+		compute='check_hh_requirement_met',
+		help="Did the minimum number of people in the community sign the partnership agreement? This field is located under the 'Important Documents' tab")
+		#Activities
+	partnership_expectations_completed = fields.Boolean(string="Facilitation Activity: Partnership Expectations",
+		compute='_check_partnership_expectations_completed',
+		help="Automatically marked as completed when Partnership Expectations Activity is reported on the visit report form.")
+
 
 	# Community Building -> Goal Setting: Goals
-	is_cmty_leaders_entered = fields.Boolean(string="Community Contact Information (Leaders) Entered?",
+	is_cmty_leaders_entered = fields.Boolean(string="Community Contact Information (Leaders) Entered",
 		compute='check_community_leaders')
-	is_office_file_created = fields.Boolean(string="Office File Created?")
-	is_partnerhip_agreement_stored = fields.Boolean(string="Is Partnership Agreement Stored?")
-	is_partnership_agreement_uploaded = fields.Boolean(string="Is Partnership Agreement Uploaded?")
-	is_spark_leaders_requirement = fields.Boolean(string="# Elected Leaders Meets Requirements", compute='check_elected_leaders')
+	is_office_file_created = fields.Boolean(string="Office File Created")
+	is_partnerhip_agreement_stored = fields.Boolean(string="Partnership Agreement Stored In Office File")
+	is_partnership_agreement_uploaded = fields.Boolean(string="Partnership Agreement Uploaded",
+		compute='check_partnership_agreement_uploaded')
+	num_leaders_requirement = fields.Boolean(string="Between 3 - 12 Leaders Elected", compute='check_num_elected_leaders')
+	leaders_gender_requirement = fields.Boolean(string="At Least 20% Elected Leaders Women", compute='check_gender_elected_leaders')
+		# -> Activities
+	gender_empowerment_completed = fields.Boolean(string="Facilitation Activity: Gender Empowerment Completed",
+		compute='_check_gender_empowerment_completed',
+		help="Automatically marked as completed when Gender Empowerment Activity is reported on the visit report form.")
+	ground_rules_completed = fields.Boolean(string="Facilitation Activity: Ground Rules Completed",
+		compute='_check_ground_rules_completed',
+		help="Automatically marked as completed when Gender Empowerment Activity is reported on the visit report form.")
+	strong_leaders_completed = fields.Boolean(string="Facilitation Activity: Qualities of Strong Leaders Completed",
+		compute='_check_strong_leaders_completed',
+		help="Automatically marked as completed when Qualities of Strong Leaders is reported on the visit report form.")
+	leadership_election_completed = fields.Boolean(string="Facilitation Activity: Leadership Election",
+		compute='_check_leadership_election',
+		help="Automatically marked as completed when Leadership Election Activity is reported on the visit report form.")
+	vision_statement_completed = fields.Boolean(string="Facilitation Activity: Vision Statement Completed",
+		compute='_check_vision_statement_completed',
+		help="Automatically marked as completed when Vision Statement Activity is reported on the visit report form.")
+	sms_registration_completed = fields.Boolean(string="SMS Registration Completed")
 
 	# Goal Setting: Goals -> Goal Setting: Pathways
-	is_pm_approved_goals = fields.Boolean(string="PM Approved Goals?")
 	is_min_goals_brainstormed = fields.Boolean(string="Minimum Goals Brainstormed?", compute='check_goals_ideas')
 	is_goals_ideas_not_null = fields.Boolean(string="Goals - Ideas Complete", compute='check_goals_ideas')
 	is_goals_selected_not_null = fields.Boolean(string="Goals - Selected Complete", compute='check_goals_selected')
+	understanding_goals_completed = fields.Boolean(string="Facilitation Activity: Understanding Goals",
+		compute='check_understanding_goals_completed',
+		help="Automatically marked as completed when Understanding Goals is reported on the visit report form.")
+	brainstorming_goals_completed = fields.Boolean(string="Facilitation Activity: Brainstorming Goals",
+		compute='check_brainstorming_goals_completed',
+		help="Automatically marked as completed when Brainstorming Goals is reported on the visit report form.")
+	consensus_building_completed = fields.Boolean(string="Facilitation Activity: Consensus Building",
+		compute='check_consensus_building_completed',
+		help="Automatically marked as completed when Consensus Building is reported on the visit report form.")
+	defining_success_completed = fields.Boolean(string="Facilitation Activity: Defining Success Indicators",
+		compute='check_defining_success_completed',
+		help="Automatically marked as completed when Defining Success Indicators is reported on the visit report form.")
+	assessing_past_progress_completed = fields.Boolean(string="Facilitation Activity: Assessing Past Progress",
+		compute='check_assessing_past_progress_completed',
+		help="Automatically marked as completed when Assessing Past Progress is reported on the visit report form.")
+	goal_indicators_selected = fields.Boolean(string="Goal Indicators Brainstormed",
+		compute='check_goal_indicators_brainstormed')
+	goal_indicator_baselines_gathered = fields.Boolean(string="Goal Indicator Baselines Gathered",
+		compute='check_goal_indicator_baselines_gathered')
 
-	# Goal Setting: Pathways -> Proposal Development: Implementation Action Plan
+
+	# Goal Setting: Pathways -> Implementation Plan
 	# hard stops
 	is_project_description_not_null = fields.Boolean(string="Project Description Completed",
 		compute='check_project_description')
@@ -228,75 +330,987 @@ class Community(models.Model):
 	is_oca2_completed = fields.Boolean(string="OCA #2 Completed?", compute='check_ocas_completed', store=True)
 	is_min_pathways_brainstormed = fields.Boolean(string="Minimum Number of Pathways Brainstormed?",
 		compute='check_pathways_ideas')
+	brainstorming_pathways_completed = fields.Boolean(string="Facilitation Activity: Brainstorming Pathways Completed",
+		compute='check_brainstorming_pathways_completed',
+		help="Automatically marked as completed when Brainstorming Pathways is reported on the visit report form.")
+	feasibility_study_completed = fields.Boolean(string="Facilitation Activity: Feasibility Study Completed",
+		compute='check_feasibility_study_completed',
+		help="Automatically marked as completed when Feasibility Study is reported on the visit report form.")
+	govt_registration_completed = fields.Boolean(string="Facilitation Activity: Advocacy Training - Government Registration Completed",
+		compute='check_govt_registration_completed',
+		help="Automatically marked as completed when Advocacy Training - Government Registration is reported on the visit report form.")
+	introducing_prop_dev = fields.Boolean(string="Facilitation Activity: Introducing Proposal Development",
+		compute='check_introducing_prop_dev_completed',
+		help="Automatically marked as completed when Introducing Proposal Development is reported on the visit report form.")
+	devloping_savings_groups = fields.Boolean(string="Facilitation Activity: Developing Savings Groups",
+		compute='check_developing_savings_group_completed',
+		help="Automatically marked as completed when Developing Savings Group is reported on the visit report form.")
+	banking_training = fields.Boolean(string="Facilitation Activity: Banking Training",
+		compute='check_banking_training_completed',
+		help="Automatically marked as completed when Banking Training is reported on the visit report form.")
 	# red flags
 	did_ta_recruitment_begin = fields.Boolean(string="TA Recruitment Process Began?")
+	did_bank_opening_begin = fields.Boolean(string="Community Began Opening Bank Account")
+	did_government_registration_begin = fields.Boolean(string="Community Began Government Registration Process")
 
-	# Implementation Action Plan -> Implementation Budget
+	# Implementation Plan -> Operational Plan
 	is_ta_recruited = fields.Boolean(string="Technical Advisor Recruited/Assigned", compute='check_ta_recruited')
 	is_ta_workplan_approved = fields.Boolean(string="Technical Advisor Workplan Approved")
 	is_ta_profile_filled = fields.Boolean(string="Technical Advisor CV, ID and Credentials Entered")
 	is_implementation_action_plan_entered = fields.Boolean(string="Implementation Action Plan Entered Into Proposal?")
 	is_bank_detail_added = fields.Boolean(string="Bank/Payment Details Added")
-
-
-	# Implementation Budget -> Operational Action Plan
+	developing_implementation_action_plan_completed = fields.Boolean(string="Facilitation Activity: Developing Implementation Action Plan Completed",
+		compute='check_developing_implementation_action_plan_completed',
+		help="Automatically marked as completed when Developing Implementation Action Plan is reported on the visit report form.")
+	facilitation_training_completed = fields.Boolean(string="Facilitation Activity: Facilitation Training Completed",
+		compute='check_facilitation_training_completed',
+		help="Automatically marked as completed when Facilitation Training is reported on the visit report form.")
+	understanding_budgeting_completed = fields.Boolean(string="Facilitation Activity: Understanding Budgeting Completed",
+		compute='check_understanding_budgeting_completed',
+		help="Automatically marked as completed when Understanding Budgeting is reported on the visit report form.")
+	developing_implementation_budget_completed = fields.Boolean(string="Facilitation Activity: Developing Implementation Budget Completed",
+		compute='check_developing_implementation_budget_completed',
+		help="Automatically marked as completed when Developing Implementation Budget is reported on the visit report form.")
 	is_implementation_budget_entered = fields.Boolean(string="Implementation Budget Entered Into Proposal?")
 	is_ta_trained = fields.Boolean(string="Technical Advisor Trained")
+	cmty_facilitators_identified = fields.Boolean(string="Community Facilitators Identified",
+		compute='check_cmty_facilitators_identified')
 
+	#Operational Plan -> Measuring Success
+	is_operational_plan_entered = fields.Boolean(string="Operational Plan Entered Into Proposal?")
+	developing_operational_action_plan_completed = fields.Boolean(string="Facilitation Activity: Developing Operational Action Plan Completed",
+		compute='check_developing_operational_action_plan_completed',
+		help="Automatically marked as completed when Developing Operational Action Plan is reported on the visit report form.")
+	developing_operational_budget_completed = fields.Boolean(string="Facilitation Activity: Developing Operational Budget Completed",
+		compute='check_developing_operational_budget_completed',
+		help="Automatically marked as completed when Developinging Operational Budget is reported on the visit report form.")
 
-	#Operational Action Plan -> Operational Budget
-	is_operational_action_plan_entered = fields.Boolean(string="Operational Action Plan Entered Into Proposal?")
-
-	# Proposal Dev: Operational Budget -> Measuring Success
-	is_operational_budget_entered = fields.Boolean(string="Operational Budget Entered Into Proposal?")
-
-	# Proposal Dev: Measuring Success -> Sustainability Plan
+	# Measuring Success -> Sustainability Plan
 	is_measuring_success_entered = fields.Boolean(string="Measuring Success Entered Into Proposal?")
-	are_goal_targets_entered = fields.Boolean(string="Goal Indicator Targets Entered into Proposal?")
+	are_goal_targets_entered = fields.Boolean(string="Goal Indicator Targets Entered into Proposal",
+		compute='check_goal_targets_entered')
+	setting_target_numbers_completed = fields.Boolean(string="Facilitation Activity: Setting Target Numbers Completed",
+		compute='check_setting_target_numbers_completed',
+		help="Automatically marked as completed when Setting Target Numbers is reported on the visit report form.")
+	developing_data_collection_plan = fields.Boolean(string="Facilitation Activity: Developing Data Collection Plan Completed",
+		compute='check_developing_data_collection_plan_completed',
+		help="Automatically marked as completed when Developing Data Collection Plan is reported on the visit report form.")
 
-	# Proposal Dev: Sustainability Plan -> Proposal Review
+	# Proposal Dev: Sustainability Plan -> Proposal Finalization
 	is_sustainability_plan_entered = fields.Boolean(string="Sustainability Plan Entered Into Proposal?")
+	risk_assessment_completed = fields.Boolean(string="Facilitation Activity: Risk Assessment",
+		compute='check_risk_assessment_completed',
+		help="Automatically marked as completed when Risk Assessment Completed is reported on the visit report form.")
+	developing_bylaws_completed = fields.Boolean(string="Facilitation Activity: Developing By-Laws",
+		compute='check_developing_bylaws_completed',
+		help="Automatically marked as completed when Developing By-Laws is reported on the visit report form.")
+	cmty_engagement_plan_completed = fields.Boolean(string="Facilitation Activity: Community Engagement Plan",
+		compute='check_cmty_engagement_plan_completed',
+		help="Automatically marked as completed when Community Engagement Plan is reported on the visit report form.")
+	trnsprncy_acctblty_traning_completed = fields.Boolean(string="Facilitation Activity: Transparency & Accountabiity Training",
+		compute='check_trnsprncy_acctblty_traning_completed',
+		help="Automatically marked as completed when Transparency & Accountability Training is reported on the visit report form.")
+
 
 	# Proposal Review -> Implementation: Grant Agreement
-	is_bank_account_open = fields.Boolean(string="Community Bank Account Open")
-	is_proposal_approved_by_ta = fields.Boolean(string="Technical Advisor Approved Project Proposal")
-	is_proposal_approved_by_team = fields.Boolean(string="PM/Team Approved Proposal")
-	is_oca3_completed = fields.Boolean(string="OCA3 Completed", compute='check_ocas_completed', store=True)
+	is_bank_account_created = fields.Boolean(string="Community Bank Account Open",
+		compute="_check_bank_account")
+	is_oca3_completed = fields.Boolean(string="Community Assessment #3 Completed", compute='check_ocas_completed', store=True)
 	is_budget_created = fields.Boolean(string="Approved Community Budget Entered?", compute='_check_budget_created')
 	is_project_created = fields.Boolean(string="Project Created and Information Entered?",
 		compute='_check_project_created')
+	has_pm_approved_proposal = fields.Boolean(string="Manager Approved Pathway Plan")
+	cmty_registered_with_govt = fields.Boolean(string="Community Registered with Local Government and Registration Number Added",
+		compute='check_cmty_registered_with_govt')
 
-	# Grant Agreement -> First Disbursement
-	is_receipt_book_received = fields.Boolean(string="Community Received Receipt Book")
-	is_disbursement_book_received = fields.Boolean(string="Community Received Disbursement Book")
+	# Grant Agreement -> Accountability/Transparency
+	is_receipt_book_received = fields.Boolean(string="Community Received Receipt Book (in local language)")
+	is_disbursement_book_received = fields.Boolean(string="Community Received Disbursement Book (in local language)")
+	is_cashbook_received = fields.Boolean(string="Community Received Cashbook (in local language)")
 	is_grant_agreement_translated = fields.Boolean(string="Grant Agreement In Local Language")
-	pg_signed_agreement = fields.Boolean(string="Did at least 60percent of PG sign grant agreement?")
+	pg_signed_agreement = fields.Boolean(string="Minimum Percent of Planning Group Signed Partnership Agreement",
+		compute='check_pg_signed_grant_agreement')
+		# Activities
+	grant_disbursal_training_completed = fields.Boolean(string="Facilitation Activity: Grant Disbursal Training",
+		compute='check_grant_disbursal_training_completed',
+		help="Automatically marked as completed when Grant Disbursal Training is reported on the visit report form.")
+	record_keeping_training_completed = fields.Boolean(string="Facilitation Activity: Record Keeping Training",
+		compute='check_record_keeping_training_completed',
+		help="Automatically marked as completed when Record Keeping Training is reported on the visit report form.")
+	sms_training_completed = fields.Boolean(string="Facilitation Activity: SMS Training",
+		compute='check_sms_training_completed',
+		help="Automatically marked as completed when SMS Training is reported on the visit report form.")
+	grant_agreement_signing = fields.Boolean(string="Facilitation Activity: Grant Agreement",
+		compute='check_grant_agreement_completed',
+		help="Automatically marked as completed when Grant Agreement is reported on the visit report form.")
 
-	# First Disbursement -> Project Management and (then Leadership)
-	is_microgrant_disbursed = fields.Boolean(string="MicroGrant Disbursed")
-	is_microgrant_confirmed = fields.Boolean(string="MicroGrant Confirmation Received")
+	# Accountability/Transparency -> Leadership
+	first_disbursement_completed = fields.Boolean(string="Facilitation Activity: First Disbursement",
+		compute='check_first_disbursement_completed',
+		help="Automatically marked as completed when First Disbursement is reported on the visit report form.")
+	trs_acctb_review_completed = fields.Boolean(string="Facilitation Activity: Transparency & Accountability Review Completed",
+		compute='check_trs_acctb_review_completed',
+		help="Automatically marked as completed when Transparency & Accountability Review is reported on the visit report form.")
+	banking_training_review_completed = fields.Boolean(string="Facilitation Activity: Banking Training Review",
+		compute='check_banking_training_review_completed',
+		help="Automatically marked as completed when Banking Training Review is reported on the visit report form.")
+	followup_disbursement = fields.Boolean(string="Facilitation Activity: Follow-up Disbursement",
+		compute='check_followup_disbursement_completed',
+		help="Automatically marked as completed when Follow-up Disbursement is reported on the visit report form.")
+	imp_plan_review_completed = fields.Boolean(string="Facilitation Activity: Implementation Plan Review Completed",
+		compute='check_imp_plan_review',
+		help="Automatically marked as completed when Implementation Plan Review is reported on the visit report form.")
+	risk_mitigation_review_completed = fields.Boolean(string="Facilitation Activity: Risk Mitigation Plan Review",
+		compute='check_risk_mitigation_review_completed',
+		help="Automatically marked as completed when Risk Mitigation Plan Review is reported on the visit report form.")
 
-	# Transition Strategy -> PI
-	is_launch_approved_ta = fields.Boolean(string="Technical Advisor Approved Launch")
-	is_capacity_verified = fields.Boolean(string="PM Visited to Verify Capacity",
-		help="Did the TA visit to verify the community's capacity in banking and record keeping?")
-	is_imp_action_plan_completed = fields.Boolean(string="PM Verified All Implementation Activities Completed",
+	# Leadership Review -> Transition Strategy
+	leadership_review_completed = fields.Boolean(string="Facilitation Activity: Leadership Review",
+		compute='check_leadership_review_completed',
+		help="Automatically marked as completed when Leadership Review is reported on the visit report form.")
+	bylaw_review_completed = fields.Boolean(string="Facilitation Activity: By-Law Review",
+		compute='check_bylaw_review_completed',
+		help="Automatically marked as completed when By-Law Review is reported on the visit report form.")
+	advocacy_report_writing_completed = fields.Boolean(string="Facilitation Activity: Advocacy Training - Report Writing",
+		compute='check_advocacy_report_writing_completed',
+		help="Automatically marked as completed when Advocacy Training - Report Writing is reported on the visit report form.")
+	cmty_facilitation_training_completed = fields.Boolean(string="Facilitation Activity: Community Facilitation Training",
+		compute='check_cmty_facilitation_training_completed',
+		help="Automatically marked as completed when Community Facilitation Training is reported on the visit report form.")
+
+	# Transition Strategy -> Post Implementation: Management Support (post_implementation1)
+	is_project_quality_approved_ta = fields.Boolean(string="Technical Advisor Approved Project Quality")
+	is_imp_action_plan_completed = fields.Boolean(string="Manager Verified All Implementation Activities Completed",
 		help="Did the community complete all the activities mentioned on their implementation action plan?")
-	is_ta_visits_verified = fields.Boolean(string="All Scheduled TA Visits Took Place")
-	is_transition_strategy_completed = fields.Boolean(string="Transition Strategy Completed")
+	is_transition_strategy_completed = fields.Boolean(string="Transition Strategy Completed",
+		compute='check_transition_strategy')
+	cmty_facilitation_training = fields.Boolean(string="Community Facilitation Training Completed")
+	field_audit_passed = fields.Boolean(string="Field Audit Passed")
+	cmty_report1_submitted = fields.Boolean(string="Community Report Submitted")
+	transition_strategy_activity_completed = fields.Boolean(string="Facilitation Activity: Transition Strategy",
+		compute='check_transition_strategy_activity_completed',
+		help="Automatically marked as completed when Transition Strategy is reported on the visit report form.")
 
-	# PI -> Graduation
-	is_all_mg_disbursed = fields.Boolean(string="All MicroGrant Disbursed")
-	are_all_receipts_collected = fields.Boolean(string="All Receipts Verified and Collected")
-	all_ta_trainings_occurred = fields.Boolean(string="PM Verified All TA Trainings Occurred")
-	all_pillar_trainings_occured = fields.Boolean(string="PM Verified All Pillar Trainings Occurred")
-	did_community_meet_pillars = fields.Boolean(string="Community Has Met Pillar Minimums")
-	is_exit_agreement_signed = fields.Boolean(string="Exit Agreement Signed")
-	did_community_report_progress = fields.Boolean(string="Community Reported on Progress Towards Communal Goal")
-	are_next_steps_established = fields.Boolean(string="Community Established Next Steps Towards Communal Goal")
+	# Management Support (post_implementation1) -> Future Envisioning (post_implementation2)
+	is_oca4_completed = fields.Boolean(string="Community Assessment #4 (Month 0) Completed",
+		compute='check_ocas_completed')
+	is_oca5_completed = fields.Boolean(string="Community Assesment #5 (Month 6) Completed",
+		compute='check_ocas_completed')
+	operational_plan_review_completed = fields.Boolean(string="Facilitation Activity: Operational Plan Review",
+		compute='check_operational_plan_review_completed',
+		help="Automatically marked as completed when Operational Plan Review is reported on the visit report form.")
+	risk_mitigation_review2_completed = fields.Boolean(string="Facilitation Activity: Risk Mitigation Plan Review",
+		compute='check_risk_mitigation_review2_completed',
+		help="Automatically marked as completed when Risk Mitigation Plan Review is reported on the visit report form.")
+	bylaw_review2_completed = fields.Boolean(string="Facilitation Activity: By-Law Review",
+		compute='check_bylaw_review2_completed',
+		help="Automatically marked as completed when By-Law Review is reported on the visit report form.")
+	leadership_review2_completed = fields.Boolean(string="Facilitation Activity: Leadership Review",
+		compute='check_leadership_review2_completed',
+		help="Automatically marked as completed when Leadership Review is reported on the visit report form.")
+	transition_strategy_review2_completed = fields.Boolean(string="Facilitation Activity: Transition Strategy Review",
+		compute='check_transition_strategy_review2_completed',
+		help="Automatically marked as completed when Transition Strategy Review is reported on the visit report form.")
+
+	# Future Envisioning (post_implementation2) -> Graduation (post_implementation3)
+	is_oca6_completed = fields.Boolean(string="Community Assessment #6 (Month 12) Completed",
+		compute='check_ocas_completed')
+	goals_measuring_success_review_completed = fields.Boolean(string="Facilitation Activity: Goal Setting and Measuring Success Review",
+		compute='check_goals_measuring_success_review_completed',
+		help="Automatically marked as completed when Goal Setting and Measuring Success Review is reported on the visit report form.")
+	future_goal_setting_completed = fields.Boolean(string="Facilitation Activity: Future Goal Setting",
+		compute='check_future_goal_setting_completed',
+		help="Automatically marked as completed when Future Goal Setting is reported on the visit report form.")
+	advocacy_training_completed = fields.Boolean(string="Facilitation Activity: Advocacy Training",
+		compute='check_advocacy_training_comleted',
+		help="Automatically marked as completed when Advocacy Training is reported on the visit report form.")
+	cmty_facilitator_followup = fields.Boolean(string="Facilitation Activity: Community Facilitation Follow-up",
+		compute='check_cmty_facilitator_followup',
+		help="Automatically marked as completed when Community Facilitation Follow-up is reported on the visit report form.")
+	transition_plan_review = fields.Boolean(string="Facilitation Activity: Transition Plan Review",
+		compute='check_transition_plan_review_completed',
+		help="Automatically marked as completed when Transition Plan Review is reported on the visit report form.")
+	cmty_report2_submitted = fields.Boolean(string="Community Progress Report Submitted")
+
+	# Post Implementation 3 -> Graduation
+	is_all_mg_disbursed = fields.Boolean(string="All Microgrant Disbursed",
+		compute='check_all_mg_disbursed')
+	are_all_receipts_collected = fields.Boolean(string="All Receipts Verified and Collected",
+		compute='check_all_receipts_collected')
+	cmty_passed_field_audit = fields.Boolean(string="Community Passed Field Audit")
+	cmty_report3_submitted = fields.Boolean(string="Community Report #3 Submitted")
 	are_transition_strategy_activities_completed = fields.Boolean(string="Community Completed Transition Strategy Activities")
+	is_oca7_completed = fields.Boolean(string="Community Assessment #7 (Month 18) Completed",
+		compute='check_ocas_completed')
+	is_oca8_completed = fields.Boolean(string="Community Assessment #8 (Month 24) Completed",
+		compute='check_ocas_completed')
+	exit_agreement_uploaded = fields.Boolean(string="Exit Agreement Uploaded",
+		compute='check_exit_agreement_uploaded')
+	exit_agreement_signed = fields.Boolean(string="Exit Agreement Signed By Minimum Percent of Planning Group",
+		compute='check_exit_agreement_signed')
+	graduation_preparation_completed = fields.Boolean(string="Facilitation Activity: Graduation Preparation",
+		compute='check_graduation_preparation_completed',
+		help="Automatically marked as completed when Graduation Preparation is reported on the visit report form.")
+	graduation_completed = fields.Boolean(string="Facilitation Activity: Graduation",
+		compute='check_graduation_completed',
+		help="Automatically marked as completed when Graduation is reported on the visit report form.")
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_graduation_preparation_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 160), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 160), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 160), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.graduation_preparation_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_graduation_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 161), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 161), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 161), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.graduation_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_transition_plan_review_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 154), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 154), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 154), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.transition_plan_review = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_cmty_facilitator_followup(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 153), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 153), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 153), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.cmty_facilitator_followup = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_advocacy_training_comleted(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 152), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 152), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 152), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.advocacy_training_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_future_goal_setting_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 151), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 151), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 151), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.future_goal_setting_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_goals_measuring_success_review_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 150), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 150), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 150), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.goals_measuring_success_review_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_transition_strategy_review2_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 144), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 144), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 144), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.transition_strategy_review2_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_leadership_review2_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 143), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 143), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 143), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.leadership_review2_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_bylaw_review2_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 142), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 142), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 142), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.bylaw_review2_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_risk_mitigation_review2_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 141), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 141), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 141), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.risk_mitigation_review2_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_operational_plan_review_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 140), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 140), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 140), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.operational_plan_review_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_transition_strategy_activity_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 130), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 130), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 130), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.transition_strategy_activity_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_cmty_facilitation_training_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 123), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 123), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 123), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.cmty_facilitation_training_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_advocacy_report_writing_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 122), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 122), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 122), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.advocacy_report_writing_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_bylaw_review_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 121), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 121), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 121), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.bylaw_review_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_leadership_review_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 120), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 120), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 120), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.leadership_review_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_risk_mitigation_review_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 115), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 115), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 115), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.risk_mitigation_review_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_imp_plan_review(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 114), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 114), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 114), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.imp_plan_review_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_followup_disbursement_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 113), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 113), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 113), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.followup_disbursement = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_banking_training_review_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 112), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 112), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 112), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.banking_training_review_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_trs_acctb_review_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 111), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 111), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 111), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.trs_acctb_review_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_first_disbursement_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 110), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 110), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 110), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.first_disbursement_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_grant_agreement_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 103), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 103), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 103), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.grant_agreement_signing = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_sms_training_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 102), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 102), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 102), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.sms_training_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_record_keeping_training_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 101), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 101), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 101), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.record_keeping_training_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_grant_disbursal_training_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 100), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 100), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 100), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.grant_disbursal_training_completed = True
 
 
+	@api.depends('bank_account')
+	def _check_bank_account(self):
+		for r in self:
+			if r.bank_account:
+				r.is_bank_account_created = True
+
+	@api.depends('govt_registration_number')
+	def check_cmty_registered_with_govt(self):
+		for r in self:
+			if r.govt_registration_number:
+				r.cmty_registered_with_govt = True
+
+	@api.depends('partnership_agreement')
+	def _get_grant_agreement_name(self):
+		for r in self:
+			if r.partnership_agreement:
+				r.partnership_agreement_name =  r.name + "_" + "Partnership" + "_" + "Agreement" + ".pdf"
+
+	@api.depends('grant_agreement')
+	def _get_grant_agreement_name(self):
+		for r in self:
+			if r.grant_agreement:
+				r.grant_agreement_name =  r.name + "_" + "Grant" + "_" + "Agreement" + ".pdf"
+
+	@api.depends('exit_agreement')
+	def _get_exit_agreement_name(self):
+		for r in self:
+			if r.exit_agreement:
+				r.grant_agreement_name =  r.name + "_" + "Exit" + "_" + "Agreement" + ".pdf"
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_trnsprncy_acctblty_traning_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 83), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 83), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 83), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.trnsprncy_acctblty_traning_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_cmty_engagement_plan_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 82), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 82), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 82), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.cmty_engagement_plan_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_developing_bylaws_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 81), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 81), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 81), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.developing_bylaws_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_risk_assessment_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 80), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 80), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 80), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.risk_assessment_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_setting_target_numbers_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 70), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 70), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 70), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.setting_target_numbers_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_developing_data_collection_plan_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 71), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 71), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 71), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.developing_data_collection_plan = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_developing_operational_budget_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 61), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 61), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 61), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.developing_operational_budget_completed = True
+
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_developing_operational_action_plan_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 60), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 60), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 60), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.developing_operational_action_plan_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_developing_implementation_budget_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 53), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 53), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 53), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.developing_implementation_budget_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_understanding_budgeting_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 52), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 52), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 52), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.understanding_budgeting_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_facilitation_training_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 51), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 51), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 51), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.facilitation_training_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_developing_implementation_action_plan_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 50), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 50), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 50), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.developing_implementation_action_plan_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_banking_training_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 45), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 45), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 45), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.banking_training = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_developing_savings_group_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 44), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 44), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 44), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.devloping_savings_groups = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_introducing_prop_dev_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 43), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 43), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 43), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.introducing_prop_dev = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_govt_registration_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 42), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 42), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 42), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.govt_registration_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_feasibility_study_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 41), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 41), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 41), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.feasibility_study_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_brainstorming_pathways_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 40), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 40), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 40), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.brainstorming_pathways_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_understanding_goals_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 30), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 30), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 30), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.understanding_goals_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_brainstorming_goals_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 31), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 31), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 31), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.brainstorming_goals_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_assessing_past_progress_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 34), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 34), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 34), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.assessing_past_progress_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_defining_success_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 33), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 33), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 33), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.defining_success_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def check_consensus_building_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 32), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 32), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 32), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.consensus_building_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def _check_gender_empowerment_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 20), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 20), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 20), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.gender_empowerment_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def _check_ground_rules_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 21), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 21), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 21), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.ground_rules_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def _check_strong_leaders_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 22), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 22), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 22), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.strong_leaders_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def _check_leadership_election(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 23), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 23), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 23), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.leadership_election_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def _check_vision_statement_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 24), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 24), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 24), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.vision_statement_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def _check_partnership_expectations_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 10), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 10), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 10), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.partnership_expectations_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def _check_partnership_agreement_signed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 11), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 11), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 11), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.partnership_agreement_signed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def _check_introducing_spark_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 1), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 1), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 1), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.introducing_spark_completed = True
+
+	@api.multi
+	@api.depends('vrf_ids')
+	def _check_community_mapping_completed(self):
+		for r in self:
+			if r.vrf_ids:
+				activity1 = r.vrf_ids.search([('activity1_id.number', '=', 3), ('community_number', '=', r.community_number)])
+				activity2 = r.vrf_ids.search([('activity2_id.number', '=', 3), ('community_number', '=', r.community_number)])
+				activity3 = r.vrf_ids.search([('activity3_id.number', '=', 3), ('community_number', '=', r.community_number)])
+				if activity1 or activity2 or activity3:
+					r.community_mapping_completed = True
+
+	@api.depends('spark_project_ids')
+	def check_all_mg_disbursed(self):
+		for r in self:
+			if r.spark_project_ids:
+				total_left_to_disburse = sum(s.left_to_disburse for s in r.spark_project_ids)
+				if total_left_to_disburse == 0:
+					r.is_all_mg_disbursed = True
+
+	@api.depends('spark_project_ids')
+	def check_all_receipts_collected(self):
+		for r in self:
+			if r.spark_project_ids:
+				total_outstanding_receipts = sum(s.outstanding_receipts for s in r.spark_project_ids)
+				if total_outstanding_receipts == 0:
+					r.are_all_receipts_collected = True
+
+	@api.depends('indicator1_6month_target', 'indicator1_12months_target',
+		'indicator1_18months_target', 'indicator1_2years_target',
+		'indicator2_6month_target', 'indicator2_12months_target',
+		'indicator2_18months_target', 'indicator2_2years_target',
+		'indicator3_6month_target', 'indicator3_12months_target',
+		'indicator3_18months_target', 'indicator3_2years_target')
+	def check_goal_targets_entered(self):
+		for r in self:
+			if (r.indicator1_6month_target and
+				r.indicator1_12months_target and
+				r.indicator1_18months_target and
+				r.indicator1_2years_target and
+				r.indicator2_6month_target and
+				r.indicator2_12months_target and
+				r.indicator2_18months_target and
+				r.indicator2_2years_target and
+				r.indicator3_6month_target and
+				r.indicator3_12months_target and
+				r.indicator3_18months_target and
+				r.indicator3_2years_target):
+				r.are_goal_targets_entered = True
+
+	@api.depends('exit_agreement')
+	def check_exit_agreement_uploaded(self):
+		for r in self:
+			if r.exit_agreement:
+				r.exit_agreement_uploaded = True
+
+	@api.depends('partnership_agreement')
+	def check_partnership_agreement_uploaded(self):
+		for r in self:
+			if r.partnership_agreement:
+				r.is_partnership_agreement_uploaded = True
+
+	@api.one
+	@api.depends('phase')
+	def _get_phase_name(self):
+		for r in self:
+			if r.phase:
+				r.phase_name = dict(self.fields_get(allfields=['phase'])['phase']['selection'])[self.phase]
+
+	@api.depends('indicator1_baseline', 'indicator2_baseline', 'indicator3_baseline')
+	def check_goal_indicator_baselines_gathered(self):
+		for r in self:
+			if r.indicator1_baseline and r.indicator2_baseline and r.indicator3_baseline:
+				r.goal_indicator_baselines_gathered = True
+
+	@api.depends('indicator1', 'indicator2', 'indicator3')
+	def check_goal_indicators_brainstormed(self):
+		for r in self:
+			if r.indicator1 and r.indicator2 and r.indicator3:
+				r.goal_indicators_selected = True
+
+	@api.one
+	@api.depends('state')
+	def _get_state_name(self):
+		for r in self:
+			if r.state:
+				r.state_name = dict(self.fields_get(allfields=['state'])['state']['selection'])[self.state]
 
 	@api.depends('technical_advisor_id')
 	def check_ta_recruited(self):
@@ -314,6 +1328,13 @@ class Community(models.Model):
 					r.is_min_pathways_brainstormed = True
 
 	@api.multi
+	@api.depends('transition_strategy_ids')
+	def check_transition_strategy(self):
+		for r in self:
+			if r.transition_strategy_ids:
+				r.is_transition_strategy_completed = True
+
+	@api.multi
 	@api.depends('oca_ids')
 	def check_ocas_completed(self):
 		for r in self:
@@ -322,6 +1343,21 @@ class Community(models.Model):
 				oca1_ids = r.oca_ids.search([('community_id', '=', self.id), ('oca_number', '=', 1)])
 				oca2_ids = r.oca_ids.search([('community_id', '=', self.id), ('oca_number', '=', 2)])
 				oca3_ids = r.oca_ids.search([('community_id', '=', self.id), ('oca_number', '=', 3)])
+				oca4_ids = r.oca_ids.search([('community_id', '=', self.id), ('oca_number', '=', 4)])
+				oca5_ids = r.oca_ids.search([('community_id', '=', self.id), ('oca_number', '=', 5)])
+				oca6_ids = r.oca_ids.search([('community_id', '=', self.id), ('oca_number', '=', 6)])
+				oca7_ids = r.oca_ids.search([('community_id', '=', self.id), ('oca_number', '=', 7)])
+				oca8_ids = r.oca_ids.search([('community_id', '=', self.id), ('oca_number', '=', 8)])
+				if oca8_ids:
+					r.is_oca8_completed = True
+				if oca7_ids:
+					r.is_oca7_completed = True
+				if oca6_ids:
+					r.is_oca6_completed = True
+				if oca5_ids:
+					r.is_oca5_completed = True
+				if oca4_ids:
+					r.is_oca4_completed = True
 				if oca3_ids:
 					r.is_oca3_completed = True
 				if oca2_ids:
@@ -341,6 +1377,22 @@ class Community(models.Model):
 		for r in self:
 			if r.spark_project_ids:
 				r.is_project_created = True
+
+	@api.multi
+	def check_pm_approved_partnership(self):
+		self.has_pm_approved_partnership = True
+
+	@api.multi
+	def check_pm_approved_proposal(self):
+		self.has_pm_approved_proposal = True
+
+	@api.multi
+	def check_pm_approved_project_launch(self):
+		self.is_imp_action_plan_completed = True
+
+	@api.multi
+	def check_pm_verified_transition_strategy_complete(self):
+		self.are_transition_strategy_activities_completed = True
 
 	@api.multi
 	@api.depends('spark_project_ids.budget_line_item_ids')
@@ -365,29 +1417,64 @@ class Community(models.Model):
 
 	@api.multi
 	@api.depends('spark_leader_ids')
-	def check_elected_leaders(self):
+	def check_num_elected_leaders(self):
 		for r in self:
 			if r.spark_leader_ids:
 				if len(r.spark_leader_ids) >= r.workflow_config_id.communitybldg_min_elected_leaders and len(r.spark_leader_ids) <= r.workflow_config_id.communitybldg_max_elected_leaders:
-					r.is_spark_leaders_requirement = True
+					r.num_leaders_requirement = True
 
 	@api.multi
-	@api.depends('community_leader_ids')
+	@api.depends('spark_leader_ids')
+	def check_gender_elected_leaders(self):
+		for r in self:
+			if r.spark_leader_ids:
+				if len(r.spark_leader_ids.search([('gender', '=', 'female'), ('community_id.community_number', '=', r.community_number)])) >= (r.workflow_config_id.communtiybldg_min_percent_female * len(r.spark_leader_ids)):
+					r.leaders_gender_requirement = True
+
+	@api.multi
+	@api.depends('community_facilitator_ids')
+	def check_cmty_facilitators_identified(self):
+		for r in self:
+			if r.community_facilitator_ids:
+				r.check_cmty_facilitators_identified = True
+
+	@api.multi
+	@api.depends('spark_leader_ids')
 	def check_community_leaders(self):
 		for r in self:
-			if r.community_leader_ids:
+			if r.spark_leader_ids:
 				r.is_cmty_leaders_entered = True
+
+	@api.multi
+	@api.depends('number_signed_grant_agreement')
+	def check_pg_signed_grant_agreement(self):
+		for r in self:
+			if r.number_signed_grant_agreement:
+				if r.number_signed_grant_agreement >= r.num_hh_in_planning_group * r.workflow_config_id.percent_pg_signed_grantagreement:
+					r.pg_signed_agreement = True
+
+	@api.multi
+	@api.depends('number_signed_exit_agreement')
+	def check_exit_agreement_signed(self):
+		for r in self:
+			if r.number_signed_exit_agreement:
+				if r.number_signed_exit_agreement >= r.num_hh_in_planning_group * r.workflow_config_id.percent_pg_signed_exitagreement:
+					r.exit_agreement_signed = True
 
 	@api.multi
 	@api.depends('num_households_at_partnership', 'num_hh_community')
 	def check_hh_requirement_met(self):
 		for r in self:
 			if r.num_hh_community > 0:
-				if r.num_hh_community < r.workflow_config_id.partnership_hh_breakpoint:
-					if r.workflow_config_id.partnership_hh_lower * r.num_hh_community <= r.num_households_at_partnership:
-						r.is_partnership_hh_requirement_met = True
-				else:
-					if r.workflow_config_id.partnership_hh_upper * r.num_hh_community <= r.num_households_at_partnership:
+				if r.workflow_config_id.using_hh_breakpoint is True:
+					if r.num_hh_community < r.workflow_config_id.partnership_hh_breakpoint:
+						if r.workflow_config_id.partnership_hh_lower * r.num_hh_community <= r.number_signed_partnership_agreement:
+							r.is_partnership_hh_requirement_met = True
+					else:
+						if r.workflow_config_id.partnership_hh_upper * r.num_hh_community <= r.number_signed_partnership_agreement:
+							r.is_partnership_hh_requirement_met = True
+				elif r.workflow_config_id.using_hh_breakpoint is False:
+					if r.workflow_config_id.min_percent_hh_partnership * r.num_hh_community <= r.number_signed_partnership_agreement:
 						r.is_partnership_hh_requirement_met = True
 
 	@api.depends('description')
@@ -407,7 +1494,6 @@ class Community(models.Model):
 			if r.vrf_ids:
 				vrf_max_date = max(s.visit_date for s in r.vrf_ids)
 				vrf_max_id = r.vrf_ids.search([('visit_date', '=', vrf_max_date), ('community_number', '=', r.community_number)], limit=1)
-				r.step_id = vrf_max_id.step_id
 				r.next_visit_date = vrf_max_id.next_visit_date
 				r.last_visit_date = vrf_max_id.visit_date
 				if r.next_visit_date:
@@ -471,7 +1557,7 @@ class Community(models.Model):
 	def action_partnership(self):
 		# Sets state to planning and is_partnered to true
 		if (self.is_community_description_filled is True and
-			self.at_least_two_ppl_visited is True):
+			self.has_pm_approved_partnership is True):
 			self.state = 'partnership'
 			self.phase = 'planning'
 			self.is_partnered = True
@@ -489,14 +1575,14 @@ class Community(models.Model):
 				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.def')
 		elif self.is_community_description_filled is False:
 			raise ValidationError("Error: Community Missing Description")
-		elif self.at_least_two_ppl_visited is False:
-			raise ValidationError("Error: At Least Two People Must Have Visited Community!")
+		elif self.has_pm_approved_partnership is False:
+			raise ValidationError("Error: Manager Must Approve Community For Partnership")
 
 	# Partnership -> Community Building
 	def action_community_building(self):
-		if self.is_partnership_agreement_signed is True and self.is_partnership_hh_requirement_met is True:
+		if self.partnership_agreement_signed is True and self.is_partnership_hh_requirement_met is True:
 			self.state = 'community_building'
-		elif self.is_partnership_agreement_signed is False:
+		elif self.partnership_agreement_signed is False:
 			raise ValidationError("Error: Partnership Agreement Must Be Signed")
 		elif self.is_partnership_hh_requirement_met is False:
 			raise ValidationError("Error: Minimum Number of Households Must Have Signed Partnership Agreement")
@@ -507,7 +1593,8 @@ class Community(models.Model):
 			and self.is_office_file_created is True
 			and self.is_partnerhip_agreement_stored is True
 			and self.is_partnership_agreement_uploaded is True
-			and self.is_spark_leaders_requirement is True):
+			and self.num_leaders_requirement is True
+			and self.leaders_gender_requirement is True):
 			self.state = 'goal_setting_goals'
 		elif self.is_cmty_leaders_entered is False:
 			raise ValidationError("Error: Community Leaders Must Be Entered")
@@ -517,18 +1604,21 @@ class Community(models.Model):
 			raise ValidationError("Error: Partnership Agreement Must Be Stored in Office File!")
 		elif self.is_partnership_agreement_uploaded is False:
 			raise ValidationError("Error: Partnership Agreement Must Be Uploaded!")
-		elif self.is_spark_leaders_requirement is False:
+		elif self.num_leaders_requirement is False:
 			if len(self.spark_leader_ids) > self.workflow_config_id.communitybldg_max_elected_leaders:
 				raise ValidationError("Error: Too Many Project Leaders")
 			elif len(self.spark_leader_ids) < self.workflow_config_id.communitybldg_min_elected_leaders:
 				raise ValidationError("Error: Too Little Project Leaders")
+		elif self.leaders_gender_requirement is False:
+			raise ValidationError("Error: At Least 20% of Leaders Must Be Female!")
 
 	# Goals -> Goal Setting: Pathways
 	def action_goal_setting_pathways(self):
-		if (self.is_pm_approved_goals is True and
-			self.is_min_goals_brainstormed is True and
+		if (self.is_min_goals_brainstormed is True and
 			self.is_goals_ideas_not_null is True and
-			self.is_goals_selected_not_null is True):
+			self.is_goals_selected_not_null is True and
+			self.goal_indicators_selected is True and
+			self.goal_indicator_baselines_gathered is True):
 			self.state = 'goal_setting_pathways'
 		elif self.is_goals_ideas_not_null is False:
 			raise ValidationError("Error: Goals - Ideas Must Be Filled on Community Profile")
@@ -536,16 +1626,21 @@ class Community(models.Model):
 			raise ValidationError("Error: Not Enough Goals - Ideas Brainstormed!")
 		elif self.is_goals_selected_not_null is False:
 			raise ValidationError("Error: Goals - Selected Must Be Filled on Community Profile")
-		elif self.is_pm_approved_goals is False:
-			raise ValidationError("Error: Community Program Manager Must Approve Goals Section!")
+		elif self.goal_indicators_selected is False:
+			raise ValidationError("Error: Goal Indicators Must Be Selected and Filled Out On Community Profile")
+		elif self.goal_indicator_baselines_gathered is False:
+			raise ValidationError("Error: Goal Indicator Baselines Must Be Collected and Filled Out On Community Profile")
 
 	# Goal Setting: Pathways -> Pathway Planning: Implementation Action Plan
-	def action_implementation_action_plan(self):
+	def action_implementation_plan(self):
 		if (self.is_project_description_not_null is True and
 			self.is_pm_approved_pathways is True and
 			self.is_oca2_completed is True and
-			self.is_min_pathways_brainstormed is True):
-			self.state = 'implementation_action_plan'
+			self.is_min_pathways_brainstormed is True and
+			self.did_ta_recruitment_begin is True and
+			self.did_bank_opening_begin is True and
+			self.did_government_registration_begin is True):
+			self.state = 'implementation_plan'
 		elif self.is_min_pathways_brainstormed is False:
 			raise ValidationError("Error: Not Enough Pathways - Ideas Brainstormed!")
 		elif self.is_project_description_not_null is False:
@@ -554,15 +1649,26 @@ class Community(models.Model):
 			raise ValidationError("Error: Community Program Manager Must Approve Pathways Section!")
 		elif self.is_oca2_completed is False:
 			raise ValidationError("Error: OCA2 Must Be Completed!")
+		elif self.did_ta_recruitment_begin is False:
+			raise ValidationError("Error: Technical Assistant Recruitment Must Have Begun")
+		elif self.did_bank_opening_begin is False:
+			raise ValidationError("Error: Bank Account Opening Process Must Have Begun")
+		elif self.did_government_registration_begin is False:
+			raise ValidationError("Error: Community Must Have Begun Government Registration Process")
 
-	# Pathway Planning: Implementation Action Plan -> Implementation Budget
-	def action_implementation_budget(self):
-		if (self.is_ta_recruited is True and
+	# Implementation Plan -> Operational Plan
+	def action_operational_plan(self):
+		if (self.is_implementation_budget_entered is True and
+			self.is_ta_trained is True and
+			self.is_ta_recruited is True and
 			self.is_ta_workplan_approved is True and
 			self.is_ta_profile_filled is True and
-			self.is_implementation_action_plan_entered is True and
-			self.is_bank_detail_added is True):
-			self.state = 'implementation_budget'
+			self.is_implementation_action_plan_entered):
+			self.state = 'operational_plan'
+		elif self.is_implementation_budget_entered is False:
+			raise ValidationError("Error: Implementation Budget Must Be Entered Into Proposal")
+		elif self.is_ta_trained is False:
+			raise ValidationError("Error: Technical Advisor Must Be Trained")
 		elif self.is_ta_recruited is False:
 			raise ValidationError("Error: Technical Advisor Must Be Recruited and Assigned to Community")
 		elif self.is_ta_workplan_approved is False:
@@ -571,32 +1677,13 @@ class Community(models.Model):
 			raise ValidationError("Error: Technical Advisor CV, ID and Credentials Must Be Loaded Onto Contact Page")
 		elif self.is_implementation_action_plan_entered is False:
 			raise ValidationError("Error: Implementation Action Plan Must Be Entered Into Proposal")
-		elif self.is_bank_detail_added is False:
-			raise ValidationError("Error: Bank Details Must Be Added to Community Profile")
 
-	# Implementation Budget -> Operational Action Plan
-	def action_operational_action_plan(self):
-		if (self.is_implementation_budget_entered is True and
-			self.is_ta_trained is True):
-			self.state = 'operational_action_plan'
-		elif self.is_implementation_budget_entered is False:
-			raise ValidationError("Error: Implementation Budget Must Be Entered Into Proposal")
-		elif self.is_ta_trained is False:
-			raise ValidationError("Error: Technical Advisor Must Be Trained")
-
-	# Operational Action Plan -> Operational Budget
-	def action_operational_budget(self):
-		if self.is_operational_action_plan_entered is True:
-			self.state = 'operational_budget'
-		elif self.is_operational_action_plan_entered is False:
-			raise ValidationError("Error: Operational Action Plan Must Be Entered Into Proposal")
-
-	# Operational Budget -> Measuring Success
+	# Operational Plan -> Measuring Success
 	def action_measuring_success(self):
-		if self.is_operational_budget_entered is True:
+		if (self.is_operational_plan_entered is True):
 			self.state = 'measuring_success'
-		elif self.is_operational_budget_entered is False:
-			raise ValidationError("Error: Operational Budget Must Be Entered Into Proposal")
+		elif self.is_operational_plan_entered is False:
+			raise ValidationError("Error: Operational Action Plan and Budget Must Be Entered Into Proposal")
 
 	# Measuring Success -> Sustainability Plan
 	def action_sustainability_plan(self):
@@ -612,50 +1699,42 @@ class Community(models.Model):
 	def action_proposal_review(self):
 		if self.is_sustainability_plan_entered is True:
 			self.state = 'proposal_review'
+			self.phase = 'planning'
 		elif self.is_sustainability_plan_entered is False:
 			raise ValidationError("Error: Sustainability Plan Must Be Entered Into Proposal")
 
-	# Proposal Finalizatio -> Implementation: Grant Agreement
+	# Proposal Finalization -> Implementation: Grant Agreement
 	def action_grant_agreement(self):
-		if (self.is_bank_account_open is True and
-			self.is_proposal_approved_by_ta is True and
-			self.is_proposal_approved_by_team is True and
-			self.is_oca3_completed is True):
+		if (self.is_bank_account_created is True and
+			self.has_pm_approved_proposal is True and
+			self.is_oca3_completed is True and
+			self.cmty_registered_with_govt is True):
 			self.state = 'grant_agreement'
 			self.phase = 'implementation'
-		elif self.is_proposal_approved_by_team is False:
-			raise ValidationError("Error: Proposal Must Be Approved By Team/PM")
-		elif self.is_proposal_approved_by_ta is False:
-			raise ValidationError("Error: Proposal Must Be Approved By Technical Advisor")
-		elif self.is_bank_account_open is False:
+		elif self.is_bank_account_created is False:
 			raise ValidationError("Error: Community Bank Account Must Be Open")
 		elif self.is_oca3_completed is False:
-			raise ValidationError("Error: OCA3 Must Be Completed")
+			raise ValidationError("Error: Community Assessment #3 Must Be Completed")
+		elif self.has_pm_approved_proposal is False:
+			raise ValidationError("Error: Manager Must Approve Community Pathway Plan!")
+		elif self.cmty_registered_with_govt is False:
+			raise ValidationError("Error: Community Must Be Registered with Local Government and Registration Number Must Be Entered")
 
-
+	# Grant Agreement -> Accountability/Transparency (Disbursements Begin)
 	def action_first_disbursement(self):
 		if (self.is_receipt_book_received is True and
 			self.is_disbursement_book_received is True and
-			self.is_grant_agreement_translated is True and
+			self.is_cashbook_received is True and
 			self.pg_signed_agreement is True):
 			self.state = 'first_disbursement'
-		elif self.is_grant_agreement_translated is False:
-			raise ValidationError("Error: Grant Agreement Must Be Translated")
+		elif self.is_cashbook_received is False:
+			raise ValidationError("Error: Community Must Have Cashbook")
 		elif self.pg_signed_agreement is False:
 			raise ValidationError("Error: Planning Group Must Have Signed Grant Agreement")
 		elif self.is_receipt_book_received is False:
 			raise ValidationError("Error: Community Must Have Received Receipt Book")
 		elif self.is_disbursement_book_received is False:
 			raise ValidationError("Error: Community Must Have Received Disbursement Record Book")
-
-	def action_project_management(self):
-		if (self.is_microgrant_disbursed is True and
-			self.is_microgrant_confirmed is True):
-			self.state = 'project_management'
-		elif self.is_microgrant_disbursed is False:
-			raise ValidationError("Error: First Disbursement Must Be Disbursed")
-		elif self.is_microgrant_confirmed is False:
-			raise ValidationError("Error: Community Must Confirm MicroGrant Receipt")
 
 	def action_leadership(self):
 		self.state = 'leadership'
@@ -664,55 +1743,67 @@ class Community(models.Model):
 		self.state = 'imp_transition_strategy'
 		self.phase = 'implementation'
 
-	def action_post_implementation(self):
-		if (self.is_launch_approved_ta is True and
-			self.is_capacity_verified is True and
+	def action_post_implementation1(self):
+		if (self.is_project_quality_approved_ta is True and
 			self.is_imp_action_plan_completed is True and
-			self.is_ta_visits_verified is True and
-			self.is_transition_strategy_completed is True):
-			self.state = 'post_implementation'
+			self.is_transition_strategy_completed is True and
+			self.cmty_facilitation_training is True and
+			self.field_audit_passed is True and
+			self.cmty_report1_submitted is True):
+			self.state = 'post_implementation1'
 			self.phase = 'post_implementation'
-		elif self.is_launch_approved_ta is False:
-			raise ValidationError("Error: Technical Advisor Must Approve Project Launch")
-		elif self.is_capacity_verified is False:
-			raise ValidationError("Error: PM must visit to verify community capacity in reocrd keeping and banking")
+		elif self.is_project_quality_approved_ta is False:
+			raise ValidationError("Error: Technical Advisor Must Approve Project Quality and Launch")
 		elif self.is_imp_action_plan_completed is False:
 			raise ValidationError("Error: Completion of Implementation Action Plan Activities Must Be Verified By TA")
-		elif self.is_ta_visits_verified is False:
-			raise ValidationError("Error: PM Must Verify Scheduled TA Visits Have Occurred")
 		elif self.is_transition_strategy_completed is False:
 			raise ValidationError("Error: Transition Strategy Must Be Complete")
+		elif self.cmty_facilitation_training is False:
+			raise ValidationError("Error: Community Facilitation Training Must Be Completed")
+		elif self.field_audit_passed is False:
+			raise ValidationError("Error: Community Must Have Passed Field Audit")
+		elif self.cmty_report1_submitted is False:
+			raise ValidationError("Error: Community Report Must Have Been Submitted")
+
+	def action_post_implementation2(self):
+		self.state = 'post_implementation2'
+
+	def action_post_implementation3(self):
+		self.state = 'post_implementation3'
 
 	def action_graduation(self):
 		if (self.is_all_mg_disbursed is True and
 			self.are_all_receipts_collected is True and
-			self.all_ta_trainings_occurred is True and
-			self.all_pillar_trainings_occured is True and
-			self.did_community_meet_pillars is True and
-			self.is_exit_agreement_signed is True and
-			self.did_community_report_progress is True and
-			self.are_next_steps_established is True and
-			self.are_transition_strategy_activities_completed is True):
+			self.cmty_passed_field_audit is True and
+			self.cmty_report3_submitted is True and
+			self.are_transition_strategy_activities_completed is True and
+			self.exit_agreement_signed is True and
+			self.is_oca7_completed is True and
+			self.is_oca8_completed is True and
+			self.are_transition_strategy_activities_completed is True and
+			self.exit_agreement_uploaded is True):
 			self.state = 'graduated'
 			self.phase = 'graduated'
+			self.is_active = False
+			self.is_partnered = False
 		elif self.is_all_mg_disbursed is False:
 			raise ValidationError("Error: All Remaining MicroGrant Balance Must Be Disbursed")
 		elif self.are_all_receipts_collected is False:
 			raise ValidationError("Error: All Receipts Must Be Collected")
-		elif self.all_ta_trainings_occurred is False:
-			raise ValidationError("Error: All TA Trainings Must Have Occurred")
-		elif self.all_pillar_trainings_occured is False:
-			raise ValidationError("Error: All Pillar Trainings Must Have Occurred")
-		elif self.is_exit_agreement_signed is False:
+		elif self.cmty_passed_field_audit is False:
+			raise ValidationError("Error: Community Must Have Passed Field Audit")
+		elif self.cmty_report3_submitted is False:
+			raise ValidationError("Error: Community Must Submit Progress Report")
+		elif self.exit_agreement_uploaded is False:
+			raise ValidationError("Error: Exit Agreement Must Be Uploaded")
+		elif self.exit_agreement_signed is False:
 			raise ValidationError("Error: Exit Agreement Must Be Signed")
-		elif self.did_community_report_progress is False:
-			raise ValidationError("Error: Community Must Report On Progress Towards Communal Goal")
-		elif self.are_next_steps_established is False:
-			raise ValidationError("Error: Community Must Establish Next Steps Towards Their Goal")
+		elif self.is_oca7_completed is False:
+			raise ValidationError("Error: Community Assessment #7 Must Be Completed")
+		elif self.is_oca8_completed is False:
+			raise ValidationError("Error: Community Assessment #8 Must Be Completed")
 		elif self.are_transition_strategy_activities_completed is False:
-			raise ValidationError("Error: All Transition Strategy Activities Must Have Been Completed")
-		elif self.did_community_meet_pillars is False:
-			raise ValidationError("Error: Community Must Meet Minimum Pillar Thresholds")
+			raise ValidationError("Error: Manager Must Approve All Transition Strategy Activities Completed")
 
 	#---------------------------------------------------
 	#                 Constraints                      |
@@ -733,6 +1824,10 @@ class CommunityWorkflowParameters(models.Model):
 	_name = 'sparkit.communityworkflowparameters'
 
 	name = fields.Char(string="Name")
+	# Breakpoint - default = False.
+	using_hh_breakpoint = fields.Boolean(string="Use Breakpoint?", help="Only check this button if the workflow configuration will be using a household breakpoint.")
+	# Minimum number of households that signed partnership agreement
+	min_percent_hh_partnership = fields.Float(string="Minimum Percent of Total Households in the Community That Must Sign Partnership Agreement")
 	# Partnership -> Community Building
 	#This variable defines the 'breakpoint' for % of community that signed the partnership agreement,
 	# for example, a breakpoint of 100 households:
@@ -749,10 +1844,17 @@ class CommunityWorkflowParameters(models.Model):
 	# Community Building -> Goal Setting
 	communitybldg_min_elected_leaders = fields.Integer(string="Minimum Number of Elected Leaders")
 	communitybldg_max_elected_leaders = fields.Integer(string="Maximum Number of Elected Leaders")
+	communtiybldg_min_percent_female = fields.Float(string="Minimum Percent Female Leaders")
 
 	# Goals -> Pathways
 	min_goals_brainstormed = fields.Integer(string="Minimum Number of Goals Brainstormed")
 	min_pathways_brainstormed = fields.Integer(string="Minimum Number of Pathways Brainstormed")
+
+	# implementation
+	percent_pg_signed_grantagreement = fields.Float(string="Percent of Planning Group That Must Sign Grant Agreement")
+
+	# graduation
+	percent_pg_signed_exitagreement = fields.Float(string="Percent of Planning Group That Must Sign Exit Agreement")
 
 	#------------------------------
 	#  Validation and Constraints
@@ -767,6 +1869,24 @@ class CommunityWorkflowParameters(models.Model):
 	def _check_partnership_hh_upper(self):
 		for r in self:
 			if r.partnership_hh_lower > 1:
+				raise ValidationError("Error: Must be less than 1")
+
+	@api.constrains('min_percent_hh_partnership')
+	def _check_min_percent_hh_partnership(self):
+		for r in self:
+			if r.min_percent_hh_partnership > 1:
+				raise ValidationError("Error: Must be less than 1")
+
+	@api.constrains('percent_pg_signed_grantagreement')
+	def _check_percent_pg_signed_grantagreement(self):
+		for r in self:
+			if r.percent_pg_signed_grantagreement > 1:
+				raise ValidationError("Error: Must be less than 1")
+
+	@api.constrains('percent_pg_signed_exitagreement')
+	def _check_percent_pg_signed_exitagreement(self):
+		for r in self:
+			if r.percent_pg_signed_exitagreement > 1:
 				raise ValidationError("Error: Must be less than 1")
 
 	_sql_constraints = [

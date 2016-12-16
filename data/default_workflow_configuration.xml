@@ -4,13 +4,14 @@
 
         <record id="1" model="sparkit.communityworkflowparameters">
             <field name="name">Default</field>
-            <field name="partnership_hh_breakpoint">100</field>
-            <field name="partnership_hh_upper">.30</field>
-            <field name="partnership_hh_lower">.50</field>
-            <field name="communitybldg_min_elected_leaders">5</field>
-            <field name="communitybldg_max_elected_leaders">15</field>
+            <field name="min_percent_hh_partnership">.5</field>
+            <field name="communitybldg_min_elected_leaders">3</field>
+            <field name="communitybldg_max_elected_leaders">12</field>
             <field name="min_goals_brainstormed">3</field>
             <field name="min_pathways_brainstormed">5</field>
+            <field name="communtiybldg_min_percent_female">.2</field>
+            <field name="percent_pg_signed_grantagreement">.5</field>
+            <field name="percent_pg_signed_exitagreement">.5</field>
         </record>
 
     </data>

@@ -101,8 +101,6 @@ class PilotUpdate(models.Model):
     pilot_name = fields.Char(related='pilot_id.name')
     community_id = fields.Many2one('sparkit.community', string="Community")
     community_name = fields.Char(related='community_id.name', store=True)
-    current_phase_id = fields.Many2one(related='community_id.phase_id', store=True, readonly=True)
-    current_step_id = fields.Many2one(related='community_id.step_id', store=True, readonly=True)
     facilitator_id = fields.Many2one('res.users', string="Facilitator")
 
     #Indicators (only shown if preset indicators is True in XML)
