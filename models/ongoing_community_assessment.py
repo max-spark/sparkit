@@ -19,7 +19,8 @@ class OngoingCommunityAssessment(models.Model):
 	date = fields.Date(string="3. Date of Assessment")
 	collected_by = fields.Many2one('res.users', string="4. Collected By",
 		default=lambda self: self.env.user)
-	oca_number = fields.Integer(string="5. OCA Number")
+	oca_number = fields.Integer(string="5. OCA Number",
+		required=True)
 
 
 	#Section One: Background

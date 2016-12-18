@@ -169,7 +169,8 @@ class Community(models.Model):
 
 	pathways_ideas = fields.Integer(string="Pathways - Ideas",
 		help="Please enter the number of ideas the community brainstormed for their pathway.")
-	project_description = fields.Text(string="Please describe the community's chosen project in their own words.")
+	project_description = fields.Text(string = "Pathway - Selected",
+		help="Please describe the community's chosen project in their own words.")
 
 
 	# Leaders
@@ -249,7 +250,8 @@ class Community(models.Model):
 	is_community_description_filled = fields.Boolean(string="Community Description Filled",
 			compute="check_community_description",
 			help="Has a community description on the community's profile page been entered?")
-	has_pm_approved_partnership = fields.Boolean(string="Manager Approved Community For Partnership")
+	has_pm_approved_partnership = fields.Boolean(string="Manager Approved Community For Partnership",
+		help="The community's manager must approve community partnership.")
 		# Activities
 	introducing_spark_completed = fields.Boolean(string="Facilitation Activity: Introducing Spark Completed",
 		compute='_check_introducing_spark_completed',
@@ -260,10 +262,11 @@ class Community(models.Model):
 
 	#Partnership -> Community Building
 	partnership_agreement_signed = fields.Boolean(string="Facilitation Activity: Partnership Agreement",
-		compute='_check_partnership_agreement_signed')
+		compute='_check_partnership_agreement_signed',
+		help="This is automatically marked as completed when Partnership Agreement Signed activity is reported on the visit report form.")
 	is_partnership_hh_requirement_met = fields.Boolean(string="At Least 50% of Community Signed Partnership Agreement",
 		compute='check_hh_requirement_met',
-		help="Did the minimum number of people in the community sign the partnership agreement? This field is located under the 'Important Documents' tab")
+		help="Did the minimum number of households in the community sign the partnership agreement? This field is located under the 'Important Documents' tab underneath 'Community Detail'.")
 		#Activities
 	partnership_expectations_completed = fields.Boolean(string="Facilitation Activity: Partnership Expectations",
 		compute='_check_partnership_expectations_completed',
@@ -272,14 +275,22 @@ class Community(models.Model):
 
 	# Community Building -> Goal Setting: Goals
 	is_cmty_leaders_entered = fields.Boolean(string="Community Contact Information (Leaders) Entered",
-		compute='check_community_leaders')
-	is_office_file_created = fields.Boolean(string="Office File Created")
-	is_partnerhip_agreement_stored = fields.Boolean(string="Partnership Agreement Stored In Office File")
+		compute='check_community_leaders',
+		help="Are there community leaders for the community? The 'Community Leaders' tab is under the community detail.")
+	is_office_file_created = fields.Boolean(string="Office File Created",
+		help="Did you create a folder in the office to store hard copies of community documents?")
+	is_partnerhip_agreement_stored = fields.Boolean(string="Partnership Agreement Stored In Office File",
+		help="Did you store a hard copy of the partnership agreement in the office folder?")
 	is_partnership_agreement_uploaded = fields.Boolean(string="Partnership Agreement Uploaded",
-		compute='check_partnership_agreement_uploaded')
-	num_leaders_requirement = fields.Boolean(string="Between 3 - 12 Leaders Elected", compute='check_num_elected_leaders')
-	leaders_gender_requirement = fields.Boolean(string="At Least 20% Elected Leaders Women", compute='check_gender_elected_leaders')
+		compute='check_partnership_agreement_uploaded',
+		help="Automatically marked as complete when the partnership agreement is uploaded under 'Important Documents'")
+	num_leaders_requirement = fields.Boolean(string="Between 3 - 12 Leaders Elected", compute='check_num_elected_leaders',
+		help="Automatically checked when there are 3 - 12 leaders entered in 'Community Leaders' under 'Community Detail'.")
+	leaders_gender_requirement = fields.Boolean(string="At Least 20% Elected Leaders Women", compute='check_gender_elected_leaders',
+		help="Automatically checks the gender of all community leaders underneath the community profile.")
 		# -> Activities
+	sms_registration_completed = fields.Boolean(string="SMS Registration Completed",
+		help="Did you register community members for SMS?")
 	gender_empowerment_completed = fields.Boolean(string="Facilitation Activity: Gender Empowerment Completed",
 		compute='_check_gender_empowerment_completed',
 		help="Automatically marked as completed when Gender Empowerment Activity is reported on the visit report form.")
@@ -295,12 +306,15 @@ class Community(models.Model):
 	vision_statement_completed = fields.Boolean(string="Facilitation Activity: Vision Statement Completed",
 		compute='_check_vision_statement_completed',
 		help="Automatically marked as completed when Vision Statement Activity is reported on the visit report form.")
-	sms_registration_completed = fields.Boolean(string="SMS Registration Completed")
+
 
 	# Goal Setting: Goals -> Goal Setting: Pathways
-	is_min_goals_brainstormed = fields.Boolean(string="Minimum Goals Brainstormed?", compute='check_goals_ideas')
-	is_goals_ideas_not_null = fields.Boolean(string="Goals - Ideas Complete", compute='check_goals_ideas')
-	is_goals_selected_not_null = fields.Boolean(string="Goals - Selected Complete", compute='check_goals_selected')
+	is_min_goals_brainstormed = fields.Boolean(string="At Least 3 Goals Brainstormed", compute='check_goals_ideas',
+		help="Was the minimum requirement for the number of goals met? The number of goals brainstormed is underneath the 'Projects' and is called Goals - Ideas.")
+	is_goals_ideas_not_null = fields.Boolean(string="Goals - Ideas Complete", compute='check_goals_ideas',
+		help="Automatically checked when Goals - Ideas is filled in underneath the 'Projects' tab.")
+	is_goals_selected_not_null = fields.Boolean(string="Goals - Selected Complete", compute='check_goals_selected',
+		help="Automatically checked when a description of the goal is filled in under 'Goals - Selected' on the 'Projects' tab.")
 	understanding_goals_completed = fields.Boolean(string="Facilitation Activity: Understanding Goals",
 		compute='check_understanding_goals_completed',
 		help="Automatically marked as completed when Understanding Goals is reported on the visit report form.")
@@ -317,19 +331,25 @@ class Community(models.Model):
 		compute='check_assessing_past_progress_completed',
 		help="Automatically marked as completed when Assessing Past Progress is reported on the visit report form.")
 	goal_indicators_selected = fields.Boolean(string="Goal Indicators Brainstormed",
-		compute='check_goal_indicators_brainstormed')
+		compute='check_goal_indicators_brainstormed',
+		help="Automatically marked as completed when the community's three chosen indictors are filled in on the 'Projects' tab.")
 	goal_indicator_baselines_gathered = fields.Boolean(string="Goal Indicator Baselines Gathered",
-		compute='check_goal_indicator_baselines_gathered')
+		compute='check_goal_indicator_baselines_gathered',
+		help="Automatically marked as completed when the baselines for the community's three chosen indicators are filled in on the 'Projects' tab.")
 
 
 	# Goal Setting: Pathways -> Implementation Plan
 	# hard stops
 	is_project_description_not_null = fields.Boolean(string="Project Description Completed",
-		compute='check_project_description')
-	pm_approved_goal_setting = fields.Boolean(string="Manager Approved Goal Setting (Pathways, Indicators, Goals)")
-	is_oca2_completed = fields.Boolean(string="OCA #2 Completed?", compute='check_ocas_completed', store=True)
+		compute='check_project_description',
+		help="Automatically marked as completed when the 'Pathway - Selected' section on the 'Projects' tab is filled in.")
+	pm_approved_goal_setting = fields.Boolean(string="Manager Approved Goal Setting (Pathways, Indicators, Goals)",
+		help="Marked as completed when community manager approves the chosen goal, pathways and indicators.")
+	is_oca2_completed = fields.Boolean(string="Community Assessment #2 Completed", compute='check_ocas_completed', store=True,
+		help="Marked as completed when there is a 'Community Assessment' where OCA Number on the form is 2. Community Assessments are under M&E forms.")
 	is_min_pathways_brainstormed = fields.Boolean(string="Minimum Number of Pathways Brainstormed?",
-		compute='check_pathways_ideas')
+		compute='check_pathways_ideas',
+		help="Automatically checked when the 'Pathways - Ideas' section underneath the 'Project' tab is at least 5.")
 	brainstorming_pathways_completed = fields.Boolean(string="Facilitation Activity: Brainstorming Pathways Completed",
 		compute='check_brainstorming_pathways_completed',
 		help="Automatically marked as completed when Brainstorming Pathways is reported on the visit report form.")
@@ -349,15 +369,19 @@ class Community(models.Model):
 		compute='check_banking_training_completed',
 		help="Automatically marked as completed when Banking Training is reported on the visit report form.")
 	# red flags
-	did_ta_recruitment_begin = fields.Boolean(string="TA Recruitment Process Began?")
-	did_bank_opening_begin = fields.Boolean(string="Community Began Opening Bank Account")
-	did_government_registration_begin = fields.Boolean(string="Community Began Government Registration Process")
+	did_ta_recruitment_begin = fields.Boolean(string="TA Recruitment Process Began?",
+		help="Check this box if recruitment has begun for a technical advisor")
+	did_bank_opening_begin = fields.Boolean(string="Community Began Opening Bank Account",
+		help="Check this box if the community has began the process of opening a bank account for their grant")
+	did_government_registration_begin = fields.Boolean(string="Community Began Government Registration Process",
+		help="Check this box if the community has begun to register with the local government")
 
 	# Implementation Plan -> Operational Plan
-	is_ta_recruited = fields.Boolean(string="Technical Advisor Recruited/Assigned", compute='check_ta_recruited')
-	is_ta_workplan_approved = fields.Boolean(string="Technical Advisor Workplan Approved")
-	is_ta_profile_filled = fields.Boolean(string="Technical Advisor CV, ID and Credentials Entered")
-	is_implementation_action_plan_entered = fields.Boolean(string="Implementation Action Plan Entered Into Proposal?")
+	is_ta_recruited = fields.Boolean(string="Technical Advisor Recruited/Assigned", compute='check_ta_recruited',
+		help="Automatically marked as completed when the 'Technical Advisor' field under the 'Projects' tab is filled in with the project's technical advisor.")
+	is_ta_workplan_approved = fields.Boolean(string="Technical Advisor Workplan Approved",
+		help="Has the technical advisor's workplan been approved?")
+	is_implementation_action_plan_entered = fields.Boolean(string="Implementation Action Plan Entered Into Proposal")
 	is_bank_detail_added = fields.Boolean(string="Bank/Payment Details Added")
 	developing_implementation_action_plan_completed = fields.Boolean(string="Facilitation Activity: Developing Implementation Action Plan Completed",
 		compute='check_developing_implementation_action_plan_completed',
@@ -371,13 +395,13 @@ class Community(models.Model):
 	developing_implementation_budget_completed = fields.Boolean(string="Facilitation Activity: Developing Implementation Budget Completed",
 		compute='check_developing_implementation_budget_completed',
 		help="Automatically marked as completed when Developing Implementation Budget is reported on the visit report form.")
-	is_implementation_budget_entered = fields.Boolean(string="Implementation Budget Entered Into Proposal?")
+	is_implementation_budget_entered = fields.Boolean(string="Implementation Budget Entered Into Proposal")
 	is_ta_trained = fields.Boolean(string="Technical Advisor Trained")
 	cmty_facilitators_identified = fields.Boolean(string="Community Facilitators Identified",
 		compute='check_cmty_facilitators_identified')
 
 	#Operational Plan -> Measuring Success
-	is_operational_plan_entered = fields.Boolean(string="Operational Plan Entered Into Proposal?")
+	is_operational_plan_entered = fields.Boolean(string="Operational Plan Entered Into Proposal")
 	developing_operational_action_plan_completed = fields.Boolean(string="Facilitation Activity: Developing Operational Action Plan Completed",
 		compute='check_developing_operational_action_plan_completed',
 		help="Automatically marked as completed when Developing Operational Action Plan is reported on the visit report form.")
@@ -386,9 +410,10 @@ class Community(models.Model):
 		help="Automatically marked as completed when Developinging Operational Budget is reported on the visit report form.")
 
 	# Measuring Success -> Sustainability Plan
-	is_measuring_success_entered = fields.Boolean(string="Measuring Success Entered Into Proposal?")
+	is_measuring_success_entered = fields.Boolean(string="Measuring Success Entered Into Proposal")
 	are_goal_targets_entered = fields.Boolean(string="Goal Indicator Targets Entered into Proposal",
-		compute='check_goal_targets_entered')
+		compute='check_goal_targets_entered',
+		help="Automatically marked as completed when indicator targets are filled in on the 'Projects' tab.")
 	setting_target_numbers_completed = fields.Boolean(string="Facilitation Activity: Setting Target Numbers Completed",
 		compute='check_setting_target_numbers_completed',
 		help="Automatically marked as completed when Setting Target Numbers is reported on the visit report form.")
@@ -397,7 +422,7 @@ class Community(models.Model):
 		help="Automatically marked as completed when Developing Data Collection Plan is reported on the visit report form.")
 
 	# Proposal Dev: Sustainability Plan -> Proposal Finalization
-	is_sustainability_plan_entered = fields.Boolean(string="Sustainability Plan Entered Into Proposal?")
+	is_sustainability_plan_entered = fields.Boolean(string="Sustainability Plan Entered Into Proposal")
 	risk_assessment_completed = fields.Boolean(string="Facilitation Activity: Risk Assessment",
 		compute='check_risk_assessment_completed',
 		help="Automatically marked as completed when Risk Assessment Completed is reported on the visit report form.")
@@ -414,14 +439,20 @@ class Community(models.Model):
 
 	# Proposal Review -> Implementation: Grant Agreement
 	is_bank_account_created = fields.Boolean(string="Community Bank Account Open",
-		compute="_check_bank_account")
-	is_oca3_completed = fields.Boolean(string="Community Assessment #3 Completed", compute='check_ocas_completed', store=True)
-	is_budget_created = fields.Boolean(string="Approved Community Budget Entered?", compute='_check_budget_created')
+		compute="_check_bank_account",
+		help="Automatically marked as completed when 'Community Bank Account' is filled in underneath the 'Projects' tab.")
+	is_oca3_completed = fields.Boolean(string="Community Assessment #3 Completed", compute='check_ocas_completed', store=True,
+		help="Automatically marked as completed when a Community Assessment Form where the OCA Number is equal to 3")
+	is_budget_created = fields.Boolean(string="Approved Community Budget Entered?", compute='_check_budget_created',
+		help="Automatically checked when the budget is entered into the community's project.")
 	is_project_created = fields.Boolean(string="Project Created and Information Entered?",
-		compute='_check_project_created')
-	has_pm_approved_proposal = fields.Boolean(string="Manager Approved Pathway Plan")
+		compute='_check_project_created',
+		help="Automatically marked as completed when a project form is created for the community.")
+	has_pm_approved_proposal = fields.Boolean(string="Manager Approved Pathway Plan",
+		help="Checked when the manager approves the community's pathway plan.")
 	cmty_registered_with_govt = fields.Boolean(string="Community Registered with Local Government and Registration Number Added",
-		compute='check_cmty_registered_with_govt')
+		compute='check_cmty_registered_with_govt',
+		help="Automatically marked as completed when the community's government registration number is entered on the 'Community Detail' tab.")
 
 	# Grant Agreement -> Accountability/Transparency
 	is_receipt_book_received = fields.Boolean(string="Community Received Receipt Book (in local language)")
@@ -483,7 +514,8 @@ class Community(models.Model):
 	is_imp_action_plan_completed = fields.Boolean(string="Manager Verified All Implementation Activities Completed",
 		help="Did the community complete all the activities mentioned on their implementation action plan?")
 	is_transition_strategy_completed = fields.Boolean(string="Transition Strategy Completed",
-		compute='check_transition_strategy')
+		compute='check_transition_strategy',
+		help="Automatically marked as completed when a transition strategy form (under M&E Forms) is completed for the community's project.")
 	cmty_facilitation_training = fields.Boolean(string="Community Facilitation Training Completed")
 	field_audit_passed = fields.Boolean(string="Field Audit Passed")
 	cmty_report1_submitted = fields.Boolean(string="Community Report Submitted")
@@ -1669,7 +1701,6 @@ class Community(models.Model):
 			self.is_ta_trained is True and
 			self.is_ta_recruited is True and
 			self.is_ta_workplan_approved is True and
-			self.is_ta_profile_filled is True and
 			self.is_implementation_action_plan_entered):
 			self.state = 'operational_plan'
 		elif self.is_implementation_budget_entered is False:
@@ -1680,8 +1711,6 @@ class Community(models.Model):
 			raise ValidationError("Error: Technical Advisor Must Be Recruited and Assigned to Community")
 		elif self.is_ta_workplan_approved is False:
 			raise ValidationError("Error: Technical Advisor Workplan Must Be Approved")
-		elif self.is_ta_profile_filled is False:
-			raise ValidationError("Error: Technical Advisor CV, ID and Credentials Must Be Loaded Onto Contact Page")
 		elif self.is_implementation_action_plan_entered is False:
 			raise ValidationError("Error: Implementation Action Plan Must Be Entered Into Proposal")
 

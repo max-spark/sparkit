@@ -283,7 +283,6 @@
 								<group colspan="6" col="6" class="no_style" string="Planning: Implementation Plan">
 									<field name="is_ta_recruited"/>
 									<field name="is_ta_workplan_approved"/>
-									<field name="is_ta_profile_filled"/>
 									<field name="is_implementation_action_plan_entered"/>
 									<field name="is_bank_detail_added"/>
 									<field name="developing_implementation_action_plan_completed"/>
@@ -713,7 +712,8 @@
 										<page string="Transition Strategy" attrs="{'invisible': [('phase', '!=', 'planning'),
 											('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
 											('phase', '!=', 'graduated')]}">
-											<field name="transition_strategy_ids"/>
+											<field name="transition_strategy_ids"
+													context="{'default_community_id': active_id}"/>
 										</page>
 									</notebook>
 								</page>
