@@ -28,16 +28,13 @@
 				<menuitem id="uganda_list_menu" name="Uganda" sequence="4"
 					parent="partnered_communities" action="uganda_partnered_list_action"/>
 				<!--Community Workflow Configuration Menu-->
-				<menuitem id="community_configuration" name="Community Configuration" sequence="3"
+				<!--<menuitem id="community_configuration" name="Community Configuration" sequence="3"
 					parent="main_all_communities_menu"/>
 				<menuitem id="workflow_config_list_menu" name="Workflow" sequence="1"
 					parent="community_configuration" action="workflow_configuration_list_action"/>
 				<menuitem id="countries_list_menu" name="Countries"
-					parent="community_configuration" action="base.action_country"/>
+					parent="community_configuration" action="base.action_country"/>-->
 
-				<!-- Partnerships Menu-->
-				<menuitem id="project_partnerships" name="Partnerships"
-					sequence="3" action="partnerships_list_action"/>
 
         <!-- Monitoring Forms Menu-->
     		<menuitem id="top_visit_reports_menu" name="Monitoring Forms"/>
@@ -62,7 +59,7 @@
           parent="other_forms" action="scouting_form_list_action"/>
 				<menuitem id="pilots_menu" name="Pilots"
 					parent="other_forms" action="pilots_list_action"/>
-				<!--Configuration View-->
+				<!--Configuration View
         <menuitem id="main_vrfs_configuration_menu" name="Configuration"
           parent="top_visit_reports_menu" sequence="4"/>
 	 			<menuitem id="grouptracking_menu" name="Group Tracking"
@@ -85,7 +82,7 @@
         	action="crosssectoranimals_list_action"/>
   			<menuitem id="crossectorillnesses_menu" name="Cross Sector - Illnesses (OCA)"
         	parent="main_vrfs_configuration_menu"
-        	action="crosssectorillnesses_list_action"/>
+        	action="crosssectorillnesses_list_action"/>-->
 
 				<!--PROJECTS MENU-->
   			<menuitem id="top_community_projects" name="Projects"
@@ -100,6 +97,11 @@
         	parent="main_spark_projects_menu" action="independent_projects_list_action"/>
         <menuitem id="savings_groups_menu" name="Savings Groups"
         	parent="main_spark_projects_menu" action="savings_groups_list_action"/>
+
+				<!-- Partnerships Menu-->
+				<menuitem id="project_partnerships" name="Partnerships"
+					parent="main_spark_projects_menu"
+					sequence="3" action="partnerships_list_action"/>
 
 				<!-- Hiding Proposal For Now
 				<menuitem id="proposals_menu" name="Proposals"
