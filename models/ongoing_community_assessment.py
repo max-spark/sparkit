@@ -7,7 +7,7 @@ from openerp import models, fields, api
 class OngoingCommunityAssessment(models.Model):
 	_name = 'sparkit.oca'
 
-	name = fields.Char(compute='_get_name')
+	name = fields.Char(compute='_get_name', string="Form ID")
 	country_id = fields.Many2one(related='community_id.country_id', string="1. Country", readonly=True)
 	community_id = fields.Many2one('sparkit.community', string="2. Community")
 	project_category_id = fields.Many2one(related='community_id.project_category_id',
@@ -19,11 +19,13 @@ class OngoingCommunityAssessment(models.Model):
 	date = fields.Date(string="3. Date of Assessment")
 	collected_by = fields.Many2one('res.users', string="4. Collected By",
 		default=lambda self: self.env.user)
+	#TODO: Change this to self
 	oca_number = fields.Integer(string="5. OCA Number",
 		required=True)
 
 
 	#Section One: Background
+	#Todo: Add domain only allowing community members from the community
 	community_member_id = fields.Many2one('res.partner', string="6. Community Member", required=True)
 	age = fields.Integer(string="7. Age")
 	sex = fields.Selection([(0, 'Male'), (1, 'Female')], select=True,
@@ -103,8 +105,8 @@ class OngoingCommunityAssessment(models.Model):
 
 	#Section Five: Civic Engagement
 	civic_engagement38 = fields.Selection([(0, 'No'), (1, 'Once'), (2, 'More Than Once')], select=True,
-		string = "38. In the past one month, has your community has worked together to solve a problem or reach a goal in the past??")
-	civic_engagement39 = fields.Selection([(0, 'Spark'), (1, 'Elected Leaders'), (2, 'Community/PG'), (3, 'Other')],
+		string = "38. In the past one month, has your community has worked together to solve a problem or reach a goal in the past?")
+	civic_engagement39 = fields.Selection([(0, 'Spark'), (1, 'Elected Leaders'), (2, 'Community/Planning Group'), (3, 'Other')],
 		string = "39. Who is responsible for the success of your community’s work together?")
 	civic_engagement40 = fields.Selection([(0, 'No'), (1, 'One'), (2, 'More Than One')], select=True,
 		string = "40. Are you involved in groups/committees in your community?")
@@ -112,7 +114,7 @@ class OngoingCommunityAssessment(models.Model):
 		string = "41. Is it important for you to be involved in making important decisions in your community?")
 	civic_engagement42 = fields.Selection([(0, 'No'), (1, 'Yes')], select=True,
 		string = "42. Have you contributed to implementation of the project? If so, how?")
-
+	civic_engagement_42_1 = fields.Text(string="42.1 How have you contributed to implementation?")
 
 	# Cross Sector
 	baseline_item_ids = fields.Many2many('sparkit.crosssectoritem',
@@ -183,7 +185,7 @@ class OngoingCommunityAssessment(models.Model):
 
 	#Infrastructure
 	infrastructure_primary_energy_source = fields.Selection([(1, 'Solid Fuel'),
-		(2, 'Electricity'), (3, 'Gas Tank'), (4, 'Petrol'), (5, 'solar_power'),
+		(2, 'Electricity'), (3, 'Gas Tank'), (4, 'Petrol'), (5, 'Solar Power'),
 		(6,'Other'), (99, 'No Access')], select=True,
 		string="70. What is your primary source of energy/power?")
 
@@ -232,7 +234,7 @@ class OngoingCommunityAssessment(models.Model):
 		(6, 'Never Needed')], select=True,
 		string="20. When was the last time someone in your household needed health care?")
 
-	health21 = fields.Selection([(1, 'Hospital'), (2, 'Outpatient Facility (health clinic, health center, post)'),
+	health21 = fields.Selection([(1, 'Hospital'), (2, 'Outpatient Facility (health clinic, health center, health post)'),
 		(3, 'Pharmacy'), (4, 'Private Physician'), (5, 'Traditional Healer'),
 		(6, 'Other')], select=True,
 		string = "21. If they received health care, where did they receive care?")
@@ -244,15 +246,15 @@ class OngoingCommunityAssessment(models.Model):
 		string = "22. If they did not receive health care, what was the primary reason?")
 
 	#Sanitation
-	sanitation10 = fields.Selection([(1, 'In My Community'), (2, 'Shared with One or More Household'),
+	sanitation10 = fields.Selection([(1, 'In My Community'), (2, 'Shared with One or More Households'),
 		(3, 'Shared with Only Those in My Household'), (4, 'Other'), (99, 'No Access')], select=True,
 		string="10. What is your current access to sanitation – pit latrines?")
 
-	sanitation11 = fields.Selection([(1, 'In My Community'), (2, 'Shared with One or More Household'),
+	sanitation11 = fields.Selection([(1, 'In My Community'), (2, 'Shared with One or More Households'),
 		(3, 'Shared with Only Those in My Household'), (4, 'Other'), (99, 'No Access')], select=True,
 		string="11. What is your current access to sanitation – handwasing?")
 
-	sanitation12 = fields.Selection([(1, 'In My Community'), (2, 'Shared with One or More Household'),
+	sanitation12 = fields.Selection([(1, 'In My Community'), (2, 'Shared with One or More Households'),
 		(3, 'Shared with Only Those in My Household'), (4, 'Other'), (99, 'No Access')], select=True,
 		string="12. What is your current access to sanitation – bathing houses?")
 

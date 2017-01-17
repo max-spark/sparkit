@@ -83,9 +83,6 @@
 											domain="[('step_id.name', '=', state_name)]"/>
 										<field name="activity3_accomplished"/>
 										<field name="activity3_desc"/>
-										<field name="facilitation_goal"/>
-										<field name="facilitation_goal_accomplished"/>
-										<field name="facilitation_goal_desc"/>
 										<field name="visit_duration"/>
 										<field name="visit_duration_minutes"/>
 										<field name="travel_duration"/>
@@ -166,6 +163,7 @@
 								</group>
 								<group colspan="4" col="4" string="Next Meeting" class="no_style">
 									<group colspan="2">
+										<!--TODO: Fix Domains-->
 										<field name="next_visit_date" />
 										<field name="next_meeting_activity1_id" widget="selection"
 											domain="[('step_id.name', '=', state_name)]"/>

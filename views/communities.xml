@@ -457,7 +457,6 @@
 									<field name="state_name"/>
 								</group>
 							</group>
-							<field name="country_onchange" invisible="1"/>
   						<notebook>
 								<page string="Community Detail">
 									<group colspan="4" col="4" class="no_style">
@@ -471,7 +470,7 @@
 										</group>
 		  							<group colspan="2" col="2">
 		  								<field name="date_scouted"/>
-		  								<field name="partnershp_date"
+		  								<field name="partnership_date"
 												attrs="{'invisible': [('phase', '!=', 'planning'),
 													('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
 													('phase', '!=', 'graduated')]}"/>
@@ -502,7 +501,9 @@
 		  									<field name="sub_county"/>
 		  									<field name="cell"/>
 		  									<field name="village"/>
-		  									<field name="community_gps_coordinates"
+		  									<field name="gps_coordinates_longitude"
+		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the community meeting point." />
+												<field name="gps_coordinates_latitude"
 		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the community meeting point." />
 		  									<field name="directions_to_community"
 		  										placeholder="Please provide directions for traveling to the community, including meeting location." />
@@ -512,22 +513,30 @@
 		  								</group>
 		  								<seperator/>
 		  								<group col="4" string="Location Mapping">
-		  									<field name="clean_water_gps_coordinates"
+		  									<field name="clean_water_gps_coordinates_long"
 		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the nearest clean water access point to this community."/>
-		  									<field name="health_center_gps_coordinates"
-		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the nearest health center to the community." />
+												<field name="clean_water_gps_coordinates_lat"
+		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the nearest clean water access point to this community."/>
+		  									<field name="health_center_gps_coordinates_lat"
+		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the nearest health center to the community."/>
+												<field name="health_center_gps_coordinates_long"
+			  									placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the nearest health center to the community."/>
 		  									<field name="nearest_clean_water_details"
-		  										placeholder="Name of village with nearest clean water access, Water supply, Type of source (boar hole, or spring, or well or other" />
+		  										placeholder="Name of village with nearest clean water access, Water supply, Type of source (bore hole, or spring, or well or other"/>
 		  									<field name="nearest_health_center_details"
-		  										placeholder="Name of village, Health center Name, Level of health center" />
-		  									<field name="nearest_town_gps_coordinates"
-		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the nearest town to this community." />
-		  									<field name="school_gps_coordinates"
-		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the nearest school (at start of partnership)" />
+		  										placeholder="Name of village, Health center Name, Level of health center"/>
+		  									<field name="nearest_town_gps_coordinates_long"
+		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the nearest town to this community."/>
+												<field name="nearest_town_gps_coordinates_lat"
+			  									placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the nearest town to this community."/>
+		  									<field name="school_gps_coordinates_long"
+		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the nearest school (at start of partnership)"/>
+												<field name="school_gps_coordinates_lat"
+			  									placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the nearest school (at start of partnership)"/>
 		  									<field name="nearest_town_details"
-		  										placeholder="What is the name of the nearest town?" />
+		  										placeholder="What is the name of the nearest town?"/>
 		  									<field name="nearest_school_details"
-		  										placeholder="Name of village, School, Type (nursery, primary, secondary, university), and Private or Public" />
+		  										placeholder="Name of village, School, Type (nursery, primary, secondary, university), and Private or Public"/>
 		  								</group>
 		  							</page>
 		  							<page string="Community Leaders">
@@ -553,10 +562,6 @@
 													<field name="num_hh_in_planning_group"/>
 													<field name="num_ppl_in_planning_group"/>
 												</group>
-												<group string="Partnership Information" colspan="2" col="2">
-													<field name="num_households_at_partnership"/>
-													<field name="num_ppl_at_partnership"/>
-												</group>
 											</group>
 										</page>
 										<page string="Important Documents" attrs="{'invisible': [('phase', '!=', 'planning'),
@@ -580,10 +585,6 @@
 
 								<page string="Visit Forms">
 									<notebook>
-										<page string="Scouting">
-											<field name="scouting_form_ids"
-												context="{'default_community_id': active_id}"/>
-										</page>
 										<page string="Planning"
 											attrs="{'invisible': [('phase', '!=', 'planning'),
 												('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
@@ -753,6 +754,7 @@
   				<tree string="Community Tree">
   					<field name="name"/>
   					<field name="community_number"/>
+						<field name="facilitator_id"/>
   					<field name="country_id"/>
   				</tree>
   			</field>

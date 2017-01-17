@@ -41,6 +41,14 @@
 									domain="[('category_id', '=', biggestconcern_family_category_id)]"/>
 							</group>
 						</group>
+						<group colspan="4" col="4" class="no_style">
+							<group colspan="2" col="2">
+								<field name="biggestconcern_cmty"/>
+								<field name="biggestconcern_cmty_category_id" widget="selection"/>
+								<field name="biggestconcern_cmty_subcategory_id" widget="selection"
+									domain="[('category_id', '=', biggestconcern_cmty_category_id)]"/>
+							</group>
+						</group>
 						<group colspan="4" col="4" string="Section Two: Capactiy" class="no_style">
 							<group colspan="2" col="2">
 								<field name="capacity14" widget="radio" options="{'horizontal': true}"/>
@@ -87,6 +95,7 @@
 								<field name="civic_engagement40" widget="radio" options="{'horizontal': true}"/>
 								<field name="civic_engagement41" widget="radio" options="{'horizontal': true}"/>
 								<field name="civic_engagement42" widget="radio" options="{'horizontal': true}"/>
+								<field name="civic_engagement_42_1"/>
 							</group>
 						</group>
 						<group colspan="4" col="4" string="Section Six: Cross Sector" class="no_style">

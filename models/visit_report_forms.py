@@ -66,6 +66,7 @@ class VisitReportForm(models.Model):
 
 
 	#Attendance Information
+	# TODO: Move out of CORE FCAP and into addon module
 	attendance_type1_id = fields.Many2one('sparkit.grouptracking',
 		string="Attendance Type 1")
 	attendance_type2_id = fields.Many2one('sparkit.grouptracking',
@@ -78,6 +79,7 @@ class VisitReportForm(models.Model):
 	attendance2_total = fields.Integer(string="Total Attendance Type 2")
 	attendance3_total = fields.Integer(string="Total Attendance Type 3")
 	attendance4_total = fields.Integer(string="Total Attendance Type 4")
+
 	attendance_females = fields.Integer(string="Female Attendance")
 	attendance_female_leaders = fields.Integer(string="Female Leaders in Attendance")
 	attendance_first_time = fields.Integer(string="First Time Attendees",
@@ -87,6 +89,7 @@ class VisitReportForm(models.Model):
 	attendance_total = fields.Integer(string="Total Attendance", compute='_total_attendance')
 
 	#Speaker information
+	#TODO: Remove from core
 	speakers_type1_id = fields.Many2one('sparkit.grouptracking',
 		string="Speakers Type 1")
 	speakers_type2_id = fields.Many2one('sparkit.grouptracking',
@@ -99,6 +102,7 @@ class VisitReportForm(models.Model):
 	speakers2_total = fields.Integer(string="Total Speakers Type 2")
 	speakers3_total = fields.Integer(string="Total Speakers Type 3")
 	speakers4_total = fields.Integer(string="Total Speakers Type 4")
+
 	speakers_female = fields.Integer(string="Female Speakers")
 	speakers_first_time = fields.Integer(string="First Time Speakers",
 		help="How many attendees spoke at a Spark meeting for the first time?")
@@ -117,6 +121,7 @@ class VisitReportForm(models.Model):
 	next_visit_date = fields.Date(string="Date of Next Visit")
 
 	#Meeting Report
+
 	activity1_id = fields.Many2one('sparkit.fcapactivity', string="Activity 1")
 	activity2_id = fields.Many2one('sparkit.fcapactivity', string="Activity 2")
 	activity3_id = fields.Many2one('sparkit.fcapactivity', string="Activity 3")
@@ -133,11 +138,6 @@ class VisitReportForm(models.Model):
 		help = "What activity did you plan to do with the community?")
 	activity3_desc = fields.Text(string="Activity 3 Status Description",
 		help = "What activity did you plan to do with the community?")
-	facilitation_goal = fields.Text(string="Facilitation Goal",
-		help = "Was there a facilitation goal with this meeting, for example, to improve trust among community members? If so, please list here")
-	facilitation_goal_accomplished = fields.Boolean(
-		string="Facilitation Goal Accomplished?")
-	facilitation_goal_desc = fields.Text(string="Facilitation Goal Description")
 	visit_duration = fields.Selection(
 		[('not_applicable', 'Not Applicable'),
 		 ('one_hour', '1 hour'),
@@ -168,7 +168,7 @@ class VisitReportForm(models.Model):
 		[('yes', 'Yes'),
 		 ('no', 'No'),
 		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True, string="Community Set Agenda?")
+		 ('unknown', 'Unknown')], select=True, string="Community Set Agenda")
 	cmty_set_agenda_desc = fields.Text(string="Community Set Agenda: Description")
 	number_members_showing_leadership = fields.Integer(
 		string="Number of Members Showing Leadership", help="""
@@ -178,7 +178,7 @@ class VisitReportForm(models.Model):
 		 ('no', 'No'),
 		 ('not_applicable', 'Not applicable'),
 		 ('unknown', 'Unknown')], select=True, string="Conflict(s) in meeting?",
-		 	help="Please describe any conflicts or challenges that took place during the meeting. Note whether they were resolved or not during the meeting.")
+		 	help="Did any conflicts or challenges take place during the meeting?")
 	conflicts_in_meeting_desc = fields.Text(string="Conflict(s) in Meeting: Description",
 		help="Please describe any conflicts or challenges that took place during the meeting. Note whether they were resolved or not during the meeting.")
 	conflicts_in_meeting_resolved = fields.Selection(

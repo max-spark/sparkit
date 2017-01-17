@@ -23,7 +23,8 @@ class Partnership(models.Model):
 	@api.depends('partner_name', 'community_name', 'community_number')
 	def _get_name(self):
 		for r in self:
-			r.name = r.community_number + ' ' + r.community_name + ' - ' + r.partner_name
+			if r.partner_name and r.community_name and r.community_number:
+				r.name = r.community_number + ' ' + r.community_name + ' - ' + r.partner_name
 
 
 class PartnershipUpdate(models.Model):

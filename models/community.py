@@ -16,12 +16,11 @@ class Community(models.Model):
 	name = fields.Char(string="Community Name", required=True)
 	description = fields.Text(string="Community Description")
 	community_number = fields.Char(string="Community Number", readonly=True)
-	scouted_by_id = fields.Many2one('res.users', default=lambda self: self.env.user)
+	scouted_by_id = fields.Many2one('res.users', default=lambda self: self.env.user, string="Community Scouted By")
 	is_partnered = fields.Boolean(string="Partnered?", default=False, readonly=True)
 	facilitator_id = fields.Many2one('res.users', string="Facilitator", default=lambda self: self.env.user)
 	program_manager_id = fields.Many2one('res.users', string="Program Manager")
 	is_active = fields.Boolean(string="Active?", readonly=True)
-	color = fields.Char(string="Color")
 	phase_name = fields.Char(compute='_get_phase_name', string="Phase Name", store=True)
 	state_name = fields.Char(compute='_get_state_name', string="State Name", store=True)
 
@@ -64,17 +63,18 @@ class Community(models.Model):
 		required=True)
 	is_using_translator = fields.Boolean(string="Using Translator?")
 	translator_id = fields.Many2one('res.partner', string="Translator")
+	#TODO: Make Meeting Day Required at Partnership
 	meeting_day = fields.Selection([('monday', 'Monday'), ('tuesday', 'Tuesday'),
 		('wednesday', 'Wednesday'), ('thursday', 'Thursday'), ('friday', 'Friday')],
 		select=True, string="Meeting Day",
 		help="Please select the day you meet the community for facilitation meetings.")
 	bank_account = fields.Many2one('res.partner.bank', string="Community Bank Account")
-	govt_registration_number = fields.Char(string="Government (CBO) Registration Number")
+	govt_registration_number = fields.Char(string="Government Registration Number")
 
 	#dates
-	date_scouted=fields.Date(string="Date Scouted",
+	date_scouted=fields.Date(string="Date Scouted", required=True,
 		help="Please enter the date the community was scouted")
-	partnershp_date = fields.Date(string="Partnership Date")
+	partnership_date = fields.Date(string="Partnership Date")
 	implementation_start_date = fields.Date(string="Implementation Start Date")
 	post_implementation_start_date = fields.Date(string="Post Implementation Start Date")
 	graduation_date = fields.Date(string="Graduation Date")
@@ -82,17 +82,13 @@ class Community(models.Model):
 	#Demographics
 	num_hh_community = fields.Integer(string="Number of Households")
 	num_ppl_community = fields.Integer(string="Number of People")
-	num_households_at_partnership = fields.Integer(string="Number of Households at Partnership",
-		help="Please enter the number of households that signed the partnership agreement.")
-	num_ppl_at_partnership = fields.Integer(string="Number of People at Partnership")
 	num_hh_in_planning_group = fields.Integer(string="Number of Households in Planning Group")
 	num_ppl_in_planning_group = fields.Integer(string="Number of People in Planning Group")
 
 	#Location Information
 	country_id = fields.Many2one('res.country', string="Country", required=True,
 		domain=[('is_active', '=', True)])
-	country_onchange = fields.Many2one('res.country',
-		compute="_country_onchange", store=True, readonly=False)
+	# TODO: Change these to only be shown for specific countries
 	cell = fields.Char(string="Cell")
 	district = fields.Char(string="District")
 	village = fields.Char(string="Village")
@@ -100,14 +96,21 @@ class Community(models.Model):
 	sector = fields.Char(string="Sector")
 	sub_county = fields.Char(string="Sub County")
 	directions_to_community = fields.Text(string="Directions to Community")
-	community_gps_coordinates = fields.Char(string="Communiy Center GPS Coordinates")
+	# Longitude and Latitude (to be automatically generated + entered by application)
+	gps_coordinates_longitude = fields.Char(
+		string="Communiy Center GPS Coordinates - Longitude")
+	gps_coordinates_latitude = fields.Char(string="Communiy Center GPS Coordinates - Latitude")
 	bodamoto_drivers = fields.Many2many('res.partner', string="Boda/Moto Drivers")
 
 	#Location - Vulnerability Information
-	clean_water_gps_coordinates = fields.Char("GPS Coordinates - Nearest Clean Water Source")
-	health_center_gps_coordinates = fields.Char("GPS Coordinates - Nearest Health Center")
-	school_gps_coordinates = fields.Char("GPS Coordinates - Nearest School")
-	nearest_town_gps_coordinates = fields.Char("GPS Coordinates - Nearest Town")
+	clean_water_gps_coordinates_long = fields.Char("Nearest Clean Water Source - GPS Longitude")
+	clean_water_gps_coordinates_lat = fields.Char("Nearest Clean Water Source - GPS Latitude")
+	health_center_gps_coordinates_lat = fields.Char("Nearest Health Center - GPS Latitude")
+	health_center_gps_coordinates_long = fields.Char("Nearest Health Center - GPS Longitude")
+	school_gps_coordinates_long = fields.Char("Nearest School - GPS Longitude")
+	school_gps_coordinates_lat = fields.Char("Nearest School - GPS Latitude")
+	nearest_town_gps_coordinates_long = fields.Char("Nearest Town - GPS Longitude")
+	nearest_town_gps_coordinates_lat = fields.Char("Nearest Town - GPS Latitude")
 
 	nearest_health_center_details = fields.Text("Nearest Health Center Details")
 	nearest_school_details = fields.Text("Nearest School Details")
@@ -119,7 +122,7 @@ class Community(models.Model):
 
 	# Important Documents
 	number_signed_partnership_agreement = fields.Integer(string="Number of People Who Signed Partnership Agreement")
-	partnership_agreement_name = fields.Char(compute='_get_partnership_agreement_name')
+	partnership_agreement_name = fields.Char(compute='_get_partnership_agreement_name', string="Partnership Agreement File Name")
 	partnership_agreement = fields.Binary(string="Partnership Agreement")
 	number_signed_grant_agreement = fields.Integer(string="Number of People Who Signed Grant Agreement")
 	grant_agreement_name = fields.Char(string="Grant Agreement File Name",
@@ -131,9 +134,9 @@ class Community(models.Model):
 	exit_agreement = fields.Binary(string="Exit Agreement")
 
 	# Project Detail
-	goals_ideas = fields.Integer(string="Goals - Ideas",
+	goals_ideas = fields.Integer(string="Goals - Number of Ideas",
 		help="Please enter the number of ideas the community brainstormed for their goal.")
-	goals_selected = fields.Text(string="Goals - Selected",
+	goals_selected = fields.Text(string="Goals - Selected Goal Description",
 		help="Please describe the community's chosen goal in their own words.")
 	indicator1 = fields.Char(string="Indicator 1")
 	indicator2 = fields.Char(string="Indicator 2")
@@ -151,8 +154,8 @@ class Community(models.Model):
 	indicator2_18months = fields.Char(string="18 months PI - 2")
 	indicator3_18months = fields.Char(string="18 months PI - 3")
 	indicator1_2years = fields.Char(String="2 years PI - 1")
-	indicator2_2years = fields.Char(String="2 years PI - 1")
-	indicator3_2years = fields.Char(String="2 years PI - 1")
+	indicator2_2years = fields.Char(String="2 years PI - 2")
+	indicator3_2years = fields.Char(String="2 years PI - 3")
 	indicator1_6month_target = fields.Char(string="6 months PI - 1 - Target")
 	indicator2_6month_target = fields.Char(string="6 months PI - 2 - Target")
 	indicator3_6month_target = fields.Char(string="6 months PI - 3 - Target")
@@ -167,9 +170,9 @@ class Community(models.Model):
 	indicator3_2years_target = fields.Char(string="2 years PI - 3 - Target")
 
 
-	pathways_ideas = fields.Integer(string="Pathways - Ideas",
+	pathways_ideas = fields.Integer(string="Pathways - Number of Ideas",
 		help="Please enter the number of ideas the community brainstormed for their pathway.")
-	project_description = fields.Text(string = "Pathway - Selected",
+	project_description = fields.Text(string = "Pathways - Selected Pathway Description",
 		help="Please describe the community's chosen project in their own words.")
 
 
@@ -191,7 +194,8 @@ class Community(models.Model):
 		domain=[('form_type', '=', "PIVRF")])
 
 	#Community Project
-	spark_project_ids = fields.One2many('sparkit.sparkproject', 'community_id', string="Grant Project")
+	spark_project_ids = fields.One2many('sparkit.sparkproject', 'community_id', string="Grant Project(s)")
+	# TODO: Fix this!
 	project_category_id = fields.Many2one(related='spark_project_ids.category_id')
 	project_subcategory_id = fields.Many2one(related='spark_project_ids.subcategory_id')
 	project_support_initiative_ids = fields.One2many('sparkit.projectsupportinitiative', 'community_id')
@@ -205,7 +209,8 @@ class Community(models.Model):
 	independent_project_ids = fields.One2many('sparkit.independentproject',
 		'community_id', string="Independent Projects")
 	independent_project_update_ids = fields.One2many('sparkit.independentprojectupdate', 'community_id')
-	independent_project_total = fields.Integer(compute='_get_number_ind_projects')
+	independent_project_total = fields.Integer(compute='_get_number_ind_projects',
+		string="Total Number of Independent Projects")
 
 	#Independent Meetings
 	independent_meeting_ids = fields.One2many('sparkit.independentmeeting', 'community_id', string="Independent Meetings")
@@ -223,9 +228,6 @@ class Community(models.Model):
 
 	#Transition Strategy
 	transition_strategy_ids = fields.One2many('sparkit.transitionstrategy', 'community_id', string="Transition Strategy")
-
-	#Scouting Form
-	scouting_form_ids = fields.One2many('sparkit.scoutingform', 'community_id', string="Scouting Form")
 
 	#Partnerships
 	partnership_ids = fields.One2many('sparkit.partnership', 'community_id', string="Partnerships")
@@ -1498,7 +1500,7 @@ class Community(models.Model):
 					r.exit_agreement_signed = True
 
 	@api.multi
-	@api.depends('num_households_at_partnership', 'num_hh_community')
+	@api.depends('workflow_config_id', 'num_hh_community')
 	def check_hh_requirement_met(self):
 		for r in self:
 			if r.num_hh_community > 0:
