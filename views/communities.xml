@@ -718,7 +718,7 @@
 										</page>
 									</notebook>
 								</page>
-								<page string="Partnerships" attrs="{'invisible': [('phase', '!=', 'planning'),
+								<page string="Advocacy" attrs="{'invisible': [('phase', '!=', 'planning'),
 									('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
 									('phase', '!=', 'graduated')]}">
 									<field name="partnership_ids"/>

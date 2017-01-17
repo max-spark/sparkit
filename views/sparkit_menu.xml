@@ -99,8 +99,8 @@
         	parent="main_spark_projects_menu" action="savings_groups_list_action"/>
 
 				<!-- Partnerships Menu-->
-				<menuitem id="project_partnerships" name="Partnerships"
-					parent="main_spark_projects_menu"
+				<menuitem id="project_partnerships" name="Advocacy Partners"
+					parent="top_community_projects"
 					sequence="3" action="partnerships_list_action"/>
 
 				<!-- Hiding Proposal For Now

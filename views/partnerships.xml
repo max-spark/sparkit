@@ -11,12 +11,16 @@
           <sheet>
             <group colspan="4" col="4" class="no_style">
               <group colspan="2" col="2">
-                <field name="name"/>
+                <field name="name" invisible="1"/>
                 <field name="community_id" options="{'no_create': True}"/>
                 <field name="partner_id"/>
-                <field name="date"/>
+								<field name="date_reached_out"/>
+                <field name="start_date"/>
+								<field name="end_date"/>
+								<field name="mou" widget="binary" filename="mou_name"/>
               </group>
               <group colspan="2" col="2">
+								<field name="succesful_partnership"/>
                 <field name="description"/>
               </group>
             </group>
@@ -34,7 +38,7 @@
       <field name="arch" type="xml">
         <tree string="Partnership">
           <field name="name"/>
-          <field name="date"/>
+          <field name="date_reached_out"/>
           <field name="community_id"/>
           <field name="partner_id"/>
         </tree>
