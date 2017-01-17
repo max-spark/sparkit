@@ -32,7 +32,8 @@ class PartnershipUpdate(models.Model):
 	_order = 'date desc'
 
 	name = fields.Char(compute='_get_name', readonly=True)
-	partnership_id = fields.Many2one('sparkit.partnership', string="Partnership")
+	partnership_id = fields.Many2one('sparkit.partnership', string="Partnership",
+		required=True)
 	partnership_name = fields.Char(related='partnership_id.name')
 	community_id = fields.Many2one('sparkit.community', string="Community")
 
