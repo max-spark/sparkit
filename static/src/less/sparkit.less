@@ -53,7 +53,7 @@ a:hover {
 // ----------------------
 
 @navbar-default-color:                  @spark-yellow;
-@navbar-default-bg:                     #fff;
+@navbar-default-bg:                     @darker-blue;
 @navbar-default-border:                 darken(@navbar-default-bg, 6.5%);
 
 @navbar-default-link-color:             @spark-yellow;
@@ -63,14 +63,14 @@ a:hover {
 @navbar-default-link-active-bg:         darken(@spark-yellow, 10%);
 
 @navbar-inverse-color:                  @spark-yellow;
-@navbar-inverse-bg:                     #fff;
+@navbar-inverse-bg:                     @darker-blue;
 @navbar-inverse-border:                 darken(@navbar-inverse-bg, 10%);
 
-@navbar-inverse-link-color:             @gray-dark;
-@navbar-inverse-link-hover-color:       @gray-dark;
-@navbar-inverse-link-active-color:      @gray-dark;
-@navbar-inverse-link-hover-bg:          darken(@navbar-inverse-bg, 5%);
-@navbar-inverse-link-active-bg:         darken(@navbar-inverse-bg, 2.5%);
+@navbar-inverse-link-color:             @gray-lighter;
+@navbar-inverse-link-hover-color:       #fff;
+@navbar-inverse-link-active-color:      #fff;
+@navbar-inverse-link-hover-bg:          @spark-yellow;
+@navbar-inverse-link-active-bg:         lighten(@navbar-inverse-bg, 25%);
 
 .ul_spark_logo {
     margin: 5px !important;
@@ -94,7 +94,6 @@ a:hover {
             margin-top: 0 !important;
             margin-bottom: -2px !important;
             line-height: 30px !important;
-            font-weight: 200 !important;
         }
     }
     .dropdown-menu {
@@ -111,10 +110,10 @@ a:hover {
 //     Buttons
 //-----------------------
 
-@btn-default-color:              @spark-dark-blue;
-@btn-default-bg:                 #fff;
-@btn-default-border:             @gray-light;
-@btn-default-bg-hover:           @sf-gray-blue;
+@btn-default-color:              #fff;
+@btn-default-bg:                 lighten(@darker-blue, 25%);
+@btn-default-border:             lighten(@darker-blue, 25%);
+@btn-default-bg-hover:           @darker-blue;
 
 @btn-primary-color:              #fff;
 @btn-primary-bg:                 @spark-yellow;
@@ -142,13 +141,12 @@ a:hover {
 //     Control Panel
 //-----------------------
 .openerp .oe-control-panel {
-    border-bottom: 1px solid @gray-light;
     margin-bottom: 0px;
-    background-color: @sf-gray-blue;
+    background-color: #fff;
 }
 
 .openerp .oe-control-panel .oe-view-title {
-    background-color: @sf-gray-blue;
+    background-color: #fff;
     font-size: 20px;
     color: #1F497D !important;
     font-family: 'Avenir';
@@ -165,60 +163,94 @@ a:hover {
 //     Left Bar
 //-----------------------
 .openerp .oe_leftbar {
-    background:     #fff none repeat scroll 0 0 !important;
-    width:          175px;
-    color:          @gray-light;
+  background:     #fff none repeat scroll 0 0 !important;
+  width:          200px;
+  color:          @gray-light;
+  margin-left:    10px;
+  margin-top:     90px;
+  border:         0px !important;
 }
 
 .openerp .oe_logo {
-    display: none;
+  display: none;
+}
+
+.openerp .oe_secondary_menu {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+  margin-right: 20px !important;
+  background-color:   @darker-blue;
 }
 
 .openerp .oe_secondary_menu_section {
-    margin-top:     10px;
-    color:          @darker-blue;
-    font-size:      14px;
-    font-weight:    200;
+  margin-top:     10px !important;
+  color:          @spark-yellow;
+  font-size:      18px;
+  font-weight:    200;
 }
 
 .openerp .oe_secondary_submenu {
-    line-height:    1.3em;
-    padding:        0px !important;
+  line-height:    1.3em;
+  padding:        0px !important;
 }
 
 .oe_menu_leaf {
-    font-size:      13px;
-    color:          @dark-blue;
+  font-size:      13px;
+  color:          @gray-lighter;
 }
 
-.openerp .nav-pills > li {
-    margin: 0px !important;
+.openerp .nav-pills > li > a {
+  margin: 0px !important;
+  color:  @gray-lighter;
 }
 
 .openerp .nav-pills > li.active > a {
-    background-color:   darken(@sf-gray-blue, 7.5%) !important;
-    color:              @darker-blue;
-    font-weight:        bold;
-    border-radius:      0;
+  background-color:   lighten(@darker-blue, 25%) !important;
+  color:              #fff;
+  border-radius:      0;
+}
+
+.openerp .nav-pills > li.active::after {
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  margin-top: -28px;
+  margin-left: 180px;
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  border-left: 14px solid lighten(@darker-blue, 25%);
+  content: "";
 }
 
 .openerp .nav-pills > li > a:hover {
-    background-color:   darken(@sf-gray-blue, 10%) !important;
-    color:              @darker-blue;
-    border-radius:      0;
+  background-color:   @spark-yellow !important;
+  color:              #fff;
+  border-radius:      0;
+}
+
+.openerp .nav-pills > li:hover::after {
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  margin-top: -28px;
+  margin-left: 180px;
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  border-left: 14px solid @spark-yellow;
+  content: "";
 }
 
 .openerp .oe_leftbar .oe_footer { //Removes Odoo Branding
-    width: 0px;
-    height: 0px;
+  width: 0px;
+  height: 0px;
 }
 
 
 //-----------------------
 //     Tooltips
 //-----------------------
-@tooltip-color:               lighten(@gray-light, 40%);
-@tooltip-bg:                  @darker-blue;
+@tooltip-color:               #fff;
+@tooltip-bg:                  lighten(@darker-blue, 25%);
 @tooltip-opacity:             1;
 
 
@@ -240,21 +272,26 @@ a:hover {
 
 .openerp .oe_form_sheet_width {
     max-width: 100%;
+    background-image: none !important;
+    background-color: #fff !important;
 }
 
 .openerp .oe_form_sheetbg {
-    padding: 0px 0px;
+  padding: 0px 0px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .openerp .oe_application .oe_form_sheet {
-    border: 0px;
+  border: 0px;
+  box-shadow: 0px 0px 0px 0px !important;
 }
 
 .openerp .oe_horizontal_separator {
-    color: #54698D;
-    border: 0px;
-    font-size: 20px;
-    font-weight: 100;
+  color: @spark-dark-blue;
+  border: 0px;
+  font-size: 1.5em;
+  font-weight: 100;
 }
 
 .openerp .oe_form td.oe_form_group_cell_label {
@@ -290,8 +327,8 @@ a:hover {
 }
 
 .openerp .checklist {
-  border: 2px dotted darken(@sf-gray-blue, 10%) !important;
-  border-bottom: 2px dotted darken(@sf-gray-blue, 10%) !important;
+  border: 2px solid @spark-yellow !important;
+  border-bottom: 2px solid @spark-yellow !important;
 }
 
 .openerp .checklist > tr > td {
@@ -300,10 +337,6 @@ a:hover {
 
 
 .openerp .checklist_header {
-  padding-left: 20px;
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
-  margin: 5px !important;
   color: @spark-dark-blue;
   width: 250px;
 }
@@ -314,6 +347,13 @@ a:hover {
   padding-right: 2px;
   color: @gray-light;
   position: relative;
+}
+
+
+.o_mail_user_status {
+    &.o_user_online {
+        color: green;
+    }
 }
 
 
@@ -418,17 +458,18 @@ input[type="color"],
 
 .openerp .oe_list_content > thead {
     border: 0px !important;
-    background: #fff;
-    color: @spark-dark-blue;
+    background: darken(@sf-gray-blue, 2%);
+    color: @darker-blue;
+    height: 10px !important;
 }
 
 .openerp .oe_list_content th.oe_sortable:hover, .openerp .oe_list_content th.oe_sortable:hover div {
-    background-color: #F1F4F8;
+  color: @spark-yellow;
 }
 
 .openerp .oe_list_content th.oe_sortable div {
     min-height: 25px;
-    padding: 5px 0px;
+    padding: 5px !important;
 }
 
 .openerp .oe_list_content > tfoot {
@@ -441,7 +482,7 @@ input[type="color"],
 .openerp thead th {
   border-left: 0px !important;
   font-weight: 300 !important;
-  font-size: .9em;
+  font-size: 1em;
 }
 
 //group header
@@ -474,7 +515,7 @@ input[type="color"],
 
 .openerp .oe_tag {
   border: 0px;
-  border-bottom: 1px dashed @spark-dark-blue;
+  border-bottom: 1px solid @spark-dark-blue;
   background: #fff;
   color: @darker-blue;
 }
@@ -502,56 +543,54 @@ input[type="color"],
 // Odoo Nav Tabs
 //------------------------
 .nav-tabs {
-    background-color: darken(@sf-gray-blue, 2%);
-    border-bottom: 1px solid @spark-dark-blue;
-    border-top: 0px solid @spark-dark-blue;
+  background-color: @darker-blue;
 }
 
 .tab-content {
-    background-color: #fff;
-    padding-top:  10px;
-    border: 0px;
+  background-color: #fff;
+  padding-top:  10px;
+  border: 0px;
 }
 
 .nav-tabs > li > a {
-    border:     medium none;
-    color:      @darker-blue;
-    padding-top:  12px;
-    padding-bottom: 12px;
-    margin: 0px;
+  border:    0px;
+  border-radius: 0;
+  color:      @gray-lighter;
+  padding-top:  12px;
+  padding-bottom: 12px;
+  margin: 0px;
 }
 
 .nav-tabs > li.active > a:focus{
-    border: medium none;
-    border-bottom: 3px solid @spark-dark-blue!important;
-    border-radius: 0;
-    background-color: #fff;
-    padding-bottom: 9px;
+  background-color: lighten(@darker-blue, 25%);
+  color: #fff;
+  border-radius: 0;
+  padding-bottom: 9px;
+  border: 0px;
 }
 
 .nav-tabs > li.active > a {
-    border: medium none;
-    border-bottom: 3px solid @spark-dark-blue !important;
-    border-radius: 0;
-    background-color: #fff;
-    padding-bottom: 9px;
+  background-color: lighten(@darker-blue, 25%);
+  color: #fff;
+  border-radius: 0;
+  padding-bottom: 9px;
+  border: 0px;
 }
 
 .nav-tabs > li.active > a:hover {
-    border: medium none;
-    border-bottom: 3px solid @spark-dark-blue !important;
-    border-radius: 0;
-    background-color: #fff;
-    padding-bottom: 9px;
+  background-color: @spark-yellow;
+  border-radius: 0;
+  color: #fff;
+  padding-bottom: 9px;
+  border: 0px;
 }
 
 .nav-tabs > li > a:hover {
-    background-color: #fff;
-    border: medium none;
-    border-bottom: 3px solid @spark-dark-blue !important;
-    border-radius: 0;
-    color: @spark-dark-blue;
-    padding-bottom: 9px;
+  border-radius: 0;
+  background-color: @spark-yellow;
+  color: #fff;
+  padding-bottom: 9px;
+  border: 0px;
 }
 
 //------------------------
@@ -610,12 +649,12 @@ input[type="color"],
 //------------------------
 .o_statusbar_buttons {
   background-image: none !important;
-  background-color: lighten(@spark-light-blue, 28.5%) !important;
+  background-color: darken(@sf-gray-blue, 2%) !important;
   border-bottom: 1px solid @darker-blue;
 }
 
 .openerp ul.oe_form_status {
-  background-color: lighten(@spark-light-blue, 28.5%);
+  background-color: darken(@sf-gray-blue, 2%);
 }
 
 .openerp ul.oe_form_status li:first-child > .label, .openerp ul.oe_form_status_clickable li:first-child > .label {
@@ -628,7 +667,7 @@ input[type="color"],
   padding-left: 0px !important;
   display: inline !important;
   background-image: none !important;
-  background-color: lighten(@spark-light-blue, 28.5%);
+  background-color: darken(@sf-gray-blue, 2%);
 }
 
 .oe_form_status > li+li:before {
@@ -645,11 +684,13 @@ input[type="color"],
 }
 
 .openerp ul.oe_form_status li.oe_active, .openerp ul.oe_form_status_clickable li.oe_active {
-  background-color: lighten(@spark-light-blue, 28.5%) !important;
+  background-color: darken(@sf-gray-blue, 2%)  !important;
 }
 
 .openerp ul.oe_form_status li.oe_active > .label, .openerp ul.oe_form_status_clickable li.oe_active > .label {
-  color: lighten(@spark-dark-blue, 15%);
+  color: lighten(@darker-blue, 25%);
+  font-weight: bold;
+  font-size: 14px;
   text-shadow: none !important;
 }
 

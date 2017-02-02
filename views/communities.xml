@@ -485,15 +485,21 @@
 		  							</group>
 									</group>
 									<notebook>
-										<page string="Community Demographics">
+										<page string="Demographics">
 											<group colspan="4" col="4" class="no_style">
 												<group string="Community Demographics" colspan="2" col="2">
 													<field name="num_hh_community" col="2"/>
 													<field name="num_ppl_community" col="2"/>
 												</group>
+												<group string="Planning Group" colspan="2" col="2" attrs="{'invisible': [('phase', '!=', 'planning'),
+													('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
+													('phase', '!=', 'graduated')]}">
+													<field name="num_hh_in_planning_group"/>
+													<field name="num_ppl_in_planning_group"/>
+												</group>
 											</group>
 										</page>
-		  							<page string="Location Detail">
+		  							<page string="Location">
 		  								<group colspans="4" col="4">
 		  									<field name="province"/>
 		  									<field name="district"/>
@@ -512,7 +518,7 @@
 		  									<field name="bodamoto_drivers" nolabel="1"/>
 		  								</group>
 		  								<seperator/>
-		  								<group col="4" string="Location Mapping">
+		  								<group col="4" string="Location">
 		  									<field name="clean_water_gps_coordinates_long"
 		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the nearest clean water access point to this community."/>
 												<field name="clean_water_gps_coordinates_lat"
@@ -539,7 +545,7 @@
 		  										placeholder="Name of village, School, Type (nursery, primary, secondary, university), and Private or Public"/>
 		  								</group>
 		  							</page>
-		  							<page string="Community Leaders">
+		  							<page string="Leaders">
 		  								<group colspan="4" string="Grant Project Leaders" class="no_style"
 													attrs="{'invisible': [('state', '=', 'community_identification')]}">
 		  									<field name="spark_leader_ids" nolabel="1"
@@ -551,17 +557,6 @@
 													attrs="{'invisible': [('state', '=', 'community_identification')]}">
 												<field name="community_facilitator_ids" nolabel="1"
 													context="{'default_company_type': 'community_facilitator', 'default_community_id': active_id}"/>
-											</group>
-										</page>
-										<page string="Planning Group"
-												attrs="{'invisible': [('phase', '!=', 'planning'),
-												('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
-												('phase', '!=', 'graduated')]}">
-											<group colspan="4" col="4" class="no_style">
-												<group string="Planning Group" colspan="2" col="2">
-													<field name="num_hh_in_planning_group"/>
-													<field name="num_ppl_in_planning_group"/>
-												</group>
 											</group>
 										</page>
 										<page string="Important Documents" attrs="{'invisible': [('phase', '!=', 'planning'),
