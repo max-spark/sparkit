@@ -10,13 +10,12 @@ class SavingsGroup(models.Model):
 	#Basic Fields
 	name = fields.Char(compute='_get_name')
 	community_id = fields.Many2one('sparkit.community', string="Community",
-		domain=[('is_partnered', '=', True)])
+		domain=[('is_partnered', '=', True)], required=True)
 
 	#Savings Groups
 	number_hh_at_start = fields.Integer(
-		string="Number of Households at Savings Group Start")
-	number_women = fields.Integer(string="Number of Women at Savings Group Start")
-	number_men = fields.Integer(string="Number of Men at Savings Group Start")
+		string="Number of Households at Savings Group Start",
+		required=True)
 	contribution_frequency = fields.Selection([('weekly', 'Weekly'),
 		('biweekly', 'Twice a Month'),
 		('monthly', 'Once a Month'),
@@ -28,7 +27,6 @@ class SavingsGroup(models.Model):
 	is_existing = fields.Boolean(string="Did the Savings Group Exist Before Partnership?")
 	start_date = fields.Date(string="Date Savings Group Started", required=True)
 	end_date = fields.Date(string="Date Savings Group Ended")
-	is_sustaining = fields.Boolean(string="Savings Group Sustaining?", default=True)
 
 	#Calculations
 	amount_in_bank = fields.Float(related='latest_id.amount_in_bank', readonly=True)
@@ -67,27 +65,20 @@ class SavingsGroupUpdate(models.Model):
 	name = fields.Char(compute='_get_name')
 	savings_group_id = fields.Many2one('sparkit.savingsgroup',
 		string="Savings Group", required=True)
-	community_id = fields.Many2one('sparkit.community',
-		store=True, readonly=True, string="Community")
+	community_id = fields.Many2one('sparkit.community')
 
 	#Update
 	date = fields.Date(string="Date of Update")
 	number_hh = fields.Integer(string="Number of HH",
 		help="What is the total number of households currently in the savings group?")
-	total_loans_in_repayment_current = fields.Integer(string="Total Loans in Repayment - Current",
-		help="How many loans are currently in repayment?")
-	total_loans_in_repayment_all_time = fields.Integer(string="Total Loans in Repayment - All Time",
-		help="How many loans has the community loaned out-- and been repaid--in total?")
-	total_loans_in_repayment_ontime = fields.Integer(string="Total Loans Repaid on Time - Current",
-		help="How many loans that are currently in repayment are being repaid ontime?")
-	total_loans_in_repayment_ontime_all_time = fields.Integer(string="Total Loans Repaid on Time - All Time",
-		help="How many loans that have been repaid were repaid on time?")
 	amount_in_bank = fields.Float(string="Amount in Savings Group Account",
-		help="How much has the community saved?")
+		help="How much has the community saved?", required=True)
 	amount_in_circulation = fields.Float(string="Amount in Circulation",
-		help="Amount of Money Currently Loaned To Members")
+		help="Amount of Money Currently Loaned To Members", required=True)
 	interest_earned = fields.Float(string="Interest Earned",
-		help="How much interest has the community earned off loans?")
+		help="How much interest has the community earned off loans?",
+		required=True)
+	is_sustaining = fields.Boolean(string="Savings Group Sustaining?", default=True)
 	total_saved = fields.Float(compute='_get_total_saved',
 		help="The total saved is the amount the community has in the bank as well as the amount currently in circulation.")
 

@@ -14,5 +14,6 @@ from . import pillar_assessment
 from . import partnership
 from . import pilot
 from . import community_proposal
-from . import country
+from . import res_country
 from . import res_partner
+from . import community_workflow_parameters

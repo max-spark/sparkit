@@ -15,7 +15,6 @@
   								<field name="is_existing"/>
   								<field name="start_date"/>
   								<field name="end_date"/>
-  								<field name="is_sustaining"/>
   							</group>
   							<group colspan="2" col="2">
   								<field name="number_hh_at_start"/>
@@ -70,7 +69,7 @@
   					<sheet>
   						<group colspan="4" col="4" class="no_style">
   							<group colspan="2" col="2">
-									<field name="community_id" options="{'no_create': True}"/>
+									<field name="community_id" invisible="1"/>
   								<field name="savings_group_id"
 										domain="[('community_id', '=', community_id)]"
   									options="{'no_create': True}"/>
@@ -83,16 +82,6 @@
 									<field name="interest_earned"/>
   							</group>
   						</group>
-							<group colspan="4" col="4" class="no_style" string="Repayment">
-								<group colspan="2" col="2" string="Current">
-									<field name="total_loans_in_repayment_current"/>
-									<field name="total_loans_in_repayment_all_time"/>
-								</group>
-								<group colspan="2" col="2" string="All Time">
-									<field name="total_loans_in_repayment_ontime"/>
-									<field name="total_loans_in_repayment_ontime_all_time"/>
-								</group>
-							</group>
   					</sheet>
   				</form>
   			</field>
@@ -103,16 +92,16 @@
   			<field name="name">savingsgroupupdates.tree</field>
   			<field name="model">sparkit.savingsgroupupdate</field>
   			<field name="arch" type="xml">
-  				<tree string="Savings Group Updates">
+  				<tree string="Savings Group Updates" editable="bottom">
   					<field name="date"/>
   					<field name="name" invisible="1"/>
-  					<field name="community_id" 
-  						options="{'no_create': True}"/>
+  					<field name="community_id" invisible="1"/>
   					<field name="savings_group_id"
-  						 domain="[('community_id', '=', community_id)]"/>
+							domain="[('community_id', '=', community_id)]"/>
   					<field name="amount_in_bank"/>
   					<field name="amount_in_circulation"/>
 						<field name="interest_earned"/>
+						<field name="is_sustaining"/>
   				</tree>
   			</field>
   		</record>

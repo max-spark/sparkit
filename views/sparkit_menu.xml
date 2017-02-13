@@ -6,18 +6,20 @@
 					<field name="tag">sparkit.facilitatordashboard</field>
 				</record>
 
+				<menuitem id="sparkit_testing_dashboard" name="Dashboard"
+						action="act_testing_dashboard" sequence="0"/>
+
   			<!--Communities Menu-->
   			<menuitem id="main_all_communities_menu" name="Communities"/>
   			<!-- All Communities-->
 	 			<menuitem id="all_communities_menu" name="Communities" sequence="1"
           parent="main_all_communities_menu"/>
+				<menuitem id="my_communities_menu" name="My Communities" sequence="1"
+					parent="all_communities_menu" action="my_communities_list_action"/>
         <menuitem id="all_communities_list_menu" name="All Communities"
         	parent="all_communities_menu" action="community_list_action"/>
 				<menuitem id="partnered_communities" name="Partnered" sequence="2"
 					parent="main_all_communities_menu"/>
-
-				<menuitem id="sparkit_testing_dashboard" name="Dashboard"
-						action="act_testing_dashboard" sequence="0"/>
 
 				<menuitem id="all_partnered_list_action" name="All" sequence="1"
 					parent="partnered_communities"/>
@@ -27,13 +29,15 @@
 					parent="partnered_communities" action="rwanda_partnered_list_action"/>
 				<menuitem id="uganda_list_menu" name="Uganda" sequence="4"
 					parent="partnered_communities" action="uganda_partnered_list_action"/>
-				<!--Community Workflow Configuration Menu-->
+				<!--Community Configuration Menu-->
 				<menuitem id="community_configuration" name="Community Configuration" sequence="3"
 					parent="main_all_communities_menu"/>
 				<menuitem id="workflow_config_list_menu" name="Workflow" sequence="1"
 					parent="community_configuration" action="workflow_configuration_list_action"/>
 				<menuitem id="countries_list_menu" name="Countries"
 					parent="community_configuration" action="base.action_country"/>
+				<menuitem id="special_cases_list_menu" name="Special Cases"
+					parent="community_configuration" action="special_cases_list_action"/>
 
 
         <!-- Monitoring Forms Menu-->
@@ -55,8 +59,6 @@
         	sequence="3"/>
     		<menuitem id="transition_strategy_menu" name="Transition Strategies"
           parent="other_forms" action="transition_strategy_list_action"/>
-        <menuitem id="scouting_form_menu" name="Scouting Forms"
-          parent="other_forms" action="scouting_form_list_action"/>
 				<menuitem id="pilots_menu" name="Pilots"
 					parent="other_forms" action="pilots_list_action"/>
 				<!--Configuration View-->
@@ -68,9 +70,6 @@
 	 			<menuitem id="fcap_map_menu" name="FCAP Map"
           parent="main_vrfs_configuration_menu" action="fcap_map_list_action"
           sequence="2"/>
-        <menuitem id="trainings_menu" name="Trainings"
-          parent="main_vrfs_configuration_menu" action="trainings_list_action"
-          sequence="3"/>
         <menuitem id="biggestconcern_menu" name="Biggest Concern (OCA)"
         	parent="main_vrfs_configuration_menu"
         	action="biggestconcerncategory_list_action"/>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+      <record id="view_partner_form_sparkit" model="ir.ui.view">
+          <field name="name">sparkit.res.partner.form</field>
+          <field name="model">res.partner</field>
+          <field name="inherit_id" ref="base.view_partner_form"/>
+          <field name="arch" type="xml">
+              <xpath expr="//div[@name='button_box']" position="replace"/>
+              <xpath expr="//field[@name='parent_id']" position="attributes">
+                <context>{'default_supplier': ''}</context>
+              </xpath>
+              <xpath expr="//field[@name='type']" position="replace"/>
+              <xpath expr="/form/sheet/group" position="replace">
+                <group colspan="4" col="4" class="no_style">
+                  <group colspan="2" col="2">
+                     <field name="active"/>
+                     <field name="country_id"
+                        options="{'no_create': True}"/>
+                     <field name="phone" placeholder="Main phone"/>
+                     <field name="mobile" placeholder="Secondary phone"/>
+                     <field name="email"/>
+                     <field name="lang"/>
+                     <field name="category_id" widget="many2many_tags" placeholder="Tags..."/>
+                     <field name="type" invisible="1"/>
+                  </group>
+                  <group colspan="2" col="2">
+                    <field name="community_ids" attrs="{'invisible':
+                        [('company_type', '!=', 'company'),
+                         ('company_type', '!=', 'boda_moto'),
+                         ('company_type', '!=', 'technical_advisor')]}"
+                         widget="many2many_tags"
+                         options="{'no_create': True}"/>
+                    <field name="community_id" attrs="{'required':
+                        ['|', ('company_type', '=', 'community_leader'), '|',
+                         ('company_type', '=', 'community_facilitator'), '|',
+                         ('company_type', '=', 'community_member')],
+                         'invisible': [('company_type', '!=', 'community_leader'),
+                         ('company_type', '!=', 'community_facilitator'),
+                         ('company_type', '!=', 'community_member')]}"
+                         options="{'no_create': True}"/>
+                    <field name="gender" attrs="{'required':
+                         ['|', ('company_type', '=', 'community_leader'), '|',
+                          ('company_type', '=', 'community_facilitator'), '|',
+                          ('company_type', '=', 'community_member')],
+                          'invisible': [('company_type', '!=', 'community_leader'),
+                          ('company_type', '!=', 'community_facilitator'),
+                          ('company_type', '!=', 'community_member')]}"/>
+                      <field name="new_leader" attrs="{'required':
+                          ['|', ('company_type', '=', 'community_leader'),
+                           ('company_type', '=', 'community_facilitator')],
+                           'invisible': [('company_type', '!=', 'community_leader'),
+                           ('company_type', '!=', 'community_facilitator')]}"/>
+                  </group>
+                </group>
+              </xpath>
+              <xpath expr="/form/sheet/notebook" position="replace"/>
+          </field>
+      </record>
+
+      <record id="view_partner_tree_sparkit" model="ir.ui.view">
+          <field name="name">sparkit.res.partner.tree</field>
+          <field name="model">res.partner</field>
+          <field name="inherit_id" ref="base.view_partner_tree"/>
+          <field name="arch" type="xml">
+              <xpath expr="//field[@name='email']" position="replace">
+                <field name="company_type"/>
+                <field name="active"/>
+              </xpath>
+          </field>
+      </record>
+
+      <record id="view_res_partner_filter_sparkit" model="ir.ui.view">
+           <field name="name">sparkit.res.partner.select</field>
+           <field name="model">res.partner</field>
+           <field name="inherit_id" ref="base.view_res_partner_filter"/>
+           <field name="arch" type="xml">
+               <xpath expr="//filter[@help='My Partners']"/>
+               <xpath expr="//filter[@name='type_person']" position="replace">
+                 <filter string="Persons" name="type_person" domain="[('company_type','=', 'person')]"/>
+               </xpath>
+               <xpath expr="//filter[@name='type_company']" position="replace">
+                 <filter string="Company/NGO/CSO Government" name="type_ngo" domain="[('company_type','=', 'company')]"/>
+               </xpath>
+               <xpath expr="//filter[@name='customer']" position="replace">
+                 <filter string="Community Member" name="type_community_member" domanin="[('company_type', 'is', 'community_member')]"/>
+                </xpath>
+                <xpath expr="//filter[@name='supplier']" position="replace">
+                   <filter string="Community Leaders" name="type_community_leader" domanin="[('company_type', 'is', 'community_leader')]"/>
+                </xpath>
+                <xpath expr="//filter[@name='type_community_leader']" position="after">
+                   <filter string="Community Facilitators" name="type_community_facilitator" domanin="[('company_type', 'is', 'community_facilitator')]"/>
+                   <filter string="Technical Advisors" name="type_technical_advisor" domanin="[('company_type', 'is', 'technical_advisor')]"/>
+                   <filter string="Boda/Moto Drivers" name="type_boda_moto" domanin="[('company_type', 'is', 'boda_moto')]"/>
+                </xpath>
+                <xpath expr="//group[@name='group_by']" position="replace">
+                  <group expand="0" name="group_by" string="Group By">
+                    <filter string="Country" context="{'group_by': 'country_id'}"/>
+                    <filter string="Contact Type" context="{'group_by': 'company_type'}"/>
+                  </group>
+                </xpath>
+           </field>
+       </record>
+
+    </data>
+</openerp>

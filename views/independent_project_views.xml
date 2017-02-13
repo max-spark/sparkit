@@ -17,10 +17,8 @@
   								<field name="project_subcategory_id" widget="selection"
   									domain="[('category_id', '=', project_category_id)]"
   									options="{'no_create': True, 'no_open': True}"/>
-  								<field name="number_project_updates"/>
   							</group>
   							<group colspan="2" col="2">
-  								<field name="is_sustaining"/>
   								<field name="start_date"/>
   								<field name="end_date"/>
   							</group>
@@ -52,7 +50,6 @@
 				<field name="arch" type="xml">
 					<search string="Independent Project(s)">
 						<field name="community_name"/>
-						<field name="community_number"/>
 						<field name="project_category_id"/>
 						<group expand="0" string="Group By">
 							<filter name="by_community" string="Community" context="{'group_by': 'community_id'}" help="Community"/>
@@ -83,7 +80,7 @@
   					<sheet>
   						<group colspan="4" col="4" class="no_style">
   							<group colspan="2" col="2">
-									<field name="community_id" options="{'no_create': True}"/>
+									<field name="community_id" invisible="1"/>
   								<field name="independent_project_id"
   									options="{'no_create': True}"/>
   								<field name="date"/>
@@ -104,6 +101,7 @@
   			<field name="arch" type="xml">
   				<tree string="Independent Project Updates" editable="bottom">
   					<field name="date"/>
+						<field name="is_sustaining"/>
   					<field name="name" invisible="1"/>
   					<field name="community_id" invisible="1"/>
   					<field name="independent_project_id"  options="{'no_create': True}"

@@ -14,6 +14,7 @@
   								<field name="community_id"
   									options="{'no_create': True}"/>
 									<field name="facilitator_id" options="{'no_create': True}"/>
+									<field name="co_facilitator_id" options="{'no_create': True}"/>
 									<field name="program_manager_id" options="{'no_create': True}"/>
   							</group>
   							<group colspan="2">
@@ -23,7 +24,7 @@
 									<field name="state"/>
 									<field name="state_name" invisible="1"/>
 									<field name="form_type" invisible="1"/>
-									<field name="visit_date_week"/>
+									<field name="visit_date_week" invisible="1"/>
   							</group>
   						</group>
   						<notebook>
@@ -36,6 +37,7 @@
 										<field name="attendance_female_leaders"/>
 										<field name="attendance_male_leaders"/>
 										<field name="attendance_first_time"/>
+										<field name="number_members_showing_leadership"/>
 									</group>
 									<group colspan="2">
 										<field name="speakers_female" />
@@ -83,27 +85,16 @@
 											domain="[('step_id.name', '=', state_name)]"/>
 										<field name="activity3_accomplished"/>
 										<field name="activity3_desc"/>
-										<field name="visit_duration"/>
-										<field name="visit_duration_minutes"/>
+										<field name="meeting_duration"/>
 										<field name="travel_duration"/>
-										<field name="travel_duration_minutes"/>
 									</group>
 									<group colspan="2">
 										<field name="meeting_started_on_time"/>
 										<field name="meeting_started_on_time_desc"/>
 										<field name="cmty_set_agenda"/>
-										<field name="cmty_set_agenda_desc"/>
 										<field name="conflicts_in_meeting"/>
 										<field name="conflicts_in_meeting_resolved"/>
 										<field name="conflicts_in_meeting_desc"/>
-										<field name="number_members_showing_leadership"/>
-										<field name="training_delivered1_id" widget="selection"/>
-										<field name="training_delivered_desc1" />
-										<field name="training_delivered2_id" widget="selection"/>
-										<field name="training_delivered_desc2" />
-										<field name="training_delivered3_id" widget="selection"/>
-										<field name="training_delivered_desc3" />
-										<field name="training_delivered_other"/>
 									</group>
 								</group>
 								<group colspan="4" col="4" string="Accountability and Transparency"  class="no_style" attrs="{'invisible': [('phase', '!=', 'post_implementation'), ('phase', '!=', 'implementation')]}">
@@ -145,21 +136,9 @@
 										<field name="cmty_reported_conflicts_resolved"/>
 										<field name="cmty_reported_conflicts_desc"/>
 									</group>
-									<group colspan="2">
-										<field name="training_needed"/>
-										<field name="training_needed1_id" widget="selection"/>
-										<field name="training_needed_desc1"/>
-										<field name="training_needed2_id" widget="selection"/>
-										<field name="training_needed_desc2"/>
-										<field name="training_needed3_id" widget="selection"/>
-										<field name="training_needed_desc3"/>
-										<field name="training_needed_other"/>
-									</group>
 								</group>
-								<group string="Communications" colspan="4" col="2">
-									<field name="quotes_from_communtiy_members" />
-									<field name="ideas_for_social_media" />
-									<field name="story_collection" />
+								<group colspan="4" col="2">
+									<field name="community_highlights"/>
 								</group>
 								<group colspan="4" col="4" string="Next Meeting" class="no_style">
 									<group colspan="2">
@@ -205,6 +184,10 @@
 							</page>
   						</notebook>
   					</sheet>
+						<div class="oe_chatter">
+							<field name="message_follower_ids" widget="mail_followers"/>
+							<field name="message_ids" widget="mail_thread"/>
+						</div>
   				</form>
   			</field>
   		</record>
@@ -236,27 +219,7 @@
   			</field>
   		</record>
 
-  		<!-- Trainings List View-->
-  		<record model="ir.ui.view" id="trainings_tree">
-  			<field name="name">trainings.tree</field>
-  			<field name="model">sparkit.training</field>
-  			<field name="arch" type="xml">
-  				<tree string="Trainings" editable="bottom">
-  					<field name="name"/>
-  				</tree>
-  			</field>
-  		</record>
 
-  		<!--Training Form Actions-->
-  		<record model="ir.actions.act_window" id="trainings_list_action">
-  			<field name="name">Trainings</field>
-  			<field name="res_model">sparkit.training</field>
-  			<field name="view_type">form</field>
-  			<field name="view_mode">tree,form</field>
-  			<field name="help" type="html">
-  				<p class="oe_view_nocontent_create">Create the first trainings!</p>
-  			</field>
-  		</record>
 
   		<!-- Groups List View-->
   		<record model="ir.ui.view" id="grouptracking_tree">

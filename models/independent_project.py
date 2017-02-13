@@ -13,19 +13,16 @@ class IndependentProject(models.Model):
 	community_id = fields.Many2one('sparkit.community', string="Community",
 		ondelete='cascade', domain=[('is_partnered', '=', True)])
 	community_name = fields.Char(related='community_id.name')
-	community_number = fields.Char(related='community_id.community_number')
 
 	#Category
 	project_category_id = fields.Many2one('sparkit.projectcategory', required=True,
 		string="Project Category")
 	project_subcategory_id = fields.Many2one('sparkit.projectsubcategory',
 		required=True, string="Project SubCategory")
-	project_subcategory_name = fields.Char(related='project_subcategory_id.name')
 
 	#Project Dates
 	start_date = fields.Date(string="Date Independent Project Started")
 	end_date = fields.Date(string="Date Independent Project Ended")
-	is_sustaining = fields.Boolean(string="Independent Project Sustaining?", default=True)
 
 	#Updates
 	project_update_ids = fields.One2many('sparkit.independentprojectupdate',
@@ -35,8 +32,8 @@ class IndependentProject(models.Model):
 	@api.multi
 	def _get_name(self):
 		for r in self:
-			if r.community_id:
-				r.name = 'IND' + r.community_number + ' - ' + r.project_subcategory_name
+			if r.community_id and r.project_subcategory_id:
+				r.name = 'IND: ' + r.community_id.name + ' - ' + r.project_subcategory_id.name
 
 	# Calculates Number of Update Forms for the Independent Project
 	@api.multi
@@ -55,7 +52,8 @@ class IndependentProjectUpdate(models.Model):
 	name = fields.Char(string="Name")
 	independent_project_id = fields.Many2one('sparkit.independentproject',
 		string="Independent Project", ondelete='cascade')
-	community_id = fields.Many2one('sparkit.community', string="Community")
+	community_id = fields.Many2one('sparkit.community')
+	is_sustaining = fields.Boolean(string="Independent Project Sustaining?", default=True)
 
 	#Update
 	date = fields.Date(string="Date of Update", required=True)

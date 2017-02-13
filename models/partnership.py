@@ -15,16 +15,17 @@ class Partnership(models.Model):
 
 	#Basic
 	name = fields.Char(compute='_get_name', readonly=True)
-	partner_id = fields.Many2one('res.partner', string="Partner", required=True)
-	partner_name = fields.Char(related='partner_id.name')
-	community_id = fields.Many2one('sparkit.community', string="Community")
-	community_number = fields.Char(related='community_id.community_number')
-	community_name = fields.Char(related='community_id.name')
+	partner_id = fields.Many2one('res.partner', string="Partner", required=True,
+		domain="[('company_type', '=', 'company')]")
+	community_id = fields.Many2one('sparkit.community', string="Community",
+		required=True)
 
 	#Partnership Information
-	description = fields.Text(string="Partnership Description")
+	description = fields.Text(string="Partnership Description",
+		required=True)
 	date_reached_out = fields.Date(string="Date Community Reached Out To Parnter",
-		help="When did the community reach out to the partner?")
+		help="When did the community reach out to the partner?",
+		required=True)
 	start_date = fields.Date(string="Start Date of Partnership",
 		help="When was the partnership agreement between the community and partner signed? When did the partnership start?")
 	end_date = fields.Date(string="End Date of Partnership",
@@ -46,11 +47,11 @@ class Partnership(models.Model):
 				if r.name:
 					r.mou_name = r.name + '_' + 'Memorandum_of_Understanding'
 
-	@api.depends('partner_name', 'community_name', 'community_number')
+	@api.depends('partner_id', 'community_id')
 	def _get_name(self):
 		for r in self:
-			if r.partner_name and r.community_name and r.community_number:
-				r.name = r.community_number + ' ' + r.community_name + ' - ' + r.partner_name
+			if r.partner_id and r.community_id:
+				r.name = r.community_id.community_number + ' ' + r.community_id.name + ' - ' + r.partner_id.name
 
 
 class PartnershipUpdate(models.Model):

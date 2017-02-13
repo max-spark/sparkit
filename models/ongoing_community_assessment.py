@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from openerp import models, fields, api
+from datetime import datetime
 
 #Independent Projects
 
@@ -19,9 +20,27 @@ class OngoingCommunityAssessment(models.Model):
 	date = fields.Date(string="3. Date of Assessment")
 	collected_by = fields.Many2one('res.users', string="4. Collected By",
 		default=lambda self: self.env.user)
-	#TODO: Change this to self
-	oca_number = fields.Integer(string="5. OCA Number",
-		required=True)
+	gps_coordinates_longitude = fields.Char(string="Longitude of OCA")
+	gps_coordinates_latitude = fields.Char(string="Latitude of OCA")
+	oca_number = fields.Selection(
+		[('1', '1 - Community Identification: Basline/Scouting'),
+		('2', '2 - Planning: Pathway Selection'),
+		('3', '3 - Planning: Proposal Finalization'),
+		('4', '4 - Post Implementation: Month 1'),
+		('5', '5 - Post Implementation: Month 6'),
+		('6', '6 - Post Implementation: Month 12'),
+		('7', '7 - Post Implementation: Month 18'),
+		('8', '8 - Post Implementation: Month 24')],
+		select=True, string="5. Community Assessment Number",
+		help="""Please select the Community Assessment number corresponding to the community's step:
+		1. Scouting/Baseline
+		2. After Pathway Selection
+		3. After Proposal Finalization
+		4. 1 Month Post Implementation
+		5. 6 Months Post Implementation
+		6. 12 Months Post Implementation
+		7. 18 Months Post Implementation
+		8. 24 Months Post Implementation """, required=True)
 
 
 	#Section One: Background
@@ -105,7 +124,7 @@ class OngoingCommunityAssessment(models.Model):
 
 	#Section Five: Civic Engagement
 	civic_engagement38 = fields.Selection([(0, 'No'), (1, 'Once'), (2, 'More Than Once')], select=True,
-		string = "38. In the past one month, has your community has worked together to solve a problem or reach a goal in the past?")
+		string = "38. In the past one month, has your community worked together to solve a problem or reach a goal?")
 	civic_engagement39 = fields.Selection([(0, 'Spark'), (1, 'Elected Leaders'), (2, 'Community/Planning Group'), (3, 'Other')],
 		string = "39. Who is responsible for the success of your community’s work together?")
 	civic_engagement40 = fields.Selection([(0, 'No'), (1, 'One'), (2, 'More Than One')], select=True,

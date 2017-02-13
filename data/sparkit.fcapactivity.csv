@@ -3,59 +3,87 @@ spark_introduction,sparkit.introductions,Spark Introduction,1
 community_mapping,sparkit.introductions,Community Mapping,3
 partnership_expectations,sparkit.partnership,Partnership Expectations,10
 partnership_agreement,sparkit.partnership,Partnership Agreement,11
+partnership_training,sparkit.partnership,Training - Other,12
 gender_empowerment_activity,sparkit.community_building,Gender Empowerment,20
 ground_rules,sparkit.community_building,Ground Rules,21
 strong_leaders,sparkit.community_building,Qualities of Strong Leaders,22
 leadership_election,sparkit.community_building,Leadership Election,23
 vision_statement,sparkit.community_building,Vision Statement,24
+community_building_training,sparkit.community_building,Training-Other,25
 understanding_goals,sparkit.goal_setting_goals,Understanding Goals,30
 brainstorming_goals,sparkit.goal_setting_goals,Brainstorming Goals,31
 consensus_building,sparkit.goal_setting_goals,Consensus Building,32
 defining_success_indicators,sparkit.goal_setting_goals,Defining Success Indicators,33
 past_progress,sparkit.goal_setting_goals,Assessing Past Progress,34
+goal_setting_goals_training,sparkit.goal_setting_goals,Training-Other,35
 brainstorming_pathways,sparkit.goal_setting_pathways,Brainstorming Pathways,40
 feasibility_study,sparkit.goal_setting_pathways,Feasibility Study,41
 govt_relations_training,sparkit.goal_setting_pathways,Advocacy Training - Government Registration,42
 intro_proposal_dev,sparkit.goal_setting_pathways,Introducing Proposal Development,43
 developing_savings_groups,sparkit.goal_setting_pathways,Developing Savings Groups,44
 banking_training,sparkit.goal_setting_pathways,Banking Training,45
+goal_setting_pathways_training,sparkit.goal_setting_pathways,Training - Other,46
 imp_action_plan,sparkit.implementation_plan,Developing Implementation Action Plan,50
 fac_training,sparkit.implementation_plan,Facilitation Training,51
 understanding_budgeting,sparkit.implementation_plan,Understanding Budgeting,52
 implementation_budget,sparkit.implementation_plan,Developing Implementation Budget,53
+implementation_plan_training,sparkit.implementation_plan,Training - Other,54
+implementation_plan_ta_training,sparkit.implementation_plan,Training - TA,55
 developing_operational_plan,sparkit.operational_plan,Developing Operational Action Plan,60
 operational_budget,sparkit.operational_plan,Developing Operational Budget,61
+operational_plan_training,sparkit.operational_plan,Training - Other,62
+operational_plan_ta_training,sparkit.operational_plan,Training - TA,63
 target_numbers,sparkit.measuring_success,Setting Target Numbers,70
 data_collection_plan,sparkit.measuring_success,Developing Data Collection Plan,71
+measuring_success_training,sparkit.measuring_success,Training - Other,72
+measuring_success_ta_training,sparkit.measuring_success,Training - TA,73
 risk_assessment,sparkit.sustainability_plan,Risk Assessment,80
 bylaws,sparkit.sustainability_plan,Developing By-Laws,81
 engagement_plan,sparkit.sustainability_plan,Community Engagement Plan,82
 sustainability_training,sparkit.sustainability_plan,Transparency & Accountability Training,83
+sustainability_plan_training,sparkit.sustainability_plan,Training - Other,84
+sustainability_plan_ta_training,sparkit.sustainability_plan,Training - TA,85
 creating_proposal_review,sparkit.proposal_review,Proposal Review,90
+proposal_review_training,sparkit.proposal_review,Training - Other,91
+proposal_review_ta_training,sparkit.proposal_review,Training - TA,92
 disbursal_training,sparkit.grant_agreement,Grant Disbursal Training,100
 record_training,sparkit.grant_agreement,Record Keeping Training,101
 sms_training,sparkit.grant_agreement,SMS Training,102
 grant_agreement_signing,sparkit.grant_agreement,Grant Agreement,103
+grant_agreement_training,sparkit.grant_agreement,Training - Other,104
+grant_agreement_ta_training,sparkit.grant_agreement,Training - TA,105
 first_disbursal,sparkit.first_disbursement,First Disbursement,110
 first_disbursement_training,sparkit.first_disbursement,Transparency and Accountability Training Review,111
 banking_review,sparkit.first_disbursement,Banking Training Review,112
 followup_disbursement,sparkit.first_disbursement,Follow-up Disbursement,113
 imp_plan_review,sparkit.first_disbursement,Implementation Plan Review,114
 risk_mitigation_review,sparkit.first_disbursement,Risk Mitigation Plan Review,115
+first_disbursement_training,sparkit.first_disbursement,Training - Other,116
+first_disbursement_ta_training,sparkit.first_disbursement,Training - TA,117
 leadership_review,sparkit.implementation_leadership,Leadership Review,120
 bylaw_review,sparkit.implementation_leadership,By-Law Review,121
 advocacy_training,sparkit.implementation_leadership,Advocacy Training: Report Writing,122
 cmty_facilitation_training,sparkit.implementation_leadership,Community Facilitation Training,123
+implementation_leadership_training,sparkit.implementation_leadership,Training - Other,124
+implementation_leadership_ta_training,sparkit.implementation_leadership,Training - TA,125
 developing_transition_strategy,sparkit.transition_strategy,Transition Strategy,130
+transition_strategy_training,sparkit.transition_strategy,Training - Other,131
+transition_strategy_ta_training,sparkit.transition_strategy,Training - TA,132
 op_plan_review,sparkit.post_implementation1,Operational Plan Review,140
 mitigation_plan_review_pi,sparkit.post_implementation1,Risk Mitigation Plan Review,141
 bylaw_review_pi,sparkit.post_implementation1,By-law Review,142
 leadership_review_pi,sparkit.post_implementation1,Leadership Review,143
 transition_strategy_review,sparkit.post_implementation1,Transition Strategy Review,144
+post_implementation1_training,sparkit.post_implementation1,Training - Other,145
+post_implementation1_ta_training,sparkit.post_implementation1,Training - TA,146
 measuring_success_review,sparkit.post_implementation2,Goal Setting and Measuring Success Review,150
 future_goal_setting,sparkit.post_implementation2,Future Goal Setting,151
 advocacy_training_pi,sparkit.post_implementation2,Advocacy Training,152
 cmty_facilitator_followup,sparkit.post_implementation2,Community Facilitator Follow-up,153
 transition_plan_review,sparkit.post_implementation2,Transition Plan Review,154
+post_implementation2_training,sparkit.post_implementation2,Training - Other,155
+post_implementation2_ta_training,sparkit.post_implementation2,Training - TA,156
 grad_prep,sparkit.post_implementation3,Graduation Preparation,160
 graduation,sparkit.post_implementation3,Graduation,161
+post_implementation3_training,sparkit.post_implementation3,Training - Other,162
+post_implementation3_ta_training,sparkit.post_implementation3,Training - TA,163

@@ -8,7 +8,7 @@
   			<field name="name">community.form</field>
   			<field name="model">sparkit.community</field>
   			<field name="arch" type="xml">
-  				<form string="Community" create="false">
+  				<form string="Community" create="false" delete="false">
 						<header>
 							<field name="phase" widget="statusbar"/>
 						</header>
@@ -24,8 +24,7 @@
 								states="introductions"/>
 							<button name="planning" type="workflow"
 								string="Community Ready to Begin Planning"
-								attrs="{'invisible': ['|', ('has_pm_approved_partnership', '=', False),
-									('state', '!=', 'introductions')]}"
+								attrs="{'invisible':  [('state', '!=', 'introductions')]}"
 								class="oe_highlight"/>
 							<button name="check_pm_approved_partnership"
 								type="object"
@@ -201,14 +200,14 @@
 
 							<group colspan="6" col="6" class="checklist"
 							  attrs="{'invisible': [('state', '!=', 'community_identification')]}">
-								<group colspan="4" col="4" class="no_style" string="Community Identification: Baseline">
+								<group colspan="4" col="4" class="no_style" string="   Community Identification: Baseline (1/18)">
 									<field name="is_oca1_completed"/>
 								</group>
 							</group>
 
 							<group colspan="6" col="6" class="checklist"
 							  attrs="{'invisible': [('state', '!=', 'introductions')]}">
-								<group colspan="6" col="6" class="no_style" string="Community Identification: Introductions">
+								<group colspan="6" col="6" class="no_style" string="   Community Identification: Introductions (2/18)">
 									<field name="is_community_description_filled"/>
 									<field name="has_pm_approved_partnership"/>
 									<field name="introducing_spark_completed"/>
@@ -218,7 +217,7 @@
 
 							<group colspan="6" col="6" class="checklist"
 							  attrs="{'invisible': [('state', '!=', 'partnership')]}">
-								<group colspan="6" col="6" class="no_style" string="Planning: Partnership">
+								<group colspan="6" col="6" class="no_style" string="   Planning: Partnership (3/18)">
 									<field name="partnership_agreement_signed"/>
 									<field name="is_partnership_hh_requirement_met"/>
 									<field name="partnership_expectations_completed"/>
@@ -227,7 +226,7 @@
 
 							<group colspan="6" col="6" class="checklist"
 							  attrs="{'invisible': [('state', '!=', 'community_building')]}">
-								<group colspan="6" col="6" class="no_style" string="Planning: Community Building">
+								<group colspan="6" col="6" class="no_style" string="   Planning: Community Building (4/18)">
 									<field name="is_cmty_leaders_entered"/>
 									<field name="is_office_file_created"/>
 									<field name="is_partnerhip_agreement_stored"/>
@@ -245,7 +244,7 @@
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'goal_setting_goals')]}">
-								<group colspan="6" col="6" class="no_style" string="Planning: Goal Setting - Goals">
+								<group colspan="6" col="6" class="no_style" string="   Planning: Goal Setting - Goals (5/18)">
 									<field name="is_min_goals_brainstormed"/>
 									<field name="is_goals_ideas_not_null"/>
 									<field name="is_goals_selected_not_null"/>
@@ -261,7 +260,7 @@
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'goal_setting_pathways')]}">
-								<group colspan="6" col="6" class="no_style" string="Planning: Goal Setting - Pathways">
+								<group colspan="6" col="6" class="no_style" string="   Planning: Goal Setting - Pathways (6/18)">
 									<field name="is_project_description_not_null"/>
 									<field name="pm_approved_goal_setting"/>
 									<field name="is_oca2_completed"/>
@@ -280,11 +279,10 @@
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'implementation_plan')]}">
-								<group colspan="6" col="6" class="no_style" string="Planning: Implementation Plan">
+								<group colspan="6" col="6" class="no_style" string="   Planning: Implementation Plan (7/18)">
 									<field name="is_ta_recruited"/>
 									<field name="is_ta_workplan_approved"/>
 									<field name="is_implementation_action_plan_entered"/>
-									<field name="is_bank_detail_added"/>
 									<field name="developing_implementation_action_plan_completed"/>
 									<field name="facilitation_training_completed"/>
 									<field name="understanding_budgeting_completed"/>
@@ -297,7 +295,7 @@
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'operational_plan')]}">
-								<group colspan="6" col="6" class="no_style" string="Planning: Operational Plan">
+								<group colspan="6" col="6" class="no_style" string="   Planning: Operational Plan (8/18)">
 									<field name="is_operational_plan_entered"/>
 									<field name="developing_operational_action_plan_completed"/>
 									<field name="developing_operational_budget_completed"/>
@@ -306,7 +304,7 @@
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'measuring_success')]}">
-								<group colspan="6" col="6" class="no_style" string="Planning: Measuring Success">
+								<group colspan="6" col="6" class="no_style" string="   Planning: Measuring Success (9/18)">
 									<field name="is_measuring_success_entered"/>
 									<field name="are_goal_targets_entered"/>
 									<field name="setting_target_numbers_completed"/>
@@ -316,7 +314,7 @@
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'sustainability_plan')]}">
-								<group colspan="6" col="6" class="no_style" string="Planning: Sustainability Plan">
+								<group colspan="6" col="6" class="no_style" string="   Planning: Sustainability Plan (10/18)">
 									<field name="is_sustainability_plan_entered"/>
 									<field name="risk_assessment_completed"/>
 									<field name="developing_bylaws_completed"/>
@@ -327,7 +325,7 @@
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'proposal_review')]}">
-								<group colspan="6" col="6" class="no_style" string="Planning: Proposal Finalization">
+								<group colspan="6" col="6" class="no_style" string="   Planning: Proposal Finalization (11/18)">
 									<field name="is_bank_account_created"/>
 									<field name="is_oca3_completed"/>
 									<field name="is_budget_created"/>
@@ -339,11 +337,12 @@
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'grant_agreement')]}">
-								<group colspan="6" col="6" class="no_style" string="Implementation: Grant Agreement">
+								<group colspan="6" col="6" class="no_style" string="   Implementation: Grant Agreement (12/18)">
 									<field name="is_cashbook_received"/>
 									<field name="is_receipt_book_received"/>
 									<field name="is_disbursement_book_received"/>
 									<field name="is_grant_agreement_translated"/>
+									<field name="min_pg_signed_agreement"/>
 									<field name="pg_signed_agreement"/>
 									<field name="grant_disbursal_training_completed"/>
 									<field name="record_keeping_training_completed"/>
@@ -354,7 +353,7 @@
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'first_disbursement')]}">
-								<group colspan="6" col="6" class="no_style" string="Implementation: Accountability &amp; Transparency">
+								<group colspan="6" col="6" class="no_style" string="   Implementation: Accountability &amp; Transparency (13/18)">
 									<field name="first_disbursement_completed"/>
 									<field name="trs_acctb_review_completed"/>
 									<field name="banking_training_review_completed"/>
@@ -366,7 +365,7 @@
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'leadership')]}">
-								<group colspan="6" col="6" class="no_style" string="Implementation: Leadership">
+								<group colspan="6" col="6" class="no_style" string="   Implementation: Leadership (14/18)">
 									<field name="leadership_review_completed"/>
 									<field name="bylaw_review_completed"/>
 									<field name="advocacy_report_writing_completed"/>
@@ -376,7 +375,7 @@
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'imp_transition_strategy')]}">
-								<group colspan="6" col="6" class="no_style" string="Implementation: Transition Strategy">
+								<group colspan="6" col="6" class="no_style" string="   Implementation: Transition Strategy (15/18)">
 									<field name="is_project_quality_approved_ta"/>
 									<field name="is_imp_action_plan_completed"/>
 									<field name="is_transition_strategy_completed"/>
@@ -389,7 +388,7 @@
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'post_implementation1')]}">
-								<group colspan="6" col="6" class="no_style" string="Post Implementation: Management Support">
+								<group colspan="6" col="6" class="no_style" string="   Post Implementation: Management Support (16/18)">
 									<field name="is_oca4_completed"/>
 									<field name="is_oca5_completed"/>
 									<field name="operational_plan_review_completed"/>
@@ -402,7 +401,7 @@
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'post_implementation2')]}">
-								<group colspan="6" col="6" class="no_style" string="Post Implementation: Future Envisioning">
+								<group colspan="6" col="6" class="no_style" string="Post Implementation: Future Envisioning  (17/18)">
 									<field name="is_oca6_completed"/>
 									<field name="goals_measuring_success_review_completed"/>
 									<field name="future_goal_setting_completed"/>
@@ -415,10 +414,10 @@
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'post_implementation3')]}">
-								<group colspan="6" col="6" class="no_style" string="Post Implementation: Graduation">
+								<group colspan="6" col="6" class="no_style" string="Post Implementation: Graduation  (18/18)">
 									<field name="is_all_mg_disbursed"/>
 									<field name="are_all_receipts_collected"/>
-									<field name="cmty_passed_field_audit"/>
+									<field name="cmty_passed_field_audit_pi3"/>
 									<field name="cmty_report3_submitted"/>
 									<field name="are_transition_strategy_activities_completed"/>
 									<field name="is_oca7_completed"/>
@@ -433,15 +432,13 @@
 
 							<group colspan="4" col="4" class="no_style">
 								<group colspan="2" col="2">
-									<field name="name" attrs="{'readonly': ['|', ('phase', '=', 'planning'), '|',
-										('phase', '=', 'implementation'), '|', ('phase', '=', 'post_implementation'),
-										('phase', '=', 'graduated')]}"/>
+									<field name="name"
+										attrs="{'readonly': [('phase', '!=', 'community_identification')]}"/>
 									<field name="community_number"/>
 									<field name="country_id" options="{'no_create': True}"
-										attrs="{'readonly': ['|', ('phase', '=', 'planning'), '|',
-											('phase', '=', 'implementation'), '|', ('phase', '=', 'post_implementation'),
-											('phase', '=', 'graduated')]}"/>
+										attrs="{'readonly': [('phase', '!=', 'community_identification')]}"/>
 									<field name="facilitator_id" options="{'no_create': True}"/>
+									<field name="co_facilitator_id"/>
 									<field name="program_manager_id" options="{'no_create': True}"/>
 									<field name="description"/>
 									<field name="workflow_config_id"/>
@@ -452,9 +449,12 @@
 									<field name="is_active" />
 									<field name="last_visit_date"/>
 									<field name="next_visit_date"/>
-									<field name="next_visit_date_week"/>
-									<field name="phase_name"/>
-									<field name="state_name"/>
+									<field name="special_cases" options="{'no_create': True}"
+											widget="many2many_tags"
+											attrs="{'invisible': [('phase', '=', 'community_identification')]}"/>
+									<field name="next_visit_date_week" invisible="1"/>
+									<field name="phase_name" invisible="1"/>
+									<field name="state_name" invisible="1"/>
 								</group>
 							</group>
   						<notebook>
@@ -462,18 +462,20 @@
 									<group colspan="4" col="4" class="no_style">
 										<group colspan="2" col="2">
 											<field name="facilitation_language"/>
-											<field name="is_using_translator"/>
-											<field name="translator_id"/>
-											<field name="meeting_day" attrs="{'invisible': [('phase', '!=', 'planning'),
-												('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
-												('phase', '!=', 'graduated')]}"/>
+											<field name="meeting_day"
+													attrs="{'invisible': [('phase', '=', 'community_identification')],
+														'required': [('phase', '!=', 'community_identification')]}"/>
+											<field name="meeting_time" attrs="{'invisible': [('phase', '=', 'community_identification')],
+												'required': [('phase', '!=', 'community_identification')]}"/>
+											<field name="govt_registration_number"
+												attrs="{'invisible': [('phase', '=', 'community_identification')]}"/>
+											<field name="village_slogan"
+													attrs="{'invisible': [('phase', '=', 'community_identification')]}"/>
 										</group>
 		  							<group colspan="2" col="2">
 		  								<field name="date_scouted"/>
 		  								<field name="partnership_date"
-												attrs="{'invisible': [('phase', '!=', 'planning'),
-													('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
-													('phase', '!=', 'graduated')]}"/>
+												attrs="{'invisible': [('phase', '=', 'community_identification')]}"/>
 		  								<field name="implementation_start_date"
 												attrs="{'invisible': [('phase', '!=', 'implementation'),
 													('phase', '!=', 'post_implementation'), ('phase', '!=', 'graduated')]}"/>
@@ -481,7 +483,6 @@
 												attrs="{'invisible': [('phase', '!=', 'post_implementation'),
 													('phase', '!=', 'graduated')]}"/>
 		  								<field name="graduation_date" attrs="{'invisible': [('phase', '!=', 'graduated')]}"/>
-											<field name="govt_registration_number"/>
 		  							</group>
 									</group>
 									<notebook>
@@ -491,31 +492,35 @@
 													<field name="num_hh_community" col="2"/>
 													<field name="num_ppl_community" col="2"/>
 												</group>
-												<group string="Planning Group" colspan="2" col="2" attrs="{'invisible': [('phase', '!=', 'planning'),
-													('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
-													('phase', '!=', 'graduated')]}">
+												<group string="Planning Group" colspan="2" col="2"
+													attrs="{'invisible': [('phase', '=', 'community_identification')]}">
 													<field name="num_hh_in_planning_group"/>
 													<field name="num_ppl_in_planning_group"/>
 												</group>
 											</group>
 										</page>
 		  							<page string="Location">
-		  								<group colspans="4" col="4">
-		  									<field name="province"/>
-		  									<field name="district"/>
-		  									<field name="sector"/>
-		  									<field name="sub_county"/>
-		  									<field name="cell"/>
-		  									<field name="village"/>
-		  									<field name="gps_coordinates_longitude"
-		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the community meeting point." />
-												<field name="gps_coordinates_latitude"
-		  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the community meeting point." />
-		  									<field name="directions_to_community"
-		  										placeholder="Please provide directions for traveling to the community, including meeting location." />
+		  								<group colspans="4" col="4" class="no_style">
+												<group colspan="2">
+			  									<field name="sector"/>
+			  									<field name="district"/>
+			  									<field name="cell"/>
+			  									<field name="village"/>
+												</group>
+												<group colspan="2">
+			  									<field name="gps_coordinates_longitude"
+			  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the community meeting point." />
+													<field name="gps_coordinates_latitude"
+			  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the community meeting point." />
+			  									<field name="directions_to_community"
+			  										placeholder="Please provide directions for traveling to the community, including meeting location." />
+													<field name="cost_to_community"/>
+												</group>
 		  								</group>
 		  								<group colspan="4" string="Boda/Moto Contact Information" class="no_style">
-		  									<field name="bodamoto_drivers" nolabel="1"/>
+		  									<field name="bodamoto_drivers" nolabel="1"
+													domain="[('company_type', '=', 'boda_moto'), ('country_id', '=', country_id)]"
+													context="{'default_company_type': 'boda_moto'}"/>
 		  								</group>
 		  								<seperator/>
 		  								<group col="4" string="Location">
@@ -545,23 +550,32 @@
 		  										placeholder="Name of village, School, Type (nursery, primary, secondary, university), and Private or Public"/>
 		  								</group>
 		  							</page>
-		  							<page string="Leaders">
-		  								<group colspan="4" string="Grant Project Leaders" class="no_style"
-													attrs="{'invisible': [('state', '=', 'community_identification')]}">
-		  									<field name="spark_leader_ids" nolabel="1"
-													context="{'default_company_type': 'community_leader', 'default_community_id': active_id}"/>
+		  							<page string="Leaders"
+												attrs="{'invisible': [('phase', '=', 'community_identification')]}">
+		  								<group colspan="4" class="no_style">
+		  									<field name="community_leader_ids" nolabel="1"
+													domain="[('community_id', '=', active_id)]"
+													context="{'default_company_type': 'community_leader',
+														'default_community_id': active_id}"/>
 		  								</group>
 		  							</page>
-										<page string="Community Facilitators">
-											<group colspan="4" string="Community Facilitators" class="no_style"
-													attrs="{'invisible': [('state', '=', 'community_identification')]}">
+										<page string="Community Members">
+											<field name="community_member_ids"
+												domain="[('community_id', '=', active_id)]"
+												context="{'default_company_type': 'community_member',
+													'default_community_id': active_id}"/>
+										</page>
+										<page string="Community Facilitators"
+											attrs="{'invisible': [('phase', '=', 'community_identification')]}">
+											<group colspan="4" string="Community Facilitators" class="no_style">
 												<field name="community_facilitator_ids" nolabel="1"
-													context="{'default_company_type': 'community_facilitator', 'default_community_id': active_id}"/>
+													domain="[('community_id', '=', active_id)]"
+													context="{'default_company_type': 'community_facilitator',
+														'default_community_id': active_id}"/>
 											</group>
 										</page>
-										<page string="Important Documents" attrs="{'invisible': [('phase', '!=', 'planning'),
-											('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
-											('phase', '!=', 'graduated')]}">
+										<page string="Important Documents"
+											attrs="{'invisible': [('phase', '=', 'community_identification')]}">
 											<group colspan="2" col="2" class="no_style" string="Partnership Agreement">
 												<field name="partnership_agreement" widget="binary" filename="partnership_agreement_name"/>
 												<field name="number_signed_partnership_agreement"/>
@@ -581,9 +595,7 @@
 								<page string="Visit Forms">
 									<notebook>
 										<page string="Planning"
-											attrs="{'invisible': [('phase', '!=', 'planning'),
-												('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
-											 	('phase', '!=', 'graduated')]}">
+											attrs="{'invisible': [('phase', '=', 'community_identification')]}">
 		  								<field name="cvrf_ids"
 												context="{'default_community_id': active_id, 'default_phase': phase, 'default_state': state}"/>
 		  							</page>
@@ -605,9 +617,8 @@
 		  							</page>
 									</notebook>
 								</page>
-								<page string="Projects" attrs="{'invisible': [('phase', '!=', 'planning'),
-									('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
-									('phase', '!=', 'graduated')]}">
+								<page string="Projects"
+										attrs="{'invisible': [('phase', '=', 'community_identification')]}">
 									<notebook>
 										<page string="Project Detail">
 											<group colspan="4" col="4" class="no_style">
@@ -618,7 +629,9 @@
 												</group>
 												<group colspan="2" col="2">
 													<field name="project_description"/>
-													<field name="technical_advisor_id"/>
+													<field name="technical_advisor_id"
+														domain="[('country_id', '=', country_id)]"
+														context="{'default_community_id': active_id}"/>
 													<field name="bank_account"/>
 												</group>
 												<group colspan="4" col="11">
@@ -679,9 +692,7 @@
 												</group>
 											</group>
 										</page>
-		  							<page string="Grant Project(s) Budget(s)" attrs="{'invisible':
-											[('state', '!=', 'proposal_review'),('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
-											('phase', '!=', 'graduated')]}">
+		  							<page string="Grant Project(s) Budget(s)">
 		  								<field name="spark_project_ids"
 												context="{'default_community_id': active_id}"/>
 		  							</page>
@@ -705,28 +716,23 @@
 											<field name="pillar_assessment_ids"
 												context="{'default_community_id': active_id}"/>
 										</page>
-										<page string="Transition Strategy" attrs="{'invisible': [('phase', '!=', 'planning'),
-											('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
-											('phase', '!=', 'graduated')]}">
+										<page string="Transition Strategy"
+												attrs="{'invisible': [('phase', '=', 'community_identification')]}">
 											<field name="transition_strategy_ids"
 													context="{'default_community_id': active_id}"/>
 										</page>
 									</notebook>
 								</page>
-								<page string="Advocacy" attrs="{'invisible': [('phase', '!=', 'planning'),
-									('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
-									('phase', '!=', 'graduated')]}">
+								<page string="Advocacy"
+										attrs="{'invisible': [('phase', '=', 'community_identification')]}">
 									<field name="partnership_ids"/>
 								</page>
-								<page string="Pilots" attrs="{'invisible': [('phase', '!=', 'planning'),
-									('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
-									('phase', '!=', 'graduated')]}">
+								<page string="Pilots"
+									attrs="{'invisible': [('phase', '=', 'community_identification')]}">
 									<field name="pilot_ids"/>
 								</page>
 								<page string="Independent Meetings"
-									attrs="{'invisible': [('phase', '!=', 'planning'),
-										('phase', '!=', 'implementation'), ('phase', '!=', 'post_implementation'),
-										('phase', '!=', 'graduated')]}">
+									attrs="{'invisible': [('phase', '=', 'community_identification')]}">
 									<field name="independent_meeting_ids"
 										context="{'default_community_id': active_id}"/>
 								</page>
@@ -746,7 +752,7 @@
   			<field name="name">community.tree</field>
   			<field name="model">sparkit.community</field>
   			<field name="arch" type="xml">
-  				<tree string="Community Tree">
+  				<tree string="Community Tree" default_order="write_date desc">
   					<field name="name"/>
   					<field name="community_number"/>
 						<field name="facilitator_id"/>
@@ -788,13 +794,38 @@
 				</field>
 			</record>
 
+			<record model="ir.ui.view" id="view_community_kanban">
+					<field name="name">sparkit.community.kanban</field>
+					<field name="model">sparkit.community</field>
+					<field name="arch" type="xml">
+							<kanban default_group_by="phase_name">
+									<templates>
+											<t t-name="kanban-box">
+													<div t-attf-class="oe_kanban_global_click_edit oe_semantic_html_override
+                                            oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}}">
+															<div t-attf-class="oe_kanban_content">
+																	<field name="name"/>
+																	<br/>
+																	Facilitator:
+																	<field name="facilitator_id"/>
+																	<br/>
+																	Country:
+																	<field name="country_id"/>
+															</div>
+													</div>
+											</t>
+									</templates>
+							</kanban>
+					</field>
+			</record>
+
 
   		<!--All Community Action-->
   		<record model="ir.actions.act_window" id="community_list_action">
   			<field name="name">Communities</field>
   			<field name="res_model">sparkit.community</field>
   			<field name="view_type">form</field>
-  			<field name="view_mode">tree,form,calendar</field>
+  			<field name="view_mode">tree,form,calendar,kanban</field>
   			<field name="help" type="html">
   				<p class="oe_view_nocontent_create">Create the first community!</p>
   			</field>
@@ -805,7 +836,7 @@
   			<field name="name">Burundi Communities</field>
   			<field name="res_model">sparkit.community</field>
   			<field name="view_type">form</field>
-  			<field name="view_mode">tree,form,calendar</field>
+  			<field name="view_mode">tree,form,calendar,kanban</field>
   			<field name="domain">[('is_partnered', '=', 'True'),
   				('country_id', '=', 25)]</field>
   			<field name="help" type="html">
@@ -817,7 +848,7 @@
   			<field name="name">Rwanda Communities</field>
   			<field name="res_model">sparkit.community</field>
   			<field name="view_type">form</field>
-  			<field name="view_mode">tree,form,calendar</field>
+  			<field name="view_mode">tree,form,calendar,kanban</field>
   			<field name="domain">[('is_partnered', '=', 'True'), ('country_id', '=', 193)]</field>
   			<field name="help" type="html">
   				<p class="oe_view_nocontent_create">Create the first community!</p>
@@ -828,74 +859,40 @@
   			<field name="name">Uganda Communities</field>
   			<field name="res_model">sparkit.community</field>
   			<field name="view_type">form</field>
-  			<field name="view_mode">tree,form,calendar</field>
+  			<field name="view_mode">tree,form,calendar,kanban</field>
   			<field name="domain">[('is_partnered', '=', 'True'), ('country_id', '=', 232)]</field>
   			<field name="help" type="html">
   				<p class="oe_view_nocontent_create">Create the first community!</p>
   			</field>
   		</record>
 
-			<!-- Workflow Configuration-->
-			<!--Workflow Parameters Configuration Form View -->
-			<record model="ir.ui.view" id="workflow_config_form_view">
-				<field name="name">communityworkflowparameters.form</field>
-				<field name="model">sparkit.communityworkflowparameters</field>
-				<field name="arch" type="xml">
-					<form string="Workflow Configuration" create="false">
-						<sheet>
-							<field name="name"/>
-							<group colspan="4" col="4" class="no_style" string="Partnership to Community Building">
-								<group colspan="2" col="2">
-									<field name="using_hh_breakpoint"/>
-									<field name="min_percent_hh_partnership"
-											attrs="{'invisible': [('using_hh_breakpoint', '!=', False)]}"/>
-									<field name="partnership_hh_breakpoint"
-										attrs="{'invisible': [('using_hh_breakpoint', '!=', True)]}"/>
-								</group>
-								<group colspan="2" col="2">
-									<field name="partnership_hh_upper"
-										attrs="{'invisible': [('using_hh_breakpoint', '!=', True)]}"/>
-									<field name="partnership_hh_lower"
-										attrs="{'invisible': [('using_hh_breakpoint', '!=', True)]}"/>
-								</group>
-							</group>
-							<group colspan="4" col="4" class="no_style" string="Community Building to Goal Setting: Goals">
-								<group colspan="2" col="2">
-									<field name="communitybldg_min_elected_leaders"/>
-									<field name="communitybldg_max_elected_leaders"/>
-									<field name="communtiybldg_min_percent_female"/>
-								</group>
-							</group>
-							<group colspan="4" col="4" string="Goal Setting (Goals/Indicators/Pathways)">
-								<field name="min_goals_brainstormed"/>
-								<field name="min_pathways_brainstormed"/>
-							</group>
-							<group colspan="4" col="4" string="Implementation">
-								<field name="percent_pg_signed_grantagreement"/>
-							</group>
-							<group colspan="4" col="4" string="Graduation">
-								<field name="percent_pg_signed_exitagreement"/>
-							</group>
-						</sheet>
-					</form>
+			<record model="ir.actions.act_window" id="my_communities_list_action">
+				<field name="name">My Communities</field>
+				<field name="res_model">sparkit.community</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form,calendar,kanban</field>
+				<field name="domain">[('facilitator_id', '=', uid)]</field>
+				<field name="help" type="html">
+					<p class="oe_view_nocontent_create">Create your first community!</p>
 				</field>
 			</record>
 
-			<!--Workflow Parameters Configuration List View  -->
-			<record model="ir.ui.view" id="workflow_config_tree">
-				<field name="name">communityworkflowparameters.tree</field>
-				<field name="model">sparkit.communityworkflowparameters</field>
+			<!-- Special Cases Configuration-->
+			<!--Special Cases Configuration List View  -->
+			<record model="ir.ui.view" id="special_cases_tree">
+				<field name="name">specialcases.tree</field>
+				<field name="model">sparkit.specialcases</field>
 				<field name="arch" type="xml">
-					<tree string="Workflow Configuration">
+					<tree string="Special Cases" editable="bottom">
 						<field name="name"/>
 					</tree>
 				</field>
 			</record>
 
-			<!-- Workflow Parameters Configuration Action -->
-			<record model="ir.actions.act_window" id="workflow_configuration_list_action">
-				<field name="name">Workflow Configuration</field>
-				<field name="res_model">sparkit.communityworkflowparameters</field>
+			<!-- Special Cases Configuration Action -->
+			<record model="ir.actions.act_window" id="special_cases_list_action">
+				<field name="name">Special Cases</field>
+				<field name="res_model">sparkit.specialcases</field>
 				<field name="view_type">form</field>
 				<field name="view_mode">tree,form</field>
 			</record>

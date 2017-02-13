@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+      <record id="view_currency_form_sparkit" model="ir.ui.view">
+          <field name="name">sparkit.res.currency.form</field>
+          <field name="model">res.currency</field>
+          <field name="inherit_id" ref="base.view_currency_form"/>
+          <field name="arch" type="xml">
+              <xpath expr="//form" position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="delete">false</attribute>
+              </xpath>
+          </field>
+      </record>
+
+      <record id="view_currency_tree_sparkit" model="ir.ui.view">
+          <field name="name">sparkit.res.currency.tree</field>
+          <field name="model">res.currency</field>
+          <field name="inherit_id" ref="base.view_currency_tree"/>
+          <field name="arch" type="xml">
+              <xpath expr="//tree" position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="delete">false</attribute>
+              </xpath>
+              <xpath expr="//tree" position="attributes">
+                <attribute name="import">false</attribute>
+              </xpath>
+          </field>
+      </record>
+
+    </data>
+</openerp>

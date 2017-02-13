@@ -125,10 +125,10 @@ class TransitionStrategy(models.Model):
 		help="When will the responsible party reach out to the partner?")
 
 	#Pillar Training
-	pillar_training1_id = fields.Many2one('sparkit.training', string="Pillar Training 1")
-	pillar_training2_id = fields.Many2one('sparkit.training', string="Pillar Training 2")
-	pillar_training3_id = fields.Many2one('sparkit.training', string="Pillar Training 3")
-	pillar_training4_id = fields.Many2one('sparkit.training', string="Pillar Training 4")
+	pillar_training1_id = fields.Char(string="Pillar Training 1")
+	pillar_training2_id = fields.Char(string="Pillar Training 2")
+	pillar_training3_id = fields.Char(string="Pillar Training 3")
+	pillar_training4_id = fields.Char(string="Pillar Training 4")
 	pillar_training1_desc = fields.Text(string="Pillar Training 1: Description")
 	pillar_training2_desc = fields.Text(string="Pillar Training 2: Description")
 	pillar_training3_desc = fields.Text(string="Pillar Training 3: Description")

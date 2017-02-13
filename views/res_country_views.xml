@@ -9,14 +9,18 @@
           <field name="arch" type="xml">
               <xpath expr="//form" position="attributes">
                 <attribute name="create">false</attribute>
+                <attribute name="delete">false</attribute>
               </xpath>
               <!-- find field description and add the field
                    idea_ids after it -->
               <xpath expr="//field[@name='code']" position="after">
-                 <field name="is_active"/>
+                <field name="is_active"/>
+                <field name="num_ppl_per_household"
+                  attrs="{'required': [('is_active', '=', True)]}"/>
               </xpath>
               <xpath expr="//field[@name='state_ids']" position="replace">
-                <field name="community_ids"/>
+                <field name="community_ids"
+                    readonly="1"/>
              </xpath>
           </field>
       </record>
@@ -28,6 +32,7 @@
           <field name="arch" type="xml">
               <xpath expr="//tree" position="attributes">
                 <attribute name="create">false</attribute>
+                <attribute name="delete">false</attribute>
               </xpath>
               <xpath expr="//tree" position="attributes">
                 <attribute name="import">false</attribute>

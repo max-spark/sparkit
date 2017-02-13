@@ -14,25 +14,30 @@ from datetime import datetime
 
 class VisitReportForm(models.Model):
 	_name = 'sparkit.vrf'
+	_inherit = 'mail.thread'
 
 	#Basic Information
-	name = fields.Char(String="Form ID", readonly=True)
+	name = fields.Char(String="Form ID", readonly=True, track_visibility='always')
 	community_id = fields.Many2one('sparkit.community', string="Community",
-		required=True)
+		required=True, track_visibility='always')
 	community_number = fields.Char(related='community_id.community_number')
 	community_name = fields.Char(related='community_id.name', store=True)
 	facilitator_id = fields.Many2one('res.users', default=lambda self: self.env.user,
-		string="Facilitator")
+		string="Facilitator", track_visibility='onchange')
+	co_facilitator_id = fields.Many2one('res.users',
+		string="Co-Facilitator", track_visibility='onchange')
 	form_type = fields.Char(string="Form Type", compute='_get_form_type', store=True)
-	program_manager_id = fields.Many2one('res.users', string="Program Manager")
-	visit_date = fields.Date(string="Date of Visit", required=True)
+	program_manager_id = fields.Many2one('res.users', string="Program Manager",
+		track_visibility='onchange')
+	visit_date = fields.Date(string="Date of Visit", required=True,
+		track_visibility='onchange')
 	phase = fields.Selection([
 		('community_identification', 'Community Identification'),
 		('planning', 'Planning'),
 		('implementation', 'Implementation'),
 		('post_implementation', 'Post Implementation'),
 		('graduated', 'Graduated')
-		], select=True, string="Phase")
+		], select=True, string="Phase", track_visibility='onchange')
 	state = fields.Selection([
 		('community_identification', 'Community Identification - Baseline'),
 		('introductions', 'Introductions'),
@@ -56,9 +61,9 @@ class VisitReportForm(models.Model):
 		('post_implementation3', 'Post Implementation: Graduation'),
 		('graduated', 'Graduated'),
 		('partnership_canacelled', 'Partnership Cancelled'),
-		], select=True, string="Step")
-	gps_latitude = fields.Char(string="Latitude")
-	gps_longitude = fields.Char(string="Longitude")
+		], select=True, string="Step", track_visibility='onchange')
+	gps_latitude = fields.Char(string="Latitude", track_visibility='onchange')
+	gps_longitude = fields.Char(string="Longitude", track_visibility='onchange')
 	# Dashboard Info
 	phase_name = fields.Char(compute='_get_phase_name', string="Phase Name", store=True)
 	state_name = fields.Char(compute='_get_state_name', string="State Name", store=True)
@@ -80,13 +85,19 @@ class VisitReportForm(models.Model):
 	attendance3_total = fields.Integer(string="Total Attendance Type 3")
 	attendance4_total = fields.Integer(string="Total Attendance Type 4")
 
-	attendance_females = fields.Integer(string="Female Attendance")
-	attendance_female_leaders = fields.Integer(string="Female Leaders in Attendance")
+	attendance_females = fields.Integer(string="Female Attendance",
+		track_visibility='onchange')
+	attendance_female_leaders = fields.Integer(string="Female Leaders in Attendance",
+		track_visibility='onchange')
 	attendance_first_time = fields.Integer(string="First Time Attendees",
-		help="How many attendees attended a Spark meeting for the first time?")
-	attendance_males = fields.Integer(string="Male Attendance")
-	attendance_male_leaders = fields.Integer(string="Male Leaders in Attendance")
-	attendance_total = fields.Integer(string="Total Attendance", compute='_total_attendance')
+		help="How many attendees attended a Spark meeting for the first time?",
+		track_visibility='onchange')
+	attendance_males = fields.Integer(string="Male Attendance",
+		track_visibility='onchange')
+	attendance_male_leaders = fields.Integer(string="Male Leaders in Attendance",
+		track_visibility='onchange')
+	attendance_total = fields.Integer(string="Total Attendance",
+		compute='_total_attendance', track_visibility='onchange')
 
 	#Speaker information
 	#TODO: Remove from core
@@ -103,52 +114,68 @@ class VisitReportForm(models.Model):
 	speakers3_total = fields.Integer(string="Total Speakers Type 3")
 	speakers4_total = fields.Integer(string="Total Speakers Type 4")
 
-	speakers_female = fields.Integer(string="Female Speakers")
+	speakers_female = fields.Integer(string="Female Speakers",
+		track_visibility='onchange')
 	speakers_first_time = fields.Integer(string="First Time Speakers",
-		help="How many attendees spoke at a Spark meeting for the first time?")
-	speakers_male = fields.Integer(string="Male Speakers")
-	speakers_total = fields.Integer(string="Total Speakers", compute='_total_speakers')
+		help="How many attendees spoke at a Spark meeting for the first time?",
+		track_visibility='onchange')
+	speakers_male = fields.Integer(string="Male Speakers",
+		track_visibility='onchange')
+	speakers_total = fields.Integer(string="Total Speakers",
+		track_visibility='onchange', compute='_total_speakers')
 
 	#Next Meeting Information
 	next_meeting_activity1_id = fields.Many2one('sparkit.fcapactivity',
-		string="Next Meeting Activity 1")
+		string="Next Meeting Activity 1", track_visibility='onchange')
 	next_meeting_activity2_id = fields.Many2one('sparkit.fcapactivity',
-		string="Next Meeting Activity 2")
+		string="Next Meeting Activity 2", track_visibility='onchange')
 	next_meeting_activity3_id = fields.Many2one('sparkit.fcapactivity',
-		string="Next Meeting Activity 3")
+		string="Next Meeting Activity 3", track_visibility='onchange')
 
-	# Computing Default depending on FCAP stage? [Suggested Next visit Date]
-	next_visit_date = fields.Date(string="Date of Next Visit")
+	#TODO: Computing Default depending on FCAP stage? [Suggested Next visit Date]
+	next_visit_date = fields.Date(string="Date of Next Visit",
+		track_visibility='onchange')
 
 	#Meeting Report
 
-	activity1_id = fields.Many2one('sparkit.fcapactivity', string="Activity 1")
-	activity2_id = fields.Many2one('sparkit.fcapactivity', string="Activity 2")
-	activity3_id = fields.Many2one('sparkit.fcapactivity', string="Activity 3")
+	activity1_id = fields.Many2one('sparkit.fcapactivity', string="Activity 1",
+		track_visibility='onchange')
+	activity2_id = fields.Many2one('sparkit.fcapactivity', string="Activity 2",
+		track_visibility='onchange')
+	activity3_id = fields.Many2one('sparkit.fcapactivity', string="Activity 3",
+		track_visibility='onchange')
 
 	activity1_accomplished = fields.Boolean(string="Community Activity 1 Accomplished?",
-		help = "Was the planned activity accomplished?")
+		help = "Was the planned activity accomplished?",
+		track_visibility='onchange')
 	activity2_accomplished = fields.Boolean(string="Community Activity 2 Accomplished?",
+		track_visibility='onchange',
 		help = "Was the planned activity accomplished?")
 	activity3_accomplished = fields.Boolean(string="Community Activity 3 Accomplished?",
+		track_visibility='onchange',
 		help = "Was the planned activity accomplished?")
 	activity1_desc = fields.Text(string="Activity 1 Status Description",
+		track_visibility='onchange',
 		help = "What activity did you plan to do with the community?")
 	activity2_desc = fields.Text(string="Activity 2 Status Description",
+		track_visibility='onchange',
 		help = "What activity did you plan to do with the community?")
 	activity3_desc = fields.Text(string="Activity 3 Status Description",
+		track_visibility='onchange',
 		help = "What activity did you plan to do with the community?")
-	visit_duration = fields.Selection(
+	meeting_duration = fields.Selection(
 		[('not_applicable', 'Not Applicable'),
 		 ('one_hour', '1 hour'),
 		 ('one_hour_thirty', '1 hour 30 minutes'),
 		 ('two_hours', '2 hours'),
 		 ('two_hours_thirty', '2 hours 30 mintutes'),
 		 ('three_hours', '3 hours'),
-		 ('over_three_hours', 'More than 3 hours')], select=True, string="Visit Duration",
+		 ('over_three_hours', 'More than 3 hours')], select=True, string="Meeting Duration",
+		 track_visibility='onchange',
 		  help="Please enter the duration of the meeting. Please round up to nearest 15mn interval")
-	visit_duration_minutes = fields.Integer(string="Visit Duration Minutes",
-		compute='_visit_duration_minutes')
+	meeting_duration_minutes = fields.Integer(string="Meeting Duration Minutes",
+		track_visibility='onchange',
+		compute='_meeting_duration_minutes')
 	travel_duration = fields.Selection(
 		[('not_applicable', 'Not Applicable'),
 		 ('one_hour', '1 hour'),
@@ -157,59 +184,41 @@ class VisitReportForm(models.Model):
 		 ('two_hours_thirty', '2 hours 30 mintutes'),
 		 ('three_hours', '3 hours'),
 		 ('over_three_hours', 'More than 3 hours')], select=True,
-		 string="Travel Duration", help="Please enter the ONE-WAY duration of travel")
+		 track_visibility='onchange',
+		 string="One-Way Travel Duration", help="Please enter the ONE-WAY duration of travel")
 	travel_duration_minutes = fields.Integer(string="Travel Duration Minutes",
+		track_visibility='onchange',
 		compute='_travel_duration_minutes')
 	meeting_started_on_time = fields.Boolean(string="Meeting Started on Time?")
 	meeting_started_on_time_desc = fields.Text(
 		string="Meeting Started on Time: Description",
+		track_visibility='onchange',
 		help = "If the meeting did not start on time, please explain why.")
 	cmty_set_agenda = fields.Selection(
 		[('yes', 'Yes'),
 		 ('no', 'No'),
 		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True, string="Community Set Agenda")
-	cmty_set_agenda_desc = fields.Text(string="Community Set Agenda: Description")
+		 ('unknown', 'Unknown')], select=True,
+		 track_visibility='onchange', string="Community Set Agenda")
 	number_members_showing_leadership = fields.Integer(
-		string="Number of Members Showing Leadership", help="""
-		Please enter the number of members that have shown leadership in the meeting.""")
+		string="Number of Members Showing Leadership", track_visibility='onchange',
+		help="Please enter the number of members that have shown leadership in the meeting.")
 	conflicts_in_meeting = fields.Selection(
 		[('yes', 'Yes'),
 		 ('no', 'No'),
 		 ('not_applicable', 'Not applicable'),
 		 ('unknown', 'Unknown')], select=True, string="Conflict(s) in meeting?",
-		 	help="Did any conflicts or challenges take place during the meeting?")
+	 	track_visibility='onchange',
+	 	help="Did any conflicts or challenges take place during the meeting?")
 	conflicts_in_meeting_desc = fields.Text(string="Conflict(s) in Meeting: Description",
+		track_visibility='onchange',
 		help="Please describe any conflicts or challenges that took place during the meeting. Note whether they were resolved or not during the meeting.")
 	conflicts_in_meeting_resolved = fields.Selection(
 		[('yes', 'Yes'),
 		 ('no', 'No'),
 		 ('unknown', 'Unknown')], select=True, string="Conflict(s) in meeting: resolved?",
+		 track_visibility='onchange',
 		 help="During the meeting, if attendees faced any conflicts or challenges, were any of these resolved?")
-
-	#Community Trainings linking to training configuration table
-	training_delivered1_id = fields.Many2one('sparkit.training',
-		string="Training Delivered 1",
-		help="If a training was delivered during contact, please select it from the list. If more than one training was delivered, please use the field(s) below to select the other training(s) delivered.")
-	training_delivered2_id = fields.Many2one('sparkit.training',
-		string="Training Delivered 2", help="If a training was delivered during contact, please select it from the list. If more than one training was delivered, please use the field(s) below to select the other training(s) delivered.")
-	training_delivered3_id = fields.Many2one('sparkit.training',
-		string="Training Delivered 3", help="If a training was delivered during contact, please select it from the list. If more than one training was delivered, please use the field(s) below to select the other training(s) delivered.")
-	training_delivered_other = fields.Text(string="Training Delivered - Other",
-		help="If a training was delivered that was not listed above, please describe the training here.")
-	training_delivered_desc1 = fields.Text(string="Training Description 1")
-	training_delivered_desc2 = fields.Text(string="Training Description 2")
-	training_delivered_desc3 = fields.Text(string="Training Description 3")
-	training_needed = fields.Selection(
-		[('yes', 'Yes'),
-		 ('no', 'No')], string="Training Needed?")
-	training_needed1_id = fields.Many2one('sparkit.training', string="Training Needed 1")
-	training_needed2_id = fields.Many2one('sparkit.training', string="Training Needed 2")
-	training_needed3_id = fields.Many2one('sparkit.training', string="Training Needed 3")
-	training_needed_desc1 = fields.Text(string="Training Needed 1: Description")
-	training_needed_desc2 = fields.Text(string="Training Needed 2: Description")
-	training_needed_desc3 = fields.Text(string="Training Needed 3: Description")
-	training_needed_other = fields.Text(string="Training Needed - Other")
 
 	#Community Report
 	cmty_reported_conflicts = fields.Selection(
@@ -217,20 +226,22 @@ class VisitReportForm(models.Model):
 		 ('no', 'No'),
 		 ('not_applicable', 'Not applicable'),
 		 ('unknown', 'Unknown')], string="Community Reported Conflict(s)?",
+		 track_visibility='onchange',
 		 help="Did the community report that it faced a conflict or challenge, which took place before or outside of the meeting?")
 	cmty_reported_conflicts_desc = fields.Text(
 		string="Community Reported Conflict(s): Description",
+		track_visibility='onchange',
 		help="Please describe the conflict or challenge the community faced, including the issue or event, who was involved, whether it was resolved, how it was resolved, and who was involved in its resolution.")
 	cmty_reported_conflicts_resolved = fields.Selection(
 		[('yes', 'Yes'),
 		 ('no', 'No'),
 		 ('unknwon', 'Unknown')], string="Community Reported Conflict(s): resolved?",
+		 track_visibility='onchange',
 		 help="Did the community report that it resolved a conflict or challenge, which took place before or outside of the meeting?")
 
-	#Communications
-	quotes_from_communtiy_members = fields.Text(string="Quotes from Community Members")
-	ideas_for_social_media = fields.Text(string="Ideas for Social Media")
-	story_collection=fields.Text(string="Story Collection")
+	community_highlights = fields.Text(string="Community Highlights",
+		track_visibility='onchange',
+		help="Please enter any highlights or other comments from your visit today.")
 
 	#Independent Project Updates
 	independent_project_update_ids = fields.One2many(related='community_id.independent_project_update_ids')
@@ -256,17 +267,19 @@ class VisitReportForm(models.Model):
 		('goal_setting_activity', 'Goal Setting Activity'),
 		('gathering_information', 'Gathering Information'),
 		('proposal_question', 'Proposal Question'),
-		('advocacy', 'Advocacy')], select=True, string="Homework Type")
+		('advocacy', 'Advocacy')], track_visibility='onchange',
+		select=True, string="Homework Type")
 	homework_attempted_completed = fields.Boolean(
-		string="Homework attempted or completed?")
-	homework_desc = fields.Text(string="Homework Description")
+		string="Homework attempted or completed?", track_visibility='onchange')
+	homework_desc = fields.Text(string="Homework Description", track_visibility='onchange')
 
 	#IVRF/PIVRF Specific Fields
 	all_receipts_present = fields.Selection([('yes', 'Yes'),
 		 ('no', 'No'),
 		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True, string="All Receipts Present?")
-	all_receipts_present_desc = fields.Text(string="All Receipts Present: Description")
+		 ('unknown', 'Unknown')], select=True,
+		 track_visibility='onchange', string="All Receipts Present?")
+	all_receipts_present_desc = fields.Text(string="All Receipts Present: Description", track_visibility='onchange')
 	bank_deposits = fields.Selection([('yes', 'Yes'),
 		 ('no', 'No'),
 		 ('not_applicable', 'Not applicable'),
@@ -325,15 +338,16 @@ class VisitReportForm(models.Model):
 		('on', 'On Budget')], select=True, string="Project on Budget")
 
 	#PIVRF Specific Fields
-	any_new_risks = fields.Boolean(string="Any New Risks?")
-	any_new_risks_desc = fields.Text(string="Any New Risks: Description")
-	records_updated = fields.Boolean(string="Records Updated?")
-	records_updated_desc = fields.Text(string="Records Updated: Description")
+	any_new_risks = fields.Boolean(string="Any New Risks?", track_visibility='onchange')
+	any_new_risks_desc = fields.Text(string="Any New Risks: Description", track_visibility='onchange')
+	records_updated = fields.Boolean(string="Records Updated?", track_visibility='onchange')
+	records_updated_desc = fields.Text(string="Records Updated: Description", track_visibility='onchange')
 
 	cmty_meeting_frequency = fields.Selection([('weekly', 'Meeting Once a Week or More'),
 		('monthly', 'Once a Month'), ('bimonthly', 'Twice a Month'),
 		('irregularly', 'Meeting Irregularly but Frequently'),
 		('ocasionally', 'Meeting Ocasionally'), ('not_meeting', 'Not Meeting')],
+		track_visibility='onchange',
 		select=True, string="Community Meeting Frequency")
 
 	@api.depends('visit_date')
@@ -372,24 +386,24 @@ class VisitReportForm(models.Model):
 				elif r.phase == 'graduated':
 					r.form_type = "PIVRF"
 
-	@api.depends('visit_duration')
-	def _visit_duration_minutes(self):
+	@api.depends('meeting_duration')
+	def _meeting_duration_minutes(self):
 		for r in self:
-			if r.visit_duration == 'one_hour':
-				r.visit_duration_minutes = 60
-			elif r.visit_duration == 'one_hour_thirty':
-				r.visit_duration_minutes = 90
-			elif r.visit_duration == 'two_hours':
-				r.visit_duration_minutes = 120
-			elif r.visit_duration == 'two_hours_thirty':
-				r.visit_duration_minutes = 150
-			elif r.visit_duration == 'three_hours':
-				r.visit_duration_minutes = 180
+			if r.meeting_duration == 'one_hour':
+				r.meeting_duration_minutes = 60
+			elif r.meeting_duration == 'one_hour_thirty':
+				r.meeting_duration_minutes = 90
+			elif r.meeting_duration == 'two_hours':
+				r.meeting_duration_minutes = 120
+			elif r.meeting_duration == 'two_hours_thirty':
+				r.meeting_duration_minutes = 150
+			elif r.meeting_duration == 'three_hours':
+				r.meeting_duration_minutes = 180
 			##How should we handle this case?
-			elif r.visit_duration == 'over_three_hours':
-				r.visit_duration_minutes = 210
+			elif r.meeting_duration == 'over_three_hours':
+				r.meeting_duration_minutes = 210
 			else:
-				r.visit_duration_minutes = 0
+				r.meeting_duration_minutes = 0
 
 
 	@api.depends('travel_duration')
@@ -443,16 +457,6 @@ class VisitReportForm(models.Model):
 				r.state = r.community_id.state_name
 
 
-
-
-	#---------------------------------------------------
-	#                    Trainings 	                   |
-	#---------------------------------------------------
-
-class Training(models.Model):
-	_name = 'sparkit.training'
-
-	name = fields.Char(string="Training")
 
 	#---------------------------------------------------
 	#               Group Tracking                     |

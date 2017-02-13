@@ -13,7 +13,8 @@
               <group colspan="2" col="2">
                 <field name="name" invisible="1"/>
                 <field name="community_id" options="{'no_create': True}"/>
-                <field name="partner_id"/>
+                <field name="partner_id"
+									context="{'default_company_type': 'company'}"/>
 								<field name="date_reached_out"/>
                 <field name="start_date"/>
 								<field name="end_date"/>

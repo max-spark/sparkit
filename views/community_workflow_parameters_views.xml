@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+    <!-- Workflow Configuration-->
+    <!--Workflow Parameters Configuration Form View -->
+    <record model="ir.ui.view" id="workflow_config_form_view">
+      <field name="name">communityworkflowparameters.form</field>
+      <field name="model">sparkit.communityworkflowparameters</field>
+      <field name="arch" type="xml">
+        <form string="Workflow Configuration" create="false">
+          <sheet>
+            <field name="name"/>
+            <group string="Community ID to Introductions">
+              <field name="is_oca1_completed"/>
+            </group>
+            <group colspan="4" col="4" class="no_style" string="Partnership to Community Building">
+              <field name="is_partnership_hh_requirement_met"/>
+              <field name="using_hh_breakpoint"/>
+              <field name="min_percent_hh_partnership"
+                  attrs="{'invisible': [('using_hh_breakpoint', '!=', False)]}"/>
+              <field name="partnership_hh_breakpoint"
+                attrs="{'invisible': [('using_hh_breakpoint', '!=', True)]}"/>
+              <field name="partnership_hh_upper"
+                attrs="{'invisible': [('using_hh_breakpoint', '!=', True)]}"/>
+              <field name="partnership_hh_lower"
+                attrs="{'invisible': [('using_hh_breakpoint', '!=', True)]}"/>
+            </group>
+            <group colspan="4" col="4" class="no_style" string="Community Building to Goal Setting: Goals">
+              <group colspan="2" col="2">
+                <field name="is_cmty_leaders_entered"/>
+                <field name="num_leaders_requirement"/>
+                <field name="leaders_gender_requirement"/>
+                <field name="sms_registration_completed"/>
+                <field name="communitybldg_min_elected_leaders"/>
+                <field name="communitybldg_max_elected_leaders"/>
+                <field name="communtiybldg_min_percent_female"/>
+              </group>
+            </group>
+            <group colspan="4" col="4" string="Goal Setting (Goals/Indicators/Pathways)">
+              <field name="min_goals_brainstormed"/>
+              <field name="min_pathways_brainstormed"/>
+            </group>
+            <group colspan="4" col="4" string="Pathways to Implementation Plan">
+              <field name="is_oca2_completed"/>
+              <field name="did_ta_recruitment_begin"/>
+              <field name="did_bank_opening_begin"/>
+              <field name="did_government_registration_begin"/>
+              <field name="pm_approved_goal_setting"/>
+            </group>
+            <group colspan="4" col="4" string="Implementation Plan to Operational Plan">
+              <field name="cmty_facilitators_identified"/>
+            </group>
+            <group colspan="4" col="4" string="Proposal Finalization to Implementation: Grant Agreement">
+              <field name="is_bank_account_created"/>
+              <field name="has_pm_approved_proposal"/>
+              <field name="is_oca3_completed"/>
+              <field name="cmty_registered_with_govt"/>
+            </group>
+            <group colspan="4" col="4" string="Implementation: Grant Agreement to A/T (First Disbursement)">
+							<field name="is_receipt_book_received"/>
+							<field name="is_disbursement_book_received"/>
+							<field name="is_cashbook_received"/>
+							<field name="min_pg_signed_agreement"/>
+              <field name="percent_pg_signed_grantagreement"/>
+            </group>
+						<group colspan="4" col="4" string="Implementation to Post Implementation: Management Support">
+							<field name="is_project_quality_approved_ta"/>
+							<field name="is_imp_action_plan_completed"/>
+							<field name="is_transition_strategy_completed"/>
+							<field name="cmty_facilitation_training"/>
+							<field name="field_audit_passed"/>
+							<field name="cmty_report1_submitted"/>
+						</group>
+						<group colspan="4" col="4" string="PI: Management Support to PI: Future Envisioning">
+							<field name="is_oca4_completed"/>
+							<field name="is_oca5_completed"/>
+						</group>
+						<group colspan="4" col="4" string="PI: Future Envisioning to PI: Graduation">
+							<field name="cmty_report2_submitted"/>
+							<field name="is_oca6_completed"/>
+						</group>
+            <group colspan="4" col="4" string="Graduation">
+							<field name="exit_agreement_signed"/>
+              <field name="percent_pg_signed_exitagreement"/>
+							<field name="cmty_passed_field_audit_pi3"/>
+							<field name="cmty_report3_submitted"/>
+							<field name="is_oca7_completed"/>
+							<field name="exit_agreement_uploaded"/>
+							<field name="is_oca8_completed"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!--Workflow Parameters Configuration List View  -->
+    <record model="ir.ui.view" id="workflow_config_tree">
+      <field name="name">communityworkflowparameters.tree</field>
+      <field name="model">sparkit.communityworkflowparameters</field>
+      <field name="arch" type="xml">
+        <tree string="Workflow Configuration">
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Workflow Parameters Configuration Action -->
+    <record model="ir.actions.act_window" id="workflow_configuration_list_action">
+      <field name="name">Workflow Configuration</field>
+      <field name="res_model">sparkit.communityworkflowparameters</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+  </data>
+</openerp>

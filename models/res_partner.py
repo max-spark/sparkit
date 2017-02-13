@@ -9,18 +9,33 @@ class res_partner(models.Model):
     company_type = fields.Selection([
 		('community_member', 'Community Member'),
 		('person', 'Individual (Non-Community Member)'),
-		('company', 'Company'),
+		('company', 'Company/NGO/CSO/Government'),
 		('community_leader', 'Community Leader'),
 		('boda_moto', 'Boda/Moto'),
-        ('community_facilitator', 'Community Facilitator')
-		], select=True, string="Contact Type")
+        ('community_facilitator', 'Community Facilitator'),
+        ('technical_advisor', 'Technical Advisor'),
+		], select=True, string="Contact Type",
+        track_visibility='onchange')
 
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female')
-        ], select=True, string="Gender")
+        ], select=True, string="Gender",
+        track_visibility='onchange')
 
-    community_id = fields.Many2one('sparkit.community', string="Community")
+    lang = fields.Selection(help="")
+
+    country_id = fields.Many2one(required=True,
+        help="""Individuals: Country of Residence
+        International Organizations: Country of HQ""")
+
+    community_id = fields.Many2one('sparkit.community', string="Community",
+        track_visibility='onchange')
+
+    community_ids = fields.Many2many('sparkit.community', string="Communities",
+        track_visibility='onchange')
+
     new_leader = fields.Selection([('1', 'Yes'), ('0', 'No')],
         select=True, string="New Leader",
+        track_visibility='onchange',
         help="Tick this box if the leader has never been in a leadership before.")

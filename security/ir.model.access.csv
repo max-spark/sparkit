@@ -8,7 +8,6 @@ access_sparkit_transaction,sparkit.transaction,model_sparkit_transaction,,1,1,1,
 access_sparkit_disbursalrequest,sparkit.disbursalrequest,model_sparkit_disbursalrequest,,1,1,1,1
 access_sparkit_disbursal,sparkit.disbursal,model_sparkit_disbursal,,1,1,1,1
 access_sparkit_projectsupportinitiative,sparkit.projectsupportinitiative,model_sparkit_projectsupportinitiative,,1,1,1,1
-access_sparkit_training,sparkit.training,model_sparkit_training,,1,1,1,1
 access_sparkit_independentmeeting,sparkit.independentmeeting,model_sparkit_independentmeeting,,1,1,1,1
 access_sparkit_projectcategory,sparkit.projectcategory,model_sparkit_projectcategory,,1,1,1,1
 access_sparkit_projectsubcategory,sparkit.projectsubcategory,model_sparkit_projectsubcategory,,1,1,1,1
