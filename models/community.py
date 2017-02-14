@@ -1615,8 +1615,9 @@ class Community(models.Model):
 	@api.depends('spark_project_ids.budget_line_item_ids')
 	def _check_budget_created(self):
 		for r in self:
-			if r.spark_project_ids.budget_line_item_ids:
-				r.is_budget_created = True
+			for line in r.spark_project_ids:
+				if line.budget_line_item_ids:
+					r.is_budget_created = True
 
 	@api.depends('goals_ideas')
 	def check_goals_ideas(self):
