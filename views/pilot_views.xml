@@ -118,6 +118,7 @@
 							<field name="community_id" options="{'no_create': True}"
 								domain="[('pilot_ids', '=', pilot_id)]"/>
 							<field name="pilot_id" options="{'no_create': True}"
+								required="1"
 								domain="[('community_ids', '=', community_id)]"/>
 							<field name="facilitator_id"/>
 						</group>

@@ -64,7 +64,7 @@ class SavingsGroupUpdate(models.Model):
 	#Basic
 	name = fields.Char(compute='_get_name')
 	savings_group_id = fields.Many2one('sparkit.savingsgroup',
-		string="Savings Group", required=True)
+		string="Savings Group")
 	community_id = fields.Many2one('sparkit.community')
 
 	#Update

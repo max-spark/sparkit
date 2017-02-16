@@ -52,7 +52,7 @@ class IndependentProjectUpdate(models.Model):
 	#Basic
 	name = fields.Char(string="Name")
 	independent_project_id = fields.Many2one('sparkit.independentproject',
-		string="Independent Project", ondelete='cascade')
+		string="Independent Project")
 	community_id = fields.Many2one('sparkit.community')
 	is_sustaining = fields.Boolean(string="Independent Project Sustaining?", default=True)
 

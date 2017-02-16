@@ -12,11 +12,7 @@
     	This module has been specified and developed by Spark Microgrants for its
     	internal programatic management system - and for sharing with partner
     	organisations who wish to roll out the Facilitated Collective
-    	Action Process (FCAP). This includes
-			- Spark FCAP workflows
-			- Government Partner CRM
-			- Community Visit Tracker
-			- All data collection tools
+    	Action Process (FCAP). 
     """,
 
     'author': "Spark MicroGrants",

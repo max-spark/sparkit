@@ -90,7 +90,7 @@
         <tree string="Partnership" editable="bottom">
           <field name="name" invisible="1"/>
           <field name="community_id" options="{'no_create': True}" invisible="1"/>
-          <field name="partnership_id"
+          <field name="partnership_id" required="1"
              domain="[('community_id', '=', community_id)]"/>
           <field name="date"/>
           <field name="description"/>

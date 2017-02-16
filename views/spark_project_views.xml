@@ -297,6 +297,7 @@
 						<field name="community_id" invisible="1"
   						options="{'no_create': True}"/>
   					<field name="project_id" options="{'no_create': True}"
+							 required="1"
   						 domain="[('community_id', '=', community_id)]"/>
   					<field name="date"/>
   					<field name="description"/>

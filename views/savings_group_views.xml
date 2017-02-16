@@ -99,6 +99,7 @@
   					<field name="name" invisible="1"/>
   					<field name="community_id" invisible="1"/>
   					<field name="savings_group_id"
+							required="1"
 							domain="[('community_id', '=', community_id)]"/>
   					<field name="amount_in_bank"/>
   					<field name="amount_in_circulation"/>

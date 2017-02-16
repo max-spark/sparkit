@@ -11,6 +11,7 @@
   					<sheet>
   						<group colspan="4" col="4" string="Information" class="no_style">
   							<group colspan="2">
+									<field name="name" invisible="1"/>
   								<field name="community_id"
   									options="{'no_create': True}"/>
 									<field name="is_group_tracking_enabled" invisible="1"/>
@@ -157,29 +158,35 @@
 									</group>
 								</group>
 							</page>
-							<page string="Ind. Meetings">
+							<page string="Ind. Meetings"
+									attrs="{'invisible': [('name', '=', False)]}">
 								<field name="independent_meeting_ids" nolabel="1"
 									context="{'default_community_id': community_id, 'default_date': visit_date}"/>
 							</page>
-							<page string="Ind. Project Updates">
+							<page string="Ind. Project Updates"
+									attrs="{'invisible': [('name', '=', False)]}">
 								<field name="independent_project_update_ids" nolabel="1"
 									context="{'default_community_id': community_id, 'default_date': visit_date}"/>
 							</page>
-							<page string="Savings Group Updates">
+							<page string="Savings Group Updates"
+									attrs="{'invisible': [('name', '=', False)]}">
 								<field name="savings_group_update_ids"
 									context="{'default_community_id': community_id, 'default_date': visit_date}"/>
 							</page>
-							<page string="Project Support Initiatives">
+							<page string="Project Support Initiatives"
+									attrs="{'invisible': [('name', '=', False)]}">
 								<field name="project_support_initiative_ids"
 									context="{'default_community_id': community_id, 'default_date': visit_date}"
 									domain="[('community_id', '=', community_id)]"/>
 							</page>
-							<page string="Advocacy Updates">
+							<page string="Advocacy Updates"
+									attrs="{'invisible': [('name', '=', False)]}">
 								<field name="partnership_update_ids"
 									context="{'default_community_id': community_id, 'default_date': visit_date}"
 									domain="[('community_id', '=', community_id)]"/>
 							</page>
-							<page string="Pilot Updates">
+							<page string="Pilot Updates"
+									attrs="{'invisible': [('name', '=', False)]}">
 								<field name="pilot_update_ids"
 									context="{'default_community_id': community_id, 'default_date': visit_date}"
 									domain="[('community_id', '=', community_id)]"/>
