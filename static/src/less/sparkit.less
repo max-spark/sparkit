@@ -460,6 +460,7 @@ input[type="color"],
     border: 0px !important;
     background: darken(@sf-gray-blue, 2%);
     color: @darker-blue;
+    font-weight: bold;
     height: 10px !important;
 }
 
@@ -616,8 +617,8 @@ input[type="color"],
 // Odoo Loading Bar
 //------------------------
 .o_web_client .openerp .oe_loading {
-    background-color:   @darker-blue !important;
-    border-color:       darken(@darker-blue, 10%);
+    background-color:   @spark-yellow !important;
+    border-color:       darken(@spark-yellow, 10%);
     width:              100px;
     opacity:            .9;
 }
@@ -696,4 +697,22 @@ input[type="color"],
 
 .arrow {
  display: none !important;
+}
+
+// Fixing Notification Manager
+
+.o_notification_manager {
+  z-index: 1000;
+}
+
+
+// Making 'Edit' Button Yellow
+.oe_form_button_edit {
+  background-color: @spark-yellow;
+  border: 1px solid @spark-yellow;
+}
+
+.oe_form_button_edit:hover {
+  background-color: darken(@spark-yellow, 10%);
+  border: 1px solid darken(@spark-yellow, 10%);
 }

@@ -28,6 +28,7 @@ class Community(models.Model):
 	state_name = fields.Char(compute='_get_state_name', string="State Name", store=True)
 	special_cases = fields.Many2many('sparkit.specialcases', string="Special Cases",
 		track_visibility='onchange')
+	is_group_tracking_enabled = fields.Boolean(string="Group Tracking Enabled?")
 
 	#Workflow States
 	phase = fields.Selection([

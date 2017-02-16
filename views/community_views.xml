@@ -157,7 +157,7 @@
 									('state', '!=', 'imp_transition_strategy')]}"/>
 							<button name="check_pm_approved_project_launch"
 								type="object"
-								string="Community Approved for Partnership"
+								string="All Implementation Activities Have Been Completed"
 								attrs="{'invisible': ['|', ('is_imp_action_plan_completed', '=', True),
 									('state', '!=', 'imp_transition_strategy')]}"
 								class="oe_highlight"/>
@@ -209,7 +209,7 @@
 							  attrs="{'invisible': [('state', '!=', 'introductions')]}">
 								<group colspan="6" col="6" class="no_style" string="   Community Identification: Introductions (2/18)">
 									<field name="is_community_description_filled"/>
-									<field name="has_pm_approved_partnership"/>
+									<field name="has_pm_approved_partnership" readonly="1"/>
 									<field name="introducing_spark_completed"/>
 									<field name="community_mapping_completed"/>
 								</group>
@@ -262,7 +262,7 @@
 								attrs="{'invisible': [('state', '!=', 'goal_setting_pathways')]}">
 								<group colspan="6" col="6" class="no_style" string="   Planning: Goal Setting - Pathways (6/18)">
 									<field name="is_project_description_not_null"/>
-									<field name="pm_approved_goal_setting"/>
+									<field name="pm_approved_goal_setting" readonly="1"/>
 									<field name="is_oca2_completed"/>
 									<field name="is_min_pathways_brainstormed"/>
 									<field name="did_ta_recruitment_begin"/>
@@ -330,7 +330,7 @@
 									<field name="is_oca3_completed"/>
 									<field name="is_budget_created"/>
 									<field name="is_project_created"/>
-									<field name="has_pm_approved_proposal"/>
+									<field name="has_pm_approved_proposal" readonly="1"/>
 									<field name="cmty_registered_with_govt"/>
 								</group>
 							</group>
@@ -377,7 +377,8 @@
 								attrs="{'invisible': [('state', '!=', 'imp_transition_strategy')]}">
 								<group colspan="6" col="6" class="no_style" string="   Implementation: Transition Strategy (15/18)">
 									<field name="is_project_quality_approved_ta"/>
-									<field name="is_imp_action_plan_completed"/>
+									<field name="is_imp_action_plan_completed"
+											readonly="1"/>
 									<field name="is_transition_strategy_completed"/>
 									<field name="cmty_facilitation_training"/>
 									<field name="field_audit_passed"/>
@@ -442,6 +443,7 @@
 									<field name="program_manager_id" options="{'no_create': True}"/>
 									<field name="description"/>
 									<field name="workflow_config_id"/>
+									<field name="is_group_tracking_enabled"/>
 								</group>
 								<group colspan="2" col="2">
 									<field name="state"/>

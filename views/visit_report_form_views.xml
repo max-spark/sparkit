@@ -13,6 +13,7 @@
   							<group colspan="2">
   								<field name="community_id"
   									options="{'no_create': True}"/>
+									<field name="is_group_tracking_enabled" invisible="1"/>
 									<field name="facilitator_id" options="{'no_create': True}"/>
 									<field name="co_facilitator_id" options="{'no_create': True}"/>
 									<field name="program_manager_id" options="{'no_create': True}"/>
@@ -47,7 +48,8 @@
 									</group>
 									<!--     MARGINAL GROUP TRACKING START  -->
 									<seperator/>
-									<group colspan="4" col="4" class="no_style">
+									<group colspan="4" col="4" class="no_style"
+											attrs="{'invisible': [('is_group_tracking_enabled', '=', False)]}">
 										<group colspan="2">
 											<field name="attendance_type1_id" widget="selection"/>
 											<field name="attendance1_total"/>

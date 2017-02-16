@@ -41,7 +41,7 @@ class SavingsGroup(models.Model):
 	savings_group_update_ids = fields.One2many('sparkit.savingsgroupupdate',
 		'savings_group_id', string="Updates")
 
-	@api.depends('community_id', 'start_date')
+	@api.multi
 	def _get_name(self):
 		for r in self:
 			if r.community_id:

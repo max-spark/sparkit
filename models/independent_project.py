@@ -11,7 +11,8 @@ class IndependentProject(models.Model):
 	name = fields.Char(compute='_get_name')
 	number_project_updates = fields.Integer(default=0, compute='_get_number')
 	community_id = fields.Many2one('sparkit.community', string="Community",
-		ondelete='cascade', domain=[('is_partnered', '=', True)])
+		ondelete='cascade', domain=[('is_partnered', '=', True)],
+		required=True)
 	community_name = fields.Char(related='community_id.name')
 
 	#Category
