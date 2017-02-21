@@ -15,6 +15,11 @@
             </xpath>
             <xpath expr="//field[@name='fax']" position="replace">
               <field name="email"/>
+              <group colspan="4" col="2">
+                <field name="fac_community_ids"/>
+                <field name="cofac_community_ids"/>
+                <field name="pm_community_ids"/>
+              </group>
             </xpath>
           </field>
       </record>

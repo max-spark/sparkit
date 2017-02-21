@@ -39,3 +39,5 @@ class res_partner(models.Model):
         select=True, string="New Leader",
         track_visibility='onchange',
         help="Tick this box if the leader has never been in a leadership before.")
+
+    function = fields.Char(string="Job/Leadership Position")

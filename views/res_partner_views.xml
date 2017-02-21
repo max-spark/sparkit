@@ -32,6 +32,10 @@
                          ('company_type', '!=', 'technical_advisor')]}"
                          widget="many2many_tags"
                          options="{'no_create': True}"/>
+                    <field name="function" attrs="{'invisible':
+                        [('company_type', '!=', 'person'),
+                         ('company_type', '!=', 'community_leader'),
+                         ('company_type', '!=', 'technical_advisor')]}"/>
                     <field name="community_id" attrs="{'required':
                         ['|', ('company_type', '=', 'community_leader'), '|',
                          ('company_type', '=', 'community_facilitator'), '|',

@@ -23,8 +23,8 @@
   								<field name="visit_date"/>
   								<field name="phase"/>
 									<field name="phase_name" invisible="1"/>
-									<field name="state"/>
-									<field name="state_name" invisible="1"/>
+									<field name="step_id" widget="selection"
+										domain="[('phase_id.name', '=', phase_name)]"/>
 									<field name="form_type" invisible="1"/>
 									<field name="visit_date_week" invisible="1"/>
   							</group>
@@ -77,15 +77,15 @@
 								<group colspan="4" col="4" string="Meeting Report" class="no_style">
 									<group colspan="2">
 										<field name="activity1_id" widget="selection"
-											domain="[('step_id.name', '=', state_name)]"/>
+											domain="[('step_id', '=', step_id)]"/>
 										<field name="activity1_accomplished"/>
 										<field name="activity1_desc"/>
 										<field name="activity2_id" widget="selection"
-											domain="[('step_id.name', '=', state_name)]"/>
+											domain="[('step_id', '=', step_id)]"/>
 										<field name="activity2_accomplished"/>
 										<field name="activity2_desc"/>
 										<field name="activity3_id" widget="selection"
-											domain="[('step_id.name', '=', state_name)]"/>
+											domain="[('step_id', '=', step_id)]"/>
 										<field name="activity3_accomplished"/>
 										<field name="activity3_desc"/>
 										<field name="meeting_duration"/>
@@ -113,8 +113,10 @@
 										<field name="bank_deposits"/>
 										<field name="all_receipts_present"/>
 										<field name="all_receipts_present_desc"/>
-										<field name="any_new_risks" attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
-										<field name="any_new_risks_desc" attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
+										<field name="any_new_risks"
+												attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
+										<field name="any_new_risks_desc"
+												attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
 									</group>
 									<group colspan="2">
 										<field name="cmty_discussed_budget"/>
@@ -125,16 +127,22 @@
 										<field name="cashbook_updated_desc"/>
 										<field name="noncommittee_cashbook_review"/>
 										<field name="noncommittee_cashbook_review_desc"/>
-										<field name="records_updated" attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
-										<field name="records_updated_desc" attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
+										<field name="records_updated"
+												attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
+										<field name="records_updated_desc"
+											attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
 									</group>
 								</group>
 								<group colspan="4" col="4" string="Community Report" class="no_style">
 									<group colspan="2">
-										<field name="homework_type" attrs="{'invisible': [('phase', '!=', 'planning')]}"/>
-										<field name="homework_attempted_completed" attrs="{'invisible': [('phase', '!=', 'planning')]}"/>
-										<field name="homework_desc" attrs="{'invisible': [('phase', '!=', 'planning')]}"/>
-										<field name="cmty_meeting_frequency" attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
+										<field name="homework_type"
+												attrs="{'invisible': [('phase', '!=', 'planning')]}"/>
+										<field name="homework_attempted_completed"
+												attrs="{'invisible': [('phase', '!=', 'planning')]}"/>
+										<field name="homework_desc"
+												attrs="{'invisible': [('phase', '!=', 'planning')]}"/>
+										<field name="cmty_meeting_frequency"
+												attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
 										<field name="cmty_reported_conflicts"/>
 										<field name="cmty_reported_conflicts_resolved"/>
 										<field name="cmty_reported_conflicts_desc"/>
@@ -147,14 +155,6 @@
 									<group colspan="2">
 										<!--TODO: Fix Domains-->
 										<field name="next_visit_date" />
-										<field name="next_meeting_activity1_id" widget="selection"
-											domain="[('step_id.name', '=', state_name)]"/>
-										<field name="next_meeting_activity2_id" widget="selection"
-											domain="[('step_id.name', '=', state_name)]"/>
-									</group>
-									<group colspan="2">
-										<field name="next_meeting_activity3_id" widget="selection"
-											domain="[('step_id.name', '=', state_name)]"/>
 									</group>
 								</group>
 							</page>
@@ -179,15 +179,9 @@
 									context="{'default_community_id': community_id, 'default_date': visit_date}"
 									domain="[('community_id', '=', community_id)]"/>
 							</page>
-							<page string="Advocacy Updates"
+							<page string="Advocacy Updates" name="advocacy"
 									attrs="{'invisible': [('name', '=', False)]}">
 								<field name="partnership_update_ids"
-									context="{'default_community_id': community_id, 'default_date': visit_date}"
-									domain="[('community_id', '=', community_id)]"/>
-							</page>
-							<page string="Pilot Updates"
-									attrs="{'invisible': [('name', '=', False)]}">
-								<field name="pilot_update_ids"
 									context="{'default_community_id': community_id, 'default_date': visit_date}"
 									domain="[('community_id', '=', community_id)]"/>
 							</page>
@@ -210,7 +204,7 @@
   					<field name="community_id" />
   					<field name="facilitator_id" />
 						<field name="phase"/>
-						<field name="state"/>
+						<field name="step_id"/>
 						<field name="visit_date"/>
 						<field name="next_visit_date"/>
   				</tree>

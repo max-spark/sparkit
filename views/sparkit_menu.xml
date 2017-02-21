@@ -59,8 +59,6 @@
         	sequence="3"/>
     		<menuitem id="transition_strategy_menu" name="Transition Strategies"
           parent="other_forms" action="transition_strategy_list_action"/>
-				<menuitem id="pilots_menu" name="Pilots"
-					parent="other_forms" action="pilots_list_action"/>
 				<!--Configuration View-->
         <menuitem id="main_vrfs_configuration_menu" name="Configuration"
           parent="top_visit_reports_menu" sequence="4"/>

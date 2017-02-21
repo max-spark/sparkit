@@ -41,6 +41,8 @@ class OngoingCommunityAssessment(models.Model):
 		6. 12 Months Post Implementation
 		7. 18 Months Post Implementation
 		8. 24 Months Post Implementation """, required=True)
+	start_time = fields.Float(string="Start Time")
+	end_time = fields.Float(string="End Time")
 
 
 	#Section One: Background
@@ -136,19 +138,51 @@ class OngoingCommunityAssessment(models.Model):
 	civic_engagement_42_1 = fields.Text(string="42.1 How have you contributed to implementation?")
 
 	# Cross Sector
-	baseline_item_ids = fields.Many2many('sparkit.crosssectoritem',
-		string="1. How many of the following do you own/are you able to afford? Please choose all that apply.")
+	baseline_owns_land = fields.Boolean(string="Land?")
+	baseline_owns_soap = fields.Boolean(string="Soap?")
+	baseline_owns_mattress = fields.Boolean(string="Bed/Mattress?")
+	baseline_owns_radio = fields.Boolean(string="Radio?")
+	baseline_owns_bike = fields.Boolean(string="Bicycle?")
+	baseline_owns_phone = fields.Boolean(string="Cell Phone or Telephone?")
+	baseline_owns_lights = fields.Boolean(string="Electric Lights")
+	# can we add this
+	baseline_owns_solar = fields.Boolean(string="Solar Power? (panels)")
+	baseline_owns_television = fields.Boolean(string="Television?")
+	baseline_owns_motorcycle = fields.Boolean(string="Motorcycle?")
+	baseline_owns_nothing = fields.Boolean(string="Does Not Own Any Items")
 	total_baseline_items = fields.Integer(string="1b. If you do own any of these items, how many of these items IN TOTAL do you own?")
-	items_purchased_ids = fields.Many2many('sparkit.crosssectoritem',
-		string="2. Were you able to purchase any additional items as a result of working with Spark? Please choose all that apply.")
+
+	owns_land = fields.Boolean(string="Land?")
+	owns_soap = fields.Boolean(string="Soap?")
+	owns_mattress = fields.Boolean(string="Bed/Mattress?")
+	owns_radio = fields.Boolean(string="Radio?")
+	owns_bike = fields.Boolean(string="Bicycle?")
+	owns_phone = fields.Boolean(string="Cell Phone or Telephone?")
+	owns_lights = fields.Boolean(string="Electric Lights")
+	# can we add this
+	owns_solar = fields.Boolean(string="Solar Power? (panels)")
+	owns_television = fields.Boolean(string="Television?")
+	owns_motorcycle = fields.Boolean(string="Motorcycle?")
+	owns_nothing = fields.Boolean(string="Does Not Own Any Items / Unable to purchase as a result of the FCAP")
 	total_items_purchased = fields.Integer(string="2b. If you were able to purchase items, how many of these items IN TOTAL were you able to purchase as a result of working with Spark?")
 
-	baseline_animals_ids = fields.Many2many('sparkit.crosssectoranimal',
-		string="3. If you own animals, what type?")
+	baseline_owns_goat = fields.Boolean(string="Goat?")
+	baseline_owns_sheep = fields.Boolean(string="Sheep?")
+	baseline_owns_cow = fields.Boolean(string="Cow?")
+	baseline_owns_pig = fields.Boolean(string="Pig?")
+	baseline_owns_chicken = fields.Boolean(string="Chicken?")
+	baseline_owns_other = fields.Boolean(string="Other Animal?")
 	total_baseline_animals = fields.Integer(string="3b. If you do own animals, how many animals do you own?")
 
 	animals_purchased_ids = fields.Many2many('sparkit.crosssectoranimal',
 		string="3c. If you were able to purchase animals as a result of working with Spark, what animals were they?")
+
+	purchased_goat = fields.Boolean(string="Goat?")
+	purchased_sheep = fields.Boolean(string="Sheep?")
+	purchased_cow = fields.Boolean(string="Cow?")
+	purchased_pig = fields.Boolean(string="Pig?")
+	purchased_chicken = fields.Boolean(string="Chicken?")
+	purchased_other = fields.Boolean(string="Other Animal?")
 	total_purchased_animals = fields.Integer(string="3d. If you were able to purchase additional animals as a result of working with Spark, how many?")
 
 	education_access = fields.Selection([(0, 'Not Able to Cover Any Cost'), (1, 'Able to Cover Some Cost'), (2, 'Able to Cover All Cost'), (99, 'Does Not Have Children')],

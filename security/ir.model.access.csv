@@ -31,9 +31,4 @@ access_sparkit_crosssectoritem,sparkit.crosssectoritem,model_sparkit_crosssector
 access_sparkit_crosssectoranimal,sparkit.crosssectoranimal,model_sparkit_crosssectoranimal,,1,1,1,1
 access_sparkit_crosssectorillness,sparkit.crosssectorillness,model_sparkit_crosssectorillness,,1,1,1,1
 access_sparkit_grouptracking,sparkit.grouptracking,model_sparkit_grouptracking,,1,1,1,1
-access_sparkit_pilot,sparkit.pilot,model_sparkit_pilot,,1,1,1,1
-access_sparkit_pilotactivities,sparkit.pilotactivities,model_sparkit_pilotactivities,,1,1,1,1
-access_sparkit_pilotsharing,sparkit.pilotsharing,model_sparkit_pilotsharing,,1,1,1,1
-access_sparkit_pilotrisks,sparkit.pilotrisks,model_sparkit_pilotrisks,,1,1,1,1
-access_sparkit_pilotupdate,sparkit.pilotupdate,model_sparkit_pilotupdate,,1,1,1,1
 access_sparkit_communityworkflowparameters,sparkit.communityworkflowparameters,model_sparkit_communityworkflowparameters,,1,1,1,1

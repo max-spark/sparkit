@@ -12,8 +12,8 @@ from . import savings_group
 from . import ongoing_community_assessment
 from . import pillar_assessment
 from . import partnership
-from . import pilot
 from . import community_proposal
 from . import res_country
 from . import res_partner
 from . import community_workflow_parameters
+from . import res_users

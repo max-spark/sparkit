@@ -15,11 +15,13 @@
 								<field name="date"/>
 								<field name="collected_by" options="{'no_create': True}"/>
 								<field name="oca_number"/>
+								<field name="start_time" widget="float_time"/>
+								<field name="end_time" widget="float_time"/>
 							</group>
 							<group colspan="2" col="2">
-								<field name="project_category_id"/>
+								<field name="project_category_id" invisible="1"/>
 								<field name="project_category_name" invisible="1"/>
-								<field name="project_subcategory_id"/>
+								<field name="project_subcategory_id" invisible="1"/>
 								<field name="project_subcategory_name" invisible="1"/>
 							</group>
 						</group>
@@ -100,19 +102,61 @@
 						</group>
 						<group colspan="4" col="4" string="Section Six: Cross Sector" class="no_style">
 							<group colspan="4" col="2">
-								<field name="baseline_item_ids" widget="many2many_checkboxes"
-									options="{'horizontal': true}"
-									domain="[('filter', '!=', 1)]"/>
-								<field name="total_baseline_items"/>
-								<field name="total_items_purchased"/>
-								<field name="items_purchased_ids" widget="many2many_checkboxes"
-									options="{'horizontal': true}"/>
-								<field name="baseline_animals_ids" widget="many2many_checkboxes"
-									options="{'horizontal': true}"
-									domain="[('filter', '!=', 1)]"/>
-								<field name="total_baseline_animals"/>
-								<field name="animals_purchased_ids" widget="many2many_checkboxes"
-									options="{'horizontal': true}"/>
+								<group colspan="12" col="6" class="no_style"
+									string="1. How many of the following do you own/are you able to afford? Please choose all that apply.">
+									<field name="baseline_owns_land"/>
+									<field name="baseline_owns_soap"/>
+									<field name="baseline_owns_mattress"/>
+									<field name="baseline_owns_radio"/>
+									<field name="baseline_owns_bike"/>
+									<field name="baseline_owns_phone"/>
+									<field name="baseline_owns_lights"/>
+									<field name="baseline_owns_solar"/>
+									<field name="baseline_owns_television"/>
+									<field name="baseline_owns_motorcycle"/>
+								</group>
+								<group colspan="4" col="4" class="no_style">
+									<field name="baseline_owns_nothing"/>
+									<field name="total_baseline_items"/>
+								</group>
+								<group colspan="12" col="6" class="no_style"
+									string="2. Were you able to purchase any additional items as a result of working with Spark? Please choose all that apply.">
+									<field name="owns_land"/>
+									<field name="owns_soap"/>
+									<field name="owns_mattress"/>
+									<field name="owns_radio"/>
+									<field name="owns_bike"/>
+									<field name="owns_phone"/>
+									<field name="owns_lights"/>
+									<field name="owns_solar"/>
+									<field name="owns_television"/>
+									<field name="owns_motorcycle"/>
+								</group>
+								<group colspan="4" col="4" class="no_style">
+									<field name="owns_nothing"/>
+									<field name="total_items_purchased"/>
+								</group>
+								<group colspan="12" col="6" class="no_style"
+									string="3. If you own animals, what type?">
+									<field name="baseline_owns_goat"/>
+									<field name="baseline_owns_sheep"/>
+									<field name="baseline_owns_cow"/>
+									<field name="baseline_owns_pig"/>
+									<field name="baseline_owns_chicken"/>
+									<field name="baseline_owns_other"/>
+								</group>
+								<group colspan="4" col="4" class="no_style">
+									<field name="total_baseline_animals"/>
+								</group>
+								<group colspan="12" col="6" class="no_style"
+										string="3c. If you were able to purchase animals as a result of working with Spark, what animals were they?">
+										<field name="purchased_goat"/>
+										<field name="purchased_sheep"/>
+										<field name="purchased_cow"/>
+										<field name="purchased_pig"/>
+										<field name="purchased_chicken"/>
+										<field name="purchased_other"/>
+								</group>
 								<field name="total_purchased_animals"/>
 								<field name="education_access"/>
 								<field name="illnesses_last_month_ids" widget="many2many_checkboxes"/>

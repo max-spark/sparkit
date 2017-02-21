@@ -12,7 +12,7 @@
     	This module has been specified and developed by Spark Microgrants for its
     	internal programatic management system - and for sharing with partner
     	organisations who wish to roll out the Facilitated Collective
-    	Action Process (FCAP). 
+    	Action Process (FCAP).
     """,
 
     'author': "Spark MicroGrants",
@@ -47,7 +47,6 @@
         'views/ongoing_community_assesment_views.xml',
         'views/pillar_assessment_views.xml',
         'views/partnership_views.xml',
-        'views/pilot_views.xml',
         'views/communityproposal.xml',
         'views/res_country_views.xml',
         'views/res_partner_views.xml',

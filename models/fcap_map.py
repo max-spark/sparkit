@@ -41,14 +41,13 @@ class FCAPStep(models.Model):
 		('first_disbursement', 'Implementation: First Disbursement, Accountability & Transparency'),
 		('leadership', 'Implementation: Leadership'),
 		('transition_strategy', 'Implementation: Transition Strategy'),
-		# To be deleted / updated
 		('post_implementation', 'Post Implementation'),
 		('post_implementation1', 'Post Implementation: Management Support'),
 		('post_implementation2', 'Post Implementation: Future Envisioning'),
 		('post_implementation3', 'Post Implementation: Graduation Preparation'),
 		('graduated', 'Graduated'),
-		('partnership_canacelled', 'Partnership Cancelled')
-	], string="Step")
+		('partnership_canacelled', 'Partnership Cancelled')],
+		string="Step")
 	min_duration = fields.Integer(string="Minimum Duration")
 	step_number = fields.Integer(string="Step Number")
 	activity_ids = fields.One2many('sparkit.fcapactivity', 'step_id', string="Activities")

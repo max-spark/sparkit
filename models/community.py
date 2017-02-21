@@ -149,6 +149,9 @@ class Community(models.Model):
 		string="Technical Advisor",
 		domain=[('company_type', '=', 'technical_advisor')],
 		track_visibility='onchange')
+	technical_advisor_workplan = fields.Binary(string="Technical Advisor Workplan")
+	ta_workplan_name = fields.Char(string="Technical Advisor Workplan Name",
+		compute='_get_ta_workplan_name')
 
 	# Important Documents
 	number_signed_partnership_agreement = fields.Integer(string="Number of People Who Signed Partnership Agreement",
@@ -156,16 +159,19 @@ class Community(models.Model):
 	partnership_agreement_name = fields.Char(compute='_get_partnership_agreement_name', string="Partnership Agreement File Name")
 	partnership_agreement = fields.Binary(string="Partnership Agreement",
 		track_visibility='onchange')
+	partnership_agreement_date = fields.Date(string="Partnership Agreement Signed Date")
 	number_signed_grant_agreement = fields.Integer(string="Number of People Who Signed Grant Agreement",
 		track_visibility='onchange')
 	grant_agreement_name = fields.Char(string="Grant Agreement File Name",
 		compute='_get_grant_agreement_name')
 	grant_agreement = fields.Binary(string="Grant Agreement", track_visibility='onchange')
+	grant_agreement_signed_date = fields.Date(string="Grant Agreement Signed Date")
 	number_signed_exit_agreement = fields.Integer(string="Number of People Who Signed Exit Agreement",
 		track_visibility='onchange')
 	exit_agreement_name = fields.Char(string="Exit Agreement File Name",
 		compute='_get_exit_agreement_name')
 	exit_agreement = fields.Binary(string="Exit Agreement", track_visibility='onchange')
+	exit_agreement_signed_date = fields.Date(string="Exit Agreement Signed Date")
 
 	# Project Detail
 	goals_ideas = fields.Integer(string="Goals - Number of Ideas",
@@ -242,10 +248,12 @@ class Community(models.Model):
 	#Community Project
 	spark_project_ids = fields.One2many('sparkit.sparkproject', 'community_id', string="Grant Project(s)",
 		track_visibility='onchange')
-	# TODO: Fix this!
-	project_category_id = fields.Many2one(related='spark_project_ids.category_id', track_visibility='onchange')
-	project_subcategory_id = fields.Many2one(related='spark_project_ids.subcategory_id', track_visibility='onchange')
-	project_support_initiative_ids = fields.One2many('sparkit.projectsupportinitiative', 'community_id', track_visibility='onchange')
+	project_category_id = fields.Many2one('sparkit.projectcategory',
+		string="Project Category", track_visibility='onchange')
+	project_subcategory_id = fields.Many2one('sparkit.projectsubcategory',
+		string="Project SubCategory", track_visibility='onchange')
+	project_support_initiative_ids = fields.One2many('sparkit.projectsupportinitiative',
+		'community_id', track_visibility='onchange')
 
 	#Last Visit Date Calculations
 	last_visit_date = fields.Date(string="Last Visit Date", compute='_get_visit_date')
@@ -285,11 +293,6 @@ class Community(models.Model):
 	partnership_ids = fields.One2many('sparkit.partnership', 'community_id',
 		track_visibility='onchange', string="Partnerships")
 	partnership_update_ids = fields.One2many(related='partnership_ids.partnership_update_ids')
-
-	#Pilots
-	pilot_ids = fields.Many2many('sparkit.pilot', string="Pilots",
-		track_visibility='onchange')
-	pilot_update_ids = fields.One2many('sparkit.pilotupdate', 'community_id')
 
 
 	#-----------------------------------------------------
@@ -340,6 +343,9 @@ class Community(models.Model):
 		compute='_check_partnership_expectations_completed',
 		track_visibility='onchange',
 		help="Automatically marked as completed when Partnership Expectations Activity is reported on the visit report form.")
+	planning_group_completed = fields.Boolean(string="Planning Group Household Size Filled In?",
+		compute='check_planning_group',
+		help="Automatically completed once planning group (under demographics) is filled in on the community profile.")
 
 
 	# Community Building -> Goal Setting: Goals
@@ -493,6 +499,7 @@ class Community(models.Model):
 		help="Automatically marked as completed when the 'Technical Advisor' field under the 'Projects' tab is filled in with the project's technical advisor.")
 	is_ta_workplan_approved = fields.Boolean(string="Technical Advisor Workplan Approved",
 		track_visibility='onchange',
+		readonly=True,
 		help="Has the technical advisor's workplan been approved?")
 	is_implementation_action_plan_entered = fields.Boolean(string="Implementation Action Plan Entered Into Proposal",
 		track_visibility='onchange')
@@ -1094,6 +1101,13 @@ class Community(models.Model):
 			if r.partnership_agreement:
 				r.partnership_agreement_name =  r.name + "_" + "Partnership" + "_" + "Agreement" + ".pdf"
 
+	@api.depends('technical_advisor_workplan')
+	def _get_ta_workplan_name(self):
+		for r in self:
+			if r.technical_advisor_workplan:
+				r.ta_workplan_name =  r.name + "_" + "Technical_Advisor_Workplan" + ".pdf"
+
+
 	@api.depends('grant_agreement')
 	def _get_grant_agreement_name(self):
 		for r in self:
@@ -1497,6 +1511,13 @@ class Community(models.Model):
 				r.indicator3_2years_target):
 				r.are_goal_targets_entered = True
 
+	@api.depends('num_hh_in_planning_group')
+	def check_planning_group(self):
+		for r in self:
+			if r.num_hh_in_planning_group > 0:
+				r.planning_group_completed = True
+
+
 	@api.depends('exit_agreement')
 	def check_exit_agreement_uploaded(self):
 		for r in self:
@@ -1607,6 +1628,10 @@ class Community(models.Model):
 	@api.multi
 	def check_pm_approved_project_launch(self):
 		self.is_imp_action_plan_completed = True
+
+	@api.multi
+	def check_pm_approved_ta_workplan(self):
+		self.is_ta_workplan_approved = True
 
 	@api.multi
 	def check_pm_verified_transition_strategy_complete(self):
@@ -1823,6 +1848,8 @@ class Community(models.Model):
 		if (self.workflow_config_id.is_partnership_hh_requirement_met is True and
 			self.is_partnership_hh_requirement_met is False):
 			raise ValidationError("Error: At least %d percent of Households Must Have Signed Partnership Agreement" % (self.workflow_config_id.min_percent_hh_partnership * 100))
+		elif self.planning_group_completed is False:
+			raise ValidationError("Error: You must enter the number of households in the planning group on the community profile!")
 		else:
 			self.state = 'community_building'
 

@@ -39,30 +39,7 @@ class VisitReportForm(models.Model):
 		('post_implementation', 'Post Implementation'),
 		('graduated', 'Graduated')
 		], select=True, string="Phase", track_visibility='onchange')
-	state = fields.Selection([
-		('community_identification', 'Community Identification - Baseline'),
-		('introductions', 'Introductions'),
-		('partnership', 'Partnership'),
-		('community_building', 'Community Building'),
-		('goal_setting_goals', 'Goal Setting: Goals'),
-		('goal_setting_pathways', 'Goal Setting: Pathways'),
-		('measuring_success', 'Proposal Development: Measuring Success'),
-		('implementation_plan', 'Proposal Development: Implementation Plan'),
-		('operational_plan', 'Proposal Development: Operational Plan'),
-		('sustainability_plan', 'Proposal Development: Sustainability Plan'),
-		('transition_strategy', 'Proposal Development: Transition Strategy'),
-		('proposal_review', 'Proposal Development: Proposal Finalization'),
-		('grant_agreement', 'Implementation: Grant Agreement & Financial Management'),
-		('first_disbursement', 'Implementation: Accountability & Transparency'),
-		('project_management', 'Implementation: Project Management'),
-		('leadership', 'Implementation: Leadership'),
-		('imp_transition_strategy', 'Implementation: Transition Strategy'),
-		('post_implementation1', 'Post Implementation: Management Support'),
-		('post_implementation2', 'Post Implementation: Future Envisioning'),
-		('post_implementation3', 'Post Implementation: Graduation'),
-		('graduated', 'Graduated'),
-		('partnership_canacelled', 'Partnership Cancelled'),
-		], select=True, string="Step", track_visibility='onchange')
+	step_id = fields.Many2one('sparkit.fcapstep', string="Step", track_visibility='onchange')
 	gps_latitude = fields.Char(string="Latitude", track_visibility='onchange')
 	gps_longitude = fields.Char(string="Longitude", track_visibility='onchange')
 	# Dashboard Info
@@ -125,13 +102,6 @@ class VisitReportForm(models.Model):
 	speakers_total = fields.Integer(string="Total Speakers",
 		track_visibility='onchange', compute='_total_speakers')
 
-	#Next Meeting Information
-	next_meeting_activity1_id = fields.Many2one('sparkit.fcapactivity',
-		string="Next Meeting Activity 1", track_visibility='onchange')
-	next_meeting_activity2_id = fields.Many2one('sparkit.fcapactivity',
-		string="Next Meeting Activity 2", track_visibility='onchange')
-	next_meeting_activity3_id = fields.Many2one('sparkit.fcapactivity',
-		string="Next Meeting Activity 3", track_visibility='onchange')
 
 	#TODO: Computing Default depending on FCAP stage? [Suggested Next visit Date]
 	next_visit_date = fields.Date(string="Date of Next Visit",
@@ -259,9 +229,6 @@ class VisitReportForm(models.Model):
 	#Advocacy Updates
 	partnership_update_ids = fields.One2many(related='community_id.partnership_update_ids')
 
-	#Pilot Updates
-	pilot_update_ids = fields.One2many(related='community_id.pilot_update_ids')
-
 	#CVRF Specific Fields - (Homework)
 	homework_type = fields.Selection([
 		('community_building_activity', 'Community Building Activity'),
@@ -365,12 +332,12 @@ class VisitReportForm(models.Model):
 			if r.phase:
 				r.phase_name = dict(self.fields_get(allfields=['phase'])['phase']['selection'])[self.phase]
 
-	@api.one
+	"""@api.one
 	@api.depends('state')
 	def _get_state_name(self):
 		for r in self:
 			if r.state:
-				r.state_name = dict(self.fields_get(allfields=['state'])['state']['selection'])[self.state]
+				r.state_name = dict(self.fields_get(allfields=['state'])['state']['selection'])[self.state]"""
 
 	@api.depends('phase')
 	def _get_form_type(self):
