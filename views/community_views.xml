@@ -80,6 +80,12 @@
 								string="Move to Proposal Development: Operational Plan"
 								states="implementation_plan"
 								class="oe_highlight"/>
+							<button name="check_pm_approved_ta_workplan"
+								type="object"
+								string="TA Workplan Approved"
+								attrs="{'invisible': ['|', ('is_ta_workplan_approved', '=', True),
+									('state', '!=', 'implementation_plan')]}"
+								class="oe_highlight"/>
 
 							<button name="implementation_plan_reset" type="workflow"
 								string="Back to Proposal Development: Implementation Plan"
@@ -220,6 +226,7 @@
 								<group colspan="6" col="6" class="no_style" string="   Planning: Partnership (3/18)">
 									<field name="partnership_agreement_signed"/>
 									<field name="is_partnership_hh_requirement_met"/>
+									<field name="planning_group_completed"/>
 									<field name="partnership_expectations_completed"/>
 								</group>
 							</group>
@@ -497,7 +504,7 @@
 												<group string="Planning Group" colspan="2" col="2"
 													attrs="{'invisible': [('phase', '=', 'community_identification')]}">
 													<field name="num_hh_in_planning_group"/>
-													<field name="num_ppl_in_planning_group"/>
+													<field name="num_ppl_in_planning_group" invisible="1"/>
 												</group>
 											</group>
 										</page>
@@ -581,14 +588,17 @@
 											<group colspan="2" col="2" class="no_style" string="Partnership Agreement">
 												<field name="partnership_agreement" widget="binary" filename="partnership_agreement_name"/>
 												<field name="number_signed_partnership_agreement"/>
+												<field name="partnership_agreement_date"/>
 											</group>
 											<group colspan="2" col="2" class="no_style" string="Grant Agreement">
 												<field name="grant_agreement" widget="binary" filename="grant_agreement_name"/>
 												<field name="number_signed_grant_agreement"/>
+												<field name="grant_agreement_signed_date"/>
 											</group>
 											<group colspan="2" col="2" class="no_style" string="Exit Agreement">
 												<field name="exit_agreement" widget="binary" filename="exit_agreement_name"/>
 												<field name="number_signed_exit_agreement"/>
+												<field name="exit_agreement_signed_date"/>
 											</group>
 										</page>
 									</notebook>
@@ -626,15 +636,22 @@
 											<group colspan="4" col="4" class="no_style">
 												<group colspan="2" col="2">
 													<field name="goals_ideas"/>
-													<field name="goals_selected"/>
 													<field name="pathways_ideas"/>
-												</group>
-												<group colspan="2" col="2">
-													<field name="project_description"/>
+													<field name="project_category_id"
+															widget="selection"/>
+													<field name="project_subcategory_id"
+															widget="selection"
+															domain="[('category_id', '=', project_category_id)]"/>
 													<field name="technical_advisor_id"
 														domain="[('country_id', '=', country_id)]"
 														context="{'default_community_id': active_id}"/>
+													<field name="technical_advisor_workplan"
+															widget="binary" filename="ta_workplan_name"/>
 													<field name="bank_account"/>
+												</group>
+												<group colspan="2" col="2">
+													<field name="goals_selected"/>
+													<field name="project_description"/>
 												</group>
 												<group colspan="4" col="11">
 													<field name="indicator1" placeholder="Indicator 1"/>
@@ -725,13 +742,9 @@
 										</page>
 									</notebook>
 								</page>
-								<page string="Advocacy"
+								<page string="Advocacy" name="advocacy"
 										attrs="{'invisible': [('phase', '=', 'community_identification')]}">
 									<field name="partnership_ids"/>
-								</page>
-								<page string="Pilots"
-									attrs="{'invisible': [('phase', '=', 'community_identification')]}">
-									<field name="pilot_ids"/>
 								</page>
 								<page string="Independent Meetings"
 									attrs="{'invisible': [('phase', '=', 'community_identification')]}">
