@@ -307,17 +307,17 @@ class Community(models.Model):
 	is_oca1_completed = fields.Boolean(string="Baseline Community Assessment Completed",
 		track_visibility='onchange',
 		compute='check_ocas_completed',
-		help="Was the baseline community assessment completed at scouting? Forms are uploaded under the M&E Forms Tab -> Community Assessments.")
+		help="Marked as completed once baseline assessment has been uploaded to the system.")
 
 	# Formal Meeting (Scouting) -> Partnership
 	is_community_description_filled = fields.Boolean(string="Community Description Filled",
 		compute="check_community_description",
 		track_visibility='onchange',
-		help="Has a community description on the community's profile page been entered?")
+		help="Fill in the community description.")
 	has_pm_approved_partnership = fields.Boolean(string="Manager Approved Community For Partnership",
 		track_visibility='onchange',
 		readonly=True,
-		help="The community's manager must approve community partnership.")
+		help="The community's manager must approve community partnership. If you are the manager, please click the button that says 'Community Approved for Partnership.'")
 		# Activities
 	introducing_spark_completed = fields.Boolean(string="Facilitation Activity: Introducing Spark Completed",
 		compute='_check_introducing_spark_completed',
@@ -366,7 +366,7 @@ class Community(models.Model):
 	num_leaders_requirement = fields.Boolean(string="Minimum Number of Leaders Elected",
 		compute='check_num_elected_leaders',
 		track_visibility='onchange',
-		help="Automatically checked when there are 3 - 12 leaders entered in 'Community Leaders' under 'Community Detail'.")
+		help="Automatically checked when there leaders entered in 'Community Leaders' under 'Community Detail' and the number of leaders is not under the mininum requirement.")
 	leaders_gender_requirement = fields.Boolean(string="Minimum Percent of Leaders Are Women",
 		compute='check_gender_elected_leaders',
 		track_visibility='onchange',
@@ -374,7 +374,7 @@ class Community(models.Model):
 		# -> Activities
 	sms_registration_completed = fields.Boolean(string="SMS Registration Completed",
 		track_visibility='onchange',
-		help="Did you register community members for SMS?")
+		help="Please register the community for the SMS system.")
 	gender_empowerment_completed = fields.Boolean(string="Facilitation Activity: Gender Empowerment Completed",
 		compute='_check_gender_empowerment_completed',
 		track_visibility='onchange',
@@ -401,11 +401,11 @@ class Community(models.Model):
 	is_min_goals_brainstormed = fields.Boolean(string="Minimum # of Goals Brainstormed",
 		compute='check_goals_ideas',
 		track_visibility='onchange',
-		help="Was the minimum requirement for the number of goals met? The number of goals brainstormed is underneath the 'Projects' and is called Goals - Ideas.")
+		help="Was the minimum requirement for the number of goals met? Please fill in 'Goals - Ideas' underneath the 'Projects' tab.")
 	is_goals_ideas_not_null = fields.Boolean(string="Goals - Ideas Complete",
 		track_visibility='onchange',
 		compute='check_goals_ideas',
-		help="Automatically checked when Goals - Ideas is filled in underneath the 'Projects' tab.")
+		help="Please fill in Goals - Ideasunderneath the 'Projects' tab.")
 	is_goals_selected_not_null = fields.Boolean(string="Goals - Selected Complete",
 		compute='check_goals_selected',
 		track_visibility='onchange',

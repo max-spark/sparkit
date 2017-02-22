@@ -17,7 +17,7 @@
 									<field name="is_group_tracking_enabled" invisible="1"/>
 									<field name="facilitator_id" options="{'no_create': True}"/>
 									<field name="co_facilitator_id" options="{'no_create': True}"/>
-									<field name="program_manager_id" options="{'no_create': True}"/>
+									<field name="program_manager" invisible="1"/>
   							</group>
   							<group colspan="2">
   								<field name="visit_date"/>
@@ -100,37 +100,27 @@
 										<field name="conflicts_in_meeting_desc"/>
 									</group>
 								</group>
-								<group colspan="4" col="4" string="Accountability and Transparency"  class="no_style" attrs="{'invisible': [('phase', '!=', 'post_implementation'), ('phase', '!=', 'implementation')]}">
+								<group colspan="4" col="4" string="Accountability and Transparency"
+									class="no_style"
+									attrs="{'invisible': [('phase', '!=', 'post_implementation'), ('phase', '!=', 'implementation')]}">
 									<group colspan="2">
-										<field name="project_on_budget"/>
-										<field name="cmty_meeting_deadines"/>
-										<field name="leadership_presented_cashbook"/>
-										<field name="leadership_presented_cashbook_desc"/>
 										<field name="leadership_reported_finances"/>
-										<field name="leadership_reported_finances_desc"/>
-										<field name="leadership_presented_bankslips"/>
-										<field name="leadership_presented_bankslips_desc"/>
-										<field name="bank_deposits"/>
-										<field name="all_receipts_present"/>
-										<field name="all_receipts_present_desc"/>
-										<field name="any_new_risks"
-												attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
-										<field name="any_new_risks_desc"
-												attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
+										<field name="leadership_presented_updated_cashbook"/>
+										<field name="leadership_presented_accurate_cashbook"/>
 									</group>
 									<group colspan="2">
-										<field name="cmty_discussed_budget"/>
-										<field name="cmty_discussed_budget_desc"/>
 										<field name="knowledge_of_community_funds"/>
-										<field name="knowledge_of_community_funds_desc"/>
-										<field name="cashbook_updated"/>
-										<field name="cashbook_updated_desc"/>
-										<field name="noncommittee_cashbook_review"/>
-										<field name="noncommittee_cashbook_review_desc"/>
-										<field name="records_updated"
-												attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
-										<field name="records_updated_desc"
-											attrs="{'invisible': [('phase', '!=', 'post_implementation')]}"/>
+										<field name="updated_accurate_receipts"/>
+									</group>
+									<group colspan="2"
+										attrs="{'invisible': [('phase', '!=', 'post_implementation')]}">
+										<field name="any_new_risks"/>
+										<field name="any_new_risks_desc"/>
+									</group>
+									<group colspan="2"
+										attrs="{'invisible': [('phase', '!=', 'post_implementation')]}">
+										<field name="records_updated"/>
+										<field name="records_updated_desc"/>
 									</group>
 								</group>
 								<group colspan="4" col="4" string="Community Report" class="no_style">
@@ -153,7 +143,6 @@
 								</group>
 								<group colspan="4" col="4" string="Next Meeting" class="no_style">
 									<group colspan="2">
-										<!--TODO: Fix Domains-->
 										<field name="next_visit_date" />
 									</group>
 								</group>

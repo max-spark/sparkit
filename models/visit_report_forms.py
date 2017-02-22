@@ -27,9 +27,11 @@ class VisitReportForm(models.Model):
 		string="Facilitator", track_visibility='onchange')
 	co_facilitator_id = fields.Many2one('res.users',
 		string="Co-Facilitator", track_visibility='onchange')
+	program_manager = fields.Char(compute='_get_program_manager',
+		string="Program Manager",
+		readonly=True,
+		store=True)
 	form_type = fields.Char(string="Form Type", compute='_get_form_type', store=True)
-	program_manager_id = fields.Many2one('res.users', string="Program Manager",
-		track_visibility='onchange')
 	visit_date = fields.Date(string="Date of Visit", required=True,
 		track_visibility='onchange')
 	phase = fields.Selection([
@@ -242,68 +244,31 @@ class VisitReportForm(models.Model):
 	homework_desc = fields.Text(string="Homework Description", track_visibility='onchange')
 
 	#IVRF/PIVRF Specific Fields
-	all_receipts_present = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True,
-		 track_visibility='onchange', string="All Receipts Present?")
-	all_receipts_present_desc = fields.Text(string="All Receipts Present: Description", track_visibility='onchange')
-	bank_deposits = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True, string="Bank Deposits")
-	cashbook_updated = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True, string="Cashbook Updated")
-	cashbook_updated_desc = fields.Text(string="Cashbook Updated: Description")
-	cmty_discussed_budget = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True,
-		 string="Community Discussed Budget in Meeting")
-	cmty_discussed_budget_desc = fields.Text(
-		string="Community Discussed Budget in Meeting: Description")
-	cmty_meeting_deadines = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True,
-		 string="Community Meeting Deadlines?")
+	leadership_reported_finances = fields.Selection([('1', 'Yes'),
+		('0', 'No')], select=True,
+		track_visibility='onchange',
+		string="Did the community leaders provide a financial update at/during meeting?",
+		help="Financial updates should be a regular agenda topic and should include updates on MicroGrant status such as new items purchases, if money was drawn from account, bank account balance, MG spent thus far, cash book updates, any updates from previous week (items higher/lower than budgeted), etc.")
+	leadership_presented_updated_cashbook = fields.Selection([('1', 'Yes'),
+		 ('0', 'No')], select=True,
+		 track_visibility='onchange',
+		 string="Did the community leaders/committee present an updated (current) cash book?",
+		 help="Updated cashbook means there are consistent entries that align with activities in a community.  For example, if you are reviewing a cash book and the last entry was one month ago when the community has been actively buying items, the cash book would not be considered updated.")
+	leadership_presented_accurate_cashbook = fields.Selection([('1', 'Yes'),
+		 ('0', 'No')], select=True,
+		 track_visibility='onchange',
+		 string="Did the community leaders/committee present an accurate cash book?",
+		 help="Accurate means there are consistent entries that align with activities in a community.  For example, if you are reviewing a cash book and the entry on what the community bought was incorrect , the cash book would not be considered accurate.")
 	knowledge_of_community_funds = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True,
-		 string="Knowledge of Community Funds?")
-	knowledge_of_community_funds_desc = fields.Text(
-		string="Knowledge of Community Funds: Description")
-	leadership_presented_bankslips = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True,
-		 string="Leadership Presented Bankslips")
-	leadership_presented_bankslips_desc = fields.Text(
-		string="Leadership Presented Bankslips: Description")
-	leadership_presented_cashbook = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True,
-		 string="Leadership Presented Cashbook")
-	leadership_presented_cashbook_desc = fields.Text(
-		string="Leadership Presented Cashbook: Description")
-	leadership_reported_finances = fields.Boolean(
-		string="Leadership Reported on Finances")
-	leadership_reported_finances_desc = fields.Text(
-		string="Leadership Reported on Finances: Description")
-	noncommittee_cashbook_review = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No'),
-		 ('not_applicable', 'Not applicable'),
-		 ('unknown', 'Unknown')], select=True,
-		 string="Non-Committee Cashbook Review")
-	noncommittee_cashbook_review_desc = fields.Text(
-		string="Non-Committee Cashbook Review: Description")
-	project_on_budget = fields.Selection([('under', 'Under Budget'),
-		('over', 'Over Budget'),
-		('on', 'On Budget')], select=True, string="Project on Budget")
+		 ('no', 'No')], select=True,
+		 track_visibility='onchange',
+		 string="Do community members have current and accurate knowledge of community funds?",
+		 help="Community members should have a general awareness of MG size, how much has been spent, and how much is their bank account.")
+	updated_accurate_receipts = fields.Selection([('yes', 'Yes'),
+		 ('no', 'No')], select=True,
+		 track_visibility='onchange',
+		 string="Does the community have accurate, complete, and high quality receipts per the disbursement schedule?",
+		 help="Ensure the receipts are valid, aligned with budget items, and that the community is not just using Spark receipts for all purchased (which should be a last option). Please remember the quality of receipts is as important as having the receipts.")
 
 	#PIVRF Specific Fields
 	any_new_risks = fields.Boolean(string="Any New Risks?", track_visibility='onchange')
@@ -423,6 +388,14 @@ class VisitReportForm(models.Model):
 		for r in self:
 			if r.community_id.state:
 				r.state = r.community_id.state_name
+
+	@api.multi
+	@api.depends('community_id')
+	def _get_program_manager(self):
+		for r in self:
+			if r.community_id:
+				r.program_manager = r.community_id.program_manager_id.name
+
 
 
 
