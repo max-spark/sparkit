@@ -10,15 +10,6 @@
             </xpath>
         </template>
 
-      <template id="navbar_spark_logo" inherit_id="web.webclient_bootstrap">
-            <xpath expr="//div[@class='navbar-header']" position="inside">
-                <ul class="ul_spark_logo">
-                    <li>
-                        <img src="/sparkit/static/src/img/sparklogosmall.png"/>
-                    </li>
-                </ul>
-            </xpath>
-        </template>
 
         <!-- Custom Favicon-->
         <template id="sparkit_favicon" inherit_id="web.layout">
