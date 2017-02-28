@@ -21,7 +21,6 @@ access_sparkit_independentprojectupdate,sparkit.independentprojectupdate,model_s
 access_sparkit_savingsgroup,sparkit.savingsgroup,model_sparkit_savingsgroup,,1,1,1,1
 access_sparkit_savingsgroupupdate,sparkit.savingsgroupupdate,model_sparkit_savingsgroupupdate,,1,1,1,1
 access_sparkit_oca,sparkit.oca,model_sparkit_oca,,1,1,1,1
-access_sparkit_pillarassessment,sparkit.pillarassessment,model_sparkit_pillarassessment,,1,1,1,1
 access_sparkit_communityproposal,sparkit.communityproposal,model_sparkit_communityproposal,,1,1,1,1
 access_sparkit_partnership,sparkit.partnership,model_sparkit_partnership,,1,1,1,1
 access_sparkit_partnershipupdate,sparkit.partnershipupdate,model_sparkit_partnershipupdate,,1,1,1,1
