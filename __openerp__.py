@@ -45,7 +45,6 @@
         'views/project_category_views.xml',
         'views/savings_group_views.xml',
         'views/ongoing_community_assesment_views.xml',
-        'views/pillar_assessment_views.xml',
         'views/partnership_views.xml',
         'views/communityproposal.xml',
         'views/res_country_views.xml',
