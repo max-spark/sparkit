@@ -28,6 +28,7 @@
 								class="oe_highlight"/>
 							<button name="check_pm_approved_partnership"
 								type="object"
+								groups="sparkit.program_manager"
 								string="Community Approved for Partnership"
 								attrs="{'invisible': ['|', ('has_pm_approved_partnership', '=', True),
 									('state', '!=', 'introductions')]}"
@@ -68,6 +69,7 @@
 								class="oe_highlight"/>
 							<button name="check_pm_approved_goal_setting"
 								type="object"
+								groups="sparkit.program_manager"
 								string="Community Approved for Proposal Development"
 								attrs="{'invisible': ['|', ('pm_approved_goal_setting', '=', True),
 									('state', '!=', 'goal_setting_pathways')]}"
@@ -83,6 +85,7 @@
 							<button name="check_pm_approved_ta_workplan"
 								type="object"
 								string="TA Workplan Approved"
+								groups="sparkit.program_manager"
 								attrs="{'invisible': ['|', ('is_ta_workplan_approved', '=', True),
 									('state', '!=', 'implementation_plan')]}"
 								class="oe_highlight"/>
@@ -123,6 +126,7 @@
 								class="oe_highlight"/>
 							<button name="check_pm_approved_proposal"
 								type="object"
+								groups="sparkit.program_manager"
 								string="Community Pathway Plan Approved"
 								attrs="{'invisible': ['|', ('has_pm_approved_proposal', '=', True),
 									('state', '!=', 'proposal_review')]}"
@@ -163,6 +167,7 @@
 									('state', '!=', 'imp_transition_strategy')]}"/>
 							<button name="check_pm_approved_project_launch"
 								type="object"
+								groups="sparkit.program_manager"
 								string="All Implementation Activities Have Been Completed"
 								attrs="{'invisible': ['|', ('is_imp_action_plan_completed', '=', True),
 									('state', '!=', 'imp_transition_strategy')]}"
@@ -195,6 +200,7 @@
 								class="oe_highlight"/>
 							<button name="check_pm_verified_transition_strategy_complete"
 								type="object"
+								groups="sparkit.program_manager"
 								string="All Transition Activities Have Taken Place"
 								attrs="{'invisible': ['|', ('are_transition_strategy_activities_completed', '=', True),
 									('state', '!=', 'post_implementation3')]}"
@@ -449,8 +455,10 @@
 									<field name="co_facilitator_id"/>
 									<field name="program_manager_id" options="{'no_create': True}"/>
 									<field name="description"/>
-									<field name="workflow_config_id"/>
-									<field name="is_group_tracking_enabled"/>
+									<field name="workflow_config_id"
+											groups="sparkit.global"/>
+									<field name="is_group_tracking_enabled"
+											groups="sparkit.global"/>
 								</group>
 								<group colspan="2" col="2">
 									<field name="state"/>
@@ -460,7 +468,8 @@
 									<field name="next_visit_date"/>
 									<field name="special_cases" options="{'no_create': True}"
 											widget="many2many_tags"
-											attrs="{'invisible': [('phase', '=', 'community_identification')]}"/>
+											attrs="{'invisible': [('phase', '=', 'community_identification')]}"
+											groups="sparkit.global"/>
 									<field name="next_visit_date_week" invisible="1"/>
 									<field name="phase_name" invisible="1"/>
 									<field name="state_name" invisible="1"/>
@@ -523,7 +532,8 @@
 			  										placeholder="Enter the gps coordinates (hddd°mm.mmm’ format) for the community meeting point." />
 			  									<field name="directions_to_community"
 			  										placeholder="Please provide directions for traveling to the community, including meeting location." />
-													<field name="cost_to_community"/>
+													<field name="cost_to_community"
+														groups="sparkit.f_a_user"/>
 												</group>
 		  								</group>
 		  								<group colspan="4" string="Boda/Moto Contact Information" class="no_style">
@@ -725,14 +735,11 @@
 		  							</page>
 									</notebook>
 								</page>
-								<page string="M&#38;E Forms">
+								<page string="M&#38;E Forms"
+										groups="sparkit.m_e_user">
 									<notebook>
-										<page string="Community Assessments">
+										<page string="Community Assessments" name="ocas">
 											<field name="oca_ids"
-												context="{'default_community_id': active_id}"/>
-										</page>
-										<page string="Pillar Assessments">
-											<field name="pillar_assessment_ids"
 												context="{'default_community_id': active_id}"/>
 										</page>
 										<page string="Transition Strategy"
@@ -846,47 +853,13 @@
   			</field>
   		</record>
 
-
-			<record model="ir.actions.act_window" id="burundi_partnered_list_action">
-  			<field name="name">Burundi Communities</field>
-  			<field name="res_model">sparkit.community</field>
-  			<field name="view_type">form</field>
-  			<field name="view_mode">tree,form,calendar,kanban</field>
-  			<field name="domain">[('is_partnered', '=', 'True'),
-  				('country_id', '=', 25)]</field>
-  			<field name="help" type="html">
-  				<p class="oe_view_nocontent_create">Create the first community!</p>
-  			</field>
-  		</record>
-
-			<record model="ir.actions.act_window" id="rwanda_partnered_list_action">
-  			<field name="name">Rwanda Communities</field>
-  			<field name="res_model">sparkit.community</field>
-  			<field name="view_type">form</field>
-  			<field name="view_mode">tree,form,calendar,kanban</field>
-  			<field name="domain">[('is_partnered', '=', 'True'), ('country_id', '=', 193)]</field>
-  			<field name="help" type="html">
-  				<p class="oe_view_nocontent_create">Create the first community!</p>
-  			</field>
-  		</record>
-
-			<record model="ir.actions.act_window" id="uganda_partnered_list_action">
-  			<field name="name">Uganda Communities</field>
-  			<field name="res_model">sparkit.community</field>
-  			<field name="view_type">form</field>
-  			<field name="view_mode">tree,form,calendar,kanban</field>
-  			<field name="domain">[('is_partnered', '=', 'True'), ('country_id', '=', 232)]</field>
-  			<field name="help" type="html">
-  				<p class="oe_view_nocontent_create">Create the first community!</p>
-  			</field>
-  		</record>
-
 			<record model="ir.actions.act_window" id="my_communities_list_action">
 				<field name="name">My Communities</field>
 				<field name="res_model">sparkit.community</field>
 				<field name="view_type">form</field>
 				<field name="view_mode">tree,form,calendar,kanban</field>
-				<field name="domain">[('facilitator_id', '=', uid)]</field>
+				<field name="domain">['|', ('facilitator_id', '=', uid),
+					('program_manager_id', '=', uid)]</field>
 				<field name="help" type="html">
 					<p class="oe_view_nocontent_create">Create your first community!</p>
 				</field>

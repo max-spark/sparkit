@@ -7,6 +7,7 @@
 				</record>
 
 				<menuitem id="sparkit_testing_dashboard" name="Dashboard"
+						groups="sparkit.facilitator"
 						action="act_testing_dashboard" sequence="0"/>
 
   			<!--Communities Menu-->
@@ -21,17 +22,9 @@
 				<menuitem id="partnered_communities" name="Partnered" sequence="2"
 					parent="main_all_communities_menu"/>
 
-				<menuitem id="all_partnered_list_action" name="All" sequence="1"
-					parent="partnered_communities"/>
-				<menuitem id="burundi_list_menu" name="Burundi" sequence="2"
-					parent="partnered_communities" action="burundi_partnered_list_action"/>
-				<menuitem id="rwanda_list_menu" name="Rwanda" sequence="3"
-					parent="partnered_communities" action="rwanda_partnered_list_action"/>
-				<menuitem id="uganda_list_menu" name="Uganda" sequence="4"
-					parent="partnered_communities" action="uganda_partnered_list_action"/>
 				<!--Community Configuration Menu-->
 				<menuitem id="community_configuration" name="Community Configuration" sequence="3"
-					parent="main_all_communities_menu"/>
+					parent="main_all_communities_menu" groups="sparkit.global"/>
 				<menuitem id="workflow_config_list_menu" name="Workflow" sequence="1"
 					parent="community_configuration" action="workflow_configuration_list_action"/>
 				<menuitem id="countries_list_menu" name="Countries"
@@ -52,8 +45,6 @@
         	sequence="2"/>
         <menuitem id="oca_form" name="OCAs" parent="me_forms"
         	action="oca_list_action"/>
-        <menuitem id="pillar_assessments" name="Pillar Assessments" parent="me_forms"
-        	action="pillar_assessment_list_action"/>
         <!-- Other Forms-->
         <menuitem id="other_forms" name="Other Forms" parent="top_visit_reports_menu"
         	sequence="3"/>
@@ -61,7 +52,7 @@
           parent="other_forms" action="transition_strategy_list_action"/>
 				<!--Configuration View-->
         <menuitem id="main_vrfs_configuration_menu" name="Configuration"
-          parent="top_visit_reports_menu" sequence="4"/>
+          parent="top_visit_reports_menu" sequence="4" groups="sparkit.global"/>
 	 			<menuitem id="grouptracking_menu" name="Group Tracking"
           parent="main_vrfs_configuration_menu" action="grouptracking_list_action"
           sequence="1"/>
@@ -113,7 +104,7 @@
 
 				<!--Projects Configuration View-->
         <menuitem id="main_projects_configuration_menu" name="Configuration"
-            parent="top_community_projects" sequence="4"/>
+            parent="top_community_projects" sequence="4" groups="sparkit.global"/>
 	 			<menuitem id="project_categories_config_menu" name="Project Categories"
             parent="main_projects_configuration_menu"
             action="project_categories_list_action" sequence="2"/>

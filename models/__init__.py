@@ -10,7 +10,6 @@ from . import independent_project
 from . import visit_report_forms
 from . import savings_group
 from . import ongoing_community_assessment
-from . import pillar_assessment
 from . import partnership
 from . import community_proposal
 from . import res_country

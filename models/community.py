@@ -281,9 +281,6 @@ class Community(models.Model):
 	#OCAs
 	oca_ids = fields.One2many('sparkit.oca', 'community_id', string="OCAs", track_visibility='onchange')
 
-	#Pillar Assessments
-	pillar_assessment_ids = fields.One2many('sparkit.pillarassessment', 'community_id',
-		track_visibility='onchange', string="Pillar Assessments")
 
 	#Transition Strategy
 	transition_strategy_ids = fields.One2many('sparkit.transitionstrategy', 'community_id',
