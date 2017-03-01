@@ -324,7 +324,7 @@ class OngoingCommunityAssessment(models.Model):
 	@api.depends('community_id', 'oca_number', 'community_member')
 	def _get_name(self):
 		for r in self:
-			r.name = r.community_id.name + ' - ' + r.community_member.name + ': OCA ' + str(r.oca_number)
+			r.name = r.community_id.name + ' - ' + r.community_member + ': OCA ' + str(r.oca_number)
 
 
 	#---------------------------------------------
