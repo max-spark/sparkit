@@ -47,7 +47,7 @@ class OngoingCommunityAssessment(models.Model):
 
 	#Section One: Background
 	#Todo: Add domain only allowing community members from the community
-	community_member_id = fields.Many2one('res.partner', string="6. Community Member", required=True)
+	community_member = fields.Char(string="6. Community Member", required=True)
 	age = fields.Integer(string="7. Age")
 	sex = fields.Selection([(0, 'Male'), (1, 'Female')], select=True,
 		string="8. Sex")
@@ -321,10 +321,10 @@ class OngoingCommunityAssessment(models.Model):
 
 
 	@api.multi
-	@api.depends('community_id', 'oca_number', 'community_member_id')
+	@api.depends('community_id', 'oca_number', 'community_member')
 	def _get_name(self):
 		for r in self:
-			r.name = r.community_id.name + ' - ' + r.community_member_id.name + ': OCA ' + str(r.oca_number)
+			r.name = r.community_id.name + ' - ' + r.community_member.name + ': OCA ' + str(r.oca_number)
 
 
 	#---------------------------------------------

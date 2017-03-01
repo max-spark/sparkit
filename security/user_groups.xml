@@ -10,42 +10,36 @@
 
      <record id="facilitator" model="res.groups">
        <field name="name">Facilitator</field>
-       <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
        <field name="category_id" ref="module_category_sparkit"/>
       </record>
 
       <record id="program_manager" model="res.groups">
         <field name="name">Program Manager</field>
-        <field name="implied_ids" eval="[(4, ref('sparkit.facilitator'))]"/>
         <field name="category_id" ref="module_category_sparkit"/>
       </record>
 
       <record id="m_e_user" model="res.groups">
         <field name="name">M&amp;E User</field>
-        <field name="implied_ids" eval="[(4, ref('sparkit.facilitator'))]"/>
         <field name="category_id" ref="module_category_sparkit"/>
       </record>
 
       <record id="f_a_user" model="res.groups">
         <field name="name">F&amp;A User</field>
-        <field name="implied_ids" eval="[(4, ref('sparkit.facilitator'))]"/>
         <field name="category_id" ref="module_category_sparkit"/>
       </record>
 
       <record id="program_manager" model="res.groups">
         <field name="name">Program Manager</field>
-        <field name="implied_ids" eval="[(4, ref('sparkit.facilitator'))]"/>
         <field name="category_id" ref="module_category_sparkit"/>
       </record>
 
       <record id="global" model="res.groups">
         <field name="name">Global User</field>
-        <field name="implied_ids" eval="[(4, ref('sparkit.facilitator')),
-            (4, ref('sparkit.program_manager')),
+        <field name="implied_ids" eval="[(4, ref('sparkit.program_manager')),
             (4, ref('sparkit.m_e_user')),
             (4, ref('sparkit.f_a_user'))]"/>
         <field name="category_id" ref="module_category_sparkit"/>
       </record>
-      
+
     </data>
 </openerp>

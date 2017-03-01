@@ -27,7 +27,7 @@
 						</group>
 						<group colspan="4" col="4" string="Section One: Background" class="no_style">
 							<group colspan="4" col="2">
-								<field name="community_member_id"/>
+								<field name="community_member"/>
 								<field name="age"/>
 								<field name="sex"/>
 								<field name="household_size"/>
