@@ -7,24 +7,25 @@
   			<field name="name">sparkproject.form</field>
   			<field name="model">sparkit.sparkproject</field>
   			<field name="arch" type="xml">
-  				<form string="Spark Community Project" create="false">
+  				<form string="Community Grant Project" create="false">
   					<sheet>
   						<group colspan="4" col="4" string="Project Information" class="no_style">
   							<group colspan="2">
-  								<field name="community_id"
+									<field name="name" invisible="1"/>
+  								<field name="community_id" attrs="{'readonly': [('name','!=', False)]}"
   									options="{'no_create': True}"/>
 									<field name="facilitator_id"/>
   								<field name="grant_agreement_date"/>
-  								<field name="category_id"
+  								<field name="category_id" widget="selection"
   									options="{'no_create': True, 'no_open': True}"/>
-  								<field name="subcategory_id"
+  								<field name="subcategory_id" widget="selection"
   									options="{'no_create': True, 'no_open': True}"
   									domain="[('category_id', '=', category_id)]"/>
   							</group>
   							<group colspan="2">
 								<field name="grant_amount" />
    								<field name="currency_id"/>
-  								<field name="exchange_rate" />
+  								<field name="exchange_rate"/>
   								<field name="grant_amount_local"/>
   							</group>
   						</group>
@@ -32,6 +33,7 @@
   							<page string="Summary">
   								<group colspan="4" col="4" string="Disbursal Summary" class="no_style">
   									<group colspan="2">
+											<field name="last_disbursal_date"/>
   										<field name="number_requests"/>
   										<field name="number_disbursals"/>
   										<field name="total_disbursed"/>
@@ -39,19 +41,21 @@
   									</group>
   									<group colspan="2">
   										<field name="total_expenditure"/>
+											<field name="bank_balance"/>
   										<field name="outstanding_receipts"/>
+											<field name="outstanding_receipts_dollars"/>
   									</group>
   								</group>
   								<group colspan="6" col="6" string="Budgeted Contribution Summary" class="no_style">
   									<group colspan="2">
-  										<field name="spark_contribution" />
-  										<field name="community_contribution" />
-  										<field name="other_contribution" />
+  										<field name="spark_contribution"/>
+  										<field name="community_contribution"/>
+  										<field name="other_contribution"/>
   									</group>
   									<group colspan="2">
   										<field name="spark_contribution_percent" />
-  										<field name="community_contribution_percent" />
-  										<field name="other_contribution_percent" />
+  										<field name="community_contribution_percent"/>
+  										<field name="other_contribution_percent"/>
   									</group>
   									<group colspan="2">
   										<field name="total"/>
@@ -69,12 +73,14 @@
   									context="{'default_project_id': active_id}"/>
   							</page>
   							<page string="Disbursals">
-  								<field name="disbursal_ids" nolabel="1"
-  									context="{'default_project_id': active_id}"/>
-  							</page>
-  							<page string="Disbursal Requests">
-  								<field name="disbursal_request_ids" nolabel="1"
-  									context="{'default_project_id': active_id}"/>
+									<group class="no_style" string="Disbursals">
+	  								<field name="disbursal_ids" nolabel="1"
+	  									context="{'default_project_id': active_id}"/>
+									</group>
+									<group class="no_style" string="Disbursal Requests">
+	  								<field name="disbursal_request_ids" nolabel="1"
+	  									context="{'default_project_id': active_id}"/>
+									</group>
   							</page>
 								<page string="Project Support Initiatives">
 									<field name="project_support_initiative_ids" nolabel="1"
@@ -82,6 +88,10 @@
 								</page>
   						</notebook>
   					</sheet>
+						<div class="oe_chatter">
+							<field name="message_follower_ids" widget="mail_followers"/>
+							<field name="message_ids" widget="mail_thread"/>
+						</div>
   				</form>
   			</field>
   		</record>
@@ -91,14 +101,31 @@
   			<field name="name">sparkproject.tree</field>
   			<field name="model">sparkit.sparkproject</field>
   			<field name="arch" type="xml">
-  				<tree string="Spark Community Projects">
-  					<field name="grant_agreement_date"/>
-  					<field name="community_id"/>
-  					<field name="category_id"/>
+  				<tree string="Community Grant Projects">
+						<field name="grant_agreement_date"/>
   					<field name="grant_amount"/>
+						<field name="total_disbursed"/>
+						<field name="left_to_disburse"/>
+						<field name="category_id"/>
   				</tree>
   			</field>
   		</record>
+
+			<!--Community Projects - View -->
+			<record model="ir.ui.view" id="spark_project_tree_default">
+				<field name="name">sparkproject.tree.default</field>
+				<field name="model">sparkit.sparkproject</field>
+				<field name="arch" type="xml">
+					<tree string="Spark Community Projects">
+						<field name="country_id"/>
+						<field name="community_id"/>
+						<field name="category_id"/>
+						<field name="facilitator_id"/>
+						<field name="grant_amount"/>
+						<field name="grant_agreement_date"/>
+					</tree>
+				</field>
+			</record>
 
 			<record model="ir.ui.view" id="spark_project_default_search">
 				<field name="name">sparkproject.search</field>
@@ -108,10 +135,12 @@
 						<field name="community_name"/>
 						<field name="community_number"/>
 						<field name="facilitator_id"/>
+						<field name="country_id"/>
 						<field name="category_id"/>
 						<group expand="0" string="Group By">
 							<filter name="by_community" string="Community" context="{'group_by': 'community_id'}" help="Community"/>
 							<filter name="by_facilitator" string="Facilitator" context="{'group_by':'facilitator_id'}" help="Facilitator"/>
+							<filter name="by_country" string="Country" context="{'group_by': 'country_id'}" help="Country"/>
 							<filter name="by_project" string="Project Category" context="{'group_by':'category_id'}" help="Project Category"/>
 						</group>
 					</search>
@@ -119,9 +148,9 @@
 			</record>
 
 
-  		<!--Community Projects Actions-->
+  		<!--Community Projects Actions (Default)-->
   		<record model="ir.actions.act_window" id="spark_project_list_action">
-  			<field name="name">Spark Projects</field>
+  			<field name="name">Community Grant Projects</field>
   			<field name="res_model">sparkit.sparkproject</field>
   			<field name="view_type">form</field>
   			<field name="view_mode">tree,form</field>
@@ -130,6 +159,19 @@
   				Create the first Community Project!</p>
   			</field>
   		</record>
+
+			<!--Community Projects Actions Non-default -->
+			<record model="ir.actions.act_window" id="spark_project_list_action_default">
+				<field name="name">Grant Projects</field>
+				<field name="res_model">sparkit.sparkproject</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
+				<field name="view_id" ref="spark_project_tree_default"/>
+				<field name="help" type="html">
+					<p class="oe_view_nocontent_create">
+					Create the first Community Project!</p>
+				</field>
+			</record>
 
 
   		<!--Budget Items Form-->
@@ -171,7 +213,39 @@
   			</field>
   		</record>
 
-  		<!--Unique Budget Items List View-->
+			<!-- Budget Line Items Form View-->
+  		<record model="ir.ui.view" id="unique_budget_items_form">
+  			<field name="name">uniquebudgetitems.form</field>
+  			<field name="model">sparkit.projectbudgetitem</field>
+  			<field name="arch" type="xml">
+  				<form string="Community Budget Items">
+						<sheet>
+							<group class="no_style" colspan="2" col="2">
+		  					<field name="budget_item_id" options="{'no_create': True}"/>
+		  					<field name="community_id" invisible="1"/>
+		  					<field name="unit"/>
+		  					<field name="unit_cost"/>
+		  					<field name="number_of_units"/>
+		  					<field name="source"/>
+							</group>
+							<group class="no_style" colspan="2" col="2">
+								<field name="proportion_spent"/>
+		  					<field name="budgeted"/>
+		  					<field name="actual"/>
+		  					<field name="difference"/>
+		  					<field name="budget_phase"/>
+							</group>
+							<field name="transaction_ids"/>
+						</sheet>
+						<div class="oe_chatter">
+							<field name="message_follower_ids" widget="mail_followers"/>
+							<field name="message_ids" widget="mail_thread"/>
+						</div>
+  				</form>
+  			</field>
+  		</record>
+
+  		<!--Budget Line Items List View-->
   		<record model="ir.ui.view" id="unique_budget_items_tree">
   			<field name="name">uniquebudgetitems.tree</field>
   			<field name="model">sparkit.projectbudgetitem</field>
@@ -185,13 +259,14 @@
   					<field name="source"/>
   					<field name="budgeted"/>
   					<field name="actual"/>
+						<field name="proportion_spent" widget="progressbar"/>
   					<field name="difference"/>
   					<field name="budget_phase"/>
   				</tree>
   			</field>
   		</record>
 
-  		<!--Unique Budget Items Form Actions-->
+  		<!--Budget Line Items Form Actions-->
   		<record model="ir.actions.act_window" id="unique_budget_items_list_action">
   			<field name="name">Community Budget</field>
   			<field name="res_model">sparkit.projectbudgetitem</field>
@@ -202,18 +277,51 @@
   			</field>
   		</record>
 
+
+			<!--Transactions Form View-->
+  		<record model="ir.ui.view" id="transactions_form">
+  			<field name="name">transactions.form</field>
+  			<field name="model">sparkit.transaction</field>
+  			<field name="arch" type="xml">
+  				<form string="Transactions">
+						<sheet>
+							<group class="no_style">
+		  				  <field name="project_id" invisible="1"/>
+		  					<field name="date"/>
+		  					<field name="budget_item_id" options="{'no_create': True}"
+		  						domain="[('project_id', '=', project_id)]"
+									widget="selection"/>
+		  					<field name="amount"/>
+								<field name="receipt_filename" invisible="1"/>
+		  					<field name="receipt" filename="receipt_filename"/>
+		  					<field name="receipt_number"/>
+		  					<field name="notes" style="width:40%%"/>
+								<field name="spark_receipt"/>
+							</group>
+						</sheet>
+						<div class="oe_chatter">
+							<field name="message_follower_ids" widget="mail_followers"/>
+							<field name="message_ids" widget="mail_thread"/>
+						</div>
+  				</form>
+  			</field>
+  		</record>
+
+
+
   		<!--Transactions List View-->
   		<record model="ir.ui.view" id="transactions_tree">
   			<field name="name">transactions.tree</field>
   			<field name="model">sparkit.transaction</field>
   			<field name="arch" type="xml">
-  				<tree string="Transactions" editable="bottom">
-  				  	<field name="project_id" invisible="1"/>
+  				<tree string="Transactions">
+  				  <field name="project_id" invisible="1"/>
   					<field name="date"/>
   					<field name="budget_item_id" options="{'no_create': True}"
   						domain="[('project_id', '=', project_id)]"/>
   					<field name="amount"/>
-  					<field name="receipt"/>
+						<field name="receipt_filename" invisible="1"/>
+  					<field name="receipt" filename="receipt_filename"/>
   					<field name="receipt_number"/>
   					<field name="notes" style="width:40%%"/>
   				</tree>
@@ -231,12 +339,37 @@
   			</field>
   		</record>
 
+			<!--Disbursal Requests Form View-->
+			<record model="ir.ui.view" id="disbursal_request_form">
+				<field name="name">disbursalrequest.form</field>
+				<field name="model">sparkit.disbursalrequest</field>
+				<field name="arch" type="xml">
+					<form string="Disbursal Request">
+						<sheet>
+							<group class="no_style">
+								<field name="disbursal_request_number"/>
+								<field name="date"/>
+								<field name="amount"/>
+								<field name="amount_approved"/>
+								<field name="disbursed_to_date"/>
+								<field name="balance"/>
+							</group>
+						</sheet>
+						<div class="oe_chatter">
+							<field name="message_follower_ids" widget="mail_followers"/>
+							<field name="message_ids" widget="mail_thread"/>
+						</div>
+					</form>
+				</field>
+			</record>
+
+
   		<!--Disbursal Requests List View-->
   		<record model="ir.ui.view" id="disbursal_requests_tree">
   			<field name="name">disbursalrequests.tree</field>
   			<field name="model">sparkit.disbursalrequest</field>
   			<field name="arch" type="xml">
-  				<tree string="Disbursal Requests" editable="bottom">
+  				<tree string="Disbursal Requests">
   					<field name="disbursal_request_number"/>
   					<field name="date"/>
   					<field name="amount"/>
@@ -258,21 +391,45 @@
   			</field>
   		</record>
 
+			<!--Disbursals List View-->
+  		<record model="ir.ui.view" id="disbursals_form">
+  			<field name="name">disbursals.form</field>
+  			<field name="model">sparkit.disbursal</field>
+  			<field name="arch" type="xml">
+  				<form string="Disbursal">
+						<sheet>
+							<group class="no_style">
+		  					<field name="project_id" invisible="1"/>
+		  					<field name="request_number_id" options="{'no_create': True}"
+		  						domain="[('project_id', '=', project_id)]"
+									widget="selection"/>
+		  					<field name="date"/>
+		  					<field name="amount"/>
+		  					<field name="note"/>
+								<field name="payment_method"/>
+		  					<field name="deposited_in_bank_by" options="{'no_create': True}"/>
+								<field name="disbursal_receipt_name" invisible="1"/>
+								<field name="disbursal_receipt" filename="disbursal_receipt_name"/>
+							</group>
+						</sheet>
+  				</form>
+  			</field>
+  		</record>
 
   		<!--Disbursals List View-->
   		<record model="ir.ui.view" id="disbursals_tree">
   			<field name="name">disbursals.tree</field>
   			<field name="model">sparkit.disbursal</field>
   			<field name="arch" type="xml">
-  				<tree string="Disbursals" editable="bottom">
+  				<tree string="Disbursals">
   					<field name="project_id" invisible="1"/>
   					<field name="request_number_id" options="{'no_create': True}"
   						domain="[('project_id', '=', project_id)]"/>
   					<field name="date"/>
   					<field name="amount"/>
   					<field name="note"/>
-  					<field name="given_to_community_by_id" options="{'no_create': True}"/>
-  					<field name="cash_given_by_id" options="{'no_create': True}"/>
+						<field name="payment_method"/>
+  					<field name="deposited_in_bank_by" options="{'no_create': True}"/>
   				</tree>
   			</field>
   		</record>

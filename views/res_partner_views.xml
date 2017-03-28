@@ -22,6 +22,9 @@
                      <field name="mobile" placeholder="Secondary phone"/>
                      <field name="email"/>
                      <field name="lang"/>
+                     <field name="website"
+                       placeholder="Please add URL of Salesforce Profile"
+                       attrs="{'invisible': [('company_type', '!=', 'donor')]}"/>
                      <field name="category_id" widget="many2many_tags" placeholder="Tags..."/>
                      <field name="type" invisible="1"/>
                   </group>
@@ -29,6 +32,7 @@
                     <field name="community_ids" attrs="{'invisible':
                         [('company_type', '!=', 'company'),
                          ('company_type', '!=', 'boda_moto'),
+                         ('company_type', '!=', 'donor'),
                          ('company_type', '!=', 'technical_advisor')]}"
                          widget="many2many_tags"
                          options="{'no_create': True}"/>

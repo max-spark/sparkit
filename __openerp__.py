@@ -52,6 +52,7 @@
         'views/community_workflow_parameters_views.xml',
         'views/res_currency_view.xml',
         'views/res_users_views.xml',
+        'views/visit_report_form_workflow.xml',
         #SparkIt Menu
         'views/sparkit_menu.xml',
         #Default/preloaded Data

@@ -24,7 +24,8 @@ class FCAPStep(models.Model):
 	_name = 'sparkit.fcapstep'
 
 	name = fields.Char(string="Name")
-	phase_id = fields.Many2one('sparkit.fcapmap', string="Phase")
+	phase_id = fields.Many2one('sparkit.fcapmap', string="Phase",
+		ondelete='cascade')
 	state = fields.Selection([
 		('community_identification', 'Community Identification - Baseline'),
 		('introductions', 'Introductions'),

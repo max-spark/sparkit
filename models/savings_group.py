@@ -10,7 +10,10 @@ class SavingsGroup(models.Model):
 	#Basic Fields
 	name = fields.Char(compute='_get_name')
 	community_id = fields.Many2one('sparkit.community', string="Community",
-		domain=[('is_partnered', '=', True)], required=True)
+		domain=[('is_partnered', '=', True)], required=True,
+		ondelete='cascade')
+	community_number = fields.Char(related='community_id.community_number')
+	country_id = fields.Many2one(related='community_id.country_id', readonly=True)
 
 	#Savings Groups
 	number_hh_at_start = fields.Integer(
@@ -31,11 +34,14 @@ class SavingsGroup(models.Model):
 	#Calculations
 	amount_in_bank = fields.Float(related='latest_id.amount_in_bank', readonly=True)
 	amount_in_circulation = fields.Float(related='latest_id.amount_in_circulation', readonly=True)
-	total_saved = fields.Float(related='latest_id.total_saved', readonly=True)
-
+	number_hh = fields.Integer(related='latest_id.number_hh', readonly=True, default='number_hh_at_start')
+	last_updated = fields.Date(compute='_get_latest', readonly=True, string="Last Updated")
 
 	#Calculates the latest ID based on date
 	latest_id = fields.Many2one('sparkit.savingsgroupupdate', compute='_get_latest')
+
+	#Total Saved
+	total_saved = fields.Float(string="Total Saved", compute='get_total_saved')
 
 	#Updates
 	savings_group_update_ids = fields.One2many('sparkit.savingsgroupupdate',
@@ -51,26 +57,40 @@ class SavingsGroup(models.Model):
 	@api.multi
 	@api.depends('savings_group_update_ids')
 	def _get_latest(self):
-		if self.savings_group_update_ids:
-			latest_date = max(s.date for s in self.savings_group_update_ids)
-			latest = self.savings_group_update_ids.search([('date', '=', latest_date), ('savings_group_id.name', '=', self.name)], limit=1)
-			if latest:
-				self.latest_id = latest
+		for r in self:
+			if r.savings_group_update_ids:
+				r.latest_id = max(r.savings_group_update_ids.ids)
+				if r.latest_id:
+					r.last_updated = r.latest_id.date
 
+	@api.multi
+	@api.depends('latest_id')
+	def get_total_saved(self):
+		for r in self:
+			if r.latest_id:
+				r.total_saved = r.latest_id.amount_in_bank + r.latest_id.amount_in_circulation + r.latest_id.interest_earned
 
 class SavingsGroupUpdate(models.Model):
 	_name = 'sparkit.savingsgroupupdate'
+	_order = 'date desc'
+
+	@api.depends('savings_group_id')
+	def _get_default_hh(self):
+		for r in self:
+			if r.savings_group_id:
+				r.number_hh = r.savings_group_id.number_hh
 
 	#Basic
 	name = fields.Char(compute='_get_name')
 	savings_group_id = fields.Many2one('sparkit.savingsgroup',
-		string="Savings Group")
-	community_id = fields.Many2one('sparkit.community')
+		string="Savings Group", ondelete='cascade')
+	community_id = fields.Many2one('sparkit.community', ondelete='cascade')
 
 	#Update
 	date = fields.Date(string="Date of Update")
 	number_hh = fields.Integer(string="Number of HH",
-		help="What is the total number of households currently in the savings group?")
+		help="What is the total number of households currently in the savings group?",
+		default=_get_default_hh)
 	amount_in_bank = fields.Float(string="Amount in Savings Group Account",
 		help="How much has the community saved?", required=True)
 	amount_in_circulation = fields.Float(string="Amount in Circulation",

@@ -10,7 +10,8 @@ class OngoingCommunityAssessment(models.Model):
 
 	name = fields.Char(compute='_get_name', string="Form ID")
 	country_id = fields.Many2one(related='community_id.country_id', string="1. Country", readonly=True)
-	community_id = fields.Many2one('sparkit.community', string="2. Community")
+	community_id = fields.Many2one('sparkit.community', string="2. Community",
+		ondelete='cascade')
 	project_category_id = fields.Many2one(related='community_id.project_category_id',
 		string="Project Category")
 	project_subcategory_id = fields.Many2one(related='community_id.project_subcategory_id',

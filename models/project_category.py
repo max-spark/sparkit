@@ -15,4 +15,5 @@ class ProjectSubCategory(models.Model):
 	_name = 'sparkit.projectsubcategory'
 
 	name = fields.Char(string="Project SubCategory")
-	category_id = fields.Many2one('sparkit.projectcategory', string="Category")
+	category_id = fields.Many2one('sparkit.projectcategory', string="Category",
+		ondelete='cascade')

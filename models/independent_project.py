@@ -2,7 +2,9 @@
 
 from openerp import models, fields, api
 
-#Independent Projects
+# Independent Projects module including parent object (the project) and
+# a child object (update forms) to allow staff to routinely update
+# progress on community independent projects.
 
 class IndependentProject(models.Model):
 	_name = 'sparkit.independentproject'
@@ -52,8 +54,8 @@ class IndependentProjectUpdate(models.Model):
 	#Basic
 	name = fields.Char(string="Name")
 	independent_project_id = fields.Many2one('sparkit.independentproject',
-		string="Independent Project")
-	community_id = fields.Many2one('sparkit.community')
+		string="Independent Project", ondelete='cascade')
+	community_id = fields.Many2one('sparkit.community', ondelete='cascade')
 	is_sustaining = fields.Boolean(string="Independent Project Sustaining?", default=True)
 
 	#Update

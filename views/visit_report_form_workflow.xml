@@ -1,0 +1,72 @@
+<openerp>
+    <data>
+        <!--Visit Report Form Workflow-->
+        <record model="workflow" id="wkf_vrf">
+            <field name="name">Visit Report Form Worflow</field>
+            <field name="osv">sparkit.vrf</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <!-- State Activities-->
+        <record model="workflow.activity" id="action_planned">
+            <field name="name">Planned Visit</field>
+            <field name="wkf_id" ref="wkf_vrf"/>
+            <field name="flow_start" eval="True"/>
+            <field name="kind">function</field>
+            <field name="action">action_planned()</field>
+        </record>
+
+        <record model="workflow.activity" id="action_visited">
+            <field name="name">Visited</field>
+            <field name="wkf_id" ref="wkf_vrf"/>
+            <field name="kind">function</field>
+            <field name="action">action_visited()</field>
+        </record>
+
+        <record model="workflow.activity" id="action_cancelled">
+            <field name="name">Cancelled</field>
+            <field name="wkf_id" ref="wkf_vrf"/>
+            <field name="kind">function</field>
+            <field name="action">action_cancelled()</field>
+        </record>
+
+        <record model="workflow.activity" id="action_approved">
+            <field name="name">Approved</field>
+            <field name="wkf_id" ref="wkf_vrf"/>
+            <field name="kind">function</field>
+            <field name="action">action_approved()</field>
+        </record>
+
+        <!--Phase Transitions-->
+
+        <!-- Planned to Visited-->
+        <record model="workflow.transition" id="planned_to_visited">
+            <field name="act_from" ref="sparkit.action_planned"/>
+            <field name="act_to" ref="sparkit.action_visited"/>
+            <field name="signal">visited</field>
+        </record>
+        <record model="workflow.transition" id="visited_to_planned">
+            <field name="act_from" ref="sparkit.action_visited"/>
+            <field name="act_to" ref="sparkit.action_planned"/>
+            <field name="signal">planned</field>
+        </record>
+
+        <record model="workflow.transition" id="planned_to_cancelled">
+            <field name="act_from" ref="sparkit.action_planned"/>
+            <field name="act_to" ref="sparkit.action_cancelled"/>
+            <field name="signal">cancelled</field>
+        </record>
+        <record model="workflow.transition" id="cancelled_to_planned">
+            <field name="act_from" ref="sparkit.action_cancelled"/>
+            <field name="act_to" ref="sparkit.action_planned"/>
+            <field name="signal">planned</field>
+        </record>
+
+        <record model="workflow.transition" id="visited_to_approved">
+            <field name="act_from" ref="sparkit.action_visited"/>
+            <field name="act_to" ref="sparkit.action_approved"/>
+            <field name="signal">approved</field>
+        </record>
+
+    </data>
+</openerp>

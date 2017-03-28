@@ -18,7 +18,7 @@ class Partnership(models.Model):
 	partner_id = fields.Many2one('res.partner', string="Partner", required=True,
 		domain="[('company_type', '=', 'company')]")
 	community_id = fields.Many2one('sparkit.community', string="Community",
-		required=True)
+		required=True, ondelete='cascade')
 
 	#Partnership Information
 	description = fields.Text(string="Partnership Description",
@@ -60,9 +60,10 @@ class PartnershipUpdate(models.Model):
 
 	name = fields.Char(compute='_get_name', readonly=True)
 	partnership_id = fields.Many2one('sparkit.partnership',
-		string="Partnership")
+		string="Partnership", ondelete='cascade')
 	partnership_name = fields.Char(related='partnership_id.name')
-	community_id = fields.Many2one('sparkit.community', string="Community")
+	community_id = fields.Many2one('sparkit.community', string="Community",
+		ondelete='cascade')
 
 	date = fields.Date(string="Date")
 

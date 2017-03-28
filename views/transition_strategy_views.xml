@@ -12,16 +12,11 @@
   							<group colspan="2" col="2">
   								<field name="name"/>
   								<field name="community_id" options="{'no_create': True}"/>
-  								<field name="project_id"
-  									domain="[('community_id', '=', community_id)]"
-  									options="{'no_create': True}"/>
 									<field name="facilitator_id"/>
   							</group>
   							<group colspan="2" col="2">
   								<field name="post_implementation_start_date"/>
-  								<field name="project_category_id"/>
-  								<field name="project_subcategory_id"/>
-  							</group>
+								</group>
   						</group>
   						<group colspan="4" col="4" string="Project Management Training" class="no_style">
   							<group colspan="2" col="2">

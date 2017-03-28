@@ -230,9 +230,9 @@
 							<group colspan="6" col="6" class="checklist"
 							  attrs="{'invisible': [('state', '!=', 'partnership')]}">
 								<group colspan="6" col="6" class="no_style" string="   Planning: Partnership (3/18)">
-									<field name="partnership_agreement_signed"/>
 									<field name="is_partnership_hh_requirement_met"/>
 									<field name="planning_group_completed"/>
+									<field name="partnership_agreement_signed"/>
 									<field name="partnership_expectations_completed"/>
 								</group>
 							</group>
@@ -246,47 +246,46 @@
 									<field name="is_partnership_agreement_uploaded"/>
 									<field name="num_leaders_requirement"/>
 									<field name="leaders_gender_requirement"/>
+									<field name="sms_registration_completed"/>
 									<field name="gender_empowerment_completed"/>
 									<field name="ground_rules_completed"/>
 									<field name="strong_leaders_completed"/>
 									<field name="leadership_election_completed"/>
 									<field name="vision_statement_completed"/>
-									<field name="sms_registration_completed"/>
 								</group>
 							</group>
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'goal_setting_goals')]}">
 								<group colspan="6" col="6" class="no_style" string="   Planning: Goal Setting - Goals (5/18)">
-									<field name="is_min_goals_brainstormed"/>
 									<field name="is_goals_ideas_not_null"/>
+									<field name="is_min_goals_brainstormed"/>
 									<field name="is_goals_selected_not_null"/>
+									<field name="goal_indicators_selected"/>
+									<field name="goal_indicator_baselines_gathered"/>
 									<field name="understanding_goals_completed"/>
 									<field name="brainstorming_goals_completed"/>
 									<field name="consensus_building_completed"/>
 									<field name="defining_success_completed"/>
 									<field name="assessing_past_progress_completed"/>
-									<field name="goal_indicators_selected"/>
-									<field name="goal_indicator_baselines_gathered"/>
 								</group>
 							</group>
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'goal_setting_pathways')]}">
 								<group colspan="6" col="6" class="no_style" string="   Planning: Goal Setting - Pathways (6/18)">
-									<field name="is_project_description_not_null"/>
-									<field name="pm_approved_goal_setting" readonly="1"/>
-									<field name="is_oca2_completed"/>
 									<field name="is_min_pathways_brainstormed"/>
+									<field name="is_project_description_not_null"/>
+									<field name="is_oca2_completed"/>
 									<field name="did_ta_recruitment_begin"/>
+									<field name="did_government_registration_begin"/>
+									<field name="pm_approved_goal_setting" readonly="1"/>
 									<field name="brainstorming_pathways_completed"/>
 									<field name="feasibility_study_completed"/>
 									<field name="govt_registration_completed"/>
 									<field name="introducing_prop_dev"/>
 									<field name="devloping_savings_groups"/>
 									<field name="banking_training"/>
-									<field name="did_bank_opening_begin"/>
-									<field name="did_government_registration_begin"/>
 								</group>
 							</group>
 
@@ -295,14 +294,13 @@
 								<group colspan="6" col="6" class="no_style" string="   Planning: Implementation Plan (7/18)">
 									<field name="is_ta_recruited"/>
 									<field name="is_ta_workplan_approved"/>
+									<field name="is_ta_trained"/>
 									<field name="is_implementation_action_plan_entered"/>
-									<field name="developing_implementation_action_plan_completed"/>
+									<field name="is_implementation_budget_entered"/>
+									<field name="cmty_facilitators_identified"/>
 									<field name="facilitation_training_completed"/>
 									<field name="understanding_budgeting_completed"/>
 									<field name="developing_implementation_budget_completed"/>
-									<field name="is_implementation_budget_entered"/>
-									<field name="is_ta_trained"/>
-									<field name="cmty_facilitators_identified"/>
 								</group>
 							</group>
 
@@ -340,23 +338,23 @@
 								attrs="{'invisible': [('state', '!=', 'proposal_review')]}">
 								<group colspan="6" col="6" class="no_style" string="   Planning: Proposal Finalization (11/18)">
 									<field name="is_bank_account_created"/>
-									<field name="is_oca3_completed"/>
+									<field name="cmty_registered_with_govt"/>
+									<field name="is_project_created"/>
 									<field name="is_budget_created"/>
 									<field name="is_project_created"/>
 									<field name="has_pm_approved_proposal" readonly="1"/>
-									<field name="cmty_registered_with_govt"/>
 								</group>
 							</group>
 
 							<group colspan="6" col="6" class="checklist"
 								attrs="{'invisible': [('state', '!=', 'grant_agreement')]}">
 								<group colspan="6" col="6" class="no_style" string="   Implementation: Grant Agreement (12/18)">
+									<field name="is_grant_agreement_translated"/>
+									<field name="pg_signed_agreement"/>
+									<field name="min_pg_signed_agreement"/>
 									<field name="is_cashbook_received"/>
 									<field name="is_receipt_book_received"/>
 									<field name="is_disbursement_book_received"/>
-									<field name="is_grant_agreement_translated"/>
-									<field name="min_pg_signed_agreement"/>
-									<field name="pg_signed_agreement"/>
 									<field name="grant_disbursal_training_completed"/>
 									<field name="record_keeping_training_completed"/>
 									<field name="sms_training_completed"/>
@@ -417,12 +415,12 @@
 								attrs="{'invisible': [('state', '!=', 'post_implementation2')]}">
 								<group colspan="6" col="6" class="no_style" string="Post Implementation: Future Envisioning  (17/18)">
 									<field name="is_oca6_completed"/>
+									<field name="cmty_report2_submitted"/>
 									<field name="goals_measuring_success_review_completed"/>
 									<field name="future_goal_setting_completed"/>
 									<field name="advocacy_training_completed"/>
 									<field name="cmty_facilitator_followup"/>
 									<field name="transition_plan_review"/>
-									<field name="cmty_report2_submitted"/>
 								</group>
 							</group>
 
@@ -452,9 +450,14 @@
 									<field name="country_id" options="{'no_create': True}"
 										attrs="{'readonly': [('phase', '!=', 'community_identification')]}"/>
 									<field name="facilitator_id" options="{'no_create': True}"/>
-									<field name="co_facilitator_id"/>
+									<field name="co_facilitator_id" options="{'no_create': True}"/>
 									<field name="program_manager_id" options="{'no_create': True}"/>
 									<field name="description"/>
+									<field name="donor_funded" groups="sparkit.global"/>
+									<field name="donor_ids" groups="sparkit.global"
+											attrs="{'invisible': [('donor_funded', '=', False)]}"
+											domain="[('company_type', '=', 'donor')]"
+											widget="many2many_tags"/>
 									<field name="workflow_config_id"
 											groups="sparkit.global"/>
 									<field name="is_group_tracking_enabled"
@@ -473,6 +476,20 @@
 									<field name="next_visit_date_week" invisible="1"/>
 									<field name="phase_name" invisible="1"/>
 									<field name="state_name" invisible="1"/>
+									<field name="still_meeting"
+											attrs="{'invisible': [('phase', '!=', 'post_implementation'), ('phase', '!=', 'graduated')]}"/>
+									<field name="still_meeting_enddate"
+										attrs="{'invisible': ['|', ('phase', 'not in', ['post_implementation', 'graduated']),
+											('still_meeting', '=', True)],
+											'required': [('phase', 'in', ['post_implementation', 'graduated']),
+												('still_meeting', '=', False)]}"/>
+									<field name="project_sustaining"
+										attrs="{'invisible': [('phase', '!=', 'post_implementation'), ('phase', '!=', 'graduated')]}"/>
+									<field name="project_sustaining_enddate"
+										attrs="{'invisible': ['|', ('phase', 'not in', ['post_implementation', 'graduated']),
+											('project_sustaining', '=', True)],
+											'required': [('phase', 'in', ['post_implementation', 'graduated']),
+												('project_sustaining', '=', False)]}"/>
 								</group>
 							</group>
   						<notebook>
@@ -596,16 +613,19 @@
 										<page string="Important Documents"
 											attrs="{'invisible': [('phase', '=', 'community_identification')]}">
 											<group colspan="2" col="2" class="no_style" string="Partnership Agreement">
+												<field name="partnership_agreement_name" invisible="1"/>
 												<field name="partnership_agreement" widget="binary" filename="partnership_agreement_name"/>
 												<field name="number_signed_partnership_agreement"/>
 												<field name="partnership_agreement_date"/>
 											</group>
 											<group colspan="2" col="2" class="no_style" string="Grant Agreement">
+												<field name="grant_agreement_name" invisible="1"/>
 												<field name="grant_agreement" widget="binary" filename="grant_agreement_name"/>
 												<field name="number_signed_grant_agreement"/>
 												<field name="grant_agreement_signed_date"/>
 											</group>
 											<group colspan="2" col="2" class="no_style" string="Exit Agreement">
+												<field name="exit_agreement_name" invisible="1"/>
 												<field name="exit_agreement" widget="binary" filename="exit_agreement_name"/>
 												<field name="number_signed_exit_agreement"/>
 												<field name="exit_agreement_signed_date"/>
@@ -619,23 +639,23 @@
 										<page string="Planning"
 											attrs="{'invisible': [('phase', '=', 'community_identification')]}">
 		  								<field name="cvrf_ids"
-												context="{'default_community_id': active_id, 'default_phase': phase, 'default_state': state}"/>
+												context="{'default_community_id': active_id, 'default_phase': phase}"/>
 		  							</page>
 		  							<page string="Implementation"
 											attrs="{'invisible': [('phase', '!=', 'implementation'),
 												('phase', '!=', 'post_implementation'), ('phase', '!=', 'graduated')]}">
 		  								<field name="ivrf_ids"
-												context="{'default_community_id': active_id, 'default_phase': phase, 'default_state': state}"/>
+												context="{'default_community_id': active_id, 'default_phase': phase}"/>
 		  							</page>
 		  							<page string="Post Implementation"
 											attrs="{'invisible': [('phase', '!=', 'post_implementation'),
 												('phase', '!=', 'graduated')]}">
 		  								<field name="pivrf_ids"
-												context="{'default_community_id': active_id, 'default_phase': phase, 'default_state': state}"/>
+												context="{'default_community_id': active_id, 'default_phase': phase}"/>
 		  							</page>
 										<page string="All Visits">
 											<field name="vrf_ids"
-												context="{'default_community_id': active_id, 'default_phase': phase, 'default_state': state}"/>
+												context="{'default_community_id': active_id, 'default_phase': phase}"/>
 		  							</page>
 									</notebook>
 								</page>
@@ -655,6 +675,7 @@
 													<field name="technical_advisor_id"
 														domain="[('country_id', '=', country_id)]"
 														context="{'default_community_id': active_id}"/>
+													<field name="ta_workplan_name" invisible="1"/>
 													<field name="technical_advisor_workplan"
 															widget="binary" filename="ta_workplan_name"/>
 													<field name="bank_account"/>
@@ -775,10 +796,11 @@
   			<field name="model">sparkit.community</field>
   			<field name="arch" type="xml">
   				<tree string="Community Tree" default_order="write_date desc">
+						<field name="country_id"/>
+						<field name="community_number"/>
   					<field name="name"/>
-  					<field name="community_number"/>
+						<field name="phase"/>
 						<field name="facilitator_id"/>
-  					<field name="country_id"/>
   				</tree>
   			</field>
   		</record>
@@ -805,6 +827,7 @@
 						<field name="country_id"/>
 						<field name="facilitator_id"/>
 						<field name="program_manager_id"/>
+						<field name="donor_ids"/>
           	<group expand="0" string="Group By">
 							<filter name="by_facilitator" string="Facilitator" context="{'group_by':'facilitator_id'}" help="Facilitator"/>
 							<filter name="by_country" string="Country" context="{'group_by':'country_id'}" help="Country"/>

@@ -56,6 +56,9 @@
 	 			<menuitem id="grouptracking_menu" name="Group Tracking"
           parent="main_vrfs_configuration_menu" action="grouptracking_list_action"
           sequence="1"/>
+				<menuitem id="missedmeetings_menu" name="Missed Meeting Reasons"
+					parent="main_vrfs_configuration_menu" action="missedmeetingreason_list_action"
+					sequence="1"/>
 	 			<menuitem id="fcap_map_menu" name="FCAP Map"
           parent="main_vrfs_configuration_menu" action="fcap_map_list_action"
           sequence="2"/>
@@ -73,18 +76,17 @@
         	action="crosssectorillnesses_list_action"/>
 
 				<!--PROJECTS MENU-->
-  			<menuitem id="top_community_projects" name="Projects"
-  				action="spark_project_list_action"/>
+  			<menuitem id="top_community_projects" name="Projects"/>
 
   			<!-- Spark Projects-->
         <menuitem id="main_spark_projects_menu" name="Projects"
         	parent="top_community_projects" sequence="1"/>
-        <menuitem id="spark_projects_menu" name="Spark Projects"
-        	parent="main_spark_projects_menu" action="spark_project_list_action"/>
+        <menuitem id="spark_projects_menu" name="Grant Projects"
+        	parent="main_spark_projects_menu" action="spark_project_list_action_default"/>
   			<menuitem id="independent_projects_menu" name="Independent Projects"
         	parent="main_spark_projects_menu" action="independent_projects_list_action"/>
         <menuitem id="savings_groups_menu" name="Savings Groups"
-        	parent="main_spark_projects_menu" action="savings_groups_list_action"/>
+        	parent="main_spark_projects_menu" action="savings_groups_list_action_default"/>
 
 				<!-- Partnerships Menu-->
 				<menuitem id="advocacy_menu" name="Advocacy"

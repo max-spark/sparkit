@@ -16,6 +16,8 @@
   								<field name="is_existing"/>
   								<field name="start_date"/>
   								<field name="end_date"/>
+									<field name="last_updated"/>
+									<field name="latest_id"/>
   							</group>
   							<group colspan="2" col="2">
   								<field name="number_hh_at_start"/>
@@ -43,12 +45,28 @@
   			<field name="model">sparkit.savingsgroup</field>
   			<field name="arch" type="xml">
   				<tree string="Savings Groups">
-  					<field name="name"/>
-  					<field name="community_id"/>
+  					<field name="total_saved"/>
+						<field name="number_hh"/>
+						<field name="last_updated"/>
+						<field name="contribution_frequency"/>
   					<field name="start_date"/>
   				</tree>
   			</field>
   		</record>
+
+			<!--Savings Groups List View -->
+			<record model="ir.ui.view" id="savings_groups_tree_default">
+				<field name="name">savingsgroups.tree.default</field>
+				<field name="model">sparkit.savingsgroup</field>
+				<field name="arch" type="xml">
+					<tree string="Savings Groups">
+						<field name="country_id"/>
+						<field name="community_number"/>
+						<field name="community_id"/>
+						<field name="start_date"/>
+					</tree>
+				</field>
+			</record>
 
   		<!-- Savings Group Form Actions-->
   		<record model="ir.actions.act_window" id="savings_groups_list_action">
@@ -56,11 +74,25 @@
   			<field name="res_model">sparkit.savingsgroup</field>
   			<field name="view_type">form</field>
   			<field name="view_mode">tree,form</field>
+				<field name="view_id" ref="savings_groups_tree"/>
   			<field name="help" type="html">
   				<p class="oe_view_nocontent_create">
   				Create the first Savings Group!</p>
   			</field>
   		</record>
+
+			<!-- Savings Group Form Actions-->
+			<record model="ir.actions.act_window" id="savings_groups_list_action_default">
+				<field name="name">Savings Groups</field>
+				<field name="res_model">sparkit.savingsgroup</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
+				<field name="view_id" ref="savings_groups_tree_default"/>
+				<field name="help" type="html">
+					<p class="oe_view_nocontent_create">
+					Create the first Savings Group!</p>
+				</field>
+			</record>
 
   		<!-- Savings Group Updates-->
   		<record model="ir.ui.view" id="savings_group_updates_form_view">
@@ -104,6 +136,7 @@
   					<field name="amount_in_bank"/>
   					<field name="amount_in_circulation"/>
 						<field name="interest_earned"/>
+						<field name="number_hh"/>
 						<field name="is_sustaining"/>
   				</tree>
   			</field>

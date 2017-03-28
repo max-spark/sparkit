@@ -6,7 +6,6 @@ from openerp.exceptions import ValidationError, Warning
 
 # TODO: Automatic Important Dates
 # TODO: Think about codes for partner organizations
-# TODO: Think about security groups!...
 
 class Community(models.Model):
 	_name = 'sparkit.community'
@@ -17,9 +16,12 @@ class Community(models.Model):
 	description = fields.Text(string="Community Description", track_visibility='onchange')
 	community_number = fields.Char(string="Community Number", readonly=True)
 	is_partnered = fields.Boolean(string="Partnered?", default=False, readonly=True)
-	facilitator_id = fields.Many2one('res.users', string="Facilitator", default=lambda self: self.env.user,
+	facilitator_id = fields.Many2one('res.users',
+		string="Facilitator",
+		default=lambda self: self.env.user,
 		track_visibility='onchange')
-	co_facilitator_id = fields.Many2one('res.users', string="Co-Facilitator",
+	co_facilitator_id = fields.Many2one('res.users',
+		string="Co-Facilitator",
 		track_visibility='onchange')
 	program_manager_id = fields.Many2one('res.users', string="Program Manager",
 		track_visibility='onchange')
@@ -29,6 +31,15 @@ class Community(models.Model):
 	special_cases = fields.Many2many('sparkit.specialcases', string="Special Cases",
 		track_visibility='onchange')
 	is_group_tracking_enabled = fields.Boolean(string="Group Tracking Enabled?")
+	donor_funded = fields.Boolean(string="Donor Funded")
+	donor_ids = fields.Many2many('res.partner', string="Donor(s)",
+		domain=[('company_type', '=', 'donor')])
+	still_meeting = fields.Boolean(string="Community Still Meeting?")
+	still_meeting_enddate = fields.Date(string="Date Community Stopped Meeting",
+		help="Please enter the date you learned the community was not meeting anymore.")
+	project_sustaining = fields.Boolean(string="Project Sustaining?")
+	project_sustaining_enddate = fields.Date(string="Date Project Stopped Sustaining",
+		help="Please enter the approximate date the project stopped sustaining.")
 
 	#Workflow States
 	phase = fields.Selection([
@@ -150,26 +161,23 @@ class Community(models.Model):
 		domain=[('company_type', '=', 'technical_advisor')],
 		track_visibility='onchange')
 	technical_advisor_workplan = fields.Binary(string="Technical Advisor Workplan")
-	ta_workplan_name = fields.Char(string="Technical Advisor Workplan Name",
-		compute='_get_ta_workplan_name')
+	ta_workplan_name = fields.Char(string="Technical Advisor Workplan Name")
 
 	# Important Documents
 	number_signed_partnership_agreement = fields.Integer(string="Number of People Who Signed Partnership Agreement",
 		track_visibility='onchange')
-	partnership_agreement_name = fields.Char(compute='_get_partnership_agreement_name', string="Partnership Agreement File Name")
+	partnership_agreement_name = fields.Char(string="Partnership Agreement File Name")
 	partnership_agreement = fields.Binary(string="Partnership Agreement",
 		track_visibility='onchange')
 	partnership_agreement_date = fields.Date(string="Partnership Agreement Signed Date")
 	number_signed_grant_agreement = fields.Integer(string="Number of People Who Signed Grant Agreement",
 		track_visibility='onchange')
-	grant_agreement_name = fields.Char(string="Grant Agreement File Name",
-		compute='_get_grant_agreement_name')
+	grant_agreement_name = fields.Char(string="Grant Agreement File Name")
 	grant_agreement = fields.Binary(string="Grant Agreement", track_visibility='onchange')
 	grant_agreement_signed_date = fields.Date(string="Grant Agreement Signed Date")
 	number_signed_exit_agreement = fields.Integer(string="Number of People Who Signed Exit Agreement",
 		track_visibility='onchange')
-	exit_agreement_name = fields.Char(string="Exit Agreement File Name",
-		compute='_get_exit_agreement_name')
+	exit_agreement_name = fields.Char(string="Exit Agreement File Name")
 	exit_agreement = fields.Binary(string="Exit Agreement", track_visibility='onchange')
 	exit_agreement_signed_date = fields.Date(string="Exit Agreement Signed Date")
 
@@ -262,9 +270,10 @@ class Community(models.Model):
 
 	#Ind Projects
 	independent_project_ids = fields.One2many('sparkit.independentproject',
-		'community_id', string="Independent Projects",
+		'community_id', string="Independent Projects", ondelete='set null',
 		track_visibility='onchange')
-	independent_project_update_ids = fields.One2many('sparkit.independentprojectupdate', 'community_id')
+	independent_project_update_ids = fields.One2many('sparkit.independentprojectupdate',
+		'community_id', ondelete='set null')
 	independent_project_total = fields.Integer(compute='_get_number_ind_projects',
 		string="Total Number of Independent Projects",
 		track_visibility='onchange')
@@ -275,8 +284,9 @@ class Community(models.Model):
 
 	#Savings Groups
 	savings_group_ids = fields.One2many('sparkit.savingsgroup', 'community_id',
-		string="Savings Groups", track_visibility='onchange')
-	savings_group_update_ids = fields.One2many('sparkit.savingsgroupupdate', 'community_id')
+		string="Savings Groups", track_visibility='onchange', ondelete='set null')
+	savings_group_update_ids = fields.One2many('sparkit.savingsgroupupdate', 'community_id',
+		ondelete='set null')
 
 	#OCAs
 	oca_ids = fields.One2many('sparkit.oca', 'community_id', string="OCAs", track_visibility='onchange')
@@ -288,8 +298,9 @@ class Community(models.Model):
 
 	#Partnerships
 	partnership_ids = fields.One2many('sparkit.partnership', 'community_id',
-		track_visibility='onchange', string="Partnerships")
-	partnership_update_ids = fields.One2many(related='partnership_ids.partnership_update_ids')
+		track_visibility='onchange', string="Partnerships", ondelete='set null')
+	partnership_update_ids = fields.One2many(related='partnership_ids.partnership_update_ids',
+		ondelete='set null')
 
 
 	#-----------------------------------------------------
@@ -589,7 +600,7 @@ class Community(models.Model):
 		compute='_check_project_created',
 		track_visibility='onchange',
 		help="Automatically marked as completed when a project form is created for the community.")
-	has_pm_approved_proposal = fields.Boolean(string="Manager Approved Pathway Plan",
+	has_pm_approved_proposal = fields.Boolean(string="Manager Approved Proposal Plan",
 		track_visibility='onchange',
 		readonly=True,
 		help="Checked when the manager approves the community's pathway plan.")
@@ -1091,31 +1102,6 @@ class Community(models.Model):
 		for r in self:
 			if r.govt_registration_number:
 				r.cmty_registered_with_govt = True
-
-	@api.depends('partnership_agreement')
-	def _get_partnership_agreement_name(self):
-		for r in self:
-			if r.partnership_agreement:
-				r.partnership_agreement_name =  r.name + "_" + "Partnership" + "_" + "Agreement" + ".pdf"
-
-	@api.depends('technical_advisor_workplan')
-	def _get_ta_workplan_name(self):
-		for r in self:
-			if r.technical_advisor_workplan:
-				r.ta_workplan_name =  r.name + "_" + "Technical_Advisor_Workplan" + ".pdf"
-
-
-	@api.depends('grant_agreement')
-	def _get_grant_agreement_name(self):
-		for r in self:
-			if r.grant_agreement:
-				r.grant_agreement_name =  r.name + "_" + "Grant" + "_" + "Agreement" + ".pdf"
-
-	@api.depends('exit_agreement')
-	def _get_exit_agreement_name(self):
-		for r in self:
-			if r.exit_agreement:
-				r.grant_agreement_name =  r.name + "_" + "Exit" + "_" + "Agreement" + ".pdf"
 
 	@api.multi
 	@api.depends('vrf_ids')
@@ -2050,6 +2036,8 @@ class Community(models.Model):
 		else:
 			self.state = 'post_implementation1'
 			self.phase = 'post_implementation'
+			self.still_meeting = True
+			self.project_sustaining = True
 
 
 	def action_post_implementation2(self):

@@ -16,10 +16,19 @@ class VisitReportForm(models.Model):
 	_name = 'sparkit.vrf'
 	_inherit = 'mail.thread'
 
+	# States
+	state = fields.Selection([
+		('planned', 'Planned'),
+		('visited', 'Visited'),
+		('approved', 'Approved'),
+		('cancelled', 'Cancelled'),
+		], string="State", select=True, default='planned',
+		track_visibility='onchange')
+
 	#Basic Information
 	name = fields.Char(String="Form ID", readonly=True, track_visibility='always')
 	community_id = fields.Many2one('sparkit.community', string="Community",
-		required=True, track_visibility='always')
+		required=True, track_visibility='always', ondelete='cascade')
 	is_group_tracking_enabled = fields.Boolean(related='community_id.is_group_tracking_enabled')
 	community_number = fields.Char(related='community_id.community_number')
 	community_name = fields.Char(related='community_id.name', store=True)
@@ -40,10 +49,26 @@ class VisitReportForm(models.Model):
 		('implementation', 'Implementation'),
 		('post_implementation', 'Post Implementation'),
 		('graduated', 'Graduated')
-		], select=True, string="Phase", track_visibility='onchange')
-	step_id = fields.Many2one('sparkit.fcapstep', string="Step", track_visibility='onchange')
+		], required=True, select=True, string="Phase", track_visibility='onchange')
+	step_id = fields.Many2one('sparkit.fcapstep', string="Step", track_visibility='onchange',
+		required=True)
 	gps_latitude = fields.Char(string="Latitude", track_visibility='onchange')
 	gps_longitude = fields.Char(string="Longitude", track_visibility='onchange')
+	visit_type = fields.Selection([
+		('community_meeting', 'Meeting - Community Meeting'),
+		('committee_meeting', 'Meeting - Committee Meeting'),
+		('meeting_other', 'Meeting- Other'),
+		('visit_implementation', 'Visit - Implementation'),
+		('visit_post_implementation', 'Visit - Post Implementation'),
+		], select=True, string="Visit Type", track_visibility='onchange')
+	missed_meeting_type = fields.Selection([
+		('no_meeting_visit', 'No Meeting or Visit'),
+		('no_meeting_phone_call', 'No Meeting or Visit - Phone Call')
+		], select=True, string="Visit Type", track_visibility='onchange')
+	missed_meeting_reason = fields.Many2one('sparkit.missedmeetingreason',
+		string="Reason For Missed Meeting")
+	missed_meeting_text = fields.Text(string="Reason for Missed Meeting Description")
+
 	# Dashboard Info
 	phase_name = fields.Char(compute='_get_phase_name', string="Phase Name", store=True)
 	state_name = fields.Char(compute='_get_state_name', string="State Name", store=True)
@@ -51,7 +76,6 @@ class VisitReportForm(models.Model):
 
 
 	#Attendance Information
-	# TODO: Move out of CORE FCAP and into addon module
 	attendance_type1_id = fields.Many2one('sparkit.grouptracking',
 		string="Attendance Type 1")
 	attendance_type2_id = fields.Many2one('sparkit.grouptracking',
@@ -80,7 +104,6 @@ class VisitReportForm(models.Model):
 		compute='_total_attendance', track_visibility='onchange')
 
 	#Speaker information
-	#TODO: Remove from core
 	speakers_type1_id = fields.Many2one('sparkit.grouptracking',
 		string="Speakers Type 1")
 	speakers_type2_id = fields.Many2one('sparkit.grouptracking',
@@ -110,7 +133,6 @@ class VisitReportForm(models.Model):
 		track_visibility='onchange')
 
 	#Meeting Report
-
 	activity1_id = fields.Many2one('sparkit.fcapactivity', string="Activity 1",
 		track_visibility='onchange')
 	activity2_id = fields.Many2one('sparkit.fcapactivity', string="Activity 2",
@@ -162,7 +184,11 @@ class VisitReportForm(models.Model):
 	travel_duration_minutes = fields.Integer(string="Travel Duration Minutes",
 		track_visibility='onchange',
 		compute='_travel_duration_minutes')
-	meeting_started_on_time = fields.Boolean(string="Meeting Started on Time?")
+	meeting_started_on_time = fields.Selection([('yes', 'Yes'), ('no', 'No'), ('N/A', 'N/A')],
+		select=True, string="Meeting Started on Time?")
+	meeting_late_reason = fields.Many2one('sparkit.missedmeetingreason',
+		string="Reason Meeting Delayed",
+		help="Please choose the reason the meeting did not start on time.")
 	meeting_started_on_time_desc = fields.Text(
 		string="Meeting Started on Time: Description",
 		track_visibility='onchange',
@@ -215,21 +241,6 @@ class VisitReportForm(models.Model):
 	community_highlights = fields.Text(string="Community Highlights",
 		track_visibility='onchange',
 		help="Please enter any highlights or other comments from your visit today.")
-
-	#Independent Project Updates
-	independent_project_update_ids = fields.One2many(related='community_id.independent_project_update_ids')
-
-	#Savings Group Updates
-	savings_group_update_ids = fields.One2many(related='community_id.savings_group_update_ids')
-
-	#Independent Meetings
-	independent_meeting_ids = fields.One2many(related='community_id.independent_meeting_ids')
-
-	#Project Support Initiative Updates
-	project_support_initiative_ids = fields.One2many(related='community_id.project_support_initiative_ids')
-
-	#Advocacy Updates
-	partnership_update_ids = fields.One2many(related='community_id.partnership_update_ids')
 
 	#CVRF Specific Fields - (Homework)
 	homework_type = fields.Selection([
@@ -296,13 +307,6 @@ class VisitReportForm(models.Model):
 		for r in self:
 			if r.phase:
 				r.phase_name = dict(self.fields_get(allfields=['phase'])['phase']['selection'])[self.phase]
-
-	"""@api.one
-	@api.depends('state')
-	def _get_state_name(self):
-		for r in self:
-			if r.state:
-				r.state_name = dict(self.fields_get(allfields=['state'])['state']['selection'])[self.state]"""
 
 	@api.depends('phase')
 	def _get_form_type(self):
@@ -396,6 +400,25 @@ class VisitReportForm(models.Model):
 			if r.community_id:
 				r.program_manager = r.community_id.program_manager_id.name
 
+	# Workflow start: planned visit
+	@api.multi
+	def action_planned(self):
+		self.state = 'planned'
+
+	# Planned -> Visited
+	@api.multi
+	def action_visited(self):
+		self.state = 'visited'
+
+	# Planned -> Cancelled
+	@api.multi
+	def action_cancelled(self):
+		self.state = 'cancelled'
+
+	# Visited -> Approved
+	@api.multi
+	def action_approved(self):
+		self.state = 'approved'
 
 
 
@@ -450,3 +473,16 @@ class IndependentMeeting(models.Model):
 				r.duration_minutes = 210
 			else:
 				r.duration_minutes = 0
+
+	#---------------------------------------------------
+	#           Missed Meeting Reasons                 |
+	#---------------------------------------------------
+
+class MissedMeetingReason(models.Model):
+	_name = 'sparkit.missedmeetingreason'
+
+	name = fields.Char(string="Reason")
+	type = fields.Selection([
+		('internal', 'Internal'),
+		('external_cmty', 'External - Community'),
+		('external_other', 'External - Other')], select=True, string="Type", required=True)

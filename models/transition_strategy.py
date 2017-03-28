@@ -8,14 +8,9 @@ class TransitionStrategy(models.Model):
 	#Basic Information
 	name = fields.Char(readonly=True, compute='_get_name')
 	community_id = fields.Many2one('sparkit.community', string="Community",
-		domain=[('is_partnered', '=', True)])
+		domain=[('is_partnered', '=', True)], ondelete='cascade')
 	community_name = fields.Char(related='community_id.name')
 	community_number = fields.Char(related='community_id.community_number')
-	project_id = fields.Many2one('sparkit.sparkproject', string="Project", required=True)
-	project_category_id = fields.Many2one(related='project_id.category_id', readonly=True,
-		string="Project Category")
-	project_subcategory_id = fields.Many2one(related='project_id.subcategory_id', readonly=True,
-		string="Project Sub-Category")
 	facilitator_id = fields.Many2one('res.users', default=lambda self: self.env.user,
 		string="Facilitator")
 	post_implementation_start_date = fields.Date(related='community_id.post_implementation_start_date',
@@ -251,5 +246,5 @@ class TransitionStrategy(models.Model):
 	@api.depends('community_name', 'community_number')
 	def _get_name(self):
 		for r in self:
-			if r.project_id:
+			if r.community_id:
 				r.name = "TS" + r.community_number + ": " + r.community_name
