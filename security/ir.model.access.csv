@@ -69,5 +69,5 @@ access_sparkit_res_currency_pm,res.currency,base.model_res_currency,sparkit.prog
 access_sparkit_res_currency_global,res.currency,base.model_res_currency,sparkit.global,1,1,1,1
 access_sparkit_missed_meeting_reason_fac,sparkit.missedmeetingreason,model_sparkit_missedmeetingreason,sparkit.facilitator,1,1,1,1
 access_sparkit_missed_meeting_reason_fa,sparkit.missedmeetingreason,model_sparkit_missedmeetingreason,sparkit.f_a_user,1,1,1,1
-access_sparkit_missed_meeting_reason,sparkit.missedmeetingreason,model_sparkit_missedmeetingreason,sparkit.m_e_user,1,1,1,1
 access_sparkit_missed_meeting_reason,sparkit.missedmeetingreason,model_sparkit_missedmeetingreason,sparkit.program_manager,1,1,1,1
+access_sparkit_missed_meeting_reason,sparkit.missedmeetingreason,model_sparkit_missedmeetingreason,sparkit.m_e_user,1,1,1,1
