@@ -23,7 +23,7 @@ class Partnership(models.Model):
 	#Partnership Information
 	description = fields.Text(string="Partnership Description",
 		required=True)
-	date_reached_out = fields.Date(string="Date Community Reached Out To Parnter",
+	date_reached_out = fields.Date(string="Date Community Reached Out To Partner",
 		help="When did the community reach out to the partner?",
 		required=True)
 	start_date = fields.Date(string="Start Date of Partnership",

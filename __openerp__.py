@@ -16,7 +16,7 @@
     """,
 
     'author': "Spark MicroGrants",
-    'website': "http://www.sparkmicrogrants.com",
+    'website': "http://www.sparkmicrogrants.org",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
@@ -30,8 +30,8 @@
     # always loaded
     'data': [
         #Security + Access Rules
-        'security/ir.model.access.csv',
         'security/user_groups.xml',
+        'security/ir.model.access.csv',
         #Custom Backend UI
         'views.xml',
     	#SparkIt Views
@@ -52,7 +52,6 @@
         'views/community_workflow_parameters_views.xml',
         'views/res_currency_view.xml',
         'views/res_users_views.xml',
-        'views/visit_report_form_workflow.xml',
         #SparkIt Menu
         'views/sparkit_menu.xml',
         #Default/preloaded Data
@@ -74,6 +73,9 @@
         'data/default_workflow_configuration.xml',
         #workflows
         'views/community_workflow.xml',
+        # Disabling VRF Workflow for Imports
+        # 'views/visit_report_form_workflow.xml',
+
     ],
 
     'qweb': [

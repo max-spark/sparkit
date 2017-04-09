@@ -32,6 +32,7 @@ class FCAPStep(models.Model):
 		('partnership', 'Partnership'),
 		('community_building', 'Community Building'),
 		('goal_setting_goals', 'Goal Setting: Goals'),
+		('goal_setting_objectives', 'Goal Setting: Objectives'),
 		('goal_setting_pathways', 'Goal Setting: Pathways'),
 		('implementation_plan', 'Proposal Development: Implementation Plan'),
 		('operational_plan', 'Proposal Development: Operational Plan'),
@@ -51,6 +52,8 @@ class FCAPStep(models.Model):
 		string="Step")
 	min_duration = fields.Integer(string="Minimum Duration")
 	step_number = fields.Integer(string="Step Number")
+	is_active = fields.Boolean(string="Active Step?",
+		help="Is this step currently in use with the current version of the FCAP?")
 	activity_ids = fields.One2many('sparkit.fcapactivity', 'step_id', string="Activities")
 
 class FCAPActivity(models.Model):

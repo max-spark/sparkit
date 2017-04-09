@@ -64,7 +64,7 @@
 				<field name="name">fcapstep.tree</field>
 				<field name="model">sparkit.fcapstep</field>
 				<field name="arch" type="xml">
-					<tree string="Steps" create="false" editable="bottom">
+					<tree string="Steps" create="false">
 						<field name="name"/>
 						<field name="min_duration"/>
 						<field name="step_number"/>

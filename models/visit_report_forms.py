@@ -26,7 +26,7 @@ class VisitReportForm(models.Model):
 		track_visibility='onchange')
 
 	#Basic Information
-	name = fields.Char(String="Form ID", readonly=True, track_visibility='always')
+	name = fields.Char(String="Form ID", readonly=False, track_visibility='always')
 	community_id = fields.Many2one('sparkit.community', string="Community",
 		required=True, track_visibility='always', ondelete='cascade')
 	is_group_tracking_enabled = fields.Boolean(related='community_id.is_group_tracking_enabled')
@@ -51,20 +51,20 @@ class VisitReportForm(models.Model):
 		('graduated', 'Graduated')
 		], required=True, select=True, string="Phase", track_visibility='onchange')
 	step_id = fields.Many2one('sparkit.fcapstep', string="Step", track_visibility='onchange',
-		required=True)
+		required=False, domain="[('is_active', '=', True)]")
 	gps_latitude = fields.Char(string="Latitude", track_visibility='onchange')
 	gps_longitude = fields.Char(string="Longitude", track_visibility='onchange')
 	visit_type = fields.Selection([
 		('community_meeting', 'Meeting - Community Meeting'),
 		('committee_meeting', 'Meeting - Committee Meeting'),
-		('meeting_other', 'Meeting- Other'),
+		('meeting_other', 'Meeting - Other'),
 		('visit_implementation', 'Visit - Implementation'),
 		('visit_post_implementation', 'Visit - Post Implementation'),
 		], select=True, string="Visit Type", track_visibility='onchange')
 	missed_meeting_type = fields.Selection([
 		('no_meeting_visit', 'No Meeting or Visit'),
 		('no_meeting_phone_call', 'No Meeting or Visit - Phone Call')
-		], select=True, string="Visit Type", track_visibility='onchange')
+		], select=True, string="Visit Type: Missed Meeting", track_visibility='onchange')
 	missed_meeting_reason = fields.Many2one('sparkit.missedmeetingreason',
 		string="Reason For Missed Meeting")
 	missed_meeting_text = fields.Text(string="Reason for Missed Meeting Description")
@@ -158,25 +158,27 @@ class VisitReportForm(models.Model):
 	activity3_desc = fields.Text(string="Activity 3 Status Description",
 		track_visibility='onchange',
 		help = "What activity did you plan to do with the community?")
-	meeting_duration = fields.Selection(
+	visit_duration = fields.Selection(
 		[('not_applicable', 'Not Applicable'),
+		 ('thirty_minutes', '30 minutes'),
 		 ('one_hour', '1 hour'),
 		 ('one_hour_thirty', '1 hour 30 minutes'),
 		 ('two_hours', '2 hours'),
-		 ('two_hours_thirty', '2 hours 30 mintutes'),
+		 ('two_hours_thirty', '2 hours 30 minutes'),
 		 ('three_hours', '3 hours'),
-		 ('over_three_hours', 'More than 3 hours')], select=True, string="Meeting Duration",
+		 ('over_three_hours', 'More than 3 hours')], select=True, string="Visit Duration",
 		 track_visibility='onchange',
 		  help="Please enter the duration of the meeting. Please round up to nearest 15mn interval")
-	meeting_duration_minutes = fields.Integer(string="Meeting Duration Minutes",
+	visit_duration_minutes = fields.Integer(string="Visit Duration Minutes",
 		track_visibility='onchange',
-		compute='_meeting_duration_minutes')
+		compute='_visit_duration_minutes')
 	travel_duration = fields.Selection(
 		[('not_applicable', 'Not Applicable'),
+		 ('thirty_minutes', '30 minutes'),
 		 ('one_hour', '1 hour'),
 		 ('one_hour_thirty', '1 hour 30 minutes'),
 		 ('two_hours', '2 hours'),
-		 ('two_hours_thirty', '2 hours 30 mintutes'),
+		 ('two_hours_thirty', '2 hours 30 minutes'),
 		 ('three_hours', '3 hours'),
 		 ('over_three_hours', 'More than 3 hours')], select=True,
 		 track_visibility='onchange',
@@ -256,30 +258,31 @@ class VisitReportForm(models.Model):
 
 	#IVRF/PIVRF Specific Fields
 	leadership_reported_finances = fields.Selection([('1', 'Yes'),
-		('0', 'No')], select=True,
+		('0', 'No'), ('99', 'Not applicable')], select=True,
 		track_visibility='onchange',
 		string="Did the community leaders provide a financial update at/during meeting?",
 		help="Financial updates should be a regular agenda topic and should include updates on MicroGrant status such as new items purchases, if money was drawn from account, bank account balance, MG spent thus far, cash book updates, any updates from previous week (items higher/lower than budgeted), etc.")
 	leadership_presented_updated_cashbook = fields.Selection([('1', 'Yes'),
-		 ('0', 'No')], select=True,
+		 ('0', 'No'), ('99', 'Not applicable')], select=True,
 		 track_visibility='onchange',
 		 string="Did the community leaders/committee present an updated (current) cash book?",
 		 help="Updated cashbook means there are consistent entries that align with activities in a community.  For example, if you are reviewing a cash book and the last entry was one month ago when the community has been actively buying items, the cash book would not be considered updated.")
 	leadership_presented_accurate_cashbook = fields.Selection([('1', 'Yes'),
-		 ('0', 'No')], select=True,
+		 ('0', 'No'), ('99', 'Not applicable')], select=True,
 		 track_visibility='onchange',
 		 string="Did the community leaders/committee present an accurate cash book?",
 		 help="Accurate means there are consistent entries that align with activities in a community.  For example, if you are reviewing a cash book and the entry on what the community bought was incorrect , the cash book would not be considered accurate.")
 	knowledge_of_community_funds = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No')], select=True,
+		 ('no', 'No'), ('99', 'Not applicable')], select=True,
 		 track_visibility='onchange',
 		 string="Do community members have current and accurate knowledge of community funds?",
 		 help="Community members should have a general awareness of MG size, how much has been spent, and how much is their bank account.")
 	updated_accurate_receipts = fields.Selection([('yes', 'Yes'),
-		 ('no', 'No')], select=True,
+		 ('no', 'No'), ('99', 'Not applicable')], select=True,
 		 track_visibility='onchange',
 		 string="Does the community have accurate, complete, and high quality receipts per the disbursement schedule?",
 		 help="Ensure the receipts are valid, aligned with budget items, and that the community is not just using Spark receipts for all purchased (which should be a last option). Please remember the quality of receipts is as important as having the receipts.")
+	financial_update_desc = fields.Text(string="Financial A/T Description")
 
 	#PIVRF Specific Fields
 	any_new_risks = fields.Boolean(string="Any New Risks?", track_visibility='onchange')
@@ -293,6 +296,18 @@ class VisitReportForm(models.Model):
 		('ocasionally', 'Meeting Ocasionally'), ('not_meeting', 'Not Meeting')],
 		track_visibility='onchange',
 		select=True, string="Community Meeting Frequency")
+
+	migrated_from_sf_mf1 = fields.Boolean(string="Form from SalesForce Monitoring Forms v1?")
+	migrated_from_sf_mf2 = fields.Boolean(string="Form from SalesForce Monitoring Forms v2?")
+	sf_mf2_old_step = fields.Char(string="Old Step (from Salesforce)")
+	migration_notes = fields.Text(string="Migration Notes")
+	sf_mf2_activity1 = fields.Char(string="Old Activity1 (from Salesforce)")
+	sf_mf2_activity2 = fields.Char(string="Old Activity2 (from Salesforce)")
+	sf_mf2_activity3 = fields.Char(string="Old Activity3 (from Salesforce)")
+
+	create_date = fields.Datetime(readonly=False, string="Create Date")
+
+
 
 	@api.depends('visit_date')
 	def get_visit_date_week(self):
@@ -323,24 +338,26 @@ class VisitReportForm(models.Model):
 				elif r.phase == 'graduated':
 					r.form_type = "PIVRF"
 
-	@api.depends('meeting_duration')
-	def _meeting_duration_minutes(self):
+	@api.depends('visit_duration')
+	def _visit_duration_minutes(self):
 		for r in self:
-			if r.meeting_duration == 'one_hour':
-				r.meeting_duration_minutes = 60
-			elif r.meeting_duration == 'one_hour_thirty':
-				r.meeting_duration_minutes = 90
-			elif r.meeting_duration == 'two_hours':
-				r.meeting_duration_minutes = 120
-			elif r.meeting_duration == 'two_hours_thirty':
-				r.meeting_duration_minutes = 150
-			elif r.meeting_duration == 'three_hours':
-				r.meeting_duration_minutes = 180
+			if r.visit_duration == 'one_hour':
+				r.visit_duration_minutes = 60
+			elif r.visit_duration == 'one_hour_thirty':
+				r.visit_duration_minutes = 90
+			elif r.visit_duration == 'two_hours':
+				r.visit_duration_minutes = 120
+			elif r.visit_duration == 'two_hours_thirty':
+				r.visit_duration_minutes = 150
+			elif r.visit_duration == 'three_hours':
+				r.visit_duration_minutes = 180
+			elif r.visit_duration == 'thirty_minutes':
+				r.visit_duration_minutes == 30
 			##How should we handle this case?
-			elif r.meeting_duration == 'over_three_hours':
-				r.meeting_duration_minutes = 210
+			elif r.visit_duration == 'over_three_hours':
+				r.visit_duration_minutes = 210
 			else:
-				r.meeting_duration_minutes = 0
+				r.visit_duration_minutes = 0
 
 
 	@api.depends('travel_duration')
@@ -356,6 +373,8 @@ class VisitReportForm(models.Model):
 				r.travel_duration_minutes = 150
 			elif r.travel_duration == 'three_hours':
 				r.travel_duration_minutes = 180
+			elif r.travel_duration == 'thirty_minutes':
+				r.travel_duration_minutes == 30
 			##How should we handle this case?
 			elif r.travel_duration == 'over_three_hours':
 				r.travel_duration_minutes = 210
@@ -372,12 +391,12 @@ class VisitReportForm(models.Model):
 		for r in self:
 			r.attendance_total = r.attendance_males + r.attendance_females
 
-	@api.model
+	"""@api.model
 	def create(self, vals):
 		vals.update({
 			'name': self.env['ir.sequence'].next_by_code('visit.report.form.seq')
 		})
-		return super(VisitReportForm, self).create(vals)
+		return super(VisitReportForm, self).create(vals)"""
 
 
 	@api.depends('community_id')
@@ -444,10 +463,11 @@ class IndependentMeeting(models.Model):
 	date = fields.Date(string="Independent Meeting Date")
 	duration = fields.Selection(
 		[('not_applicable', 'Not Applicable'),
+		 ('thirty_minutes', '30 minutes'),
 		 ('one_hour', '1 hour'),
 		 ('one_hour_thirty', '1 hour 30 minutes'),
 		 ('two_hours', '2 hours'),
-		 ('two_hours_thirty', '2 hours 30 mintutes'),
+		 ('two_hours_thirty', '2 hours 30 minutes'),
 		 ('three_hours', '3 hours'),
 		 ('over_three_hours', 'More than 3 hours')], select=True,
 		 string="Independent Meeting Duration",
@@ -468,6 +488,8 @@ class IndependentMeeting(models.Model):
 				r.duration_minutes = 150
 			elif r.duration == 'three_hours':
 				r.duration_minutes = 180
+			elif r.duration == 'thirty_minutes':
+				r.duration_minutes == 30
 			##How should we handle this case?
 			elif r.duration == 'over_three_hours':
 				r.duration_minutes = 210

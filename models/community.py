@@ -14,7 +14,7 @@ class Community(models.Model):
 	#Basic Information
 	name = fields.Char(string="Community Name", required=True, track_visibility='always')
 	description = fields.Text(string="Community Description", track_visibility='onchange')
-	community_number = fields.Char(string="Community Number", readonly=True)
+	community_number = fields.Char(string="Community Number", readonly=False)
 	is_partnered = fields.Boolean(string="Partnered?", default=False, readonly=True)
 	facilitator_id = fields.Many2one('res.users',
 		string="Facilitator",
@@ -91,7 +91,8 @@ class Community(models.Model):
 		track_visibility='onchange')
 	govt_registration_number = fields.Char(string="Government Registration Number",
 		track_visibility='onchange')
-	village_slogan = fields.Text(string="Community Slogan",
+	# TODO: Change this to Community Vision
+	village_slogan = fields.Text(string="Community Vision",
 		track_visibility='onchange')
 
 	#dates
@@ -1746,7 +1747,7 @@ class Community(models.Model):
 	# Returns to default (ex: 002) without country prefix if matching country not found
 	# Then returns sequence paired with country once record is saved
 
-	@api.model
+	"""@api.model
 	def create(self, vals):
 		if vals.get('country_id')==193:
 			if vals:
@@ -1771,7 +1772,7 @@ class Community(models.Model):
 				vals.update({
 					'community_number': self.env['ir.sequence'].next_by_code('scouted.community.def')
 				})
-				return super(Community, self).create(vals)
+				return super(Community, self).create(vals)"""
 
 	##Workflow States
 
@@ -1813,14 +1814,14 @@ class Community(models.Model):
 			# Checks country id to see if it is equal to Rwanda, Burundi or Uganda
 			# If equal, the community number if updated using the country-specific sequence
 			# If partnership is not one of these three countries, then defaults to a generic sequence
-			if self.country_id.id == 193:
+			"""if self.country_id.id == 193:
 				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.rw')
 			elif self.country_id.id == 232:
 				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.ug')
 			elif self.country_id.id == 25:
 				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.bdi')
 			else:
-				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.def')
+				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.def')"""
 
 
 	# Partnership -> Community Building
