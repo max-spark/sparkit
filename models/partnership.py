@@ -62,6 +62,11 @@ class PartnershipUpdate(models.Model):
 	partnership_id = fields.Many2one('sparkit.partnership',
 		string="Partnership", ondelete='cascade')
 	partnership_name = fields.Char(related='partnership_id.name')
+	level_of_support = fields.Selection([('1', 'Strongly Opposed'),
+		('2', 'Opposed'),
+		('3', 'Indifferent'),
+		('4', 'Supports'),
+		('5', 'Strongly Supports')], select=True, string="Level of Support")
 	community_id = fields.Many2one('sparkit.community', string="Community",
 		ondelete='cascade')
 
