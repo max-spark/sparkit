@@ -6,36 +6,50 @@ from openerp import models, fields, api
 
 class SavingsGroup(models.Model):
 	_name = 'sparkit.savingsgroup'
+	_inherit = 'mail.thread'
 
 	#Basic Fields
-	name = fields.Char(compute='_get_name')
+	name = fields.Char(compute='_get_name', track_visibility='always')
 	community_id = fields.Many2one('sparkit.community', string="Community",
 		domain=[('is_partnered', '=', True)], required=True,
-		ondelete='cascade')
-	community_number = fields.Char(related='community_id.community_number')
-	country_id = fields.Many2one(related='community_id.country_id', readonly=True)
+		ondelete='cascade', track_visibility='onchange')
+	community_number = fields.Char(related='community_id.community_number',
+		track_visibility='onchange')
+	country_id = fields.Many2one(related='community_id.country_id', readonly=True,
+		track_visibility='onchange')
 
 	#Savings Groups
 	number_hh_at_start = fields.Integer(
 		string="Number of Households at Savings Group Start",
-		required=True)
+		required=True,
+		track_visibility='onchange')
 	contribution_frequency = fields.Selection([('weekly', 'Weekly'),
 		('biweekly', 'Twice a Month'),
 		('monthly', 'Once a Month'),
 		('frequently', 'Frequent but irregular collection'),
-		('other', 'Other')], select=True, string="Contribution Frequency")
+		('other', 'Other')], select=True, string="Contribution Frequency",
+		track_visibility='onchange')
 	contribution_amount = fields.Float(string="Contribution Amount",
-		help="Amount per person(or household) at time of collection")
-	start_capital = fields.Float(string="Amount at Start")
-	is_existing = fields.Boolean(string="Did the Savings Group Exist Before Partnership?")
-	start_date = fields.Date(string="Date Savings Group Started", required=True)
-	end_date = fields.Date(string="Date Savings Group Ended")
+		help="Amount per person(or household) at time of collection",
+		track_visibility='onchange')
+	start_capital = fields.Float(string="Amount at Start",
+		track_visibility='onchange')
+	is_existing = fields.Boolean(string="Did the Savings Group Exist Before Partnership?",
+		track_visibility='onchange')
+	start_date = fields.Date(string="Date Savings Group Started", required=True,
+		track_visibility='onchange')
+	end_date = fields.Date(string="Date Savings Group Ended",
+		track_visibility='onchange')
 
 	#Calculations
-	amount_in_bank = fields.Float(related='latest_id.amount_in_bank', readonly=True)
-	amount_in_circulation = fields.Float(related='latest_id.amount_in_circulation', readonly=True)
-	number_hh = fields.Integer(related='latest_id.number_hh', readonly=True, default='number_hh_at_start')
-	last_updated = fields.Date(compute='_get_latest', readonly=True, string="Last Updated")
+	amount_in_bank = fields.Float(related='latest_id.amount_in_bank', readonly=True,
+		track_visibility='onchange')
+	amount_in_circulation = fields.Float(related='latest_id.amount_in_circulation', readonly=True,
+		track_visibility='onchange')
+	number_hh = fields.Integer(related='latest_id.number_hh', readonly=True, default='number_hh_at_start',
+		track_visibility='onchange')
+	last_updated = fields.Date(compute='_get_latest', readonly=True, string="Last Updated",
+		track_visibility='onchange')
 
 	#Calculates the latest ID based on date
 	latest_id = fields.Many2one('sparkit.savingsgroupupdate', compute='_get_latest')
@@ -69,6 +83,15 @@ class SavingsGroup(models.Model):
 		for r in self:
 			if r.latest_id:
 				r.total_saved = r.latest_id.amount_in_bank + r.latest_id.amount_in_circulation + r.latest_id.interest_earned
+
+	# Adding followers
+	# TODO: Update this once it changes!
+	@api.model
+	def create(self, vals):
+		savings_group = super(SavingsGroup, self).create(vals)
+		if savings_group.community_id:
+			savings_group.message_subscribe_users(user_ids=[savings_group.community_id.m_e_assistant_id.id, savings_group.community_id.program_manager_id.id, savings_group.community_id.facilitator_id.id])
+		return savings_group
 
 class SavingsGroupUpdate(models.Model):
 	_name = 'sparkit.savingsgroupupdate'

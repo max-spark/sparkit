@@ -504,8 +504,6 @@
 												'required': [('phase', '!=', 'community_identification')]}"/>
 											<field name="govt_registration_number"
 												attrs="{'invisible': [('phase', '=', 'community_identification')]}"/>
-											<field name="village_slogan"
-													attrs="{'invisible': [('phase', '=', 'community_identification')]}"/>
 										</group>
 		  							<group colspan="2" col="2">
 		  								<field name="date_scouted"/>
@@ -521,6 +519,8 @@
 		  							</group>
 										<group colspan="4" col="2">
 											<field name="description"/>
+											<field name="village_slogan"
+													attrs="{'invisible': [('phase', '=', 'community_identification')]}"/>
 										</group>
 									</group>
 									<notebook>
