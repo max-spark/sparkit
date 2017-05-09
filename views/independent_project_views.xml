@@ -23,6 +23,9 @@
   								<field name="start_date"/>
   								<field name="end_date"/>
   							</group>
+								<group colspan="4" col="2">
+									<field name="description"/>
+								</group>
   						</group>
   						<field name="project_update_ids"
 								attrs="{'invisible': [('name', '=', False)]}"

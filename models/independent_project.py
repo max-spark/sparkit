@@ -27,6 +27,9 @@ class IndependentProject(models.Model):
 	start_date = fields.Date(string="Date Independent Project Started")
 	end_date = fields.Date(string="Date Independent Project Ended")
 
+	# Project description
+	description = fields.Char(string="Description of Independent Project")
+
 	#Updates
 	project_update_ids = fields.One2many('sparkit.independentprojectupdate',
 		'independent_project_id', string="Updates", ondelete='cascade')

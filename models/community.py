@@ -25,6 +25,8 @@ class Community(models.Model):
 		track_visibility='onchange')
 	program_manager_id = fields.Many2one('res.users', string="Program Manager",
 		track_visibility='onchange')
+	m_e_assistant_id = fields.Many2one('res.users', string="Monitoring/Evaluation Assistant",
+		track_visibility='onchage')
 	is_active = fields.Boolean(string="Active?", readonly=True)
 	phase_name = fields.Char(compute='_get_phase_name', string="Phase Name", store=True)
 	state_name = fields.Char(compute='_get_state_name', string="State Name", store=True)
@@ -91,7 +93,6 @@ class Community(models.Model):
 		track_visibility='onchange')
 	govt_registration_number = fields.Char(string="Government Registration Number",
 		track_visibility='onchange')
-	# TODO: Change this to Community Vision
 	village_slogan = fields.Text(string="Community Vision",
 		track_visibility='onchange')
 

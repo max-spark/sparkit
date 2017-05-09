@@ -452,7 +452,7 @@
 									<field name="facilitator_id" options="{'no_create': True}"/>
 									<field name="co_facilitator_id" options="{'no_create': True}"/>
 									<field name="program_manager_id" options="{'no_create': True}"/>
-									<field name="description"/>
+									<field name="m_e_assistant_id" options="{'no_create': True}"/>
 									<field name="donor_funded" groups="sparkit.global"/>
 									<field name="donor_ids" groups="sparkit.global"
 											attrs="{'invisible': [('donor_funded', '=', False)]}"
@@ -519,6 +519,9 @@
 													('phase', '!=', 'graduated')]}"/>
 		  								<field name="graduation_date" attrs="{'invisible': [('phase', '!=', 'graduated')]}"/>
 		  							</group>
+										<group colspan="4" col="2">
+											<field name="description"/>
+										</group>
 									</group>
 									<notebook>
 										<page string="Demographics">

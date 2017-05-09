@@ -29,6 +29,7 @@ understanding_budgeting,sparkit.implementation_plan,Understanding Budgeting,52
 implementation_budget,sparkit.implementation_plan,Developing Implementation Budget,53
 implementation_plan_training,sparkit.implementation_plan,Training - Other,54
 implementation_plan_ta_training,sparkit.implementation_plan,Training - TA,55
+implementation_plan_structural_plan,sparkit.implementation_plan,Developing A Structural Plan,56
 developing_operational_plan,sparkit.operational_plan,Developing Operational Action Plan,60
 operational_budget,sparkit.operational_plan,Developing Operational Budget,61
 operational_plan_training,sparkit.operational_plan,Training - Other,62

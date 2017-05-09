@@ -36,10 +36,9 @@ class VisitReportForm(models.Model):
 		string="Facilitator", track_visibility='onchange')
 	co_facilitator_id = fields.Many2one('res.users',
 		string="Co-Facilitator", track_visibility='onchange')
-	program_manager = fields.Char(compute='_get_program_manager',
-		string="Program Manager",
-		readonly=True,
-		store=True)
+	m_e_assistant_id = fields.Many2one('res.users', string="M&E Assistant")
+	program_manager_id = fields.Many2one('res.users', string="Program Manager")
+
 	form_type = fields.Char(string="Form Type", compute='_get_form_type', store=True)
 	visit_date = fields.Date(string="Date of Visit", required=True,
 		track_visibility='onchange')
@@ -412,12 +411,12 @@ class VisitReportForm(models.Model):
 			if r.community_id.state:
 				r.state = r.community_id.state_name
 
-	@api.multi
-	@api.depends('community_id')
-	def _get_program_manager(self):
-		for r in self:
-			if r.community_id:
-				r.program_manager = r.community_id.program_manager_id.name
+	@api.model
+	def create(self, vals):
+		new_record = super(VisitReportForm, self).create(vals)
+		new_record.m_e_assistant_id = new_record.community_id.m_e_assistant_id
+		new_record.program_manager_id = new_record.community_id.program_manager_id
+		return new_record
 
 	# Workflow start: planned visit
 	@api.multi

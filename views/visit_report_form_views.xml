@@ -39,7 +39,8 @@
 									<field name="is_group_tracking_enabled" invisible="1"/>
 									<field name="facilitator_id" options="{'no_create': True}"/>
 									<field name="co_facilitator_id" options="{'no_create': True}"/>
-									<field name="program_manager" invisible="1"/>
+									<field name="program_manager_id"/>
+									<field name="m_e_assistant_id"/>
   							</group>
   							<group colspan="2">
   								<field name="visit_date"/>
@@ -242,7 +243,9 @@
 								</group>
 								<group colspan="4" col="2">
 									<field name="community_highlights"
-										attrs="{'readonly': [('state', '=', 'approved')]}"/>
+										attrs="{'readonly': [('state', '=', 'approved')]}"
+										placeholder="Community highlights are stories that either happen during a community meeting or are learned about during a facilitators' visit to the community that would be interesting to highlight externally. For example: 'A community member named Beatrice used a loan from the savings and loans association to start a small restaurant that community members visit after every community meeting' or 'Esther, a woman who is often quiet at community meetings, volunteered to lead the community through a community building exercise today where community members gathered in a circle and sang a local song.'
+										"/>
 								</group>
 								<group colspan="4" col="4" string="Next Meeting" class="no_style">
 									<group colspan="2">
