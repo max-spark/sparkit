@@ -32,11 +32,11 @@
   							context="{'default_independent_project_id': active_id,
   							'default_community_id': community_id}"/>
   					</sheet>
+						<div class="oe_chatter">
+							<field name="message_follower_ids" widget="mail_followers"/>
+							<field name="message_ids" widget="mail_thread"/>
+						</div>
   				</form>
-					<div class="oe_chatter">
-						<field name="message_follower_ids" widget="mail_followers"/>
-						<field name="message_ids" widget="mail_thread"/>
-					</div>
   			</field>
   		</record>
 
