@@ -14,7 +14,7 @@ class Partnership(models.Model):
 	_name = 'sparkit.partnership'
 	_inherit = 'mail.thread'
 
-	#Basic
+	# Basic
 	name = fields.Char(compute='_get_name', readonly=True, track_visibility='always')
 	partner_id = fields.Many2one('res.partner', string="Partner", required=True,
 		domain="[('company_type', '=', 'company')]",
@@ -23,7 +23,7 @@ class Partnership(models.Model):
 		required=True, ondelete='cascade',
 		track_visibility='onchange')
 
-	#Partnership Information
+	# Partnership Information
 	description = fields.Text(string="Partnership Description",
 		required=True, track_visibility='onchange')
 	date_reached_out = fields.Date(string="Date Community Reached Out To Partner",

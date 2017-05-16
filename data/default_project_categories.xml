@@ -33,6 +33,10 @@
       <record id="other" model="sparkit.projectcategory">
           <field name="name">Other</field>
       </record>
-      
+
+      <record id="household_improvements" model="sparkit.projectcategory">
+          <field name="name">Household Improvements</field>
+      </record>
+
     </data>
 </openerp>

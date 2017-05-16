@@ -26,7 +26,8 @@ class VisitReportForm(models.Model):
 		track_visibility='onchange')
 
 	#Basic Information
-	name = fields.Char(String="Form ID", readonly=False, track_visibility='always')
+	name = fields.Char(String="Form ID", readonly=False, track_visibility='always',
+		compute='_get_name')
 	community_id = fields.Many2one('sparkit.community', string="Community",
 		required=True, track_visibility='always', ondelete='cascade')
 	is_group_tracking_enabled = fields.Boolean(related='community_id.is_group_tracking_enabled')
@@ -296,6 +297,14 @@ class VisitReportForm(models.Model):
 		track_visibility='onchange',
 		select=True, string="Community Meeting Frequency")
 
+	#Next Meeting Activities
+	next_meeting_activity1_id = fields.Many2one('sparkit.fcapactivity', string="Next Meeting Activity 1",
+		track_visibility='onchange')
+	next_meeting_activity2_id = fields.Many2one('sparkit.fcapactivity', string="Next Meeting Activity 2",
+		track_visibility='onchange')
+	next_meeting_activity3_id = fields.Many2one('sparkit.fcapactivity', string="Next Meeting Activity 3",
+		track_visibility='onchange')
+
 	migrated_from_sf_mf1 = fields.Boolean(string="Form from SalesForce Monitoring Forms v1?")
 	migrated_from_sf_mf2 = fields.Boolean(string="Form from SalesForce Monitoring Forms v2?")
 	sf_mf2_old_step = fields.Char(string="Old Step (from Salesforce)")
@@ -303,10 +312,9 @@ class VisitReportForm(models.Model):
 	sf_mf2_activity1 = fields.Char(string="Old Activity1 (from Salesforce)")
 	sf_mf2_activity2 = fields.Char(string="Old Activity2 (from Salesforce)")
 	sf_mf2_activity3 = fields.Char(string="Old Activity3 (from Salesforce)")
-
-	create_date = fields.Datetime(readonly=False, string="Create Date")
-
-
+	sf_mf2_next_meeting_activity1 = fields.Char(string="Old Next Meeting Activity1 (from SF)")
+	sf_mf2_next_meeting_activity2 = fields.Char(string="Old Next Meeting Activity2 (from SF)")
+	sf_mf2_next_meeting_activity3 = fields.Char(string="Old Next Meeting Activity3 (from SF)")
 
 	@api.depends('visit_date')
 	def get_visit_date_week(self):
@@ -390,13 +398,12 @@ class VisitReportForm(models.Model):
 		for r in self:
 			r.attendance_total = r.attendance_males + r.attendance_females
 
-	"""@api.model
-	def create(self, vals):
-		vals.update({
-			'name': self.env['ir.sequence'].next_by_code('visit.report.form.seq')
-		})
-		return super(VisitReportForm, self).create(vals)"""
-
+	@api.depends('community_id', 'visit_date')
+	def _get_name(self):
+		for r in self:
+			if r.community_number and r.community_name:
+				if r.visit_date:
+					r.name = r.community_number + ': ' + r.community_id.name + ': ' + r.visit_date
 
 	@api.depends('community_id')
 	def _get_phase(self):
@@ -411,6 +418,7 @@ class VisitReportForm(models.Model):
 			if r.community_id.state:
 				r.state = r.community_id.state_name
 
+	# Assigning current M&E and Program Manager to record
 	@api.model
 	def create(self, vals):
 		new_record = super(VisitReportForm, self).create(vals)
