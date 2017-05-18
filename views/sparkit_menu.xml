@@ -74,6 +74,9 @@
   			<menuitem id="crossectorillnesses_menu" name="Cross Sector - Illnesses (OCA)"
         	parent="main_vrfs_configuration_menu"
         	action="crosssectorillnesses_list_action"/>
+				<menuitem id="indmtgs_menu" name="Independent Meetingss"
+        	parent="main_vrfs_configuration_menu"
+        	action="independent_meeting_list_action"/>
 
 				<!--PROJECTS MENU-->
   			<menuitem id="top_community_projects" name="Projects"/>

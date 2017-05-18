@@ -354,7 +354,7 @@
   			<field name="name">independentmeetings.tree</field>
   			<field name="model">sparkit.independentmeeting</field>
   			<field name="arch" type="xml">
-  				<tree string="Independent Meetings" editable="bottom">
+  				<tree string="Independent Meetings" editable="bottom" default_order="date desc">
   					<field name="community_id" readonly="1"/>
   					<field name="date"/>
   					<field name="attendance"/>
@@ -374,5 +374,6 @@
   				<p class="oe_view_nocontent_create">Create the first groups!</p>
   			</field>
   		</record>
+
     </data>
 </openerp>
