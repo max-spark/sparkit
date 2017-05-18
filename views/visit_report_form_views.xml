@@ -282,7 +282,7 @@
   			<field name="name">visitreport.tree</field>
   			<field name="model">sparkit.vrf</field>
   			<field name="arch" type="xml">
-  				<tree string="Visit Report Forms">
+  				<tree string="Visit Report Forms" default_order="write_date desc">
   					<field name="community_id" />
   					<field name="facilitator_id" />
 						<field name="phase"/>
