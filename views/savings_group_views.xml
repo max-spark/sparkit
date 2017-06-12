@@ -17,11 +17,10 @@
   								<field name="start_date"/>
   								<field name="end_date"/>
 									<field name="last_updated"/>
-									<field name="latest_id"/>
   							</group>
   							<group colspan="2" col="2">
+									<field name="uses_households"/>
   								<field name="number_hh_at_start"/>
-  								<field name="start_capital"/>
   								<field name="contribution_amount"/>
   								<field name="contribution_frequency"/>
   								<field name="latest_id" invisible="1"/>

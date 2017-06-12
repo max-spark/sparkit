@@ -20,19 +20,19 @@ class SavingsGroup(models.Model):
 
 	#Savings Groups
 	number_hh_at_start = fields.Integer(
-		string="Number of Households at Savings Group Start",
+		string="Number of People/Households at Savings Group Start",
 		required=True,
 		track_visibility='onchange')
+	uses_households = fields.Boolean(string="Savings Group Uses Households?",
+		help="Please check this box if the savings group uses households to track contributions, instead of people.")
 	contribution_frequency = fields.Selection([('weekly', 'Weekly'),
 		('biweekly', 'Twice a Month'),
 		('monthly', 'Once a Month'),
 		('frequently', 'Frequent but irregular collection'),
 		('other', 'Other')], select=True, string="Contribution Frequency",
 		track_visibility='onchange')
-	contribution_amount = fields.Float(string="Contribution Amount",
-		help="Amount per person(or household) at time of collection",
-		track_visibility='onchange')
-	start_capital = fields.Float(string="Amount at Start",
+	contribution_amount = fields.Float(string="Minimum Contribution Amount",
+		help="Minimum amount per person(or household) at time of collection",
 		track_visibility='onchange')
 	is_existing = fields.Boolean(string="Did the Savings Group Exist Before Partnership?",
 		track_visibility='onchange')
@@ -111,8 +111,8 @@ class SavingsGroupUpdate(models.Model):
 
 	#Update
 	date = fields.Date(string="Date of Update")
-	number_hh = fields.Integer(string="Number of HH",
-		help="What is the total number of households currently in the savings group?",
+	number_hh = fields.Integer(string="Number of Active People/HH",
+		help="What is the total number of people/households currently in the savings group?",
 		default=_get_default_hh)
 	amount_in_bank = fields.Float(string="Amount in Savings Group Account",
 		help="How much has the community saved?", required=True)

@@ -33,12 +33,9 @@ class Community(models.Model):
 	special_cases = fields.Many2many('sparkit.specialcases', string="Special Cases",
 		track_visibility='onchange')
 	is_group_tracking_enabled = fields.Boolean(string="Group Tracking Enabled?")
-	donor_funded = fields.Boolean(string="Donor Funded")
-	donor_ids = fields.Many2many('res.partner', string="Donor(s)",
-		domain=[('company_type', '=', 'donor')])
-	still_meeting = fields.Boolean(string="Community Still Meeting?")
-	still_meeting_enddate = fields.Date(string="Date Community Stopped Meeting",
-		help="Please enter the date you learned the community was not meeting anymore.")
+	still_meeting = fields.Boolean(string="Community Still Meeting Independently?")
+	still_meeting_enddate = fields.Date(string="Date of Last Meeting",
+		help="Please enter the date of the community's last meeting.")
 	project_sustaining = fields.Boolean(string="Project Sustaining?")
 	project_sustaining_enddate = fields.Date(string="Date Project Stopped Sustaining",
 		help="Please enter the approximate date the project stopped sustaining.")

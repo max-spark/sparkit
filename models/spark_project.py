@@ -35,8 +35,10 @@ class SparkProject(models.Model):
 		track_visibility='onchange')
 
 	# Donor Info
-	donor_funded = fields.Boolean(string="Donor Funded", related='community_id.donor_funded')
-	donor_ids = fields.Many2many(string="Donor(s)", related='community_id.donor_ids')
+	donor_funded = fields.Boolean(string="Donor Funded")
+
+	donor_ids = fields.One2many('sparkit.projectdonation', 'project_id',
+		string="Project Donors")
 
 	#-- Budgeted Contribution Summary --#
 	spark_contribution = fields.Float(string="Spark", readonly=True,
@@ -471,3 +473,22 @@ class ProjectSupportInitiative(models.Model):
 	def _get_name(self):
 		for r in self:
 			r.name = r.project_name + " - Support Initiative Update: "  + str(r.date)
+
+	#---------------------------------------------------------
+	#             Donor Funded Projects Module
+	#---------------------------------------------------------
+
+class ProjectDonation(models.Model):
+	_name = 'sparkit.projectdonation'
+
+	name = fields.Char(compute="_get_name")
+	donor_id = fields.Many2one('res.partner', string="Donor(s)",
+		domain=[('company_type', '=', 'donor')])
+	amount = fields.Float(string="Amount Committed (USD)")
+	donation_date = fields.Date(string="Date of Donation")
+	project_id = fields.Many2one('sparkit.sparkproject', string="Project")
+
+	@api.depends('project_id', 'donor_id')
+	def _get_name(self):
+		for r in self:
+			r.name = r.project_id.name + ": " + r.donor_id.name

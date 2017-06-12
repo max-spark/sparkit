@@ -63,6 +63,9 @@
   									</group>
   								</group>
   							</page>
+								<page string="Donors">
+									<field name="donor_ids"/>
+								</page>
   							<page string="Budget">
   								<group>
   									<field name="budget_line_item_ids" nolabel="1"/>
@@ -148,7 +151,7 @@
 			</record>
 
 
-  		<!--Community Projects Actions (Default)-->
+  		<!--Community Projects Actions (Default) - default, detailed menu for cmty profile -->
   		<record model="ir.actions.act_window" id="spark_project_list_action">
   			<field name="name">Community Grant Projects</field>
   			<field name="res_model">sparkit.sparkproject</field>
@@ -473,7 +476,27 @@
   			</field>
   		</record>
 
+			<!--Project Donatoins List View-->
+			<record model="ir.ui.view" id="project_donations_tree">
+				<field name="name">projectdonations.tree</field>
+				<field name="model">sparkit.projectdonation</field>
+				<field name="arch" type="xml">
+					<tree string="Donations" editable="bottom">
+						<field name="project_id" invisible="1"/>
+						<field name="donor_id"/>
+						<field name="donation_date"/>
+						<field name="amount"/>
+					</tree>
+				</field>
+			</record>
 
+			<!--Project Donations Form Actions-->
+			<record model="ir.actions.act_window" id="project_donations_list_action">
+				<field name="name">Project donors</field>
+				<field name="res_model">sparkit.projectdonation</field>
+				<field name="view_type">tree</field>
+				<field name="view_mode">tree</field>
+			</record>
 
     </data>
 </openerp>

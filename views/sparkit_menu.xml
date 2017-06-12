@@ -79,11 +79,12 @@
         	action="independent_meeting_list_action"/>
 
 				<!--PROJECTS MENU-->
-  			<menuitem id="top_community_projects" name="Projects"/>
+				<menuitem id="top_community_projects_menu" name="Projects"/>
+
 
   			<!-- Spark Projects-->
         <menuitem id="main_spark_projects_menu" name="Projects"
-        	parent="top_community_projects" sequence="1"/>
+        	parent="top_community_projects_menu" sequence="1"/>
         <menuitem id="spark_projects_menu" name="Grant Projects"
         	parent="main_spark_projects_menu" action="spark_project_list_action_default"/>
   			<menuitem id="independent_projects_menu" name="Independent Projects"
@@ -93,7 +94,7 @@
 
 				<!-- Partnerships Menu-->
 				<menuitem id="advocacy_menu" name="Advocacy"
-					parent="top_community_projects" sequence="2"/>
+					parent="top_community_projects_menu" sequence="2"/>
 				<menuitem id="advocacy_partnerships" name="Advocacy Partnerships"
 					parent="advocacy_menu"
 					sequence="3" action="partnerships_list_action"/>
@@ -109,7 +110,7 @@
 
 				<!--Projects Configuration View-->
         <menuitem id="main_projects_configuration_menu" name="Configuration"
-            parent="top_community_projects" sequence="4" groups="sparkit.global"/>
+            parent="top_community_projects_menu" sequence="4" groups="sparkit.global"/>
 	 			<menuitem id="project_categories_config_menu" name="Project Categories"
             parent="main_projects_configuration_menu"
             action="project_categories_list_action" sequence="2"/>

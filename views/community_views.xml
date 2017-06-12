@@ -453,11 +453,6 @@
 									<field name="co_facilitator_id" options="{'no_create': True}"/>
 									<field name="program_manager_id" options="{'no_create': True}"/>
 									<field name="m_e_assistant_id" options="{'no_create': True}"/>
-									<field name="donor_funded" groups="sparkit.global"/>
-									<field name="donor_ids" groups="sparkit.global"
-											attrs="{'invisible': [('donor_funded', '=', False)]}"
-											domain="[('company_type', '=', 'donor')]"
-											widget="many2many_tags"/>
 									<field name="workflow_config_id"
 											groups="sparkit.global"/>
 									<field name="is_group_tracking_enabled"
@@ -830,7 +825,6 @@
 						<field name="country_id"/>
 						<field name="facilitator_id"/>
 						<field name="program_manager_id"/>
-						<field name="donor_ids"/>
           	<group expand="0" string="Group By">
 							<filter name="by_facilitator" string="Facilitator" context="{'group_by':'facilitator_id'}" help="Facilitator"/>
 							<filter name="by_country" string="Country" context="{'group_by':'country_id'}" help="Country"/>
