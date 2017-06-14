@@ -184,6 +184,8 @@
 										<field name="conflicts_in_meeting_desc"
 											attrs="{'readonly': [('state', '=', 'approved')]}"/>
 									</group>
+									<field name="cmty_meeting_photo" filename="cmty_meeting_photo_name"/>
+									<field name="cmty_meeting_photo_name" invisible="1"/>
 								</group>
 								<group colspan="4" col="4" string="Accountability and Transparency"
 									class="no_style"

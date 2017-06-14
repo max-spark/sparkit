@@ -236,6 +236,7 @@ class VisitReportForm(models.Model):
 	cmty_reported_conflicts_resolved = fields.Selection(
 		[('yes', 'Yes'),
 		 ('no', 'No'),
+		 ('not_applicable', 'Not Applicable'),
 		 ('unknwon', 'Unknown')], string="Community Reported Conflict(s): resolved?",
 		 track_visibility='onchange',
 		 help="Did the community report that it resolved a conflict or challenge, which took place before or outside of the meeting?")
@@ -304,6 +305,10 @@ class VisitReportForm(models.Model):
 		track_visibility='onchange')
 	next_meeting_activity3_id = fields.Many2one('sparkit.fcapactivity', string="Next Meeting Activity 3",
 		track_visibility='onchange')
+
+	# Community Meeting Photo
+	cmty_meeting_photo = fields.Binary(string="Community Meeting Photo")
+	cmty_meeting_photo_name = fields.Char(string="Community Meeting Photo Name")
 
 	migrated_from_sf_mf1 = fields.Boolean(string="Form from SalesForce Monitoring Forms v1?")
 	migrated_from_sf_mf2 = fields.Boolean(string="Form from SalesForce Monitoring Forms v2?")
