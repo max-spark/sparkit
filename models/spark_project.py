@@ -278,8 +278,8 @@ class ProjectBudgetItem(models.Model):
 	_name = 'sparkit.projectbudgetitem'
 	_inherit = 'mail.thread'
 
-	name = fields.Char(related='budget_item_id.name', readonly=True,
-		store=True, track_visibility='onchange')
+	name = fields.Char(compute='get_name', readonly=True,
+		store=True)
 	project_id = fields.Many2one('sparkit.sparkproject', ondelete='cascade',
 		track_visibility='onchange')
 	community_id = fields.Many2one(related='project_id.community_id', store=True,
@@ -332,6 +332,12 @@ class ProjectBudgetItem(models.Model):
 	def _line_item_difference(self):
 		for r in self:
 			r.difference = r.budgeted - r.actual
+
+	@api.depends('project_id', 'budget_item_id')
+	def get_name(self):
+		for r in self:
+			if r.project_id and r.budget_item_id:
+				r.name = r.project_id.name + ": " + r.budget_item_id.name
 
 	#---------------------------------------------------------
 	#                    Transactions

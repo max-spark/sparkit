@@ -119,6 +119,8 @@
         	sequence="1"/>
 				<menuitem id="budget_line_items_import" action="unique_budget_items_list_action"
 					parent="main_projects_configuration_menu" name="Project Line Items"/>
+				<menuitem id="transaction_items_import" action="transactions_list_action"
+					parent="main_projects_configuration_menu" name="Transacton Line Items"/>
 
     </data>
 </openerp>

@@ -335,8 +335,8 @@
   		<record model="ir.actions.act_window" id="transactions_list_action">
   			<field name="name">Transactions</field>
   			<field name="res_model">sparkit.transaction</field>
-  			<field name="view_type">tree</field>
-  			<field name="view_mode">tree</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
   			<field name="help" type="html">
   				<p class="oe_view_nocontent_create">Create the first Transaction!</p>
   			</field>
