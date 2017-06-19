@@ -117,6 +117,8 @@
         <menuitem id="budget_items_config_menu" name="Budget Items"
         	parent="main_projects_configuration_menu" action="budget_items_list_action"
         	sequence="1"/>
+				<menuitem id="budget_line_items_import" action="unique_budget_items_list_action"
+					parent="main_projects_configuration_menu" name="Project Line Items"/>
 
     </data>
 </openerp>
