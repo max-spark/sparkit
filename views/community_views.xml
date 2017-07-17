@@ -511,6 +511,9 @@
 												attrs="{'invisible': [('phase', '!=', 'post_implementation'),
 													('phase', '!=', 'graduated')]}"/>
 		  								<field name="graduation_date" attrs="{'invisible': [('phase', '!=', 'graduated')]}"/>
+											<field name="number_planning_visits"/>
+											<field name="number_implementation_visits"/>
+											<field name="number_pi_visits"/>
 		  							</group>
 										<group colspan="4" col="2">
 											<field name="description"/>

@@ -251,6 +251,12 @@ class Community(models.Model):
 		domain=[('form_type', '=', "IVRF")], track_visibility='onchange')
 	pivrf_ids = fields.One2many('sparkit.vrf', 'community_id', string="PIVRFs",
 		domain=[('form_type', '=', "PIVRF")], track_visibility='onchange')
+	number_planning_visits = fields.Integer(compute='_get_number_planning_visits',
+		store=True)
+	number_implementation_visits = fields.Integer(compute='_get_number_implementation_visits',
+		store=True)
+	number_pi_visits = fields.Integer(compute='_get_number_pi_visits',
+		store=True)
 
 	#Community Project
 	spark_project_ids = fields.One2many('sparkit.sparkproject', 'community_id', string="Grant Project(s)",
@@ -300,6 +306,10 @@ class Community(models.Model):
 		track_visibility='onchange', string="Partnerships", ondelete='set null')
 	partnership_update_ids = fields.One2many(related='partnership_ids.partnership_update_ids',
 		ondelete='set null')
+
+	# Counting Number of Visit Report Forms
+	planning_visits = fields.Integer(string="Planning Visits",
+		compute='_get_num_planning_visits')
 
 
 	#-----------------------------------------------------
@@ -785,6 +795,29 @@ class Community(models.Model):
 		compute='check_graduation_completed',
 		track_visibility='onchange',
 		help="Automatically marked as completed when Graduation is reported on the visit report form.")
+
+
+	@api.multi
+	@api.depends('cvrf_ids')
+	def _get_number_planning_visits(self):
+		for r in self:
+			if r.cvrf_ids:
+				r.number_planning_visits = len(r.cvrf_ids)
+
+	@api.multi
+	@api.depends('ivrf_ids')
+	def _get_number_implementation_visits(self):
+		for r in self:
+			if r.ivrf_ids:
+				r.number_implementation_visits = len(r.ivrf_ids)
+
+	@api.multi
+	@api.depends('pivrf_ids')
+	def _get_number_pi_visits(self):
+		for r in self:
+			if r.pivrf_ids:
+				r.number_pi_visits = len(r.pivrf_ids)
+
 
 	@api.multi
 	@api.depends('num_hh_community', 'country_id')
