@@ -30,6 +30,9 @@
 
       <record id="global" model="res.groups">
         <field name="name">Global User</field>
+        <field name="implied_ids" eval="[(4, ref('sparkit.program_manager')),
+            (4, ref('sparkit.m_e_user')),
+            (4, ref('sparkit.f_a_user'))]"/>
         <field name="category_id" ref="module_category_sparkit"/>
       </record>
 
