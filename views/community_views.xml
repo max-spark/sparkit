@@ -460,8 +460,8 @@
 								</group>
 								<group colspan="2" col="2">
 									<!-- TODO: Delete phase -->
-									<field name="phase"/>
-									<field name="state"/>
+									<field name="phase" groups="sparkit.m_e_user"/>
+									<field name="state" groups="sparkit.m_e_user"/>
 									<field name="is_partnered"/>
 									<field name="is_active" />
 									<field name="last_visit_date"/>
