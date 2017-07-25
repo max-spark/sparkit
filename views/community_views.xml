@@ -459,6 +459,8 @@
 											groups="sparkit.global"/>
 								</group>
 								<group colspan="2" col="2">
+									<!-- TODO: Delete phase -->
+									<field name="phase"/>
 									<field name="state"/>
 									<field name="is_partnered"/>
 									<field name="is_active" />
@@ -511,9 +513,6 @@
 												attrs="{'invisible': [('phase', '!=', 'post_implementation'),
 													('phase', '!=', 'graduated')]}"/>
 		  								<field name="graduation_date" attrs="{'invisible': [('phase', '!=', 'graduated')]}"/>
-											<field name="number_planning_visits"/>
-											<field name="number_implementation_visits"/>
-											<field name="number_pi_visits"/>
 		  							</group>
 										<group colspan="4" col="2">
 											<field name="description"/>

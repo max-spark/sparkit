@@ -15,7 +15,8 @@ class Community(models.Model):
 	name = fields.Char(string="Community Name", required=True, track_visibility='always')
 	description = fields.Text(string="Community Description", track_visibility='onchange')
 	community_number = fields.Char(string="Community Number", readonly=False)
-	is_partnered = fields.Boolean(string="Partnered?", default=False, readonly=True)
+	#TODO: set readonly back to true
+	is_partnered = fields.Boolean(string="Partnered?", default=False, readonly=False)
 	facilitator_id = fields.Many2one('res.users',
 		string="Facilitator",
 		default=lambda self: self.env.user,
@@ -73,11 +74,12 @@ class Community(models.Model):
 		('post_implementation3', 'Post Implementation: Graduation'),
 		('graduated', 'Graduated'),
 		('partnership_canacelled', 'Partnership Cancelled')
-	], string="Step", readonly=True, track_visibility='onchange')
+	], string="Step", readonly=False, track_visibility='onchange')
 
 	#Community Detail
+	#TODO: switch this back to true
 	facilitation_language = fields.Char(string="Facilitation Language",
-		required=True)
+		required=False)
 	meeting_day = fields.Selection([('monday', 'Monday'), ('tuesday', 'Tuesday'),
 		('wednesday', 'Wednesday'), ('thursday', 'Thursday'), ('friday', 'Friday')],
 		select=True, string="Meeting Day",
@@ -94,7 +96,7 @@ class Community(models.Model):
 		track_visibility='onchange')
 
 	#dates
-	date_scouted=fields.Date(string="Date Scouted", required=True,
+	date_scouted=fields.Date(string="Date Scouted", required=False,
 		help="Please enter the date the community was scouted",
 		track_visibility='onchange')
 	partnership_date = fields.Date(string="Partnership Date",

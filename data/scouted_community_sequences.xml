@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data noupdate="1">
-        
+
         <record id="seq_scouted_community_def" model="ir.sequence">
             <field name="name">Scouted Community - Default</field>
             <field name="code">scouted.community.def</field>
-            <field name="padding">3</field> 
+            <field name="padding">3</field>
         </record>
-        
+
         <record id="seq_scouted_community_ug" model="ir.sequence">
             <field name="name">Scouted Community - Uganda</field>
             <field name="code">scouted.community.ug</field>
             <field name="prefix">UG</field>
-            <field name="padding">3</field> 
+            <field name="padding">3</field>
         </record>
-        
+
         <record id="seq_scouted_community_rw" model="ir.sequence">
             <field name="name">Scouted Community - Rwanda</field>
             <field name="code">scouted.community.rw</field>
             <field name="prefix">RW</field>
-            <field name="padding">3</field> 
+            <field name="padding">3</field>
         </record>
-        
+
         <record id="seq_scouted_community_bdi" model="ir.sequence">
             <field name="name">Scouted Community - Burundi</field>
             <field name="code">scouted.community.bdi</field>
-            <field name="prefix">BDI</field>
-            <field name="padding">3</field> 
+            <field name="prefix">BU</field>
+            <field name="padding">3</field>
         </record>
-        
+
     </data>
 </openerp>
