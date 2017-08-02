@@ -121,6 +121,11 @@
 					parent="main_projects_configuration_menu" name="Project Line Items"/>
 				<menuitem id="transaction_items_import" action="transactions_list_action"
 					parent="main_projects_configuration_menu" name="Transacton Line Items"/>
+				<menuitem id="disbursal_requests_import" action="disbursalrequests_list_action"
+					parent="main_projects_configuration_menu" name="Disbursal Requests Import"/>
+				<menuitem id="disbursal_import" action="disbursals_list_action"
+					parent="main_projects_configuration_menu" name="Disbursals Import"/>
+
 
     </data>
 </openerp>

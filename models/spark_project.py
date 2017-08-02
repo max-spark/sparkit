@@ -421,7 +421,8 @@ class DisbursalRequest(models.Model):
 	@api.depends('disbursal_request_number')
 	def _compute_name(self):
 		for r in self:
-			r.name = r.project_name + " - Disbursal " + str(r.disbursal_request_number)
+			if r.project_name and r.disbursal_request_number:
+				r.name = r.project_name + " - Disbursal " + str(r.disbursal_request_number)
 
 class Disbursal(models.Model):
 	_name = 'sparkit.disbursal'

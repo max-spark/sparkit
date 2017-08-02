@@ -70,23 +70,23 @@
   						</group>
   						<group colspan="4" col="4" string="Pillar Training" class="no_style">
   							<group colspan="2" col="2">
-  								<field name="pillar_training1_id" widget="selection"/>
+  								<field name="pillar_training1_id"/>
   								<field name="pillar_training1_desc"/>
   								<field name="pillar_training_month1"/>
-  								<field name="pillar_training2_id" widget="selection"/>
+  								<field name="pillar_training2_id"/>
   								<field name="pillar_training2_desc"/>
   								<field name="pillar_training_month2"/>
   							</group>
   							<group colspan="2" col="2">
-  								<field name="pillar_training3_id" widget="selection"/>
+  								<field name="pillar_training3_id"/>
   								<field name="pillar_training3_desc"/>
   								<field name="pillar_training_month3"/>
-  								<field name="pillar_training4_id" widget="selection"/>
+  								<field name="pillar_training4_id"/>
   								<field name="pillar_training4_desc"/>
   								<field name="pillar_training_month4"/>
   							</group>
   						</group>
-  						<group colspan="4" col="4" string="PME Collection and Discussion" class="no_style">
+  						<group colspan="4" col="4" string="Measuring Success Collection and Discussion" class="no_style">
   							<group colspan="2" col="2">
   								<field name="pme_month1"/>
   								<field name="pme_month2"/>

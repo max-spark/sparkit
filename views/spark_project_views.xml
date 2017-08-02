@@ -387,8 +387,8 @@
   		<record model="ir.actions.act_window" id="disbursalrequests_list_action">
   			<field name="name">Disbursal Requests</field>
   			<field name="res_model">sparkit.disbursalrequest</field>
-  			<field name="view_type">tree</field>
-  			<field name="view_mode">tree</field>
+				<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
   			<field name="help" type="html">
   				<p class="oe_view_nocontent_create">Create the first Disbursal Request!</p>
   			</field>
@@ -402,7 +402,7 @@
   				<form string="Disbursal">
 						<sheet>
 							<group class="no_style">
-		  					<field name="project_id" invisible="1"/>
+		  					<field name="project_id"/>
 		  					<field name="request_number_id" options="{'no_create': True}"
 		  						domain="[('project_id', '=', project_id)]"
 									widget="selection"/>
@@ -441,8 +441,8 @@
   		<record model="ir.actions.act_window" id="disbursals_list_action">
   			<field name="name">Disbursals</field>
   			<field name="res_model">sparkit.disbursal</field>
-  			<field name="view_type">tree</field>
-  			<field name="view_mode">tree</field>
+				<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
   			<field name="help" type="html">
   				<p class="oe_view_nocontent_create">Create the first Transaction!</p>
   			</field>
