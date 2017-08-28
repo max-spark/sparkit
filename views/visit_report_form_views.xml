@@ -186,6 +186,8 @@
 									</group>
 									<field name="cmty_meeting_photo" filename="cmty_meeting_photo_name"/>
 									<field name="cmty_meeting_photo_name" invisible="1"/>
+									<field name="attendance_relm_verified" groups="sparkit.m_e_user"
+										attrs="{'required': [('state', '=', 'approved')]}"/>
 								</group>
 								<group colspan="4" col="4" string="Accountability and Transparency"
 									class="no_style"

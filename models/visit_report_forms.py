@@ -2,6 +2,8 @@
 
 from openerp import models, fields, api
 from datetime import datetime
+from openerp.exceptions import ValidationError, Warning
+
 
 
 #TODO How to handle cases where it's over 3 hours? For mtg duration..
@@ -102,6 +104,8 @@ class VisitReportForm(models.Model):
 		track_visibility='onchange')
 	attendance_total = fields.Integer(string="Total Attendance",
 		compute='_total_attendance', track_visibility='onchange')
+	attendance_relm_verified = fields.Integer(string="Attendance - RELM Verified",
+		track_visibility='onchange', default="")
 
 	#Speaker information
 	speakers_type1_id = fields.Many2one('sparkit.grouptracking',
@@ -450,7 +454,6 @@ class VisitReportForm(models.Model):
 	@api.multi
 	def action_approved(self):
 		self.state = 'approved'
-
 
 
 	#---------------------------------------------------
