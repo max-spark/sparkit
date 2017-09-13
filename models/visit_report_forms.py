@@ -31,7 +31,7 @@ class VisitReportForm(models.Model):
 	name = fields.Char(String="Form ID", readonly=False, track_visibility='always',
 		compute='_get_name')
 	community_id = fields.Many2one('sparkit.community', string="Community",
-		required=False, track_visibility='always', ondelete='cascade')
+		required=True, track_visibility='always', ondelete='cascade')
 	is_group_tracking_enabled = fields.Boolean(related='community_id.is_group_tracking_enabled')
 	community_number = fields.Char(related='community_id.community_number')
 	community_name = fields.Char(related='community_id.name', store=True)
