@@ -326,6 +326,8 @@ class VisitReportForm(models.Model):
 	sf_mf2_next_meeting_activity2 = fields.Char(string="Old Next Meeting Activity2 (from SF)")
 	sf_mf2_next_meeting_activity3 = fields.Char(string="Old Next Meeting Activity3 (from SF)")
 	attendance_total_mf1 = fields.Integer(string="Monitoring Forms v1 Meeting Attendance (TOTAL ONLY)")
+	speakers_total_mf1 = fields.Integer(string="Monitoring Forms v1 Speakers (TOTAL ONLY)")
+	leaders_total_mf1 = fields.Integer(string="Monitoring Forms v1 Leaders (TOTAL ONLY)")
 
 	@api.depends('visit_date')
 	def get_visit_date_week(self):
