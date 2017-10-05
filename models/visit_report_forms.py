@@ -314,6 +314,7 @@ class VisitReportForm(models.Model):
 	cmty_meeting_photo = fields.Binary(string="Community Meeting Photo")
 	cmty_meeting_photo_name = fields.Char(string="Community Meeting Photo Name")
 
+	# Migration notes
 	migrated_from_sf_mf1 = fields.Boolean(string="Form from SalesForce Monitoring Forms v1?")
 	migrated_from_sf_mf2 = fields.Boolean(string="Form from SalesForce Monitoring Forms v2?")
 	sf_mf2_old_step = fields.Char(string="Old Step (from Salesforce)")
@@ -324,6 +325,7 @@ class VisitReportForm(models.Model):
 	sf_mf2_next_meeting_activity1 = fields.Char(string="Old Next Meeting Activity1 (from SF)")
 	sf_mf2_next_meeting_activity2 = fields.Char(string="Old Next Meeting Activity2 (from SF)")
 	sf_mf2_next_meeting_activity3 = fields.Char(string="Old Next Meeting Activity3 (from SF)")
+	attendance_total_mf1 = fields.Integer(string="Monitoring Forms v1 Meeting Attendance (TOTAL ONLY)")
 
 	@api.depends('visit_date')
 	def get_visit_date_week(self):

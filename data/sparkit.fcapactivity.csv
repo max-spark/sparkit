@@ -54,7 +54,7 @@ grant_agreement_signing,sparkit.grant_agreement,Grant Agreement,103
 grant_agreement_training,sparkit.grant_agreement,Training - Other,104
 grant_agreement_ta_training,sparkit.grant_agreement,Training - TA,105
 first_disbursal,sparkit.first_disbursement,First Disbursement,110
-first_disbursement_training,sparkit.first_disbursement,Transparency and Accountability Training Review,111
+t_and_a_first_disbursement,sparkit.first_disbursement,Transparency and Accountability Training Review,111
 banking_review,sparkit.first_disbursement,Banking Training Review,112
 followup_disbursement,sparkit.first_disbursement,Follow-up Disbursement,113
 imp_plan_review,sparkit.first_disbursement,Implementation Plan Review,114
@@ -67,9 +67,11 @@ advocacy_training,sparkit.implementation_leadership,Advocacy Training: Report Wr
 cmty_facilitation_training,sparkit.implementation_leadership,Community Facilitation Training,123
 implementation_leadership_training,sparkit.implementation_leadership,Training - Other,124
 implementation_leadership_ta_training,sparkit.implementation_leadership,Training - TA,125
+implementation_leadership_t_and_a,sparkit.implementation_leadership,Transparency and Accountability Training Review,126
 developing_transition_strategy,sparkit.transition_strategy,Transition Strategy,130
 transition_strategy_training,sparkit.transition_strategy,Training - Other,131
 transition_strategy_ta_training,sparkit.transition_strategy,Training - TA,132
+transition_strategy_t_and_a,sparkit.transition_strategy,Transparency and Accountability Training Review,133
 op_plan_review,sparkit.post_implementation1,Operational Plan Review,140
 mitigation_plan_review_pi,sparkit.post_implementation1,Risk Mitigation Plan Review,141
 bylaw_review_pi,sparkit.post_implementation1,By-law Review,142
@@ -77,6 +79,7 @@ leadership_review_pi,sparkit.post_implementation1,Leadership Review,143
 transition_strategy_review,sparkit.post_implementation1,Transition Strategy Review,144
 post_implementation1_training,sparkit.post_implementation1,Training - Other,145
 post_implementation1_ta_training,sparkit.post_implementation1,Training - TA,146
+post_imp1_t_and_a_review,sparkit.post_implementation1,Transparency and Accountability Training Review,147
 measuring_success_review,sparkit.post_implementation2,Goal Setting and Measuring Success Review,150
 future_goal_setting,sparkit.post_implementation2,Future Goal Setting,151
 advocacy_training_pi,sparkit.post_implementation2,Advocacy Training,152
@@ -84,7 +87,9 @@ cmty_facilitator_followup,sparkit.post_implementation2,Community Facilitator Fol
 transition_plan_review,sparkit.post_implementation2,Transition Plan Review,154
 post_implementation2_training,sparkit.post_implementation2,Training - Other,155
 post_implementation2_ta_training,sparkit.post_implementation2,Training - TA,156
+post_implementation2_t_and_a_review,sparkit.post_implementation2,Transparency and Accountability Training Review,157
 grad_prep,sparkit.post_implementation3,Graduation Preparation,160
 graduation,sparkit.post_implementation3,Graduation,161
 post_implementation3_training,sparkit.post_implementation3,Training - Other,162
 post_implementation3_ta_training,sparkit.post_implementation3,Training - TA,163
+post_implementation3_t_and_a_review,sparkit.post_implementation3,Transparency and Accountability Training Review,164
