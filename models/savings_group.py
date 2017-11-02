@@ -19,6 +19,7 @@ class SavingsGroup(models.Model):
 		track_visibility='onchange')
 
 	#Savings Groups
+	description = fields.Text(string="Description")
 	number_hh_at_start = fields.Integer(
 		string="Number of People/Households at Savings Group Start",
 		required=True,

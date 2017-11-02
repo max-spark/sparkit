@@ -16,7 +16,8 @@
   								<field name="is_existing"/>
   								<field name="start_date"/>
   								<field name="end_date"/>
-									<field name="last_updated"/>
+									<field name="description"/>
+									<field name="last_updated" invisilbe="1"/>
   							</group>
   							<group colspan="2" col="2">
 									<field name="uses_households"/>
@@ -125,7 +126,7 @@
   		</record>
 
   		<!-- Savings Group Updates List View -->
-  		<record model="ir.ui.view" id="independent_project_updates_tree">
+  		<record model="ir.ui.view" id="savings_group_updates_tree">
   			<field name="name">savingsgroupupdates.tree</field>
   			<field name="model">sparkit.savingsgroupupdate</field>
   			<field name="arch" type="xml">
@@ -144,6 +145,15 @@
   				</tree>
   			</field>
   		</record>
+
+			<!-- Savings Group  Updates Form Actions-->
+			<record model="ir.actions.act_window" id="savings_groups_updates_list_action_default">
+				<field name="name">Savings Groups Updates</field>
+				<field name="res_model">sparkit.savingsgroupupdate</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
+				<field name="view_id" ref="savings_group_updates_tree"/>
+			</record>
 
     </data>
 </openerp>

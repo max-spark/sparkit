@@ -104,6 +104,15 @@
       </field>
     </record>
 
+		<!-- Savings Group  Updates Form Actions-->
+		<record model="ir.actions.act_window" id="partnership_updates_list_action_default">
+			<field name="name">Partnership Updates</field>
+			<field name="res_model">sparkit.partnershipupdate</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="partnership_updates_tree"/>
+		</record>
+
 
   </data>
 </openerp>

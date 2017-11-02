@@ -125,6 +125,13 @@
 					parent="main_projects_configuration_menu" name="Disbursal Requests Import"/>
 				<menuitem id="disbursal_import" action="disbursals_list_action"
 					parent="main_projects_configuration_menu" name="Disbursals Import"/>
+				<menuitem id="savings_group_updates_import" action="savings_groups_updates_list_action_default"
+						parent="main_projects_configuration_menu" name="SG Updates Import"/>
+				<menuitem id="ind_projects_updates_import" action="independent_projects_updates_list_action"
+						parent="main_projects_configuration_menu" name="Ind. Projects Import"/>
+				<menuitem id="partnership_updates_import" action="partnership_updates_list_action_default"
+						parent="main_projects_configuration_menu" name="Partnerships Import"/>
+
 
 
     </data>
