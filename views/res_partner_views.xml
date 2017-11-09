@@ -7,11 +7,6 @@
           <field name="model">res.partner</field>
           <field name="inherit_id" ref="base.view_partner_form"/>
           <field name="arch" type="xml">
-              <xpath expr="//div[@name='button_box']" position="replace"/>
-              <xpath expr="//field[@name='parent_id']" position="attributes">
-                <context>{'default_supplier': ''}</context>
-              </xpath>
-              <xpath expr="//field[@name='type']" position="replace"/>
               <xpath expr="/form/sheet/group" position="replace">
                 <group colspan="4" col="4" class="no_style">
                   <group colspan="2" col="2">

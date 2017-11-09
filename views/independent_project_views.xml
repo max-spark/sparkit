@@ -53,6 +53,7 @@
   			</field>
   		</record>
 
+			<!--Independent Projects Search View-->
 			<record model="ir.ui.view" id="independent_project_default_search">
 				<field name="name">independentprojects.search</field>
 				<field name="model">sparkit.independentproject</field>

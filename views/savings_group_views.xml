@@ -98,6 +98,21 @@
 				</field>
 			</record>
 
+			<!--Savings Group Search View-->
+			<record model="ir.ui.view" id="savings_groups_default_search">
+				<field name="name">savingsgroup.search</field>
+				<field name="model">sparkit.savingsgroup</field>
+				<field name="arch" type="xml">
+					<search string="Savings Group(s)">
+						<field name="community_id"/>
+						<field name="community_number"/>
+						<group expand="0" string="Group By">
+							<filter name="community_id" string="Community" context="{'group_by': 'community_id'}" help="Community"/>
+						</group>
+					</search>
+				</field>
+			</record>
+
   		<!-- Savings Group Updates-->
   		<record model="ir.ui.view" id="savings_group_updates_form_view">
   			<field name="name">savingsgroupupdates.form</field>

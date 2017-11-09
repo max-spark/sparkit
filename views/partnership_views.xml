@@ -63,6 +63,21 @@
       </field>
     </record>
 
+		<!--Partnerships Search View-->
+		<record model="ir.ui.view" id="partnerships_default_search">
+			<field name="name">partnerships.search</field>
+			<field name="model">sparkit.partnership</field>
+			<field name="arch" type="xml">
+				<search string="Savings Group(s)">
+					<field name="community_id"/>
+					<field name="partner_id"/>
+					<group expand="0" string="Group By">
+						<filter name="community_id" string="Community" context="{'group_by': 'community_id'}" help="Community"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
     <!--Partnerships Updates Form View -->
     <record model="ir.ui.view" id="partnership_updates_view">
       <field name="name">partnershipupdates.form</field>
