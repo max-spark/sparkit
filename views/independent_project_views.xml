@@ -98,6 +98,7 @@
   							</group>
   							<group colspan="2" col="2">
   								<field name="update"/>
+									<field name="update_description"/>
   							</group>
   						</group>
   					</sheet>
@@ -118,6 +119,7 @@
   					<field name="independent_project_id"  options="{'no_create': True}"
 							domain="[('community_id', '=', community_id)]"/>
   					<field name="update"/>
+						<field name="update_description"/>
   				</tree>
   			</field>
   		</record>

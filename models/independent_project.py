@@ -84,6 +84,7 @@ class IndependentProjectUpdate(models.Model):
 	#Update
 	date = fields.Date(string="Date of Update", required=True)
 	update = fields.Text(string="Project Update", required=True)
+	update_description = fields.Text(string="Update Description", required=True)
 
 	@api.depends('independent_project_name', 'date')
 	def _get_name(self):
