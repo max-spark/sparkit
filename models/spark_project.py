@@ -2,9 +2,6 @@
 
 from openerp import models, fields, api
 
-#TODO Potentially add sequences?
-#TODO Rename UniqueBudgetItems just to Budget
-
 class SparkProject(models.Model):
 	_name = 'sparkit.sparkproject'
 	_inherit = 'mail.thread'
@@ -34,9 +31,8 @@ class SparkProject(models.Model):
 		compute = '_local_grant_amount', readonly=True,
 		track_visibility='onchange')
 
-	# Donor Info
+	#-- Donor Info --#
 	donor_funded = fields.Boolean(string="Donor Funded")
-
 	donor_ids = fields.One2many('sparkit.projectdonation', 'project_id',
 		string="Project Donors")
 
@@ -145,12 +141,13 @@ class SparkProject(models.Model):
 			if r.outstanding_receipts and r.exchange_rate:
 				r.outstanding_receipts_dollars = r.outstanding_receipts / r.exchange_rate
 
-	#Counts the total amount of transactions to date made by the community
+	#Counts the total amount spent by communities if the budget source is equal to Spark
 	@api.multi
-	@api.depends('transaction_ids')
+	@api.depends('budget_line_item_ids')
 	def _get_total_expenditure(self):
 		for r in self:
-			r.total_expenditure = sum(s.amount for s in r.transaction_ids)
+			r.total_expenditure = sum(s.actual for s in r.budget_line_item_ids if s.source == "spark")
+
 
 	#Calculates the remaining grant balance (total grant - total disbursed)
 	@api.depends('total_disbursed', 'spark_contribution')
@@ -301,9 +298,15 @@ class ProjectBudgetItem(models.Model):
 		track_visibility='onchange')
 	difference = fields.Float(string="Difference", compute ='_line_item_difference',
 		readonly=True, track_visibility='onchange')
-	budget_phase = fields.Selection([('implementation', 'Implementation'),
-		('initial', 'Initial'), ('post_implementation', 'Post Implementation')],
-		select=True, string="Budget Phase", track_visibility='onchange')
+	implementation_month = fields.Selection([
+		('1', 'Implementation Month 1'),
+		('2', 'Implementation Month 2'),
+		('3', 'Implementation Month 3'),
+		('4', 'Implementation Month 4'),
+		('5', 'Implementation Month 5'),
+		('6', 'Implementation Month 6'),
+		('other', 'Other'),], select=True, string="Implementation Month",
+		track_visibility='onchange')
 	proportion_spent = fields.Float(string="% Spent", compute='_get_proportion_spent')
 
 	# Linking budget items to receipts (Transations)

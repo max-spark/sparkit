@@ -121,6 +121,7 @@
 				<field name="arch" type="xml">
 					<tree string="Spark Community Projects">
 						<field name="country_id"/>
+						<field name="community_number"/>
 						<field name="community_id"/>
 						<field name="category_id"/>
 						<field name="facilitator_id"/>
@@ -236,7 +237,7 @@
 		  					<field name="budgeted"/>
 		  					<field name="actual"/>
 		  					<field name="difference"/>
-		  					<field name="budget_phase"/>
+		  					<field name="implementation_month"/>
 							</group>
 							<field name="transaction_ids"/>
 						</sheet>
@@ -253,7 +254,7 @@
   			<field name="name">uniquebudgetitems.tree</field>
   			<field name="model">sparkit.projectbudgetitem</field>
   			<field name="arch" type="xml">
-  				<tree string="Community Budget Items" editable="bottom">
+  				<tree string="Community Budget Items" editable="bottom" colors="red:proportion_spent > 1">
   					<field name="budget_item_id" options="{'no_create': True}"/>
   					<field name="community_id" invisible="1"/>
   					<field name="unit"/>
@@ -262,9 +263,9 @@
   					<field name="source"/>
   					<field name="budgeted"/>
   					<field name="actual"/>
-						<field name="proportion_spent" widget="progressbar"/>
+						<field name="proportion_spent"/>
   					<field name="difference"/>
-  					<field name="budget_phase"/>
+						<field name="implementation_month"/>
   				</tree>
   			</field>
   		</record>
@@ -296,7 +297,7 @@
 									widget="selection"/>
 		  					<field name="amount"/>
 								<field name="receipt_filename" invisible="1"/>
-		  					<field name="receipt" filename="receipt_filename"/>
+		  					<field name="receipt" filename="receipt_filename" widget="image"/>
 		  					<field name="receipt_number"/>
 		  					<field name="notes" style="width:40%%"/>
 								<field name="spark_receipt"/>
