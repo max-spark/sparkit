@@ -118,6 +118,7 @@
   					<field name="independent_project_id"  options="{'no_create': True}"
 							domain="[('community_id', '=', community_id)]"/>
 						<field name="update_description"/>
+						<field name="update"/>
   				</tree>
   			</field>
   		</record>
