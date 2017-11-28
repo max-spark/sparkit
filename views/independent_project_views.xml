@@ -118,7 +118,6 @@
   					<field name="community_id" invisible="1"/>
   					<field name="independent_project_id"  options="{'no_create': True}"
 							domain="[('community_id', '=', community_id)]"/>
-  					<field name="update"/>
 						<field name="update_description"/>
   				</tree>
   			</field>
