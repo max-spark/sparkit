@@ -364,7 +364,7 @@ class Transaction(models.Model):
 	budget_item_id = fields.Many2one('sparkit.projectbudgetitem',
 		string="Budget Item", track_visibility='onchange')
 	amount = fields.Float(string="Amount", track_visibility='onchange')
-	receipt_number = fields.Integer(string="Receipt Number", track_visibility='onchange')
+	receipt_number = fields.Char(string="Receipt Number", track_visibility='onchange')
 	receipt_filename = fields.Char(string="Receipt Filename")
 	notes = fields.Text(string="Notes", track_visibility='onchange')
 	receipt =  fields.Binary(string="Receipt", store=True, attachment=True,
