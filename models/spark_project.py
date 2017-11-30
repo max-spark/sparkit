@@ -20,16 +20,16 @@ class SparkProject(models.Model):
 		track_visibility='onchange')
 	grant_agreement_date = fields.Date(string="Grant Agreement Date",
 		track_visibility='onchange')
-	grant_amount = fields.Float(string="Grant Amount", track_visibility='onchange')
+	grant_amount = fields.Float(string="Grant Amount - USD", track_visibility='onchange',
+		compute='_get_usd_grant_amount', readonly=True)
+	grant_amount_local = fields.Float(string="Grant Amount - Local Currency",
+			track_visibility='onchange')
 	country_id = fields.Many2one(related='community_id.country_id', readonly=True,
 		track_visibility='onchange')
 	currency_id = fields.Many2one(related='country_id.currency_id', readonly=True,
 		store=True, track_visibility='onchange')
 	exchange_rate = fields.Float(string="Exchange Rate", compute='_get_exchange_rate',
 		store=True, track_visibility='onchange')
-	grant_amount_local = fields.Float(string="Grant Amount - Local Currency",
-		compute = '_local_grant_amount', readonly=True,
-		track_visibility='onchange')
 
 	#-- Donor Info --#
 	donor_funded = fields.Boolean(string="Donor Funded")
@@ -245,10 +245,12 @@ class SparkProject(models.Model):
 				r.other_contribution_percent = (r.other_contribution / r.total) * 100
 
 	#Calculates the total grant amount in local currency using Spark's exchange rate
-	@api.depends('grant_amount', 'exchange_rate')
-	def _local_grant_amount(self):
+	@api.depends('grant_amount_local', 'exchange_rate')
+	def _get_usd_grant_amount(self):
 		for r in self:
-			r.grant_amount_local = r.grant_amount * r.exchange_rate
+			r.grant_amount = r.grant_amount_local / r.exchange_rate
+
+
 
 
 	#---------------------------------------------------------

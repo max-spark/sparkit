@@ -91,10 +91,14 @@
         	parent="main_spark_projects_menu" action="independent_projects_list_action"/>
         <menuitem id="savings_groups_menu" name="Savings Groups"
         	parent="main_spark_projects_menu" action="savings_groups_list_action_default"/>
+				<menuitem id="main_projects_configuration_menu" name="Configuration"
+          parent="top_community_projects_menu" sequence="2" groups="sparkit.f_a_user"/>
+				<menuitem id="currency_config_menu" name="Currencies"
+					parent="main_projects_configuration_menu" action="base.action_currency_form"/>
 
 				<!-- Partnerships Menu-->
 				<menuitem id="advocacy_menu" name="Advocacy"
-					parent="top_community_projects_menu" sequence="2"/>
+					parent="top_community_projects_menu" sequence="3"/>
 				<menuitem id="advocacy_partnerships" name="Advocacy Partnerships"
 					parent="advocacy_menu"
 					sequence="3" action="partnerships_list_action"/>

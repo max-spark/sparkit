@@ -308,6 +308,21 @@
   			</field>
   		</record>
 
+			<record model="ir.ui.view" id="spark_vrfs_default_search">
+				<field name="name">sparkproject.search</field>
+				<field name="model">sparkit.vrf</field>
+				<field name="arch" type="xml">
+					<search string="Visit Report Form(s)">
+						<field name="community_name"/>
+						<field name="community_number"/>
+						<field name="facilitator_id"/>
+						<group expand="0" string="Group By">
+							<filter name="by_community" string="Community" context="{'group_by': 'community_id'}" help="Community"/>
+							<filter name="by_facilitator" string="Facilitator" context="{'group_by':'facilitator_id'}" help="Facilitator"/>
+						</group>
+					</search>
+				</field>
+			</record>
 
 
   		<!-- Groups List View-->
