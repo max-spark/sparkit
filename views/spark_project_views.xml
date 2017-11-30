@@ -105,6 +105,7 @@
   			<field name="model">sparkit.sparkproject</field>
   			<field name="arch" type="xml">
   				<tree string="Community Grant Projects">
+						<field name="community_id"/>
 						<field name="grant_agreement_date"/>
   					<field name="grant_amount"/>
 						<field name="total_disbursed"/>

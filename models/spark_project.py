@@ -59,6 +59,7 @@ class SparkProject(models.Model):
 		track_visibility='onchange')
 	total = fields.Float(string="Total Budget", readonly=True,
 		compute='_total', store=True,
+		help="Includes both Spark, community, and other contributions.",
 		track_visibility='onchange')
 	grant_surplus = fields.Float(string="Grant Surplus", readonly=True,
 		compute='_grant_surplus', store=True, track_visibility='onchange',
@@ -143,7 +144,7 @@ class SparkProject(models.Model):
 
 	#Counts the total amount spent by communities if the budget source is equal to Spark
 	@api.multi
-	@api.depends('budget_line_item_ids')
+	@api.depends('transaction_ids')
 	def _get_total_expenditure(self):
 		for r in self:
 			r.total_expenditure = sum(s.actual for s in r.budget_line_item_ids if s.source == "spark")
