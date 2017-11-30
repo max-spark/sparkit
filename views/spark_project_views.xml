@@ -255,7 +255,7 @@
   			<field name="name">uniquebudgetitems.tree</field>
   			<field name="model">sparkit.projectbudgetitem</field>
   			<field name="arch" type="xml">
-  				<tree string="Community Budget Items" editable="bottom" colors="red:proportion_spent &gt; 100;orange:proportion_spent &lt; 50">
+  				<tree string="Community Budget Items" editable="bottom" colors="red:proportion_spent &gt; 100;orange:proportion_spent &lt; 50 and source == 'spark'">
   					<field name="budget_item_id" options="{'no_create': True}"/>
   					<field name="community_id" invisible="1"/>
   					<field name="unit"/>
