@@ -136,7 +136,7 @@ class SparkProject(models.Model):
 		for r in self:
 			r.outstanding_receipts = r.total_disbursed - r.bank_balance - r.total_expenditure
 
-	@api.depends('outstanding_receipts')
+	@api.depends('outstanding_receipts', 'grant_amount')
 	def _get_oustanding_receipt_dollars(self):
 		for r in self:
 			if r.outstanding_receipts and r.exchange_rate:
