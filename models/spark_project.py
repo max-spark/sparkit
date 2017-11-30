@@ -326,7 +326,7 @@ class ProjectBudgetItem(models.Model):
 	@api.depends('actual', 'budgeted')
 	def _get_proportion_spent(self):
 		for r in self:
-			if r.budgeted:
+			if r.budgeted > 0:
 				r.proportion_spent = (r.actual / r.budgeted) * 100
 
 	@api.depends('unit_cost', 'number_of_units')
