@@ -151,7 +151,7 @@ class SparkProject(models.Model):
 
 
 	#Calculates the remaining grant balance (total grant - total disbursed)
-	@api.depends('total_disbursed', 'spark_contribution')
+	@api.depends('total_disbursed', 'grant_amount_local')
 	def _get_left_to_disburse(self):
 		for r in self:
 			r.left_to_disburse = r.grant_amount_local - r.total_disbursed
