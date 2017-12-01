@@ -154,7 +154,7 @@ class SparkProject(models.Model):
 	@api.depends('total_disbursed', 'spark_contribution')
 	def _get_left_to_disburse(self):
 		for r in self:
-			r.left_to_disburse = r.spark_contribution - r.total_disbursed
+			r.left_to_disburse = r.grant_amount_local - r.total_disbursed
 
 	#Counts the number of disbursals made to the community
 	@api.multi
