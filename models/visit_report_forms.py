@@ -494,6 +494,13 @@ class IndependentMeeting(models.Model):
 	duration_minutes = fields.Integer(string="Duration Minutes", readonly=True,
 		compute = '_independent_mtg_duration_minutes')
 
+	# Creating Meeting Name
+	@api.multi
+	def _get_name(self):
+		for r in self:
+			if r.community_id:
+					r.name = r.community_id.name + ' - ' + r.date
+
 	@api.depends('duration')
 	def _independent_mtg_duration_minutes(self):
 		for r in self:
