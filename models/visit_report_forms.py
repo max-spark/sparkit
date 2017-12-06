@@ -496,10 +496,11 @@ class IndependentMeeting(models.Model):
 
 	# Creating Meeting Name
 	@api.multi
+	@api.depends('date', 'community_id')
 	def _get_name(self):
 		for r in self:
-			if r.community_id:
-					r.name = r.community_id.name + ' - ' + r.date
+			if r.community_id and r.date:
+					r.name = "IND: " + r.community_id.name + ' - ' + r.date
 
 	@api.depends('duration')
 	def _independent_mtg_duration_minutes(self):
