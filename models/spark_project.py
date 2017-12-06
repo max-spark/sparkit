@@ -249,7 +249,8 @@ class SparkProject(models.Model):
 	@api.depends('grant_amount_local', 'exchange_rate')
 	def _get_usd_grant_amount(self):
 		for r in self:
-			r.grant_amount = r.grant_amount_local / r.exchange_rate
+			if r.exchange_rate>0:
+				r.grant_amount = r.grant_amount_local / r.exchange_rate
 
 
 

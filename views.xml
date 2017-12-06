@@ -7,6 +7,7 @@
               <script type="text/javascript" src="/sparkit/static/src/js/facilitator_dashboard.js"></script>
               <link rel="stylesheet" href="/sparkit/static/src/less/sparkit.less"/>
               <link rel="stylesheet" href="/sparkit/static/src/css/facilitator_dashboard.css"/>
+              <script type="text/javascript" src="//rum-static.pingdom.net/pa-5a1423a253eca63d53edbf98.js" async="true"></script>
             </xpath>
         </template>
 

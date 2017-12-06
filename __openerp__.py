@@ -73,6 +73,7 @@
         'data/default_workflow_configuration.xml',
         #workflows
         'views/community_workflow.xml',
+
         # Disabling VRF Workflow for Imports
         # 'views/visit_report_form_workflow.xml',
 
