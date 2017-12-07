@@ -459,8 +459,6 @@
 											groups="sparkit.global"/>
 								</group>
 								<group colspan="2" col="2">
-									<!-- TODO: Delete phase -->
-									<field name="phase" readonly="1"/>
 									<field name="state" readonly="1"/>
 									<field name="is_partnered"/>
 									<field name="is_active" />
