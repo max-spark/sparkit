@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from openerp import models, fields, api
-from datetime import datetime
+from datetime import datetime, timedelta
 from openerp.exceptions import ValidationError, Warning
 
 # TODO: Automatic Important Dates
@@ -14,7 +14,7 @@ class Community(models.Model):
 	#Basic Information
 	name = fields.Char(string="Community Name", required=True, track_visibility='always')
 	description = fields.Text(string="Community Description", track_visibility='onchange')
-	community_number = fields.Char(string="Community Number", readonly=False)
+	community_number = fields.Char(string="Community Number", readonly=True)
 	#TODO: set readonly back to true
 	is_partnered = fields.Boolean(string="Partnered?", default=False, readonly=False)
 	facilitator_id = fields.Many2one('res.users',
@@ -118,6 +118,22 @@ class Community(models.Model):
 		track_visibility='onchange')
 	num_ppl_in_planning_group = fields.Integer(string="Number of People in Planning Group",
 		track_visibility='onchange')
+
+	# DATA
+	"""avg_attendance = fields.Float(string="Average Attendance (last 90 days)",
+		compute='get_grad_metrics')
+	avg_female_attendance = fields.Float(string="Average Female Attendance (last 90 days)",
+		compute='get_grad_metrics')
+	avg_percent_female_attendance = fields.Float(string="Average Percent Female Attendance (last 90 days)",
+		compute='get_grad_metrics')
+	avg_percent_participation = fields.Float(string="Average Participation (last 90 days)",
+		compute='get_grad_metrics')
+	avg_percent_female_participation = fields.Float(string="Average Female Participation (last 90 days)",
+		compute='get_grad_metrics')
+	avg_percent_pg_participation = fields.Float(string="Average Percent Planning Grup Participation (last 90 days)",
+		compute='get_grad_metrics')
+	avg_participation = fields.Float(string="Average Participation (last 90 days)",
+		compute='get_grad_metrics')"""
 
 	#Location Information
 	country_id = fields.Many2one('res.country', string="Country", required=True,
@@ -1771,6 +1787,21 @@ class Community(models.Model):
 					next_visit_date = datetime.strptime((str(r.next_visit_date)), '%Y-%m-%d').date()
 					r.next_visit_date_week = next_visit_date.strftime("%W")
 
+	"""@api.multi
+	@api.depends('vrf_ids')
+	def get_grad_metrics(self):
+		for r in self:
+			if r.vrf_ids:
+				ninety_days_ago = datetime.today() - timedelta(days=90)
+				vrf_set_ids = r.vrf_ids.search([('visit_date', '>', ninety_days_ago), ('community_number', '=', r.community_number), ('state', '<>', 'cancelled')])
+				if vrf_set_ids:
+					r.avg_attendance = sum(line.attendance_total for line in vrf_set_ids) / len(vrf_set_ids)
+					r.avg_female_attendance = sum(line.attendance_females for line in vrf_set_ids) / len(vrf_set_ids)
+					r.avg_percent_female_attendance = r.avg_female_attendance / r.avg_attendance
+					r.avg_percent_participation = sum(line.speakers_total for line in vrf_set_ids) / r.avg_attendance
+					r.avg_participation = sum(line.speakers_total for line in vrf_set_ids)
+					r.avg_percent_female_participation = sum(line.speakers_female for line in vrf_set_ids) / r.avg_participation
+					r.avg_percent_pg_participation = r.avg_attendance / r.num_hh_in_planning_group"""
 
 	# Think about partners ... do we want them starting from 10,000 or having their
 	# own prefix codes?
@@ -1780,7 +1811,7 @@ class Community(models.Model):
 	# Returns to default (ex: 002) without country prefix if matching country not found
 	# Then returns sequence paired with country once record is saved
 
-	"""@api.model
+	@api.model
 	def create(self, vals):
 		if vals.get('country_id')==193:
 			if vals:
@@ -1805,7 +1836,7 @@ class Community(models.Model):
 				vals.update({
 					'community_number': self.env['ir.sequence'].next_by_code('scouted.community.def')
 				})
-				return super(Community, self).create(vals)"""
+				return super(Community, self).create(vals)
 
 	##Workflow States
 
@@ -1847,14 +1878,14 @@ class Community(models.Model):
 			# Checks country id to see if it is equal to Rwanda, Burundi or Uganda
 			# If equal, the community number if updated using the country-specific sequence
 			# If partnership is not one of these three countries, then defaults to a generic sequence
-			"""if self.country_id.id == 193:
+			if self.country_id.id == 193:
 				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.rw')
 			elif self.country_id.id == 232:
 				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.ug')
 			elif self.country_id.id == 25:
 				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.bdi')
 			else:
-				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.def')"""
+				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.def')
 
 
 	# Partnership -> Community Building
