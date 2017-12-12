@@ -1,0 +1,31 @@
+<openerp>
+  <data>
+    <record id="cmty_name_change_wizard" model="ir.ui.view">
+      <field name="name">Community Name Change Wizard</field>
+      <field name="model">sparkit.cmty_name_change_wizard</field>
+      <field name="arch" type="xml">
+        <form>
+          <field name="community_ids"/>
+          <group>
+          <field name="new_name"/>
+          </group>
+          <footer>
+              <button type="object" name="do_mass_update" string="Update" class="oe_highlight" />
+              <button special="cancel" string="Cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <act_window id="action_cmty_name_change_wizard"
+      name="Cmty Name Change Wizard"
+      src_model="sparkit.community"
+      res_model="sparkit.cmty_name_change_wizard" view_mode="form" target="new"
+      multi="True"/>
+
+    <menuitem id="cmty_name_change_wizard_menu" name="Cmty Name Changer"
+      action="action_cmty_name_change_wizard"
+      parent="sparkit.community_configuration"/>
+
+  </data>
+ </openerp>

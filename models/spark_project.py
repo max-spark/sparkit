@@ -172,6 +172,7 @@ class SparkProject(models.Model):
 
 	#Concatenates the community number and name to come up with a project name
 	@api.multi
+	@api.depends('community_id', 'category_id')
 	def _get_project_name(self):
 		for r in self:
 			if r.community_id and r.category_id:
