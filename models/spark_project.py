@@ -11,7 +11,7 @@ class SparkProject(models.Model):
 	#---- Basic Project Information ----#
 	community_id = fields.Many2one('sparkit.community', string="Community", required=True,
 		domain=[('is_partnered', '=', True)], ondelete='cascade', track_visibility='onchange')
-	facilitator_id = fields.Many2one('res.users', string="Facilitator", track_visibility='onchange')
+	facilitator_id = fields.Many2one('res.users', string="Facilitator", related="community_id.facilitator_id")
 	community_number = fields.Char(related='community_id.community_number', track_visibility='onchange')
 	community_name = fields.Char(related='community_id.name', track_visibility='onchange')
 	category_id = fields.Many2one('sparkit.projectcategory', string="Category", required=True,
@@ -341,11 +341,14 @@ class ProjectBudgetItem(models.Model):
 		for r in self:
 			r.difference = r.budgeted - r.actual
 
-	@api.depends('project_id', 'budget_item_id')
+	@api.depends('project_id', 'budget_item_id', "implementation_month")
 	def get_name(self):
 		for r in self:
 			if r.project_id and r.budget_item_id:
-				r.name = r.project_id.name + ": " + r.budget_item_id.name
+				if r.implementation_month:
+					r.name = r.budget_item_id.name + ": Month " + r.implementation_month
+				else:
+					r.name = r.budget_item_id.name
 
 	#---------------------------------------------------------
 	#                    Transactions
