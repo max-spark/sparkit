@@ -63,10 +63,8 @@ class VisitReportForm(models.Model):
 		('visit_implementation', 'Visit - Implementation'),
 		('visit_post_implementation', 'Visit - Post Implementation'),
 		], select=True, string="Visit Type", track_visibility='onchange')
-	missed_meeting_type = fields.Selection([
-		('no_meeting_visit', 'No Meeting or Visit'),
-		('no_meeting_phone_call', 'No Meeting or Visit - Phone Call')
-		], select=True, string="Visit Type: Missed Meeting", track_visibility='onchange')
+	phone_call = fields.Boolean(string="Phone Call Made?", track_visibility='onchange')
+	phone_call_desc = fields.Text(string="Description of Phone Call")
 	missed_meeting_reason = fields.Many2one('sparkit.missedmeetingreason',
 		string="Reason For Missed Meeting")
 	missed_meeting_text = fields.Text(string="Reason for Missed Meeting Description")

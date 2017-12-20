@@ -44,6 +44,9 @@
   							</group>
   							<group colspan="2">
   								<field name="visit_date"/>
+									<field name="next_visit_date"
+										attrs="{'readonly': [('state', '=', 'approved')]}"
+										options="{'no_create': True}"/>
   								<field name="phase"
 											attrs="{'required': [('state', '=', 'visited')]}"/>
 									<field name="phase_name" invisible="1"/>
@@ -54,13 +57,15 @@
 									<field name="visit_date_week" invisible="1"/>
   							</group>
   						</group>
-							<group colspan="4" col="4" string="Missed Meeting" class="no_style"
+							<group colspan="4" col="4" string="Missed Meeting/Phone Calls" class="no_style"
 								attrs="{'invisible': [('state', '!=', 'cancelled')]}">
 								<group colspan="2">
 									<field name="missed_meeting_reason" widget="selection"/>
+									<field name="missed_meeting_text"/>
 								</group>
 								<group colspan="2">
-									<field name="missed_meeting_text"/>
+									<field name="phone_call"/>
+									<field name="phone_call_desc"/>
 								</group>
 							</group>
   						<notebook attrs="{'invisible': ['|', ('visit_type', '=', 'no_meeting_visit'),
@@ -253,9 +258,6 @@
 								</group>
 								<group colspan="4" col="4" string="Next Meeting" class="no_style">
 									<group colspan="2">
-										<field name="next_visit_date"
-											attrs="{'readonly': [('state', '=', 'approved')]}"
-											options="{'no_create': True}"/>
 										<field name="next_meeting_activity1_id"
 											attrs="{'readonly': [('state', '=', 'approved')]}"
 											options="{'no_create': True}"/>
@@ -267,9 +269,6 @@
 											options="{'no_create': True}"/>
 									</group>
 								</group>
-							</page>
-							<page string="Ind. Meetings"
-									attrs="{'invisible': [('name', '=', False)]}">
 							</page>
   						</notebook>
   					</sheet>
