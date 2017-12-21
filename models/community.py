@@ -249,11 +249,16 @@ class Community(models.Model):
 	community_leader_ids = fields.One2many('res.partner', 'community_id',
 		domain=[('company_type', '=', 'community_leader')],
 		track_visibility='onchange')
-	# NOTE: leaders_gender_breakdown is stored in the database in order to use for reporting.
-	leaders_gender_breakdown = fields.Float(string="Percent Female Leaders",
-		compute='compute_percent_female_leaders',
+	# NOTE: stored in the database in order to use for reporting.
+	number_female_leaders = fields.Integer(string="Number Female Leaders",
+		compute='_compute_number_female_leaders',
 		store=True,
 		track_visibility='onchange')
+	total_leaders = fields.Integer(string="Total Leaders",
+		compute='_compute_total_leaders',
+		store=True,
+		track_visibility='onchange'
+	)
 
 	# Community Facilitators
 	community_facilitator_ids = fields.One2many('res.partner', 'community_id',
@@ -302,8 +307,9 @@ class Community(models.Model):
 		track_visibility='onchange')
 	independent_project_update_ids = fields.One2many('sparkit.independentprojectupdate',
 		'community_id', ondelete='set null')
-	independent_project_total = fields.Integer(compute='_get_number_ind_projects',
+	total_independent_projects = fields.Integer(compute='_get_number_ind_projects',
 		string="Total Number of Independent Projects",
+		store=True,
 		track_visibility='onchange')
 
 	#Independent Meetings
@@ -315,6 +321,8 @@ class Community(models.Model):
 		string="Savings Groups", track_visibility='onchange', ondelete='set null')
 	savings_group_update_ids = fields.One2many('sparkit.savingsgroupupdate', 'community_id',
 		ondelete='set null')
+	number_hh_savings_group = fields.Integer(string="Number of Households in a Savings Group",
+		store=True, compute='_get_number_hh_savings_group')
 
 	#OCAs
 	oca_ids = fields.One2many('sparkit.oca', 'community_id', string="OCAs", track_visibility='onchange')
@@ -1717,10 +1725,22 @@ class Community(models.Model):
 
 	@api.multi
 	@api.depends('community_leader_ids')
-	def compute_percent_female_leaders(self):
+	def _compute_number_female_leaders(self):
 		for r in self:
 			if r.community_leader_ids:
-				r.leaders_gender_breakdown = (len(r.community_leader_ids.search([('gender', '=', 'female'), ('community_id.community_number', '=', r.community_number)]))/len(r.community_leader_ids))*100
+				total = 0
+				for line in r.community_leader_ids:
+					if line.gender == 'female':
+						total = total + 1
+				r.number_female_leaders = total
+
+
+	@api.multi
+	@api.depends('community_leader_ids')
+	def _compute_total_leaders(self):
+		for r in self:
+			if r.community_leader_ids:
+				r.total_leaders = len(r.community_leader_ids)
 
 	@api.multi
 	@api.depends('community_facilitator_ids')
@@ -1783,9 +1803,17 @@ class Community(models.Model):
 				r.is_community_description_filled = True
 
 	@api.multi
+	@api.depends('independent_project_ids')
 	def _get_number_ind_projects(self):
 		for r in self:
-			r.independent_project_total = len(r.independent_project_ids)
+			r.total_independent_projects = len(r.independent_project_ids)
+
+	@api.multi
+	@api.depends('savings_group_ids')
+	def _get_number_hh_savings_group(self):
+		for r in self:
+			if r.savings_group_ids:
+				r.number_hh_savings_group = sum(s.number_hh for s in r.savings_group_ids)
 
 	@api.multi
 	@api.depends('vrf_ids')
