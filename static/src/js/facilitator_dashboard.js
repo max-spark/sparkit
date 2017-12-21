@@ -190,7 +190,7 @@ openerp.sparkit = function(instance, local) {
         start: function () {
             var self = this;
             return new instance.web.Model('sparkit.community')
-                .query(['name', 'id', 'community_number', 'phase_name', 'state_name', 'next_visit_date'])
+                .query(['name', 'id', 'community_number', 'phase_name', 'state_name', 'next_visit_date','avg_attendance','avg_percent_pg_participation', 'avg_percent_female_attendance', 'avg_percent_participation', 'avg_percent_female_participation'])
                 .filter([['facilitator_id', '=', self.session.uid],['is_partnered', '=', 'True']])
                 .all()
                 .then(function (results) {

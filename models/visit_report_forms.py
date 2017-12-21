@@ -7,8 +7,7 @@ from openerp.exceptions import ValidationError, Warning
 
 
 #TODO How to handle cases where it's over 3 hours? For mtg duration..
-#TODO How to automatically fill in program manager?
-#TODO Automatic Calculation for Next visit Date
+#TODO Automatic Calculation for Next visit Date (requested feature)
 
 	#---------------------------------------------------------------------
 	#                      Community Visit Report Form

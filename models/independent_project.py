@@ -62,7 +62,7 @@ class IndependentProject(models.Model):
 				r.number_project_updates = len(r.project_update_ids)
 
 	# Adding followers
-	# TODO: Update this once it changes!
+	# TODO: This only adds followers when project is created, not if anything is updated on cmty profile.
 	@api.model
 	def create(self, vals):
 		ind_project = super(IndependentProject, self).create(vals)

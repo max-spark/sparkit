@@ -59,7 +59,9 @@ class Partnership(models.Model):
 				r.name = r.community_id.community_number + ' ' + r.community_id.name + ' - ' + r.partner_id.name
 
 	# Adding followers
-	# TODO: Update this once it changes!
+	# TODO: Currently only adds followers when partnership created, might be
+	# nice to have it updated when M&E assistant, pm, fac are changed on
+	# cmty profile
 	@api.model
 	def create(self, vals):
 		partnership = super(Partnership, self).create(vals)

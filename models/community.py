@@ -15,8 +15,7 @@ class Community(models.Model):
 	name = fields.Char(string="Community Name", required=True, track_visibility='always')
 	description = fields.Text(string="Community Description", track_visibility='onchange')
 	community_number = fields.Char(string="Community Number", readonly=True)
-	#TODO: set readonly back to true
-	is_partnered = fields.Boolean(string="Partnered?", default=False, readonly=False)
+	is_partnered = fields.Boolean(string="Partnered?", default=False, readonly=True)
 	facilitator_id = fields.Many2one('res.users',
 		string="Facilitator",
 		default=lambda self: self.env.user,
@@ -120,7 +119,7 @@ class Community(models.Model):
 		track_visibility='onchange')
 
 	# DATA
-	"""avg_attendance = fields.Float(string="Average Attendance (last 90 days)",
+	avg_attendance = fields.Float(string="Average Attendance (last 90 days)",
 		compute='get_grad_metrics')
 	avg_female_attendance = fields.Float(string="Average Female Attendance (last 90 days)",
 		compute='get_grad_metrics')
@@ -133,7 +132,7 @@ class Community(models.Model):
 	avg_percent_pg_participation = fields.Float(string="Average Percent Planning Grup Participation (last 90 days)",
 		compute='get_grad_metrics')
 	avg_participation = fields.Float(string="Average Participation (last 90 days)",
-		compute='get_grad_metrics')"""
+		compute='get_grad_metrics')
 
 	#Location Information
 	country_id = fields.Many2one('res.country', string="Country", required=True,
@@ -1828,7 +1827,7 @@ class Community(models.Model):
 					next_visit_date = datetime.strptime((str(r.next_visit_date)), '%Y-%m-%d').date()
 					r.next_visit_date_week = next_visit_date.strftime("%W")
 
-	"""@api.multi
+	@api.multi
 	@api.depends('vrf_ids')
 	def get_grad_metrics(self):
 		for r in self:
@@ -1842,7 +1841,7 @@ class Community(models.Model):
 					r.avg_percent_participation = sum(line.speakers_total for line in vrf_set_ids) / r.avg_attendance
 					r.avg_participation = sum(line.speakers_total for line in vrf_set_ids)
 					r.avg_percent_female_participation = sum(line.speakers_female for line in vrf_set_ids) / r.avg_participation
-					r.avg_percent_pg_participation = r.avg_attendance / r.num_hh_in_planning_group"""
+					r.avg_percent_pg_participation = r.avg_attendance / r.num_hh_in_planning_group
 
 	# Think about partners ... do we want them starting from 10,000 or having their
 	# own prefix codes?

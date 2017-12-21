@@ -2,8 +2,6 @@
 
 from openerp import models, fields, api
 
-# TODO: Pass number of households at lastest date to SavingsGroup
-
 class SavingsGroup(models.Model):
 	_name = 'sparkit.savingsgroup'
 	_inherit = 'mail.thread'

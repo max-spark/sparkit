@@ -777,6 +777,20 @@
 									<field name="independent_meeting_ids"
 										context="{'default_community_id': active_id}"/>
 								</page>
+								<page string="Grad Metrics"
+									attrs="{'invisible': [('phase', '=', 'community_identification')]}">
+									<group colspans="4" col="4" class="no_style" string="Graduation Metrics (Last 90 Days)">
+										<group colspan="2">
+											<field name="avg_attendance"/>
+											<field name="avg_percent_pg_participation"/>
+											<field name="avg_percent_female_attendance"/>
+										</group>
+										<group colspan="2">
+											<field name="avg_percent_participation"/>
+											<field name="avg_percent_female_participation"/>
+										</group>
+									</group>
+								</page>
   						</notebook>
   					</sheet>
 						<div class="oe_chatter">
