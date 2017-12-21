@@ -1838,8 +1838,8 @@ class Community(models.Model):
 					r.avg_attendance = sum(line.attendance_total for line in vrf_set_ids) / len(vrf_set_ids)
 					r.avg_female_attendance = sum(line.attendance_females for line in vrf_set_ids) / len(vrf_set_ids)
 					r.avg_percent_female_attendance = r.avg_female_attendance / r.avg_attendance
-					r.avg_percent_participation = sum(line.speakers_total for line in vrf_set_ids) / r.avg_attendance
 					r.avg_participation = sum(line.speakers_total for line in vrf_set_ids)
+					r.avg_percent_participation = r.avg_participation / r.avg_attendance
 					r.avg_percent_female_participation = sum(line.speakers_female for line in vrf_set_ids) / r.avg_participation
 					r.avg_percent_pg_participation = r.avg_attendance / r.num_hh_in_planning_group
 
