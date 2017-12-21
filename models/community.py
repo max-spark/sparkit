@@ -249,6 +249,11 @@ class Community(models.Model):
 	community_leader_ids = fields.One2many('res.partner', 'community_id',
 		domain=[('company_type', '=', 'community_leader')],
 		track_visibility='onchange')
+	# NOTE: leaders_gender_breakdown is stored in the database in order to use for reporting.
+	leaders_gender_breakdown = fields.Float(string="Percent Female Leaders",
+		compute='compute_percent_female_leaders',
+		store=True,
+		track_visibility='onchange')
 
 	# Community Facilitators
 	community_facilitator_ids = fields.One2many('res.partner', 'community_id',
@@ -404,6 +409,7 @@ class Community(models.Model):
 		help="Automatically checked when there leaders entered in 'Community Leaders' under 'Community Detail' and the number of leaders is not under the mininum requirement.")
 	leaders_gender_requirement = fields.Boolean(string="Minimum Percent of Leaders Are Women",
 		compute='check_gender_elected_leaders',
+		store=True,
 		track_visibility='onchange',
 		help="Automatically checks the gender of all community leaders underneath the community profile.")
 		# -> Activities
@@ -1708,6 +1714,13 @@ class Community(models.Model):
 			if r.community_leader_ids:
 				if len(r.community_leader_ids.search([('gender', '=', 'female'), ('community_id.community_number', '=', r.community_number)])) >= (r.workflow_config_id.communtiybldg_min_percent_female * len(r.community_leader_ids)):
 					r.leaders_gender_requirement = True
+
+	@api.multi
+	@api.depends('community_leader_ids')
+	def compute_percent_female_leaders(self):
+		for r in self:
+			if r.community_leader_ids:
+				r.leaders_gender_breakdown = len(r.community_leader_ids.search([('gender', '=', 'female'), ('community_id.community_number', '=', r.community_number)]))/len(r.community_leader_ids)
 
 	@api.multi
 	@api.depends('community_facilitator_ids')
