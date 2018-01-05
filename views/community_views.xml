@@ -889,7 +889,7 @@
   		</record>
 
 			<record model="ir.actions.act_window" id="my_communities_list_action">
-				<field name="name">My Community</field>
+				<field name="name">My Communities</field>
 				<field name="res_model">sparkit.community</field>
 				<field name="view_type">form</field>
 				<field name="view_mode">tree,form,calendar,kanban</field>
