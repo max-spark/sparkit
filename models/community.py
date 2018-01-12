@@ -1827,21 +1827,7 @@ class Community(models.Model):
 					next_visit_date = datetime.strptime((str(r.next_visit_date)), '%Y-%m-%d').date()
 					r.next_visit_date_week = next_visit_date.strftime("%W")
 
-	@api.multi
-	@api.depends('vrf_ids')
-	def get_grad_metrics(self):
-		for r in self:
-			if r.vrf_ids:
-				ninety_days_ago = datetime.today() - timedelta(days=90)
-				vrf_set_ids = r.vrf_ids.search([('visit_date', '>', ninety_days_ago), ('community_number', '=', r.community_number), ('state', '<>', 'cancelled')])
-				if vrf_set_ids:
-					r.avg_attendance = sum(line.attendance_total for line in vrf_set_ids) / len(vrf_set_ids)
-					r.avg_female_attendance = sum(line.attendance_females for line in vrf_set_ids) / len(vrf_set_ids)
-					r.avg_percent_female_attendance = r.avg_female_attendance / r.avg_attendance
-					r.avg_participation = sum(line.speakers_total for line in vrf_set_ids)
-					r.avg_percent_participation = r.avg_participation / r.avg_attendance
-					r.avg_percent_female_participation = sum(line.speakers_female for line in vrf_set_ids) / r.avg_participation
-					r.avg_percent_pg_participation = r.avg_attendance / r.num_hh_in_planning_group
+
 
 	# Think about partners ... do we want them starting from 10,000 or having their
 	# own prefix codes?
