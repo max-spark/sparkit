@@ -1,5 +1,4 @@
 id,step_id/id,name,number
-community_identification_state_collecting_baseline_data,sparkit.community_identification_state,Collecting Baseline Data (2018 FCAP - All),200
 spark_introduction,sparkit.introductions,Spark Introduction,1
 community_mapping,sparkit.introductions,Community Mapping,3
 partnership_expectations,sparkit.partnership,Partnership Expectations,10
@@ -11,12 +10,6 @@ strong_leaders,sparkit.community_building,Qualities of Strong Leaders,22
 leadership_election,sparkit.community_building,Leadership Election,23
 vision_statement,sparkit.community_building,Vision Statement,24
 community_building_training,sparkit.community_building,Training-Other,25
-community_building_cbf_selection_and_training,sparkit.community_building,CBF Selection and Training (2018 FCAP - Uganda),201
-community_building_characteristics_of_a_strong_village,sparkit.community_building,Characteristics of a Strong Village (2018 FCAP - Burundi/Uganda),202
-community_building_community_mapping,sparkit.community_building,Community Mapping (2018 FCAP - Burundi/Uganda),203
-community_building_fcap_introduction,sparkit.community_building,FCAP Introduction (2018 FCAP - All),204
-community_building_savings_group_training,sparkit.community_building,Savings Group Training (2018 FCAP - Burundi),205
-community_building_sms_registration,sparkit.community_building,SMS Registration (2018 FCAP - All),206
 understanding_goals,sparkit.goal_setting_goals,Understanding Goals,30
 brainstorming_goals,sparkit.goal_setting_goals,Brainstorming Goals,31
 consensus_building,sparkit.goal_setting_goals,Consensus Building,32
@@ -30,14 +23,6 @@ intro_proposal_dev,sparkit.goal_setting_pathways,Introducing Proposal Developmen
 developing_savings_groups,sparkit.goal_setting_pathways,Developing Savings Groups,44
 banking_training,sparkit.goal_setting_pathways,Banking Training,45
 goal_setting_pathways_training,sparkit.goal_setting_pathways,Training - Other,46
-goal_setting_pathways_banking_training,sparkit.goal_setting_pathways,Banking Training (2018 FCAP - All),207
-goal_setting_pathways_cbf_selection_and_training,sparkit.goal_setting_pathways,CBF Selection and Training (2018 FCAP - Burundi),208
-goal_setting_pathways_savings_management,sparkit.goal_setting_pathways,Savings Management (2018 FCAP - All),209
-goal_setting_pathways_savings_record_keeping_and_reporting_,sparkit.goal_setting_pathways,Savings Record Keeping and Reporting  (2018 FCAP - All),210
-goal_setting_pathways_setting_savings_targets,sparkit.goal_setting_pathways,Setting Savings Targets (2018 FCAP - All),211
-goal_setting_pathways_stakeholder_analysis,sparkit.goal_setting_pathways,Stakeholder Analysis (2018 FCAP - Uganda),212
-goal_setting_pathways_understanding_stakeholders,sparkit.goal_setting_pathways,Understanding Stakeholders (2018 FCAP - Uganda),213
-goal_setting_pathways_vision_board,sparkit.goal_setting_pathways,Vision Board (2018 FCAP - Burundi/Uganda),214
 imp_action_plan,sparkit.implementation_plan,Developing Implementation Action Plan,50
 fac_training,sparkit.implementation_plan,Facilitation Training,51
 understanding_budgeting,sparkit.implementation_plan,Understanding Budgeting,52
@@ -45,25 +30,20 @@ implementation_budget,sparkit.implementation_plan,Developing Implementation Budg
 implementation_plan_training,sparkit.implementation_plan,Training - Other,54
 implementation_plan_ta_training,sparkit.implementation_plan,Training - TA,55
 implementation_plan_structural_plan,sparkit.implementation_plan,Developing A Structural Plan,56
-implementation_plan_implementation_plan,sparkit.implementation_plan,Implementation Plan (2018 FCAP - All),215
 developing_operational_plan,sparkit.operational_plan,Developing Operational Action Plan,60
 operational_budget,sparkit.operational_plan,Developing Operational Budget,61
 operational_plan_training,sparkit.operational_plan,Training - Other,62
 operational_plan_ta_training,sparkit.operational_plan,Training - TA,63
-operational_plan_operational_plan,sparkit.operational_plan,Operational Plan (2018 FCAP - All),216
 target_numbers,sparkit.measuring_success,Setting Target Numbers,70
 data_collection_plan,sparkit.measuring_success,Developing Data Collection Plan,71
 measuring_success_training,sparkit.measuring_success,Training - Other,72
 measuring_success_ta_training,sparkit.measuring_success,Training - TA,73
-measuring_success_measuring_success,sparkit.measuring_success,Measuring Success (2018 FCAP - All),217
 risk_assessment,sparkit.sustainability_plan,Risk Assessment,80
 bylaws,sparkit.sustainability_plan,Developing By-Laws,81
 engagement_plan,sparkit.sustainability_plan,Community Engagement Plan,82
 sustainability_training,sparkit.sustainability_plan,Transparency & Accountability Training,83
 sustainability_plan_training,sparkit.sustainability_plan,Training - Other,84
 sustainability_plan_ta_training,sparkit.sustainability_plan,Training - TA,85
-sustainability_plan_leadership_forum_introduction,sparkit.sustainability_plan,Leadership Forum Introduction (2018 FCAP - Uganda),218
-sustainability_plan_sustainbility_plan,sparkit.sustainability_plan,Sustainbility Plan (2018 FCAP - All),219
 creating_proposal_review,sparkit.proposal_review,Proposal Review,90
 proposal_review_training,sparkit.proposal_review,Training - Other,91
 proposal_review_ta_training,sparkit.proposal_review,Training - TA,92
@@ -73,7 +53,6 @@ sms_training,sparkit.grant_agreement,SMS Training,102
 grant_agreement_signing,sparkit.grant_agreement,Grant Agreement,103
 grant_agreement_training,sparkit.grant_agreement,Training - Other,104
 grant_agreement_ta_training,sparkit.grant_agreement,Training - TA,105
-grant_agreement_record_keeping_review,sparkit.grant_agreement,Record Keeping Review (2018 FCAP - All),220
 first_disbursal,sparkit.first_disbursement,First Disbursement,110
 t_and_a_first_disbursement,sparkit.first_disbursement,Transparency and Accountability Training Review,111
 banking_review,sparkit.first_disbursement,Banking Training Review,112
@@ -89,15 +68,10 @@ cmty_facilitation_training,sparkit.implementation_leadership,Community Facilitat
 implementation_leadership_training,sparkit.implementation_leadership,Training - Other,124
 implementation_leadership_ta_training,sparkit.implementation_leadership,Training - TA,125
 implementation_leadership_t_and_a,sparkit.implementation_leadership,Transparency and Accountability Training Review,126
-implementation_leadership_bylaw_and_leadership_review,sparkit.implementation_leadership,Bylaw and Leadership Review (2018 FCAP - All),221
 developing_transition_strategy,sparkit.transition_strategy,Transition Strategy,130
 transition_strategy_training,sparkit.transition_strategy,Training - Other,131
 transition_strategy_ta_training,sparkit.transition_strategy,Training - TA,132
 transition_strategy_t_and_a,sparkit.transition_strategy,Transparency and Accountability Training Review,133
-transition_strategy_characteristics_of_a_strong_village_review,sparkit.transition_strategy,Characteristics of a Strong Village Review (2018 FCAP - All),222
-transition_strategy_transition_strategy_activities,sparkit.transition_strategy,Transition Strategy Activities (2018 FCAP - Rwanda),223
-transition_strategy_transition_timeline,sparkit.transition_strategy,Transition Timeline (2018 FCAP - Rwanda),224
-transition_strategy_vision_board_review,sparkit.transition_strategy,Vision Board Review (2018 FCAP - All),225
 op_plan_review,sparkit.post_implementation1,Operational Plan Review,140
 mitigation_plan_review_pi,sparkit.post_implementation1,Risk Mitigation Plan Review,141
 bylaw_review_pi,sparkit.post_implementation1,By-law Review,142
@@ -106,8 +80,6 @@ transition_strategy_review,sparkit.post_implementation1,Transition Strategy Revi
 post_implementation1_training,sparkit.post_implementation1,Training - Other,145
 post_implementation1_ta_training,sparkit.post_implementation1,Training - TA,146
 post_imp1_t_and_a_review,sparkit.post_implementation1,Transparency and Accountability Training Review,147
-post_implementation1_bylaw_and_leadership_review,sparkit.post_implementation1,Bylaw and Leadership Review (2018 FCAP - All),226
-post_implementation1_record_keeping_review,sparkit.post_implementation1,Record Keeping Review (2018 FCAP - All),227
 measuring_success_review,sparkit.post_implementation2,Goal Setting and Measuring Success Review,150
 future_goal_setting,sparkit.post_implementation2,Future Goal Setting,151
 advocacy_training_pi,sparkit.post_implementation2,Advocacy Training,152
@@ -116,29 +88,8 @@ transition_plan_review,sparkit.post_implementation2,Transition Plan Review,154
 post_implementation2_training,sparkit.post_implementation2,Training - Other,155
 post_implementation2_ta_training,sparkit.post_implementation2,Training - TA,156
 post_implementation2_t_and_a_review,sparkit.post_implementation2,Transparency and Accountability Training Review,157
-post_implementation2_characteristics_of_a_strong_village_review,sparkit.post_implementation2,Characteristics of a Strong Village Review (2018 FCAP - Uganda),228
-post_implementation2_graduation_ceremony,sparkit.post_implementation2,Graduation Ceremony (2018 FCAP - All),229
-post_implementation2_graduation_preparation,sparkit.post_implementation2,Graduation Preparation (2018 FCAP - All),230
-post_implementation2_implementation_support,sparkit.post_implementation2,Implementation Support (2018 FCAP - Uganda),231
-post_implementation2_leadership_forum_support,sparkit.post_implementation2,Leadership Forum Support (2018 FCAP - Uganda),232
-post_implementation2_management_support,sparkit.post_implementation2,Management Support (2018 FCAP - Uganda),233
-post_implementation2_proposal_devepment_support,sparkit.post_implementation2,Proposal Devepment Support (2018 FCAP - Uganda),234
-post_implementation2_vision_board_review,sparkit.post_implementation2,Vision Board Review (2018 FCAP - Burundi/Uganda),235
 grad_prep,sparkit.post_implementation3,Graduation Preparation,160
 graduation,sparkit.post_implementation3,Graduation,161
 post_implementation3_training,sparkit.post_implementation3,Training - Other,162
 post_implementation3_ta_training,sparkit.post_implementation3,Training - TA,163
 post_implementation3_t_and_a_review,sparkit.post_implementation3,Transparency and Accountability Training Review,164
-post_implementation3_advocacy_training,sparkit.post_implementation3,Advocacy Training (2018 FCAP - Uganda),241
-post_implementation3_bylaw_and_leadership_review,sparkit.post_implementation3,Bylaw and Leadership Review (2018 FCAP - Uganda),236
-post_implementation3_characteristics_of_a_strong_village_review,sparkit.post_implementation3,Characteristics of a Strong Village Review (2018 FCAP - Uganda),237
-post_implementation3_community_facilitator_follow-up,sparkit.post_implementation3,Community Facilitator Follow-up (2018 FCAP - Uganda),238
-post_implementation3_goal_setting_and_measuring_success_review,sparkit.post_implementation3,Goal Setting and Measuring Success Review (2018 FCAP - Uganda),239
-post_implementation3_implementation_support,sparkit.post_implementation3,Implementation Support (2018 FCAP - Uganda),240
-post_implementation3_leadership_forum_support,sparkit.post_implementation3,Leadership forum support (2018 FCAP - Uganda),241
-post_implementation3_management_support,sparkit.post_implementation3,Management Support (2018 FCAP - Uganda),242
-post_implementation3_operational_plan_review,sparkit.post_implementation3,Operational Plan Review (2018 FCAP - Uganda),243
-post_implementation3_proposal_development_support,sparkit.post_implementation3,Proposal Development Support (2018 FCAP - Uganda),244
-post_implementation3_record_keeping_review,sparkit.post_implementation3,Record Keeping Review (2018 FCAP - Uganda),245
-post_implementation3_risk_mitigation_plan_review,sparkit.post_implementation3,Risk Mitigation Plan Review (2018 FCAP - Uganda),246
-post_implementation3_vision_board_review,sparkit.post_implementation3,Vision Board Review (2018 FCAP - Uganda),247
