@@ -41,7 +41,7 @@
 									<field name="co_facilitator_id" options="{'no_create': True}"/>
 									<field name="program_manager_id"/>
 									<field name="m_e_assistant_id"/>
-									<field name="created_on_odoo" readonly="1" />
+									<field name="created_on_odoo"  />
   							</group>
   							<group colspan="2">
   								<field name="visit_date"/>
