@@ -86,7 +86,7 @@ openerp.sparkit = function(instance, local) {
             type: 'ir.actions.act_window',
             res_model: 'sparkit.vrf',
             views: [[false, 'form']],
-            context: {'default_created_on_odoo':'True'},
+            context: {'default_created_on_Odoo':'True'},
           })
         }
     });
