@@ -326,7 +326,7 @@ class VisitReportForm(models.Model):
 	speakers_total_mf1 = fields.Integer(string="Monitoring Forms v1 Speakers (TOTAL ONLY)")
 	leaders_total_mf1 = fields.Integer(string="Monitoring Forms v1 Leaders (TOTAL ONLY)")
 
-	created_on_odoo = fields.Boolean(string="Created on Odoo", track_visibility='onchange')
+	created_on_odoo = fields.Boolean(string="Created on Odoo", track_visibility='onchange', default=False)
 
 	@api.depends('visit_date')
 	def get_visit_date_week(self):
