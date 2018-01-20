@@ -637,23 +637,23 @@
 										<page string="Planning"
 											attrs="{'invisible': [('phase', '=', 'community_identification')]}">
 		  								<field name="cvrf_ids"
-												context="{'default_community_id': active_id, 'default_phase': phase, 'default_created_on_Odoo': 'True'}"/>
+												context="{'default_community_id': active_id, 'default_phase': phase, 'default_created_on_odoo': 'True'}"/>
 		  							</page>
 		  							<page string="Implementation"
 											attrs="{'invisible': [('phase', '!=', 'implementation'),
 												('phase', '!=', 'post_implementation'), ('phase', '!=', 'graduated')]}">
 		  								<field name="ivrf_ids"
-												context="{'default_community_id': active_id, 'default_phase': phase, 'default_created_on_Odoo': 'True'}"/>
+												context="{'default_community_id': active_id, 'default_phase': phase, 'default_created_on_odoo': 'True'}"/>
 		  							</page>
 		  							<page string="Post Implementation"
 											attrs="{'invisible': [('phase', '!=', 'post_implementation'),
 												('phase', '!=', 'graduated')]}">
 		  								<field name="pivrf_ids"
-												context="{'default_community_id': active_id, 'default_phase': phase, 'default_created_on_Odoo': 'True'}"/>
+												context="{'default_community_id': active_id, 'default_phase': phase, 'default_created_on_odoo': 'True'}"/>
 		  							</page>
 										<page string="All Visits">
 											<field name="vrf_ids"
-												context="{'default_community_id': active_id, 'default_phase': phase, 'default_created_on_Odoo': 'True'}"/>
+												context="{'default_community_id': active_id, 'default_phase': phase, 'default_created_on_odoo': 'True'}"/>
 		  							</page>
 									</notebook>
 								</page>
