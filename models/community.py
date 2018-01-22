@@ -1836,10 +1836,10 @@ class Community(models.Model):
 				vrf_set_ids = r.vrf_ids.search([('visit_date', '>', ninety_days_ago), ('community_number', '=', r.community_number), ('state', '<>', 'cancelled')])
 				if vrf_set_ids:
 					r.avg_attendance = sum(line.attendance_total for line in vrf_set_ids) / len(vrf_set_ids)
-					if (r.avg_attendance > 0) and (r.num_hh_in_planning_group > 0):
+					r.avg_participation = sum(line.speakers_total for line in vrf_set_ids)
+					if (r.avg_attendance > 0) and (r.num_hh_in_planning_group > 0) and (r.avg_participation > 0):
 						r.avg_female_attendance = sum(line.attendance_females for line in vrf_set_ids) / len(vrf_set_ids)
 						r.avg_percent_female_attendance = r.avg_female_attendance / r.avg_attendance
-						r.avg_participation = sum(line.speakers_total for line in vrf_set_ids)
 						r.avg_percent_participation = r.avg_participation / r.avg_attendance
 						r.avg_percent_female_participation = sum(line.speakers_female for line in vrf_set_ids) / r.avg_participation
 						r.avg_percent_pg_participation = r.avg_attendance / r.num_hh_in_planning_group
