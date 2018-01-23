@@ -125,14 +125,24 @@ class Community(models.Model):
 		compute='get_grad_metrics')
 	avg_percent_female_attendance = fields.Float(string="Average Percent Female Attendance (last 90 days)",
 		compute='get_grad_metrics')
-	avg_percent_participation = fields.Float(string="Average Participation (last 90 days)",
+	avg_percent_participation = fields.Float(string="Average Percent Participation (last 90 days)",
 		compute='get_grad_metrics')
 	avg_percent_female_participation = fields.Float(string="Average Female Participation (last 90 days)",
 		compute='get_grad_metrics')
-	avg_percent_pg_participation = fields.Float(string="Average Percent Planning Grup Participation (last 90 days)",
+	avg_percent_pg_participation = fields.Float(string="Average Percent Planning Group Participation (last 90 days)",
 		compute='get_grad_metrics')
 	avg_participation = fields.Float(string="Average Participation (last 90 days)",
 		compute='get_grad_metrics')
+
+	avg_percent_female_attendance_display = fields.Char(string="Average Percent Female Attendance (last 90 days)",
+		compute='get_grad_metrics')
+	avg_percent_participation_display = fields.Char(string="Average Percent Participation (last 90 days)",
+		compute='get_grad_metrics')
+	avg_percent_female_participation_display = fields.Char(string="Average Female Participation (last 90 days)",
+		compute='get_grad_metrics')
+	avg_percent_pg_participation_display = fields.Char(string="Average Percent Planning Group Participation (last 90 days)",
+		compute='get_grad_metrics')
+
 
 	#Location Information
 	country_id = fields.Many2one('res.country', string="Country", required=True,
@@ -1836,13 +1846,17 @@ class Community(models.Model):
 				vrf_set_ids = r.vrf_ids.search([('visit_date', '>', ninety_days_ago), ('community_number', '=', r.community_number), ('state', '<>', 'cancelled')])
 				if vrf_set_ids:
 					r.avg_attendance = sum(line.attendance_total for line in vrf_set_ids) / len(vrf_set_ids)
-					r.avg_participation = sum(line.speakers_total for line in vrf_set_ids)
+					r.avg_participation = sum(line.speakers_total for line in vrf_set_ids) / len(vrf_set_ids)
 					if (r.avg_attendance > 0) and (r.num_hh_in_planning_group > 0) and (r.avg_participation > 0):
 						r.avg_female_attendance = sum(line.attendance_females for line in vrf_set_ids) / len(vrf_set_ids)
 						r.avg_percent_female_attendance = r.avg_female_attendance / r.avg_attendance
+						r.avg_percent_female_attendance_display = str(r.avg_percent_female_attendance * 100) + "%"						
 						r.avg_percent_participation = r.avg_participation / r.avg_attendance
+						r.avg_percent_participation_display = str(r.avg_percent_participation * 100) + "%"												
 						r.avg_percent_female_participation = sum(line.speakers_female for line in vrf_set_ids) / r.avg_participation
+						r.avg_percent_female_participation_display = str(r.avg_percent_female_participation * 100) + "%"																		
 						r.avg_percent_pg_participation = r.avg_attendance / r.num_hh_in_planning_group
+						r.avg_percent_pg_participation_display = str(r.avg_percent_pg_participation * 100) + "%"
 					else:
 						r.avg_female_attendance = 0
 						r.avg_percent_female_attendance = 0

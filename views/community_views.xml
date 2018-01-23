@@ -782,12 +782,12 @@
 									<group colspans="4" col="4" class="no_style" string="Graduation Metrics (Last 90 Days)">
 										<group colspan="2">
 											<field name="avg_attendance"/>
-											<field name="avg_percent_pg_participation"/>
-											<field name="avg_percent_female_attendance"/>
+											<field name="avg_percent_pg_participation_display"/>											
+											<field name="avg_percent_female_attendance_display"/>
 										</group>
 										<group colspan="2">
-											<field name="avg_percent_participation"/>
-											<field name="avg_percent_female_participation"/>
+											<field name="avg_percent_participation_display"/>
+											<field name="avg_percent_female_participation_display"/>
 										</group>
 									</group>
 								</page>
