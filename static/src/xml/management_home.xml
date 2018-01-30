@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+  <t t-name="ManagementHome">
+    
+        <htmlData>
+          <![CDATA[<html>
+                <body>
+                  <iframe src="http://sparkit.sparkmicrogrants.org:8080/jasperserver/fileview/fileview/Learning_Jasper_SQL_Test_Reports/Community_Dashboard_Report-201801250130.html" height="500px" width="100%" ></iframe>
+                </body>
+                </html>
+             ]]>
+        </htmlData>
+
+  </t>
+
+</templates>

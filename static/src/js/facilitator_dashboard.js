@@ -5,6 +5,13 @@ openerp.sparkit = function(instance, local) {
     var QWeb = instance.web.qweb;
 
 
+    local.ManagementHome = instance.Widget.extend({
+        template: "ManagementHome"
+        })
+
+    instance.web.client_actions.add(
+        'sparkit.managementhome', 'instance.sparkit.ManagementHome');
+
     local.FacilitatorDashboard = instance.Widget.extend({
         template: "FacilitatorDashboard",
         events: {

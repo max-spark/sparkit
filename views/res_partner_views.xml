@@ -55,6 +55,7 @@
                            ('company_type', '=', 'community_facilitator')],
                            'invisible': [('company_type', '!=', 'community_leader'),
                            ('company_type', '!=', 'community_facilitator')]}"/>
+
                   </group>
                 </group>
               </xpath>

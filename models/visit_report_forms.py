@@ -491,7 +491,9 @@ class IndependentMeeting(models.Model):
 		 string="Independent Meeting Duration",
 		 help="Please enter the duration of the independent meeting. Please round up to the nearest 15 mn interval.")
 	duration_minutes = fields.Integer(string="Duration Minutes", readonly=True,
-		compute = '_independent_mtg_duration_minutes')
+		compute = '_independent_mtg_duration_minutes')	
+	description = fields.Text(string="Description of Independent Meeting",
+		track_visibility='onchange')
 
 	# Creating Meeting Name
 	@api.multi

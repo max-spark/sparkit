@@ -2,6 +2,7 @@
 <templates>
 
   <t t-name="FacilitatorDashboard">
+
     <div class="fac_dashboard">
 
             <!--Top Row/Header-->

@@ -16,6 +16,7 @@ class Community(models.Model):
 	description = fields.Text(string="Community Description", track_visibility='onchange')
 	community_number = fields.Char(string="Community Number", readonly=True)
 	is_partnered = fields.Boolean(string="Partnered?", default=False, readonly=True)
+	relm_counts = fields.Boolean(string="RELM Counts?", default=True)	
 	facilitator_id = fields.Many2one('res.users',
 		string="Facilitator",
 		default=lambda self: self.env.user,
@@ -26,7 +27,7 @@ class Community(models.Model):
 	program_manager_id = fields.Many2one('res.users', string="Program Manager",
 		track_visibility='onchange')
 	m_e_assistant_id = fields.Many2one('res.users', string="Monitoring/Evaluation Assistant",
-		track_visibility='onchage')
+		track_visibility='onchange')
 	is_active = fields.Boolean(string="Active?", readonly=True)
 	phase_name = fields.Char(compute='_get_phase_name', string="Phase Name", store=True)
 	state_name = fields.Char(compute='_get_state_name', string="State Name", store=True)
@@ -39,6 +40,12 @@ class Community(models.Model):
 	project_sustaining = fields.Boolean(string="Project Sustaining?")
 	project_sustaining_enddate = fields.Date(string="Date Project Stopped Sustaining",
 		help="Please enter the approximate date the project stopped sustaining.")
+
+	country_region = fields.Selection([
+		('eastern_uganda', 'Eastern Uganda'),
+		('northern_uganda', 'Northern Uganda')
+		], track_visibility='onchange')
+	proposal_link = fields.Char(string="Link to Proposal", track_visibility='onchange')
 
 	#Workflow States
 	phase = fields.Selection([
@@ -188,6 +195,11 @@ class Community(models.Model):
 		track_visibility='onchange')
 	technical_advisor_workplan = fields.Binary(string="Technical Advisor Workplan")
 	ta_workplan_name = fields.Char(string="Technical Advisor Workplan Name")
+
+	implementation_partner_facilitator_id = fields.Many2one('res.partner',
+		string="Implementation Partner Facilitator",
+		domain=[('company_type', '=', 'implementation_partner')],
+		track_visibility='onchange')
 
 	# Important Documents
 	number_signed_partnership_agreement = fields.Integer(string="Number of People Who Signed Partnership Agreement",

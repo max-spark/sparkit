@@ -379,7 +379,7 @@
   					<field name="date"/>
   					<field name="attendance"/>
   					<field name="duration"/>
-  					<field name="duration_minutes" readonly="1"/>
+  					<field name="description"/>  					
   				</tree>
   			</field>
   		</record>

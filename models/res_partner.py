@@ -15,6 +15,7 @@ class res_partner(models.Model):
         ('community_facilitator', 'Community Facilitator'),
         ('technical_advisor', 'Technical Advisor'),
         ('donor', 'Donor'),
+        ('implementation_partner','Implementation Partner')
 		], select=True, string="Contact Type",
         help="Please select the category that bests represents this contact.",
         track_visibility='onchange')

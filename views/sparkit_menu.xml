@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
+				<record id="act_testing_dashboard_two" model="ir.actions.client">
+					<field name="name">Management Home</field>
+					<field name="tag">sparkit.managementhome</field>
+				</record>
+
+				<menuitem id="sparkit_testing_dashboard_two" name="Home"
+						groups="sparkit.management_homepage"
+						action="act_testing_dashboard_two" sequence="0"/>
+
+
+
 				<record id="act_testing_dashboard" model="ir.actions.client">
 					<field name="name">Facilitator Dashboard</field>
 					<field name="tag">sparkit.facilitatordashboard</field>
@@ -9,6 +20,7 @@
 				<menuitem id="sparkit_testing_dashboard" name="Dashboard"
 						groups="sparkit.facilitator"
 						action="act_testing_dashboard" sequence="0"/>
+
 
   			<!--Communities Menu-->
   			<menuitem id="main_all_communities_menu" name="Communities"/>

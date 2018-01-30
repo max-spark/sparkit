@@ -449,8 +449,10 @@
 									<field name="community_number"/>
 									<field name="country_id" options="{'no_create': True}"
 										attrs="{'readonly': [('phase', '!=', 'community_identification')]}"/>
+									<field name="country_region" attrs="{'readonly': [('country_id', '!=', 232)]}"/>									
 									<field name="facilitator_id" options="{'no_create': True}"/>
 									<field name="co_facilitator_id" options="{'no_create': True}"/>
+									<field name="implementation_partner_facilitator_id" />
 									<field name="program_manager_id" options="{'no_create': True}"/>
 									<field name="m_e_assistant_id" options="{'no_create': True}"/>
 									<field name="workflow_config_id"
@@ -462,6 +464,7 @@
 									<field name="state" readonly="1"/>
 									<field name="is_partnered"/>
 									<field name="is_active" />
+									<field name="relm_counts" groups="sparkit.m_e_user"/>
 									<field name="last_visit_date"/>
 									<field name="next_visit_date"/>
 									<field name="special_cases" options="{'no_create': True}"
@@ -615,6 +618,9 @@
 												<field name="partnership_agreement" widget="binary" filename="partnership_agreement_name"/>
 												<field name="number_signed_partnership_agreement"/>
 												<field name="partnership_agreement_date"/>
+											</group>
+											<group colspan="2" col="2" class="no_style" string="Proposal">
+												<field name="proposal_link" widget="url"/>
 											</group>
 											<group colspan="2" col="2" class="no_style" string="Grant Agreement">
 												<field name="grant_agreement_name" invisible="1"/>
@@ -809,8 +815,9 @@
   			<field name="arch" type="xml">
   				<tree string="Community Tree" default_order="write_date desc">
 						<field name="country_id"/>
+						<field name="country_region"/>
 						<field name="community_number"/>
-  					<field name="name"/>
+						<field name="name"/>
 						<field name="phase"/>
 						<field name="state"/>
 						<field name="facilitator_id"/>
@@ -841,6 +848,8 @@
 						<field name="facilitator_id"/>
 						<field name="program_manager_id"/>
           	<group expand="0" string="Group By">
+							<filter name="by_phase" string="Phase" context="{'group_by':'phase'}" help="Phase"/>
+							<filter name="by_step" string="Step" context="{'group_by':'state'}" help="Step"/>
 							<filter name="by_facilitator" string="Facilitator" context="{'group_by':'facilitator_id'}" help="Facilitator"/>
 							<filter name="by_country" string="Country" context="{'group_by':'country_id'}" help="Country"/>
 							<filter name="by_pm" string="Program Manager" context="{'group_by':'program_manager_id'}" help="Program Manager"/>
