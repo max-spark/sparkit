@@ -455,6 +455,7 @@
 									<field name="implementation_partner_facilitator_id" />
 									<field name="program_manager_id" options="{'no_create': True}"/>
 									<field name="m_e_assistant_id" options="{'no_create': True}"/>
+									<field name="sms_sender_id" options="{'no_create': True}"/>								
 									<field name="workflow_config_id"
 											groups="sparkit.global"/>
 									<field name="is_group_tracking_enabled"
