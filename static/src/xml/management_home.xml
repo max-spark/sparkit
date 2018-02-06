@@ -6,7 +6,7 @@
         <htmlData>
           <![CDATA[<html>
                 <body>
-                  <iframe src="http://sparkit.sparkmicrogrants.org:8080/jasperserver/fileview/fileview/Learning_Jasper_SQL_Test_Reports/Community_Dashboard_Report-201801250130.html" height="500px" width="100%" ></iframe>
+                  <iframe src="http://sparkit.sparkmicrogrants.org:8080/jasperserver/flow.html?_flowId=viewReportFlow&_flowId=viewReportFlow&ParentFolderUri=%2Fsparkit&reportUnit=%2Fsparkit%2FCommunity_Dashboard_Report&standAlone=true&j_username=SparkData&j_password=EmpowerCommunity123&decorate=no" height="600px" width="100%" ></iframe>
                 </body>
                 </html>
              ]]>
