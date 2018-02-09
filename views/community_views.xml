@@ -620,8 +620,9 @@
 												<field name="number_signed_partnership_agreement"/>
 												<field name="partnership_agreement_date"/>
 											</group>
-											<group colspan="2" col="2" class="no_style" string="Proposal">
+											<group colspan="2" col="2" class="no_style" string="Proposals">
 												<field name="proposal_link" widget="url"/>
+												<field name="secondary_proposal_link" widget="url"/>
 											</group>
 											<group colspan="2" col="2" class="no_style" string="Grant Agreement">
 												<field name="grant_agreement_name" invisible="1"/>

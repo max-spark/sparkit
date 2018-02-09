@@ -47,7 +47,8 @@ class Community(models.Model):
 		('eastern_uganda', 'Eastern Uganda'),
 		('northern_uganda', 'Northern Uganda')
 		], track_visibility='onchange')
-	proposal_link = fields.Char(string="Link to Proposal", track_visibility='onchange')
+	proposal_link = fields.Char(string="Link to Project Proposal", track_visibility='onchange')
+	secondary_proposal_link = fields.Char(string="Link to Secondary Project Proposal", track_visibility='onchange')	
 
 	#Workflow States
 	phase = fields.Selection([
@@ -1955,11 +1956,14 @@ class Community(models.Model):
 			# If equal, the community number if updated using the country-specific sequence
 			# If partnership is not one of these three countries, then defaults to a generic sequence
 			if self.country_id.id == 193:
-				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.rw')
+				if self.community_number[:2] == "RW":
+					self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.rw')
 			elif self.country_id.id == 232:
-				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.ug')
+				if self.community_number[:2] == "UG":
+					self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.ug')
 			elif self.country_id.id == 25:
-				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.bdi')
+				if self.community_number[:2] == "BU":
+					self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.bdi')
 			else:
 				self.community_number = self.env['ir.sequence'].next_by_code('partnered.community.def')
 

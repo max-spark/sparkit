@@ -414,7 +414,9 @@ class DisbursalRequest(models.Model):
 		track_visibility='onchange')
 	balance = fields.Float(readonly=True, store=True, compute='_get_balance',
 		track_visibility='onchange')
-
+	disbursal_request_hard_copy = fields.Binary(string="Disbursal Request Hard Copy", store=True,
+		attachment=True, track_visibility='onchange')
+	disbursal_request_hard_copy_name = fields.Char(string="Disbursal Request Hard Copy Name")
 
 	@api.multi
 	@api.depends('disbursal_ids')

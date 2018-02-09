@@ -358,6 +358,8 @@
 								<field name="amount_approved"/>
 								<field name="disbursed_to_date"/>
 								<field name="balance"/>
+                <field name="disbursal_request_hard_copy_name" invisible="1"/>
+                <field name="disbursal_request_hard_copy" filename="disbursal_request_hard_copy_name"/>
 							</group>
 						</sheet>
 						<div class="oe_chatter">
