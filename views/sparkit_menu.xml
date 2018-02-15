@@ -7,7 +7,6 @@
 				</record>
 
 				<menuitem id="sparkit_testing_dashboard_two" name="Home"
-						groups="sparkit.management_homepage"
 						action="act_testing_dashboard_two" sequence="0"/>
 
 
@@ -19,7 +18,7 @@
 
 				<menuitem id="sparkit_testing_dashboard" name="Dashboard"
 						groups="sparkit.facilitator"
-						action="act_testing_dashboard" sequence="0"/>
+						action="act_testing_dashboard" sequence="1"/>
 
 
   			<!--Communities Menu-->

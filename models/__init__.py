@@ -17,3 +17,4 @@ from . import res_partner
 from . import community_workflow_parameters
 from . import res_users
 from . import community_name_change_wizard
+from . import programreview

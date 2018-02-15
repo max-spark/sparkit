@@ -38,6 +38,10 @@ class VisitReportForm(models.Model):
 		string="Facilitator", track_visibility='onchange')
 	co_facilitator_id = fields.Many2one('res.users',
 		string="Co-Facilitator", track_visibility='onchange')
+	implementation_partner_facilitator_id = fields.Many2one('res.partner',
+		string="Implementation Partner Facilitator",
+		domain=[('company_type', '=', 'implementation_partner')],
+		track_visibility='onchange')
 	m_e_assistant_id = fields.Many2one('res.users', string="M&E Assistant")
 	program_manager_id = fields.Many2one('res.users', string="Program Manager")
 

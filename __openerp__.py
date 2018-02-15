@@ -53,6 +53,7 @@
         'views/res_currency_view.xml',
         'views/res_users_views.xml',
         'views/cmty_name_change_wizard.xml',
+        'views/programreview_views.xml',
         #SparkIt Menu
         'views/sparkit_menu.xml',
         #Default/preloaded Data

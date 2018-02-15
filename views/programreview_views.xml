@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+    <!--Program Review Form View -->
+    <record model="ir.ui.view" id="programreview_view">
+      <field name="name">programreview.form</field>
+      <field name="model">sparkit.programreview</field>
+      <field name="arch" type="xml">
+        <form string="Program Review">
+          <sheet>
+            <group colspan="4" col="4" class="no_style">
+                <field name="name" invisible="1"/>
+                <field name="community_id" options="{'no_create': True}"/>
+								<field name="quarter"/>
+                <field name="color"/>
+								<field name="quarter_review"/>
+                <field name="comments"/>                
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!--Program Review List View -->
+    <record model="ir.ui.view" id="programreview_tree">
+      <field name="name">programreview.tree</field>
+      <field name="model">sparkit.programreview</field>
+      <field name="arch" type="xml">
+        <tree string="Program Review">
+          <field name="name"/>
+          <field name="quarter"/>
+          <field name="color"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!--Program Review Form Actions-->
+    <record model="ir.actions.act_window" id="programreview_list_action">
+      <field name="name">Program Review</field>
+      <field name="res_model">sparkit.programreview</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">Create the first Program Review!</p>
+      </field>
+    </record>
+
+		<!--Program Review Search View-->
+		<record model="ir.ui.view" id="programreview_default_search">
+			<field name="name">programreview.search</field>
+			<field name="model">sparkit.programreview</field>
+			<field name="arch" type="xml">
+				<search string="Program Review(s)">
+					<field name="community_id"/>
+					<field name="quarter"/>
+          <field name="color"/>          
+					<group expand="0" string="Group By">
+						<filter name="community_id" string="Community" context="{'group_by': 'community_id'}" help="Community"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+
+  </data>
+</openerp>

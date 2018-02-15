@@ -362,6 +362,10 @@ class Community(models.Model):
 	partnership_update_ids = fields.One2many(related='partnership_ids.partnership_update_ids',
 		ondelete='set null')
 
+	#Program Reviews
+	programreview_ids = fields.One2many('sparkit.programreview', 'community_id',
+		track_visibility='onchange', string="Program Reviews", ondelete='set null')
+
 	# Counting Number of Visit Report Forms
 	planning_visits = fields.Integer(string="Planning Visits",
 		compute='_get_num_planning_visits')
@@ -2258,3 +2262,4 @@ class SpecialCases(models.Model):
 
 	name = fields.Char(string="Special Case", required=True)
 	community_ids = fields.Many2one('sparkit.community', string="Communities")
+	

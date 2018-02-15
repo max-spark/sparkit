@@ -39,6 +39,7 @@
 									<field name="is_group_tracking_enabled" invisible="1"/>
 									<field name="facilitator_id" options="{'no_create': True}"/>
 									<field name="co_facilitator_id" options="{'no_create': True}"/>
+									<field name="implementation_partner_facilitator_id" />
 									<field name="program_manager_id"/>
 									<field name="m_e_assistant_id"/>
 									<field name="created_on_odoo" invisible="1"/>

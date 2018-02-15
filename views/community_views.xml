@@ -799,6 +799,11 @@
 										</group>
 									</group>
 								</page>
+								<page string="Program Reviews"
+									attrs="{'invisible': [('phase', '=', 'community_identification')]}">
+									<field name="programreview_ids"
+										context="{'default_community_id': active_id}"/>
+								</page>								
   						</notebook>
   					</sheet>
 						<div class="oe_chatter">
