@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+  <t t-name="ACAHome">
+    
+        <htmlData>
+          <![CDATA[<html>
+                <body>
+                  <iframe src="http://sparkit.sparkmicrogrants.org:8080/jasperserver/flow.html?_flowId=viewReportFlow&_flowId=viewReportFlow&ParentFolderUri=%2FAdvocates_for_Community_Alternatives&reportUnit=%2FAdvocates_for_Community_Alternatives%2FGraduation_Report&standAlone=true&j_username=SparkData&j_password=EmpowerCommunity123&decorate=no" height="100%" width="100%" ></iframe>
+                </body>
+                </html>
+             ]]>            
+        </htmlData>
+
+  </t>
+
+</templates>

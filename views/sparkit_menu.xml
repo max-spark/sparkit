@@ -2,14 +2,22 @@
 <openerp>
 	<data>
 				<record id="act_testing_dashboard_two" model="ir.actions.client">
-					<field name="name">Management Home</field>
+					<field name="name">Home</field>
 					<field name="tag">sparkit.managementhome</field>
 				</record>
 
 				<menuitem id="sparkit_testing_dashboard_two" name="Home"
+						groups="sparkit.management_homepage"
 						action="act_testing_dashboard_two" sequence="0"/>
 
+				<record id="act_testing_dashboard_three" model="ir.actions.client">
+					<field name="name">Home</field>
+					<field name="tag">sparkit.acahome</field>
+				</record>
 
+				<menuitem id="sparkit_testing_dashboard_three" name="Home"
+						groups="sparkit.aca_homepage"
+						action="act_testing_dashboard_three" sequence="0"/>
 
 				<record id="act_testing_dashboard" model="ir.actions.client">
 					<field name="name">Facilitator Dashboard</field>

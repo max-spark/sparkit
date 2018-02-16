@@ -28,6 +28,16 @@
         <field name="category_id" ref="module_category_sparkit"/>
       </record>
 
+      <record id="management_homepage" model="res.groups">
+        <field name="name">Homepage (Spark)</field>
+        <field name="category_id" ref="module_category_sparkit"/>
+      </record>
+
+      <record id="aca_homepage" model="res.groups">
+        <field name="name">Homepage (ACA)</field>
+        <field name="category_id" ref="module_category_sparkit"/>
+      </record>
+
       <record id="global" model="res.groups">
         <field name="name">Global User</field>
         <field name="implied_ids" eval="[(4, ref('sparkit.program_manager')),

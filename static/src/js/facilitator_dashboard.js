@@ -12,6 +12,13 @@ openerp.sparkit = function(instance, local) {
     instance.web.client_actions.add(
         'sparkit.managementhome', 'instance.sparkit.ManagementHome');
 
+    local.ACAHome = instance.Widget.extend({
+        template: "ACAHome"
+        })
+
+    instance.web.client_actions.add(
+        'sparkit.acahome', 'instance.sparkit.ACAHome');
+
     local.FacilitatorDashboard = instance.Widget.extend({
         template: "FacilitatorDashboard",
         events: {
