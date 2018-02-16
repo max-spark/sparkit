@@ -71,9 +71,4 @@ access_sparkit_missed_meeting_reason_fac,sparkit.missedmeetingreason,model_spark
 access_sparkit_missed_meeting_reason_fa,sparkit.missedmeetingreason,model_sparkit_missedmeetingreason,sparkit.f_a_user,1,1,1,1
 access_sparkit_missed_meeting_reason,sparkit.missedmeetingreason,model_sparkit_missedmeetingreason,sparkit.program_manager,1,1,1,1
 access_sparkit_missed_meeting_reason,sparkit.missedmeetingreason,model_sparkit_missedmeetingreason,sparkit.m_e_user,1,1,1,1
-access_sparkit_programreview,sparkit.programreview,model_sparkit_programreview,,1,1,1,0
-access_sparkit_programreview,sparkit.programreview,model_sparkit_programreview,sparkit.global,1,1,1,1
-access_sparkit_programreview,sparkit.programreview,model_sparkit_programreview,sparkit.facilitator,1,1,1,1
-access_sparkit_programreview,sparkit.programreview,model_sparkit_programreview,sparkit.m_e_user,1,1,1,1
-access_sparkit_programreview,sparkit.programreview,model_sparkit_programreview,sparkit.f_a_user,1,1,1,1
-access_sparkit_programreview,sparkit.programreview,model_sparkit_programreview,sparkit.program_manager,1,1,1,1
+access_sparkit_programreview,sparkit.programreview,model_sparkit_programreview,,1,1,1,1
