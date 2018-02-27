@@ -14,205 +14,62 @@
 								<field name="community_id" options="{'no_create': True}"/>
 								<field name="date"/>
 								<field name="collected_by" options="{'no_create': True}"/>
-								<field name="oca_number"/>
+								<field name="oca_number"/>								
+								<field name="oca_type"/>
 								<field name="start_time" widget="float_time"/>
 								<field name="end_time" widget="float_time"/>
 							</group>
 							<group colspan="2" col="2">
-								<field name="project_category_id" invisible="1"/>
-								<field name="project_category_name" invisible="1"/>
-								<field name="project_subcategory_id" invisible="1"/>
-								<field name="project_subcategory_name" invisible="1"/>
+
 							</group>
 						</group>
-						<group colspan="4" col="4" string="Section One: Background" class="no_style">
-							<group colspan="4" col="2">
+						<group colspan="4" col="4" string="Background" class="no_style">
+							<group colspan="2" col="2">
 								<field name="community_member"/>
 								<field name="age"/>
 								<field name="sex"/>
 								<field name="household_size"/>
-								<field name="marital_status"/>
-								<field name="group_memberships"/>
+								<field name="marital_status" attrs="{'invisible': [('country_name', '!=', 'Uganda')]}" />
 							</group>
 						</group>
-						<group colspan="4" col="4" class="no_style">
+						<group colspan="4" col="4" string="Biggest Concern" class="no_style">
 							<group colspan="2" col="2">
-								<field name="biggestconcern_family"/>
-								<field name="biggestconcern_family_category_id" widget="selection"/>
+								<field name="biggestconcern_family" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
+								<field name="biggestconcern_family_category_id" widget="selection" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
 								<field name="biggestconcern_family_subcategory_id" widget="selection"
-									domain="[('category_id', '=', biggestconcern_family_category_id)]"/>
+									domain="[('category_id', '=', biggestconcern_family_category_id)]" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
 							</group>
-						</group>
-						<group colspan="4" col="4" class="no_style">
 							<group colspan="2" col="2">
-								<field name="biggestconcern_cmty"/>
-								<field name="biggestconcern_cmty_category_id" widget="selection"/>
+								<field name="biggestconcern_cmty" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
+								<field name="biggestconcern_cmty_category_id" widget="selection" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
 								<field name="biggestconcern_cmty_subcategory_id" widget="selection"
-									domain="[('category_id', '=', biggestconcern_cmty_category_id)]"/>
+									domain="[('category_id', '=', biggestconcern_cmty_category_id)]" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
 							</group>
 						</group>
 						<group colspan="4" col="4" string="Section Two: Capactiy" class="no_style">
 							<group colspan="2" col="2">
-								<field name="capacity14" widget="radio" options="{'horizontal': true}"/>
-								<field name="capacity15" widget="radio" options="{'horizontal': true}"/>
-								<field name="capacity16" widget="radio" options="{'horizontal': true}"/>
-								<field name="capacity17" widget="radio" options="{'horizontal': true}"/>
-								<field name="capacity18" widget="radio" options="{'horizontal': true}"/>
+
 							</group>
 						</group>
 						<group colspan="4" col="4" string="Section Three: Cohesion" class="no_style">
 							<group colspan="2" col="2">
-								<field name="cohesion19" widget="radio" options="{'horizontal': true}"/>
-								<field name="cohesion20" widget="radio" options="{'horizontal': true}"/>
-								<field name="cohesion21" widget="radio" options="{'horizontal': true}"/>
-								<field name="cohesion22" widget="radio" options="{'horizontal': true}"/>
-								<field name="cohesion23" widget="radio" options="{'horizontal': true}"/>
-								<field name="cohesion24" widget="radio" options="{'horizontal': true}"/>
-								<field name="cohesion25" widget="radio" options="{'horizontal': true}"/>
-								<field name="cohesion26" widget="radio" options="{'horizontal': true}"/>
-							</group>
-						</group>
-						<group colspan="4" col="4" string="Who Can You Rely On?" class="no_style">
-							<group colspan="2" col="2">
-								<field name="cohesion27" widget="radio" options="{'horizontal': true}"/>
-								<field name="cohesion28" widget="radio" options="{'horizontal': true}"/>
-								<field name="cohesion29" widget="radio" options="{'horizontal': true}"/>
-								<field name="cohesion30" widget="radio" options="{'horizontal': true}"/>
-								<field name="cohesion31" widget="radio" options="{'horizontal': true}"/>
+
 							</group>
 						</group>
 						<group colspan="4" col="4" string="Section Four: Leadership" class="no_style">
 							<group colspan="2" col="2">
-								<field name="leadership33" widget="radio" options="{'horizontal': true}"/>
-								<field name="leadership34" widget="radio" options="{'horizontal': true}"/>
-								<field name="leadership35" widget="radio" options="{'horizontal': true}"/>
-								<field name="leadership36" widget="radio" options="{'horizontal': true}"/>
-								<field name="leadership37" widget="radio" options="{'horizontal': true}"/>
+
 							</group>
 						</group>
 						<group colspan="4" col="4" string="Section Five: Civic Engagement" class="no_style">
 							<group colspan="2" col="2">
-								<field name="civic_engagement38" widget="radio" options="{'horizontal': true}"/>
-								<field name="civic_engagement39" widget="radio" options="{'horizontal': true}"/>
-								<field name="civic_engagement40" widget="radio" options="{'horizontal': true}"/>
-								<field name="civic_engagement41" widget="radio" options="{'horizontal': true}"/>
-								<field name="civic_engagement42" widget="radio" options="{'horizontal': true}"/>
-								<field name="civic_engagement_42_1"/>
+
 							</group>
 						</group>
 						<group colspan="4" col="4" string="Section Six: Cross Sector" class="no_style">
 							<group colspan="4" col="2">
-								<group colspan="12" col="6" class="no_style"
-									string="1. How many of the following do you own/are you able to afford? Please choose all that apply.">
-									<field name="baseline_owns_land"/>
-									<field name="baseline_owns_soap"/>
-									<field name="baseline_owns_mattress"/>
-									<field name="baseline_owns_radio"/>
-									<field name="baseline_owns_bike"/>
-									<field name="baseline_owns_phone"/>
-									<field name="baseline_owns_lights"/>
-									<field name="baseline_owns_solar"/>
-									<field name="baseline_owns_television"/>
-									<field name="baseline_owns_motorcycle"/>
-								</group>
-								<group colspan="4" col="4" class="no_style">
-									<field name="baseline_owns_nothing"/>
-									<field name="total_baseline_items"/>
-								</group>
-								<group colspan="12" col="6" class="no_style"
-									string="2. Were you able to purchase any additional items as a result of working with Spark? Please choose all that apply.">
-									<field name="owns_land"/>
-									<field name="owns_soap"/>
-									<field name="owns_mattress"/>
-									<field name="owns_radio"/>
-									<field name="owns_bike"/>
-									<field name="owns_phone"/>
-									<field name="owns_lights"/>
-									<field name="owns_solar"/>
-									<field name="owns_television"/>
-									<field name="owns_motorcycle"/>
-								</group>
-								<group colspan="4" col="4" class="no_style">
-									<field name="owns_nothing"/>
-									<field name="total_items_purchased"/>
-								</group>
-								<group colspan="12" col="6" class="no_style"
-									string="3. If you own animals, what type?">
-									<field name="baseline_owns_goat"/>
-									<field name="baseline_owns_sheep"/>
-									<field name="baseline_owns_cow"/>
-									<field name="baseline_owns_pig"/>
-									<field name="baseline_owns_chicken"/>
-									<field name="baseline_owns_other"/>
-								</group>
-								<group colspan="4" col="4" class="no_style">
-									<field name="total_baseline_animals"/>
-								</group>
-								<group colspan="12" col="6" class="no_style"
-										string="3c. If you were able to purchase animals as a result of working with Spark, what animals were they?">
-										<field name="purchased_goat"/>
-										<field name="purchased_sheep"/>
-										<field name="purchased_cow"/>
-										<field name="purchased_pig"/>
-										<field name="purchased_chicken"/>
-										<field name="purchased_other"/>
-								</group>
-								<field name="total_purchased_animals"/>
-								<field name="education_access"/>
-								<field name="illnesses_last_month_ids" widget="many2many_checkboxes"/>
-								<field name="health_access"/>
+
 							</group>
-						</group>
-						<group colspan="4" col="4" string="Agriculture Projects" class="no_style" attrs="{'invisible': [('project_category_name', '!=', 'Agriculture')]}">
-							<group colspan="2" col="2">
-								<field name="agriculture_individual_benefit" widget="radio"/>
-								<field name="agriculture_individual_benefits_examples"/>
-								<field name="agriculture_community_benefit" widget="radio"/>
-								<field name="agriculture_community_benefits_examples"/>
-							</group>
-						</group>
-						<group colspan="4" col="4" string="Animal Rearing" class="no_style" attrs="{'invisible': [('project_category_name', '!=', 'Animal Rearing')]}">
-							<group colspan="2" col="2">
-								<field name="animalrearing_individual_benefit" widget="radio"/>
-								<field name="animalrearing_individual_benefits_examples"/>
-								<field name="animalrearing_community_benefit" widget="radio"/>
-								<field name="animalrearing_community_benefits_examples"/>
-							</group>
-						</group>
-						<group colspan="4" col="4" string="Vocational" class="no_style" attrs="{'invisible': [('project_subcategory_name', '!=', 'Vocational')]}">
-							<group colspan="2" col="2">
-								<field name="vocational_individual_benefit" widget="radio"/>
-								<field name="vocational_individual_benefits_examples"/>
-								<field name="vocational_community_benefit" widget="radio"/>
-								<field name="vocational_community_benefits_examples"/>
-							</group>
-						</group>
-						<group colspan="4" col="4" string="Infrastructure" attrs="{'invisible': [('project_category_name', '!=', 'Power'), ('project_category_name', '!=', 'Infrastructure')]}">
-							<field name="infrastructure_primary_energy_source" widget="radio"/>
-							<field name="infrastructure_other_sources" widget="radio"/>
-							<field name="infrastructure_spark" widget="radio"/>
-							<field name="water_primary_source" widget="radio"/>
-							<field name="clean_water_access_home" widget="radio"/>
-							<field name="clean_water_access_community" widget="radio"/>
-							<field name="clean_water_spark" widget="radio"/>
-						</group>
-						<group colspan="4" col="4" string="Nursery" attrs="{'invisible': [('project_subcategory_name', '!=', 'Building school (nursery)')]}">
-							<field name="nursery40"/>
-							<field name="nursery41"/>
-							<field name="nursery42" widget="radio"/>
-						</group>
-						<group colspan="4" col="4" string="Health" attrs="{'invisible': ['|', ('project_category_name', '!=', 'Health'), ('project_subcategory_name', '=', 'Pit Latrine')]}">
-							<field name="health20" widget="radio"/>
-							<field name="health21" widget="radio"/>
-							<field name="health22" widget="radio"/>
-						</group>
-						<group colspan="4" col="4" string="Sanitation" attrs="{'invisible': [('project_subcategory_name', '!=', 'Pit Latrine')]}">
-							<field name="sanitation10" widget="radio"/>
-							<field name="sanitation11" widget="radio"/>
-							<field name="sanitation12" widget="radio"/>
-							<field name="sanitation13" widget="radio"/>
-							<field name="sanitation14" widget="radio"/>
-							<field name="sanitation15" widget="radio"/>
 						</group>
 					</sheet>
 				</form>
