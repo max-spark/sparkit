@@ -156,6 +156,14 @@
 						parent="main_projects_configuration_menu" name="Partnerships Import"/>
 
 
+  			<!--OCAs Menu-->
+  			<menuitem id="main_all_oca_menu" name="OCA"/>
+  			<!-- All OCAs-->
+	 			<menuitem id="all_oca_menu" name="OCA" sequence="1"
+       				parent="main_all_oca_menu"/>
+        			<menuitem id="all_oca_list_menu" name="All Communities"
+        				parent="all_oca_menu" action="oca_list_action"/>
+
 
     </data>
 </openerp>
