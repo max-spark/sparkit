@@ -72,3 +72,7 @@ access_sparkit_missed_meeting_reason_fa,sparkit.missedmeetingreason,model_sparki
 access_sparkit_missed_meeting_reason,sparkit.missedmeetingreason,model_sparkit_missedmeetingreason,sparkit.program_manager,1,1,1,1
 access_sparkit_missed_meeting_reason,sparkit.missedmeetingreason,model_sparkit_missedmeetingreason,sparkit.m_e_user,1,1,1,1
 access_sparkit_programreview,sparkit.programreview,model_sparkit_programreview,,1,1,1,1
+access_sparkit_communalprojects,sparkit.communalprojects,model_sparkit_communalprojects,,1,1,1,1
+access_sparkit_householdcontribution,sparkit.householdcontribution,model_sparkit_householdcontribution,,1,1,1,1
+access_sparkit_leadershipresponsibilities,sparkit.leadershipresponsibilities,model_sparkit_leadershipresponsibilities,,1,1,1,1
+access_sparkit_savingsmethods,sparkit.savingsmethods,model_sparkit_savingsmethods,,1,1,1,1
