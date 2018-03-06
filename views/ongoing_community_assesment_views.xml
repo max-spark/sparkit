@@ -209,10 +209,10 @@
 						</group>
 						<group colspan="4" col="4" string="Verification Questions" class="no_style">
 							<group colspan="4" col="2">
-								<field name="grant_check" attrs="{'invisible': ['|',('oca_number', '!=', '3'),('oca_number', '!=', '4'),('oca_number', '!=', '5'),('oca_number', '!=', '6'),('oca_number', '!=', '7')]}" />
-								<field name="disbursed_check" attrs="{'invisible': ['|',('oca_number', '!=', '3'),('oca_number', '!=', '4'),('oca_number', '!=', '5'),('oca_number', '!=', '6'),('oca_number', '!=', '7')]}" />
-								<field name="projecttype_check" attrs="{'invisible': ['|',('oca_number', '!=', '3'),('oca_number', '!=', '4'),('oca_number', '!=', '5'),('oca_number', '!=', '6'),('oca_number', '!=', '7')]}" />
-								<field name="ta_check" attrs="{'invisible': ['|',('oca_number', '!=', '3'),('oca_number', '!=', '4'),('oca_number', '!=', '5'),('oca_number', '!=', '6'),('oca_number', '!=', '7')]}" />
+								<field name="grant_check" attrs="{'invisible': [('oca_number', '!=', '3'),('oca_number', '!=', '4'),('oca_number', '!=', '5'),('oca_number', '!=', '6'),('oca_number', '!=', '7')]}" />
+								<field name="disbursed_check" attrs="{'invisible': [('oca_number', '!=', '3'),('oca_number', '!=', '4'),('oca_number', '!=', '5'),('oca_number', '!=', '6'),('oca_number', '!=', '7')]}" />
+								<field name="projecttype_check" attrs="{'invisible': [('oca_number', '!=', '3'),('oca_number', '!=', '4'),('oca_number', '!=', '5'),('oca_number', '!=', '6'),('oca_number', '!=', '7')]}" />
+								<field name="ta_check" attrs="{'invisible': [('oca_number', '!=', '3'),('oca_number', '!=', '4'),('oca_number', '!=', '5'),('oca_number', '!=', '6'),('oca_number', '!=', '7')]}" />
 								<field name="use_contact_info"/>
 								<field name="interviewee_contact"/>
 							</group>
