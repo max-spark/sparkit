@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        
+        <record id="leadershipresponsibilities_no" model="sparkit.leadershipresponsibilities">
+            <field name="name">no</field>
+            <field name="code">0</field>
+        </record>
+
+        <record id="leadershipresponsibilities_mobilizer" model="sparkit.leadershipresponsibilities">
+            <field name="name">mobilizer</field>
+            <field name="code">1</field>
+        </record>
+
+        <record id="leadershipresponsibilities_projectcommittee" model="sparkit.leadershipresponsibilities">
+            <field name="name">project committee</field>
+            <field name="code">2</field>
+        </record>
+
+        <record id="leadershipresponsibilities_leader" model="sparkit.leadershipresponsibilities">
+            <field name="name">savings group leader</field>
+            <field name="code">3</field>
+        </record>
+
+        <record id="leadershipresponsibilities_other" model="sparkit.leadershipresponsibilities">
+            <field name="name">other</field>
+            <field name="code">4</field>
+        </record> 
+
+    </data>
+</openerp>

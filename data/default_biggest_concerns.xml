@@ -13,7 +13,7 @@
         </record>
         
         <record id="biggestconcern_foodsecurity" model="sparkit.biggestconcerncategory">
-            <field name="name">Food Security/Nutrition</field>
+            <field name="name">Food and Nutrition</field>
             <field name="category_code">20</field>
         </record>
              
@@ -46,7 +46,7 @@
         </record>
         
         <record id="biggestconcern_incomefinance" model="sparkit.biggestconcerncategory">
-            <field name="name">Income and Finance</field>
+            <field name="name">Finance and Income</field>
             <field name="category_code">80</field>
         </record>
         
@@ -76,15 +76,10 @@
             <field name="category_code">130</field>
         </record>
         
-        <record id="biggestconcern_none" model="sparkit.biggestconcerncategory">
-            <field name="name">No biggestconcern/need</field>
-            <field name="category_code">99</field>
-        </record>
+        <record id="biggestconcern_government" model="sparkit.biggestconcerncategory">
+            <field name="name">Government</field>
+            <field name="category_code">140</field>
+        </record>        
         
-        <record id="biggestconcern_blank" model="sparkit.biggestconcerncategory">
-        	<field name="name">Blank</field>
-        	<field name="category_code">999</field>
-        </record>
-
     </data>
 </openerp>

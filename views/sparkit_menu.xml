@@ -62,41 +62,52 @@
     		<!-- M&E Forms-->
         <menuitem id="me_forms" name="M&#38;E Forms" parent="top_visit_reports_menu"
         	sequence="2"/>
-        <menuitem id="oca_form" name="OCAs" parent="me_forms"
-        	action="oca_list_action"/>
+      			<menuitem id="oca_form" name="OCAs" parent="me_forms"
+        		action="oca_list_action"/>
+	        	<menuitem id="biggestconcern_menu" name="Biggest Concern"
+	        	parent="me_forms"
+	        	action="biggestconcerncategory_list_action"/>
+	        	<menuitem id="biggestconcernsubcategory_menu" name="Biggest Concern Categories"
+	        	parent="me_forms"
+	        	action="biggestconcernsubcategory_list_action"/>
+	        	<menuitem id="communalprojects_menu" name="Communal Projects"
+	        	parent="me_forms"
+	        	action="communalprojects_list_action"/>
+	        	<menuitem id="householdcontribution_menu" name="Household Contribution"
+	        	parent="me_forms"
+	        	action="householdcontribution_list_action"/>
+	        	<menuitem id="leadershipresponsibilities_menu" name="Leadership Responsibilities"
+	        	parent="me_forms"
+	        	action="leadershipresponsibilities_list_action"/>
+	        	<menuitem id="savingsmethods_menu" name="Savings Methods"
+	        	parent="me_forms"
+	        	action="savingsmethods_list_action"/>
+	        	<menuitem id="crosssectoritem_menu" name="Cross Sector Item"
+	        	parent="me_forms"
+	        	action="crosssectoritem_list_action"/>
+
         <!-- Other Forms-->
         <menuitem id="other_forms" name="Other Forms" parent="top_visit_reports_menu"
         	sequence="3"/>
     		<menuitem id="transition_strategy_menu" name="Transition Strategies"
-          parent="other_forms" action="transition_strategy_list_action"/>
-				<!--Configuration View-->
+          	parent="other_forms" action="transition_strategy_list_action"/>
+			<menuitem id="indmtgs_menu" name="Independent Meetings"
+        	parent="other_forms"
+        	action="independent_meeting_list_action"/>		
+
+		<!--Configuration View-->
         <menuitem id="main_vrfs_configuration_menu" name="Configuration"
           parent="top_visit_reports_menu" sequence="4" groups="sparkit.global"/>
 	 			<menuitem id="grouptracking_menu" name="Group Tracking"
-          parent="main_vrfs_configuration_menu" action="grouptracking_list_action"
-          sequence="1"/>
+          		parent="main_vrfs_configuration_menu" action="grouptracking_list_action"
+          		sequence="1"/>
 				<menuitem id="missedmeetings_menu" name="Missed Meeting Reasons"
-					parent="main_vrfs_configuration_menu" action="missedmeetingreason_list_action"
-					sequence="1"/>
+				parent="main_vrfs_configuration_menu" action="missedmeetingreason_list_action"
+				sequence="1"/>
 	 			<menuitem id="fcap_map_menu" name="FCAP Map"
-          parent="main_vrfs_configuration_menu" action="fcap_map_list_action"
-          sequence="2"/>
-        <menuitem id="biggestconcern_menu" name="Biggest Concern (OCA)"
-        	parent="main_vrfs_configuration_menu"
-        	action="biggestconcerncategory_list_action"/>
-    		<menuitem id="crossectoritems_menu" name="Cross Sector - Items (OCA)"
-        	parent="main_vrfs_configuration_menu"
-        	action="crosssectoritems_list_action"/>
-        <menuitem id="crossectoranimals_menu" name="Cross Sector - Animals (OCA)"
-        	parent="main_vrfs_configuration_menu"
-        	action="crosssectoranimals_list_action"/>
-  			<menuitem id="crossectorillnesses_menu" name="Cross Sector - Illnesses (OCA)"
-        	parent="main_vrfs_configuration_menu"
-        	action="crosssectorillnesses_list_action"/>
-				<menuitem id="indmtgs_menu" name="Independent Meetingss"
-        	parent="main_vrfs_configuration_menu"
-        	action="independent_meeting_list_action"/>
-
+	          	parent="main_vrfs_configuration_menu" action="fcap_map_list_action"
+	          	sequence="2"/>
+	        	
 				<!--PROJECTS MENU-->
 				<menuitem id="top_community_projects_menu" name="Projects"/>
 

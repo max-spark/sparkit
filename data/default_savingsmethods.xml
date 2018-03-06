@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        
+        <record id="savingsmethods_none" model="sparkit.savingsmethods">
+            <field name="name">None</field>
+            <field name="code">0</field>
+        </record>
+
+        <record id="savingsmethods_bank" model="sparkit.savingsmethods">
+            <field name="name">Bank account</field>
+            <field name="code">1</field>
+        </record>
+
+        <record id="savingsmethods_sacco" model="sparkit.savingsmethods">
+            <field name="name">SACCO</field>
+            <field name="code">2</field>
+        </record>
+
+        <record id="savingsmethods_mobilemoney" model="sparkit.savingsmethods">
+            <field name="name">mobile money</field>
+            <field name="code">3</field>
+        </record>
+
+        <record id="savingsmethods_vsla" model="sparkit.savingsmethods">
+            <field name="name">VSLA (i.e. Care group)</field>
+            <field name="code">4</field>
+        </record> 
+
+        <record id="savingsmethods_ibiminal" model="sparkit.savingsmethods">
+            <field name="name">Ibimina</field>
+            <field name="code">5</field>
+        </record> 
+        <record id="savingsmethods_savingshome" model="sparkit.savingsmethods">
+            <field name="name">Saving at home (i.e. under the mattress)</field>
+            <field name="code">6</field>
+        </record> 
+        <record id="savingsmethods_other" model="sparkit.savingsmethods">
+            <field name="name">Other</field>
+            <field name="code">7</field>
+        </record> 
+        <record id="savingsmethods_dontknow" model="sparkit.savingsmethods">
+            <field name="name">I don't know</field>
+            <field name="code">99</field>
+        </record>  
+
+    </data>
+</openerp>

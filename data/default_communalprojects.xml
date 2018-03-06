@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        
+        <record id="communalprojects_animalrearing" model="sparkit.communalprojects">
+            <field name="name">Animal Rearing</field>
+            <field name="code">1</field>
+        </record>
+
+        <record id="communalprojects_education" model="sparkit.communalprojects">
+            <field name="name">Education</field>
+            <field name="code">2</field>
+        </record>
+
+        <record id="communalprojects_health" model="sparkit.communalprojects">
+            <field name="name">Health</field>
+            <field name="code">3</field>
+        </record>
+
+        <record id="communalprojects_infrastructure" model="sparkit.communalprojects">
+            <field name="name">Infrastructure</field>
+            <field name="code">4</field>
+        </record> 
+        
+        <record id="communalprojects_socialbusiness" model="sparkit.communalprojects">
+            <field name="name">Social Business (not agriculture)</field>
+            <field name="code">5</field>
+        </record>
+
+        <record id="communalprojects_coop" model="sparkit.communalprojects">
+            <field name="name">Cooperative/Communal Agriculture</field>
+            <field name="code">6</field>
+        </record>
+
+        <record id="communalprojects_savings" model="sparkit.communalprojects">
+            <field name="name">Savings</field>
+            <field name="code">7</field>
+        </record>
+
+        <record id="communalprojects_other" model="sparkit.communalprojects">
+            <field name="name">Other</field>
+            <field name="code">8</field>
+        </record>    
+
+    </data>
+</openerp>

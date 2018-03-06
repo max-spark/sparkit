@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        
+        <record id="householdcontribution_money" model="sparkit.householdcontribution">
+            <field name="name">Money</field>
+            <field name="code">1</field>
+        </record>
+
+        <record id="householdcontribution_otherresources" model="sparkit.householdcontribution">
+            <field name="name">Other resources (not money)</field>
+            <field name="code">2</field>
+        </record>
+
+        <record id="householdcontribution_labor" model="sparkit.householdcontribution">
+            <field name="name">Labour/work/energy</field>
+            <field name="code">3</field>
+        </record>
+
+        <record id="householdcontribution_time" model="sparkit.householdcontribution">
+            <field name="name">Time (attending meetings)</field>
+            <field name="code">4</field>
+        </record> 
+        
+        <record id="householdcontribution_savings" model="sparkit.householdcontribution">
+            <field name="name">Saving</field>
+            <field name="code">5</field>
+        </record>
+
+        <record id="householdcontribution_ideas" model="sparkit.householdcontribution">
+            <field name="name">Ideas</field>
+            <field name="code">6</field>
+        </record>
+
+        <record id="householdcontribution_other" model="sparkit.householdcontribution">
+            <field name="name">Other</field>
+            <field name="code">7</field>
+        </record>
+
+    </data>
+</openerp>

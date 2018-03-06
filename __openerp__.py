@@ -73,6 +73,10 @@
         'data/sparkit.fcapstep.csv',
         'data/sparkit.fcapactivity.csv',
         'data/default_workflow_configuration.xml',
+        'data/default_communalprojects.xml',
+        'data/default_householdcontribution.xml',
+        'data/default_leadershipresponsibilities.xml',
+        'data/default_savingsmethods.xml',
         #workflows
         'views/community_workflow.xml',
 

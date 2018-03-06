@@ -10,9 +10,10 @@
   					<sheet>
 						<group colspan="4" col="4" class="no_style" string="OCA Information">
 							<group colspan="2" col="2">
+								<field name="community_id" options="{'no_create': True}"/>
 								<field name="country_id"/>
 								<field name="country_name"  invisible="1" />
-								<field name="community_id" options="{'no_create': True}"/>
+								<field name="district" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" />
 								<field name="date"/>
 								<field name="collected_by" options="{'no_create': True}"/>
 								<field name="oca_number"/>								
@@ -30,46 +31,190 @@
 								<field name="age"/>
 								<field name="sex"/>
 								<field name="household_size"/>
+								<field name="household_head" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" />
+								<field name="family_head" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" />
 								<field name="marital_status" attrs="{'invisible': [('country_name', '!=', 'Uganda')]}" />
+								<field name="leadershipstatus" attrs="{'invisible': [('country_name', '!=', 'Uganda')]}" />
 							</group>
 						</group>
-						<group colspan="4" col="4" string="Biggest Concern" class="no_style">
-							<group colspan="2" col="2">
+						<group colspan="4" col="4" string="Biggest Concern" class="no_style" attrs="{'invisible': [('oca_type', '!=', 'long')]}" >
+							<group colspan="4" col="2">
 								<field name="biggestconcern_family" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
 								<field name="biggestconcern_family_category_id" widget="selection" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
-								<field name="biggestconcern_family_subcategory_id" widget="selection"
+								<field  name="biggestconcern_family_subcategory_id" widget="selection"
 									domain="[('category_id', '=', biggestconcern_family_category_id)]" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
-							</group>
-							<group colspan="2" col="2">
-								<field name="biggestconcern_cmty" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
-								<field name="biggestconcern_cmty_category_id" widget="selection" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
-								<field name="biggestconcern_cmty_subcategory_id" widget="selection"
+								<field  name="biggestconcern_cmty" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
+								<field  name="biggestconcern_cmty_category_id" widget="selection" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
+								<field  name="biggestconcern_cmty_subcategory_id" widget="selection"
 									domain="[('category_id', '=', biggestconcern_cmty_category_id)]" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
 							</group>
 						</group>
-						<group colspan="4" col="4" string="Section Two: Capactiy" class="no_style">
-							<group colspan="2" col="2">
-
-							</group>
-						</group>
-						<group colspan="4" col="4" string="Section Three: Cohesion" class="no_style">
-							<group colspan="2" col="2">
-
-							</group>
-						</group>
-						<group colspan="4" col="4" string="Section Four: Leadership" class="no_style">
-							<group colspan="2" col="2">
-
-							</group>
-						</group>
-						<group colspan="4" col="4" string="Section Five: Civic Engagement" class="no_style">
-							<group colspan="2" col="2">
-
-							</group>
-						</group>
-						<group colspan="4" col="4" string="Section Six: Cross Sector" class="no_style">
+						<group colspan="4" col="4" string="Capacity" class="no_style">
 							<group colspan="4" col="2">
-
+								<field name="capacity3_communalgoals"/>
+								<field name="capacity_goaldescribe" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" />
+								<field name="capacity_goalvillageplanning" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" />
+								<field name="capacity_goalinvolvement" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" />
+								<field name="capacity3_1" attrs="{'invisible': [('country_name', '!=', 'Uganda')]}" />
+								<field name="capacity4_goalinvolvement" attrs="{'invisible': [('country_name', '!=', 'Uganda')]}" />
+								<field name="capacity18_communalprojectsubedehe" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" />
+								<field name="capacity18_ubedeheprojects" widget="many2many_tags" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" options="{'no_create_edit':'1'}" />
+								<field name="capacity18_ubedeheother" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" />
+								<field name="capacity18_communalprojects" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" />
+								<field name="capacity1_communalprojects" attrs="{'invisible': [('country_name', '!=', 'Uganda')]}" />
+								<field name="capacity1_1" widget="many2many_tags" options="{'no_create_edit':'1'}" />
+								<field name="capacity1_1_other"/>
+								<field name="capacity2_contribute"/>
+								<field name="capacity2_1" widget="many2many_tags" options="{'no_create_edit':'1'}" />
+								<field name="capacity2_1_other"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Cohesion" class="no_style" attrs="{'invisible': [('oca_type', '!=', 'long')]}" >
+							<group colspan="4" col="2">
+								<field name="cohesion5_conflictlevel" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
+								<field name="cohesion5_1conflictresolved" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
+								<field name="leadership6_opportunities" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Uganda')]}" />
+								<field name="leadership7_responsibilities" widget="many2many_tags" options="{'no_create_edit':'1'}" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
+								<field name="leadership7_1" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Civic Engagement - Independent Meetings" class="no_style">
+							<group colspan="4" col="2">
+								<field name="ce8_indmeetings"/>
+								<field name="ce8_1"/>
+								<field name="ce9_indmeetingsattend"/>
+								<field name="ce9_1"/>
+								<field name="ce9_2_other"/>
+								<field name="ce10_indparticipation"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Civic Engagement - Spark-led Meetings" class="no_style">
+							<group colspan="4" col="2">
+								<field name="ce11_Sparkattend"/>
+								<field name="ce11_1"/>
+								<field name="ce11_1_other"/>
+								<field name="ce12_Sparkparticipation"/>
+								<field name="cohesion13_ideasopinions"/>
+								<field name="ce14_decisioninvolvement" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
+								<field name="ce14_1" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
+								<field name="ce15_workingtogethergoal" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
+								<field name="ce15_1" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
+								<field name="ce17_responsibles" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
+								<field name="ce17_1" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
+								<field name="ce18_groups" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
+								<field name="ce18_1" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />								
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Advocacy" class="no_style">
+							<group colspan="4" col="2">
+								<field name="advocacy19"/>
+								<field name="advocacy19_1success"/>
+								<field name="advocacy20_what"/>
+								<field name="advocacy21_who"/>
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Finances" class="no_style">
+							<group colspan="4" col="2">
+								<field name="savings_methods" widget="many2many_tags" options="{'no_create_edit':'1'}" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" />
+								<field name="savings_other" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" />
+								<field name="money_in_account" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" />
+								<field name="finance20_cmtybankaccount" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" />
+								<field name="finance_accountuse" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" />
+								<field name="finance_fundspurpose" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" />
+								<field name="finance20_cmtybankaccount" attrs="{'invisible': [('country_name', '!=', 'Uganda')]}" />
+								<field name="finance21_cmtyupdates" attrs="{'invisible': [('country_name', '!=', 'Uganda')]}" />
+								<field name="finance22_cmtybalance" attrs="{'invisible': [('country_name', '!=', 'Uganda')]}" />
+								<field name="finance23_cmtysavings" attrs="{'invisible': [('country_name', '!=', 'Uganda')]}" />
+								<field name="finance23_1" attrs="{'invisible': [('country_name', '!=', 'Uganda')]}" />
+								<field name="finance24_cmtysavingsmember" attrs="{'invisible': [('country_name', '!=', 'Uganda')]}" />
+								<field name="finance25_cmtysavingsmtgs" attrs="{'invisible': [('country_name', '!=', 'Uganda')]}" />
+								<field name="finance26_cmtysavingscontribute" attrs="{'invisible': [('country_name', '!=', 'Uganda')]}" />						
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Financial Planning and Training" class="no_style" attrs="{'invisible': [('oca_type', '!=', 'long')]}">
+							<group colspan="4" col="2">
+								<field name="finance27_budget" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />								
+								<field name="finance28_discuss" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />								
+								<field name="finance29_decisions" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />								
+								<field name="finance29_1" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />								
+								<field name="finance30_training" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />								
+								<field name="finance30_1" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />							
+								<field name="finance30_2describe" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Cross-sectoral - Items" class="no_style" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Uganda')]}" >
+							<group colspan="4" col="2">
+								<field name="cs31_itemsowned" widget="many2many_tags" options="{'no_create_edit':'1'}" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Uganda')]}" />
+								<field name="cs31_1_numitemsowned" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Uganda')]}" />					
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Cross-sectoral - Animals" class="no_style" attrs="{'invisible': [('oca_type', '!=', 'long')]}">
+							<group colspan="4" col="2">
+								<field name="pi_agproduce" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />					
+								<field name="livestock" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />					
+							</group>	
+							<group colspan="2" col="2" string="How many of the following animals do you own?">
+								<field name="goat" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />													
+								<field name="sheep" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />													
+								<field name="cow" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />													
+								<field name="pig" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />													
+								<field name="chicken" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />													
+								<field name="rabbit" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Uganda')]}" />													
+								<field name="other" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />					
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Cross-sectoral - Food Security" class="no_style" attrs="{'invisible': [('oca_type', '!=', 'long')]}">
+							<group colspan="4" col="2">
+								<field name="cs34_foodsecurity" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />													
+								<field name="cs35_income" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />													
+								<field name="cs35_1" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />																				
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Poverty Index" class="no_style" attrs="{'invisible': [('oca_type', '!=', 'long')]}">
+							<group colspan="4" col="2">
+								<field name="pi_youth" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />					
+								<field name="pi_agactivity" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />					
+								<field name="pi_nonfarm" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />					
+								<field name="pi36_school" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Uganda')]}" />													
+								<field name="pi36_school_1" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Uganda')]}" />													
+								<field name="pi_read" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Uganda')]}" />													
+								<field name="pi37_read" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Uganda')]}" />													
+								<field name="pi38_wall" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />																				
+								<field name="pi39_roof" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />																				
+								<field name="pi_lighting" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />					
+								<field name="pi_beds" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />					
+								<field name="pi40_cooking" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Uganda')]}" />													
+								<field name="pi41_toilet" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Uganda')]}" />													
+								<field name="pi42_phones" attrs="{'invisible': [('oca_type', '!=', 'long')]}" />																				
+								<field name="pi43_radio" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Uganda')]}" />													
+								<field name="pi44_shoes" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Uganda')]}" />
+							</group>
+						</group>						
+						<group colspan="4" col="4" string="Rwanda Specific" class="no_style" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}">
+							<group colspan="4" col="2">
+								<field name="number_of_dependant" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />
+								<field name="school_children" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />
+								<field name="school_dropouts" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />
+								<field name="special_groups" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />
+								<field name="ubudehe_category" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />
+								<field name="direct_support" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />
+								<field name="vup_payment" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />
+								<field name="ubudehe_fund" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />
+								<field name="girinka_recipient" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />
+								<field name="health_insurance" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />
+								<field name="health_other" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />
+								<field name="kitchen_garden" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />
+								<field name="latrines" attrs="{'invisible': ['|',('oca_type', '!=', 'long'),('country_name', '!=', 'Rwanda')]}" />															
+							</group>
+						</group>
+						<group colspan="4" col="4" string="Verification Questions" class="no_style">
+							<group colspan="4" col="2">
+								<field name="grant_check" attrs="{'invisible': ['|',('oca_number', '!=', '3'),('oca_number', '!=', '4'),('oca_number', '!=', '5'),('oca_number', '!=', '6'),('oca_number', '!=', '7')]}" />
+								<field name="disbursed_check" attrs="{'invisible': ['|',('oca_number', '!=', '3'),('oca_number', '!=', '4'),('oca_number', '!=', '5'),('oca_number', '!=', '6'),('oca_number', '!=', '7')]}" />
+								<field name="projecttype_check" attrs="{'invisible': ['|',('oca_number', '!=', '3'),('oca_number', '!=', '4'),('oca_number', '!=', '5'),('oca_number', '!=', '6'),('oca_number', '!=', '7')]}" />
+								<field name="ta_check" attrs="{'invisible': ['|',('oca_number', '!=', '3'),('oca_number', '!=', '4'),('oca_number', '!=', '5'),('oca_number', '!=', '6'),('oca_number', '!=', '7')]}" />
+								<field name="use_contact_info"/>
+								<field name="interviewee_contact"/>
 							</group>
 						</group>
 					</sheet>
@@ -171,118 +316,209 @@
   			</field>
   		</record>
 
-  		<!-- Cross Sector Items Form -->
-  		<record model="ir.ui.view" id="cross_sector_items_form_view">
-  			<field name="name">crosssectoritems.form</field>
-  			<field name="model">sparkit.crosssectoritem</field>
+  		<!-- Biggest Concern (subcategory) Form Actions-->
+  		<record model="ir.actions.act_window" id="biggestconcernsubcategory_list_action">
+  			<field name="name">Biggest Concern SubCategory</field>
+  			<field name="res_model">sparkit.biggestconcernsubcategory</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  		</record>
+
+
+  		<!-- Communal Projects -->
+  		<record model="ir.ui.view" id="communalprojects_form_view">
+  			<field name="name">communalprojects.form</field>
+  			<field name="model">sparkit.communalprojects</field>
   			<field name="arch" type="xml">
-  				<form string="Cross Sector: Items" create="false">
+  				<form string="Communal Projects" create="false">
   					<sheet>
 						<group colspan="4" col="4">
-							<field name="name"/>
-							<field name="code"/>
-							<field name="filter"/>
+							<group colspan="2" col="2">
+								<field name="name"/>
+								<field name="code"/>																
+							</group>
 						</group>
 					</sheet>
 				</form>
 			</field>
 		</record>
 
-  		<!--Cross Sector Items List View -->
-  		<record model="ir.ui.view" id="cross_sector_items_tree">
-  			<field name="name">crosssectoritems.tree</field>
-  			<field name="model">sparkit.crosssectoritem</field>
+  		<!-- Communal Projects List View -->
+  		<record model="ir.ui.view" id="communalprojects_tree">
+  			<field name="name">communalprojects.tree</field>
+  			<field name="model">sparkit.communalprojects</field>
   			<field name="arch" type="xml">
-  				<tree string="Cross Sector: Items" editable="bottom">
+  				<tree string="Communal Projects">
   					<field name="name"/>
-					<field name="code"/>
-					<field name="filter"/>
+  					<field name="code"/>  					
   				</tree>
   			</field>
   		</record>
 
-  		<!-- Cross Sector Items-->
-  		<record model="ir.actions.act_window" id="crosssectoritems_list_action">
-  			<field name="name">Cross Sector: Items</field>
+  		<!-- Communal Projects Form Actions-->
+  		<record model="ir.actions.act_window" id="communalprojects_list_action">
+  			<field name="name">Communal Projects</field>
+  			<field name="res_model">sparkit.communalprojects</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  		</record>  		
+
+
+  		<!-- Household Contribution -->
+  		<record model="ir.ui.view" id="householdcontribution_form_view">
+  			<field name="name">householdcontribution.form</field>
+  			<field name="model">sparkit.householdcontribution</field>
+  			<field name="arch" type="xml">
+  				<form string="Household Contribution" create="false">
+  					<sheet>
+						<group colspan="4" col="4">
+							<group colspan="2" col="2">
+								<field name="name"/>
+								<field name="code"/>																
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+  		<!-- Household Contribution List View -->
+  		<record model="ir.ui.view" id="householdcontribution_tree">
+  			<field name="name">householdcontribution.tree</field>
+  			<field name="model">sparkit.householdcontribution</field>
+  			<field name="arch" type="xml">
+  				<tree string="Household Contribution">
+  					<field name="name"/>
+  					<field name="code"/>
+  				</tree>
+  			</field>
+  		</record>
+
+  		<!-- Household Contribution Form Actions-->
+  		<record model="ir.actions.act_window" id="householdcontribution_list_action">
+  			<field name="name">Household Contribution</field>
+  			<field name="res_model">sparkit.householdcontribution</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  		</record>  
+
+
+  		<!-- Leadership Responsibilities -->
+  		<record model="ir.ui.view" id="leadershipresponsibilities_form_view">
+  			<field name="name">leadershipresponsibilities.form</field>
+  			<field name="model">sparkit.leadershipresponsibilities</field>
+  			<field name="arch" type="xml">
+  				<form string="Leadership Responsibilities" create="false">
+  					<sheet>
+						<group colspan="4" col="4">
+							<group colspan="2" col="2">
+								<field name="name"/>
+								<field name="code"/>																
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+  		<!-- Leadership Responsibilities List View -->
+  		<record model="ir.ui.view" id="leadershipresponsibilities_tree">
+  			<field name="name">leadershipresponsibilities.tree</field>
+  			<field name="model">sparkit.leadershipresponsibilities</field>
+  			<field name="arch" type="xml">
+  				<tree string="Leadership Responsibilities">
+  					<field name="name"/>
+  					<field name="code"/>  					
+  				</tree>
+  			</field>
+  		</record>
+
+  		<!-- Leadership Responsibilities Form Actions-->
+  		<record model="ir.actions.act_window" id="leadershipresponsibilities_list_action">
+  			<field name="name">Leadership Responsibilities</field>
+  			<field name="res_model">sparkit.leadershipresponsibilities</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  		</record> 
+
+
+  		<!-- Savings Methods -->
+  		<record model="ir.ui.view" id="savingsmethods_form_view">
+  			<field name="name">savingsmethods.form</field>
+  			<field name="model">sparkit.savingsmethods</field>
+  			<field name="arch" type="xml">
+  				<form string="Savings Methods" create="false">
+  					<sheet>
+						<group colspan="4" col="4">
+							<group colspan="2" col="2">
+								<field name="name"/>
+								<field name="code"/>																
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+  		<!-- Savings Methods List View -->
+  		<record model="ir.ui.view" id="savingsmethods_tree">
+  			<field name="name">savingsmethods.tree</field>
+  			<field name="model">sparkit.savingsmethods</field>
+  			<field name="arch" type="xml">
+  				<tree string="Savings Methods">
+  					<field name="name"/>
+  					<field name="code"/>  					
+  				</tree>
+  			</field>
+  		</record>
+
+  		<!-- Savings Methods Form Actions-->
+  		<record model="ir.actions.act_window" id="savingsmethods_list_action">
+  			<field name="name">Savings Methods</field>
+  			<field name="res_model">sparkit.savingsmethods</field>
+  			<field name="view_type">form</field>
+  			<field name="view_mode">tree,form</field>
+  		</record>   		
+
+
+  		<!-- Cross Sector Item -->
+  		<record model="ir.ui.view" id="crosssectoritem_form_view">
+  			<field name="name">crosssectoritem.form</field>
+  			<field name="model">sparkit.crosssectoritem</field>
+  			<field name="arch" type="xml">
+  				<form string="Cross Sector Item" create="false">
+  					<sheet>
+						<group colspan="4" col="4">
+							<group colspan="2" col="2">
+								<field name="name"/>
+								<field name="code"/>								
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+  		<!-- Cross Sector Item List View -->
+  		<record model="ir.ui.view" id="crosssectoritem_tree">
+  			<field name="name">crosssectoritem.tree</field>
+  			<field name="model">sparkit.crosssectoritem</field>
+  			<field name="arch" type="xml">
+  				<tree string="Cross Sector Item">
+  					<field name="name"/>
+  					<field name="code"/>  					
+  				</tree>
+  			</field>
+  		</record>
+
+  		<!-- Cross Sector Item Form Actions-->
+  		<record model="ir.actions.act_window" id="crosssectoritem_list_action">
+  			<field name="name">Cross Sector Item</field>
   			<field name="res_model">sparkit.crosssectoritem</field>
   			<field name="view_type">form</field>
   			<field name="view_mode">tree,form</field>
   		</record>
 
-  		<!-- Cross Sector Animals -->
-  		<record model="ir.ui.view" id="cross_sector_animals_form_view">
-  			<field name="name">crosssectoranimals.form</field>
-  			<field name="model">sparkit.crosssectoranimal</field>
-  			<field name="arch" type="xml">
-  				<form string="Cross Sector: Animals" create="false">
-  					<sheet>
-						<group colspan="4" col="4">
-							<field name="name"/>
-							<field name="code"/>
-							<field name="filter"/>
-						</group>
-					</sheet>
-				</form>
-			</field>
-		</record>
-
-  		<!--Cross Sector Animals List View -->
-  		<record model="ir.ui.view" id="cross_sector_animals_tree">
-  			<field name="name">crosssectoranimals.tree</field>
-  			<field name="model">sparkit.crosssectoranimal</field>
-  			<field name="arch" type="xml">
-  				<tree string="Cross Sector: Animals" editable="bottom">
-  					<field name="name"/>
-					<field name="code"/>
-					<field name="filter"/>
-  				</tree>
-  			</field>
-  		</record>
-
-  		<!-- Cross Sector Animals-->
-  		<record model="ir.actions.act_window" id="crosssectoranimals_list_action">
-  			<field name="name">Cross Sector: Animals</field>
-  			<field name="res_model">sparkit.crosssectoranimal</field>
-  			<field name="view_type">form</field>
-  			<field name="view_mode">tree,form</field>
-  		</record>
-
-
-  		<!-- Cross Sector Illnesses -->
-  		<record model="ir.ui.view" id="cross_sector_illnesses_form_view">
-  			<field name="name">crosssectorillnesses.form</field>
-  			<field name="model">sparkit.crosssectorillness</field>
-  			<field name="arch" type="xml">
-  				<form string="Cross Sector: Illnesses" create="false">
-  					<sheet>
-						<group colspan="4" col="4">
-							<field name="name"/>
-							<field name="code"/>
-						</group>
-					</sheet>
-				</form>
-			</field>
-		</record>
-
-  		<!--Cross Sector Illnesses -->
-  		<record model="ir.ui.view" id="cross_sector_illnesses_tree">
-  			<field name="name">crosssectorillnesses.tree</field>
-  			<field name="model">sparkit.crosssectorillness</field>
-  			<field name="arch" type="xml">
-  				<tree string="Cross Sector: Illnesses" editable="bottom">
-  					<field name="name"/>
-					<field name="code"/>
-  				</tree>
-  			</field>
-  		</record>
-
-  		<!-- Cross Sector Illnesses -->
-  		<record model="ir.actions.act_window" id="crosssectorillnesses_list_action">
-  			<field name="name">Cross Sector: Items</field>
-  			<field name="res_model">sparkit.crosssectorillness</field>
-  			<field name="view_type">form</field>
-  			<field name="view_mode">tree,form</field>
-  		</record>
 
     </data>
 </openerp>

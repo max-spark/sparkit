@@ -4,74 +4,93 @@
 
         <record id="crosssector_land" model="sparkit.crosssectoritem">
             <field name="name">Land</field>
-            <field name="code">1</field>
+            <field name="code">land</field>
             <field name="filter">0</field>
         </record>
 
         <record id="crosssector_soap" model="sparkit.crosssectoritem">
             <field name="name">Soap</field>
-            <field name="code">1</field>
+            <field name="code">soap</field>
             <field name="filter">0</field>
         </record>
 
         <record id="crosssector_mattressbed" model="sparkit.crosssectoritem">
-            <field name="name">Mattress or Bed</field>
-            <field name="code">1</field>
+            <field name="name">Mattress</field>
+            <field name="code">mattress</field>
             <field name="filter">0</field>
         </record>
 
         <record id="crosssector_radio" model="sparkit.crosssectoritem">
             <field name="name">Radio</field>
-            <field name="code">1</field>
+            <field name="code">radio</field>
             <field name="filter">0</field>
         </record>
 
         <record id="crosssector_bicycle" model="sparkit.crosssectoritem">
             <field name="name">Bicycle</field>
-            <field name="code">1</field>
+            <field name="code">bicycle</field>
             <field name="filter">0</field>
         </record>
 
         <record id="crosssector_phone" model="sparkit.crosssectoritem">
-            <field name="name">Cell Phone or Telephone</field>
-            <field name="code">1</field>
+            <field name="name">Cell Phone</field>
+            <field name="code">cellphone</field>
             <field name="filter">0</field>
         </record>
 
         <record id="crosssector_electriclights" model="sparkit.crosssectoritem">
             <field name="name">Electric Lights</field>
-            <field name="code">1</field>
+            <field name="code">lights</field>
             <field name="filter">0</field>
         </record>
 
         <record id="crosssector_television" model="sparkit.crosssectoritem">
             <field name="name">Television</field>
-            <field name="code">1</field>
+            <field name="code">television</field>
+            <field name="filter">0</field>
+        </record>
+
+        <record id="crosssector_solarlights" model="sparkit.crosssectoritem">
+            <field name="name">Solar Lights</field>
+            <field name="code">solarlights</field>
             <field name="filter">0</field>
         </record>
 
 		<record id="crosssector_motorcycle" model="sparkit.crosssectoritem">
             <field name="name">Motorcycle</field>
-            <field name="code">1</field>
+            <field name="code">motorcycle</field>
             <field name="filter">0</field>
         </record>
+
+        <record id="crosssector_salt" model="sparkit.crosssectoritem">
+            <field name="name">Salt</field>
+            <field name="code">salt</field>
+            <field name="filter">0</field>
+        </record>
+
+        <record id="crosssector_homeutensils" model="sparkit.crosssectoritem">
+            <field name="name">Home Utensils</field>
+            <field name="code">homeutensils</field>
+            <field name="filter">0</field>
+        </record>
+
+        <record id="crosssector_doors" model="sparkit.crosssectoritem">
+            <field name="name">Doors</field>
+            <field name="code">doors</field>
+            <field name="filter">0</field>
+        </record>        
+
+        <record id="crosssector_iron_sheets" model="sparkit.crosssectoritem">
+            <field name="name">Iron Sheets</field>
+            <field name="code">ironsheets</field>
+            <field name="filter">0</field>
+        </record>     
 
 		<record id="crosssector_noitem" model="sparkit.crosssectoritem">
-            <field name="name">Does Not Own Any of These Items</field>
+            <field name="name">None</field>
             <field name="code">99</field>
             <field name="filter">0</field>
         </record>
 
-		<record id="crosssector_unabletopurchaseitems" model="sparkit.crosssectoritem">
-            <field name="name">Unable to Purchase As a Result of Working with Spark</field>
-            <field name="code">99</field>
-            <field name="filter">1</field>
-        </record>
-
-		<record id="crosssector_itemsnewcommunity" model="sparkit.crosssectoritem">
-            <field name="name">New Community</field>
-            <field name="code">9999</field>
-            <field name="filter">1</field>
-        </record>
     </data>
 </openerp>
