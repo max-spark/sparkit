@@ -28,7 +28,7 @@ class OngoingCommunityAssessment(models.Model):
 	district = fields.Char(string="District")
 	start_time = fields.Float(string="Start Time")
 	end_time = fields.Float(string="End Time")
-	odk_id = fields.Char(string="ODK ID")
+	oca_id = fields.Char(string="ODK ID")
 
 	#Background
 	community_member = fields.Char(string="Community Member")
