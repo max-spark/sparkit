@@ -15,11 +15,10 @@
 								<field name="country_name"  invisible="1" />
 								<field name="district" attrs="{'invisible': [('country_name', '!=', 'Rwanda')]}" />
 								<field name="date"/>
-								<field name="collected_by" options="{'no_create': True}"/>
+								<field name="collected_by_new" />
 								<field name="oca_number"/>								
 								<field name="oca_type"/>
-								<field name="start_time" widget="float_time"/>
-								<field name="end_time" widget="float_time"/>
+								<field name="oca_id"/>
 							</group>
 							<group colspan="2" col="2">
 

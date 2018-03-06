@@ -12,8 +12,7 @@ class OngoingCommunityAssessment(models.Model):
 	community_id = fields.Many2one('sparkit.community', string="Community",
 		ondelete='cascade')
 	date = fields.Date(string="Date of Assessment")
-	collected_by = fields.Many2one('res.users', string="Collected By",
-		default=lambda self: self.env.user)
+	collected_by_new = fields.Char(string="Collected By")
 	oca_number = fields.Selection(
 		[('0', 'Baseline'),
 		('1', '1'),
@@ -29,6 +28,7 @@ class OngoingCommunityAssessment(models.Model):
 	district = fields.Char(string="District")
 	start_time = fields.Float(string="Start Time")
 	end_time = fields.Float(string="End Time")
+	odk_id = fields.Char(string="ODK ID")
 
 	#Background
 	community_member = fields.Char(string="Community Member")
