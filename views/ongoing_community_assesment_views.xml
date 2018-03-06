@@ -230,6 +230,7 @@
   					<field name="country_id"/>
   					<field name="community_id"/>
   					<field name="oca_number"/>
+  					<field name="oca_id"/>
   				</tree>
   			</field>
   		</record>

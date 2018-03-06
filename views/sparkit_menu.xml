@@ -64,27 +64,6 @@
         	sequence="2"/>
       			<menuitem id="oca_form" name="OCAs" parent="me_forms"
         		action="oca_list_action"/>
-	        	<menuitem id="biggestconcern_menu" name="Biggest Concern"
-	        	parent="me_forms"
-	        	action="biggestconcerncategory_list_action"/>
-	        	<menuitem id="biggestconcernsubcategory_menu" name="Biggest Concern Categories"
-	        	parent="me_forms"
-	        	action="biggestconcernsubcategory_list_action"/>
-	        	<menuitem id="communalprojects_menu" name="Communal Projects"
-	        	parent="me_forms"
-	        	action="communalprojects_list_action"/>
-	        	<menuitem id="householdcontribution_menu" name="Household Contribution"
-	        	parent="me_forms"
-	        	action="householdcontribution_list_action"/>
-	        	<menuitem id="leadershipresponsibilities_menu" name="Leadership Responsibilities"
-	        	parent="me_forms"
-	        	action="leadershipresponsibilities_list_action"/>
-	        	<menuitem id="savingsmethods_menu" name="Savings Methods"
-	        	parent="me_forms"
-	        	action="savingsmethods_list_action"/>
-	        	<menuitem id="crosssectoritem_menu" name="Cross Sector Item"
-	        	parent="me_forms"
-	        	action="crosssectoritem_list_action"/>
 
         <!-- Other Forms-->
         <menuitem id="other_forms" name="Other Forms" parent="top_visit_reports_menu"
@@ -107,6 +86,27 @@
 	 			<menuitem id="fcap_map_menu" name="FCAP Map"
 	          	parent="main_vrfs_configuration_menu" action="fcap_map_list_action"
 	          	sequence="2"/>
+	        	<menuitem id="biggestconcern_menu" name="Biggest Concern"
+	        	parent="main_vrfs_configuration_menu"
+	        	action="biggestconcerncategory_list_action"/>
+	        	<menuitem id="biggestconcernsubcategory_menu" name="Biggest Concern Categories"
+	        	parent="main_vrfs_configuration_menu"
+	        	action="biggestconcernsubcategory_list_action"/>
+	        	<menuitem id="communalprojects_menu" name="Communal Projects"
+	        	parent="main_vrfs_configuration_menu"
+	        	action="communalprojects_list_action"/>
+	        	<menuitem id="householdcontribution_menu" name="Household Contribution"
+	        	parent="main_vrfs_configuration_menu"
+	        	action="householdcontribution_list_action"/>
+	        	<menuitem id="leadershipresponsibilities_menu" name="Leadership Responsibilities"
+	        	parent="main_vrfs_configuration_menu"
+	        	action="leadershipresponsibilities_list_action"/>
+	        	<menuitem id="savingsmethods_menu" name="Savings Methods"
+	        	parent="main_vrfs_configuration_menu"
+	        	action="savingsmethods_list_action"/>
+	        	<menuitem id="crosssectoritem_menu" name="Cross Sector Item"
+	        	parent="main_vrfs_configuration_menu"
+	        	action="crosssectoritem_list_action"/>
 	        	
 				<!--PROJECTS MENU-->
 				<menuitem id="top_community_projects_menu" name="Projects"/>
