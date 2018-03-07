@@ -337,6 +337,9 @@ class OngoingCommunityAssessment(models.Model):
 		('roof_concrete', 'Concrete'),
 		('roof_tiles', 'Tiles'),
 		('roof_asbestos', 'Asbestos'),
+		('roof_claytiles', 'Clay tiles'),
+		('roof_bamboo', 'Bamboo'),
+		('roof_plastic', 'Plastic/plywood/non-permanent materials'),
 		('roof_other', 'Other')],
 		select=True, string="What type of material is mainly used for the construction of the roof of the dwelling?")
 	pi_lighting = fields.Selection(
