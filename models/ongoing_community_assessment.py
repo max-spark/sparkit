@@ -319,7 +319,16 @@ class OngoingCommunityAssessment(models.Model):
 		('tin_wall', 'Tin/Iron Sheets'),
 		('concrete_wall', 'Concrete/stones'),
 		('burnt_bricks_wall', 'Burnt stabilized bricks'),
-		('cement_blocks_wall', 'cement_blocks_wall')],
+		('cement_blocks_wall', 'cement_blocks_wall'),
+		('mud_bricks_wall', 'Mud bricks'),
+		('logs_with_mud_wall', 'Logs with mud'),
+		('plastic_sheeting_wall', 'Plastic sheeting'),
+		('mud_bricks_cement_wall', 'Mud bricks with cement (stucco)'),
+		('ovenfired_bricks_wall', 'Oven-fired bricks'),
+		('logs_with_mud_and_cement_wall', 'Logs with mud and cement'),
+		('stones_wall', 'Stones'),
+		('cement_blocks_wall', 'Cement blocks'),
+		('wooden_planks_wall', 'Wooden planks')],
 		select=True, string="What type of material is mainly used for the construction of the wall of the dwelling?")
 	pi39_roof = fields.Selection(
 		[('roof_thatch', 'Thatch'),
