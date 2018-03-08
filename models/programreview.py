@@ -32,6 +32,8 @@ class ProgramReview(models.Model):
 	quarter_review = fields.Text(string="Quarter Review")
 	comments = fields.Text(string="Comments")
 	quarter_name = fields.Char(compute='_get_quarter_name', string="Quarter Name", store=True)
+	country = fields.Char(compute='_get_country', readonly=True)
+	country_region = fields.Char(compute='_get_region', readonly=True)
 
 	@api.one
 	@api.depends('quarter')
@@ -45,3 +47,15 @@ class ProgramReview(models.Model):
 		for r in self:
 			if r.community_id and r.quarter_name:
 				r.name = r.community_id.community_number + ' ' + r.community_id.name + ' - ' + r.quarter_name
+
+	@api.depends('community_id')
+	def _get_country(self):
+		for r in self:
+			if r.community_id:
+				r.country = r.community_id.country_id.name
+
+	@api.depends('community_id')
+	def _get_region(self):
+		for r in self:
+			if r.community_id:
+				r.country_region = r.community_id.country_region
