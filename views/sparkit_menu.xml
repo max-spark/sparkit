@@ -64,6 +64,8 @@
         	sequence="2"/>
       			<menuitem id="oca_form" name="OCAs" parent="me_forms"
         		action="oca_list_action"/>
+      			<menuitem id="programreview_form" name="Program Reviews" parent="me_forms"
+        		action="programreview_list_action"/>
 
         <!-- Other Forms-->
         <menuitem id="other_forms" name="Other Forms" parent="top_visit_reports_menu"
