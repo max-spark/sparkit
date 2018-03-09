@@ -14,7 +14,7 @@ class Community(models.Model):
 	#Basic Information
 	name = fields.Char(string="Community Name", required=True, track_visibility='always')
 	description = fields.Text(string="Community Description", track_visibility='onchange')
-	community_number = fields.Char(string="Community Number")
+	community_number = fields.Char(string="Community Number", readonly=True)
 	is_partnered = fields.Boolean(string="Partnered?", default=False, readonly=True)
 	relm_counts = fields.Boolean(string="RELM Counts?", default=True)	
 	facilitator_id = fields.Many2one('res.users',
