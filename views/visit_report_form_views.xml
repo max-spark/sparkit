@@ -121,6 +121,18 @@
 												attrs="{'readonly': [('state', '=', 'approved')]}"/>
 											<field name="attendance4_total"
 												attrs="{'readonly': [('state', '=', 'approved')]}"/>
+											<field name="attendance_type5_id" widget="selection"
+												attrs="{'readonly': [('state', '=', 'approved')]}"/>
+											<field name="attendance5_total"
+												attrs="{'readonly': [('state', '=', 'approved')]}"/>
+											<field name="attendance_type6_id" widget="selection"
+												attrs="{'readonly': [('state', '=', 'approved')]}"/>
+											<field name="attendance6_total"
+												attrs="{'readonly': [('state', '=', 'approved')]}"/>
+											<field name="attendance_type7_id" widget="selection"
+												attrs="{'readonly': [('state', '=', 'approved')]}"/>
+											<field name="attendance7_total"
+												attrs="{'readonly': [('state', '=', 'approved')]}"/>
 										</group>
 										<group colspan="2">
 											<field name="speakers_type1_id" widget="selection"
@@ -139,6 +151,18 @@
 												attrs="{'readonly': [('state', '=', 'approved')]}"/>
 											<field name="speakers4_total"
 												attrs="{'readonly': [('state', '=', 'approved')]}"/>
+											<field name="speakers_type5_id" widget="selection"
+												attrs="{'readonly': [('state', '=', 'approved')]}"/>
+											<field name="speakers5_total"
+												attrs="{'readonly': [('state', '=', 'approved')]}"/>
+											<field name="speakers_type6_id" widget="selection"
+												attrs="{'readonly': [('state', '=', 'approved')]}"/>
+											<field name="speakers6_total"
+												attrs="{'readonly': [('state', '=', 'approved')]}"/>
+											<field name="speakers_type7_id" widget="selection"
+												attrs="{'readonly': [('state', '=', 'approved')]}"/>
+											<field name="speakers7_total"
+												attrs="{'readonly': [('state', '=', 'approved')]}"/>																								
 										</group>
 									</group>
 									<!-- MARGINAL GROUP TRACKING END  -->

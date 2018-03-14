@@ -87,10 +87,19 @@ class VisitReportForm(models.Model):
 		string="Attendance Type 3")
 	attendance_type4_id = fields.Many2one('sparkit.grouptracking',
 		string="Attendance Type 4")
+	attendance_type5_id = fields.Many2one('sparkit.grouptracking',
+		string="Attendance Type 5")
+	attendance_type6_id = fields.Many2one('sparkit.grouptracking',
+		string="Attendance Type 6")
+	attendance_type7_id = fields.Many2one('sparkit.grouptracking',
+		string="Attendance Type 7")
 	attendance1_total = fields.Integer(string="Total Attendance Type 1")
 	attendance2_total = fields.Integer(string="Total Attendance Type 2")
 	attendance3_total = fields.Integer(string="Total Attendance Type 3")
 	attendance4_total = fields.Integer(string="Total Attendance Type 4")
+	attendance5_total = fields.Integer(string="Total Attendance Type 5")
+	attendance6_total = fields.Integer(string="Total Attendance Type 6")
+	attendance7_total = fields.Integer(string="Total Attendance Type 7")
 
 	attendance_females = fields.Integer(string="Female Attendance",
 		track_visibility='onchange')
@@ -117,10 +126,19 @@ class VisitReportForm(models.Model):
 		string="Speakers Type 3")
 	speakers_type4_id = fields.Many2one('sparkit.grouptracking',
 		string="Speakers Type 4")
+	speakers_type5_id = fields.Many2one('sparkit.grouptracking',
+		string="Speakers Type 5")
+	speakers_type6_id = fields.Many2one('sparkit.grouptracking',
+		string="Speakers Type 6")
+	speakers_type7_id = fields.Many2one('sparkit.grouptracking',
+		string="Speakers Type 7")
 	speakers1_total = fields.Integer(string="Total Speakers Type 1")
 	speakers2_total = fields.Integer(string="Total Speakers Type 2")
 	speakers3_total = fields.Integer(string="Total Speakers Type 3")
 	speakers4_total = fields.Integer(string="Total Speakers Type 4")
+	speakers5_total = fields.Integer(string="Total Speakers Type 5")
+	speakers6_total = fields.Integer(string="Total Speakers Type 6")
+	speakers7_total = fields.Integer(string="Total Speakers Type 7")
 
 	speakers_female = fields.Integer(string="Female Speakers",
 		track_visibility='onchange')
