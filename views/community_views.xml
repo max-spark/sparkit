@@ -796,6 +796,9 @@
 										<group colspan="2">
 											<field name="avg_percent_participation_display"/>
 											<field name="avg_percent_female_participation_display"/>
+											<field name="number_planning_visits"/>
+											<field name="number_implementation_visits"/>									
+											<field name="number_pi_visits"/>
 										</group>
 									</group>
 								</page>

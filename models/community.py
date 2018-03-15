@@ -862,21 +862,33 @@ class Community(models.Model):
 	def _get_number_planning_visits(self):
 		for r in self:
 			if r.cvrf_ids:
-				r.number_planning_visits = len(r.cvrf_ids)
+				total = 0
+				for line in r.cvrf_ids:
+					if (line.state == 'approved' and line.visit_type != 'meeting_other' and line.visit_type != 'committee_meeting'):
+						total = total + 1
+				r.number_planning_visits = total
 
 	@api.multi
 	@api.depends('ivrf_ids')
 	def _get_number_implementation_visits(self):
 		for r in self:
 			if r.ivrf_ids:
-				r.number_implementation_visits = len(r.ivrf_ids)
+				total = 0
+				for line in r.ivrf_ids:
+					if (line.state == 'approved' and line.visit_type != 'meeting_other' and line.visit_type != 'committee_meeting'):
+						total = total + 1
+				r.number_implementation_visits = total
 
 	@api.multi
 	@api.depends('pivrf_ids')
 	def _get_number_pi_visits(self):
 		for r in self:
 			if r.pivrf_ids:
-				r.number_pi_visits = len(r.pivrf_ids)
+				total = 0
+				for line in r.pivrf_ids:
+					if (line.state == 'approved' and line.visit_type != 'meeting_other' and line.visit_type != 'committee_meeting'):
+						total = total + 1
+				r.number_pi_visits = total
 
 
 	@api.multi
