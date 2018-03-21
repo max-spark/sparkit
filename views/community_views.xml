@@ -590,7 +590,16 @@
 		  							</page>
 		  							<page string="Leaders"
 												attrs="{'invisible': [('phase', '=', 'community_identification')]}">
+		  								<group colspan="4" col="4" class="no_style">
+											<group colspan="2">
+			  									<field name="total_female_leaders_byfacilitator"/>
+											</group>		  									
+											<group colspan="2">
+			  									<field name="total_male_leaders_byfacilitator"/>
+											</group>												
+		  								</group>
 		  								<group colspan="4" class="no_style">
+
 		  									<field name="community_leader_ids" nolabel="1"
 													domain="[('community_id', '=', active_id)]"
 													context="{'default_company_type': 'community_leader',

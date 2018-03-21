@@ -283,6 +283,12 @@ class Community(models.Model):
 		store=True,
 		track_visibility='onchange'
 	)
+	total_female_leaders_byfacilitator = fields.Integer(string="Total Number of Female Leaders",
+		help="Entered by Facilitator.",
+		track_visibility='onchange')
+	total_male_leaders_byfacilitator = fields.Integer(string="Total Number of Male Leaders",
+		help="Entered by Facilitator.",
+		track_visibility='onchange')		
 
 	# Community Facilitators
 	community_facilitator_ids = fields.One2many('res.partner', 'community_id',
