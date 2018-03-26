@@ -373,8 +373,7 @@ class Community(models.Model):
 		track_visibility='onchange', string="Program Reviews", ondelete='set null')
 
 	# Counting Number of Visit Report Forms
-	planning_visits = fields.Integer(string="Planning Visits",
-		compute='_get_num_planning_visits')
+	#planning_visits = fields.Integer(string="Planning Visits",	compute='_get_num_planning_visits')
 
 
 	#-----------------------------------------------------
