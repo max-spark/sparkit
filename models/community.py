@@ -1879,10 +1879,10 @@ class Community(models.Model):
 		for r in self:
 			if r.vrf_ids:
 				ninety_days_ago = datetime.today() - timedelta(days=90)
-				vrf_set_ids = r.vrf_ids.search([('visit_date', '>', ninety_days_ago), ('community_number', '=', r.community_number), ('state', '=', 'approved'), ('visit_type', '!=', 'meeting_other'), ('visit_type', '!=', 'visit_post_implementation') ])
+				vrf_set_ids = r.vrf_ids.search([('visit_date', '>', ninety_days_ago), ('community_number', '=', r.community_number), ('state', '=', 'approved'), ('visit_type', '!=', 'meeting_other'), ('visit_type', '!=', 'committee_meeting') ])
 				if vrf_set_ids:
-					r.avg_attendance = round(sum(line.attendance_total for line in vrf_set_ids) / len(vrf_set_ids),2)
-					r.avg_participation = round(sum(line.speakers_total for line in vrf_set_ids) / len(vrf_set_ids),2)
+					r.avg_attendance = round(sum(line.attendance_total for line in vrf_set_ids) / len(vrf_set_ids),4)
+					r.avg_participation = round(sum(line.speakers_total for line in vrf_set_ids) / len(vrf_set_ids),4)
 					if (r.avg_attendance > 0) and (r.num_hh_in_planning_group > 0) and (r.avg_participation > 0):
 						r.avg_female_attendance = sum(line.attendance_females for line in vrf_set_ids) / len(vrf_set_ids)
 						r.avg_percent_female_attendance = round(r.avg_female_attendance / r.avg_attendance,3)
