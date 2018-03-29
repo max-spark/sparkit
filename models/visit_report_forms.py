@@ -488,7 +488,7 @@ class VisitReportForm(models.Model):
 class GroupTracking(models.Model):
 	_name = 'sparkit.grouptracking'
 
-	name = fields.Char(string="Groups")
+	name = fields.Char(string="Groups", translate=True)
 
 	#---------------------------------------------------
 	#             Independent Meetings                 |
@@ -553,7 +553,7 @@ class IndependentMeeting(models.Model):
 class MissedMeetingReason(models.Model):
 	_name = 'sparkit.missedmeetingreason'
 
-	name = fields.Char(string="Reason")
+	name = fields.Char(string="Reason", translate=True)
 	type = fields.Selection([
 		('internal', 'Internal'),
 		('external_cmty', 'External - Community'),

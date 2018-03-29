@@ -59,7 +59,7 @@ class FCAPStep(models.Model):
 class FCAPActivity(models.Model):
 	_name = 'sparkit.fcapactivity'
 
-	name = fields.Char(string="Name")
+	name = fields.Char(string="Name", translate=True)
 	step_id = fields.Many2one('sparkit.fcapstep', string="Step")
 	# Number to be able to search record (other than by name) in community.py
 	# for FCAP workflow
