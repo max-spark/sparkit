@@ -213,8 +213,7 @@ class VisitReportForm(models.Model):
 		select=True, string="Meeting Started on Time?")
 	meeting_late_reason = fields.Many2one('sparkit.missedmeetingreason',
 		string="Reason Meeting Delayed",
-		help="Please choose the reason the meeting did not start on time.",
-		translate=True)
+		help="Please choose the reason the meeting did not start on time.")
 	meeting_started_on_time_desc = fields.Text(
 		string="Meeting Started on Time: Description",
 		track_visibility='onchange',
