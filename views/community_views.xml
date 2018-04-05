@@ -433,7 +433,6 @@
 									<field name="cmty_report3_submitted"/>
 									<field name="are_transition_strategy_activities_completed"/>
 									<field name="is_oca7_completed"/>
-									<field name="is_oca8_completed"/>
 									<field name="exit_agreement_uploaded"/>
 									<field name="exit_agreement_signed"/>
 									<field name="graduation_preparation_completed"/>
