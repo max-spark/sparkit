@@ -295,7 +295,7 @@
 		  					<field name="date"/>
 		  					<field name="budget_item_id" options="{'no_create': True}"
 		  						domain="[('project_id', '=', project_id)]"
-									widget="selection"/>
+									/>
 		  					<field name="amount"/>
 								<field name="receipt_filename" invisible="1"/>
 		  					<field name="receipt" filename="receipt_filename" widget="image"/>
