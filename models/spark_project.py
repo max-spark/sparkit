@@ -51,6 +51,12 @@ class SparkProject(models.Model):
 	community_contribution_percent = fields.Float(string="Community Contribution %",
 		readonly=True, compute='_community_contribution_percent', store=True,
 		track_visibility='onchange')
+	fvs_contribution = fields.Float(string="FVS-AMADE", readonly=True,
+		compute='_fvs_contribution', store=True,
+		track_visibility='onchange')
+	fvs_contribution_percent = fields.Float(string="FVS-AMADE Contribution %",
+		readonly=True, compute='_fvs_contribution_percent', store=True,
+		track_visibility='onchange')
 	other_contribution = fields.Float(string="Other", readonly=True,
 		compute='_other_contribution', store=True,
 		track_visibility='onchange')
@@ -59,7 +65,7 @@ class SparkProject(models.Model):
 		track_visibility='onchange')
 	total = fields.Float(string="Total Budget", readonly=True,
 		compute='_total', store=True,
-		help="Includes both Spark, community, and other contributions.",
+		help="Includes both Spark, community, FVS, and other contributions.",
 		track_visibility='onchange')
 	grant_surplus = fields.Float(string="Grant Surplus", readonly=True,
 		compute='_grant_surplus', store=True, track_visibility='onchange',
@@ -225,6 +231,13 @@ class SparkProject(models.Model):
 		for r in self:
 			r.other_contribution = sum(s.budgeted for s in r.budget_line_item_ids if s.source == "other")
 
+	#Counts the total amount budgeted for FVS-AMADE to provide
+	@api.multi
+	@api.depends('budget_line_item_ids')
+	def _fvs_contribution(self):
+		for r in self:
+			r.fvs_contribution = sum(s.budgeted for s in r.budget_line_item_ids if s.source == "FVS-AMADE")
+
 	#Counts the percentage of the total project budget contributed by Spark
 	@api.depends('spark_contribution', 'total')
 	def _spark_contribution_percent(self):
@@ -239,6 +252,13 @@ class SparkProject(models.Model):
 			if r.total >0:
 				r.community_contribution_percent = (r.community_contribution / r.total) * 100
 
+	#Counts the percentage of the total project budget contributed by FVS-AMADE
+	@api.depends('fvs_contribution', 'total')
+	def _fvs_contribution_percent(self):
+		for r in self:
+			if r.total >0:
+				r.fvs_contribution_percent = (r.fvs_contribution / r.total) * 100
+				
 	#Counts the percentage of the total project budget contributed by another partner
 	@api.depends('other_contribution', 'total')
 	def _other_contribution_percent(self):
@@ -295,7 +315,7 @@ class ProjectBudgetItem(models.Model):
 	source = fields.Selection([('spark', 'Spark'),
 		 ('community_cash', 'Community - Cash'),
 		 ('community_in_kind', 'Community - In Kind'),
-		 ('other', 'Other')], select=True,
+		 ('FVS-AMADE', 'FVS-AMADE'), ('other', 'Other')], select=True,
 		 string="Item Source", track_visibility='onchange')
 	budgeted = fields.Float(string="Budgeted", compute = '_budgeted_amount',
 		readonly=True, track_visibility='onchange')
